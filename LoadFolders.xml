@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<loadFolders>
+  <v1.6>
+    <li>/</li>
+    <!-- With a LoadFolders.xml only the folders listed here load. Art will sit under the mod
+         root, so "/" covers it; there is no Common/ root. -->
+    <li>1.6</li>
+    <!-- Optional-mod/DLC compat roots, gated by package id via IfModActive: DefInjected
+         entries and textures cannot carry MayRequire, so the load root is the gate.
+         Mods/<Mod Name>/ holds version-independent content (art), 1.6/Mods/<Mod Name>/ the
+         Defs, Patches and the DefInjected that must share their root. The game only scans
+         well-known folders (Defs/, Languages/, Textures/, ...) directly under a load root,
+         so "/" and 1.6 never see Mods/.
+
+         Odyssey gate, for when the first Odyssey-only def, injection or texture lands:
+    <li IfModActive="ludeon.rimworld.odyssey">Mods/Odyssey</li>
+    <li IfModActive="ludeon.rimworld.odyssey">1.6/Mods/Odyssey</li>
+    -->
+    <!-- Vanilla Gravship Expanded (chapter 1): vacuum-resistance parity with the nerf VGE1
+         applies to VFEP's own spacer sets (see that root's Patches/). -->
+    <li IfModActive="vanillaexpanded.gravship">1.6/Mods/VanillaGravshipExpanded</li>
+  </v1.6>
+</loadFolders>

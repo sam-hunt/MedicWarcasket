@@ -1,0 +1,38 @@
+Medic Warcasket
+
+A new spacer-tier warcasket for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url].
+
+[h1]About[/h1]
+
+The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot patching up squadmates under fire. It is in early development: the medic abilities are still being designed, and custom art is not done yet. Odyssey is optional.
+
+[hr][/hr]
+[h2]The Set[/h2]
+Armor, shoulder pads and helmet, welded on at the warcasket foundry and unlocked by researching spacer warcaskets. Mix and match the pieces with VFE Pirates' own sets as you please.
+The medic abilities and tuning are planned but not final, so expect this set to change as development continues.
+
+[hr][/hr]
+[h1]Mod Compatibility[/h1]
+[list]
+[*]Safe to add to existing saves
+[*]Not safe to remove while a pawn is welded into the set
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]: required.
+[*]Save Our Ship 2: EVA rated under the same rules as VFE Pirates' own sets
+[*]Vanilla Gravship Expanded: follows its vacuum-resistance rules for warcaskets
+[*]Not tested with Combat Extended (reports welcome)
+[/list]
+
+[hr][/hr]
+[h1]FAQ[/h1]
+[b]Q: Do I need Odyssey?[/b]
+A: No, it is optional.
+
+[b]Q: How do I get it?[/b]
+A: Research spacer warcaskets, then weld it on at the warcasket foundry like any other set.
+
+[b]Q: Was this made with LLMs?[/b]
+A: Some of the grunt code, and most localizations. I'm a software engineer by trade, and have been writing code for 25 years. All code is manually reviewed and tested; all bug reports and mod-conflicts followed up personally as time and detail allows. All art is either commissioned from humans, hand-authored in Krita, or both.
+
+[hr][/hr]
+[h1]Links[/h1]
+Source code, manual downloads and issue tracker: [url=https://github.com/sam-hunt/MedicWarcasket]GitHub[/url]
