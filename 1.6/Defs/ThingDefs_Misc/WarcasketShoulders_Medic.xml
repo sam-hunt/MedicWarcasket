@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    Untuned placeholder: a copy of VFEP's VFEP_WarcasketShoulders_Siegebreaker (VFEP v3.09,
+    1.6/Defs/ThingDefs_Misc/Apparel_Various.xml), its EnergyShieldRechargeRate offset
+    included. Every value is Siegebreaker's until the set's own tuning lands; see the armor
+    def's header for the reference tables and the borrowed-art note. This piece declares no
+    ApparelExtension of its own (it inherits VFEP_WarcasketShoulderPadBase's); when one is
+    added, give it priority 1 as the armor's has.
+
+    Compat: SOS2Patch.xml and the VGE vacuum patch leave shoulder pads alone, as VFEP's and
+    VGE1's own patches do for VFEP's.
+  -->
+  <VFEPirates.WarcasketDef ParentName="VFEP_WarcasketShoulderPadBase">
+    <defName>MDWC_WarcasketShoulders_Medic</defName>
+    <label>medic warcasket shoulders</label>
+    <shortDescription>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.</shortDescription>
+    <description>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
+    <graphicData>
+      <texPath>Things/Pawn/Warcasketlike/WarcasketSiegebreaker/WarcasketSiegebreakerShoulders</texPath>
+    </graphicData>
+    <statBases>
+      <Mass>20</Mass>
+      <ArmorRating_Sharp>2</ArmorRating_Sharp>
+      <ArmorRating_Blunt>1</ArmorRating_Blunt>
+      <ArmorRating_Heat>1</ArmorRating_Heat>
+      <Insulation_Cold>22</Insulation_Cold>
+      <Insulation_Heat>22</Insulation_Heat>
+      <EquipDelay>1</EquipDelay>
+    </statBases>
+    <equippedStatOffsets>
+      <SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">0.2</SlaveSuppressionOffset>
+      <EnergyShieldRechargeRate>1</EnergyShieldRechargeRate>
+      <VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">0.1</VacuumResistance>
+    </equippedStatOffsets>
+    <costList>
+      <Plasteel>60</Plasteel>
+    </costList>
+    <researchPrerequisites>
+      <li>VFEP_SpacerWarcaskets</li>
+    </researchPrerequisites>
+    <apparel>
+      <bodyPartGroups>
+        <li>Shoulders</li>
+        <li>Arms</li>
+        <li>Hands</li>
+        <li>Neck</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Warcasketlike/WarcasketSiegebreaker/WarcasketSiegebreakerShoulders</wornGraphicPath>
+      <layers>
+        <li>OnSkin</li>
+        <li>Middle</li>
+        <li>Shell</li>
+      </layers>
+      <tags>
+        <li>WarcasketVeteran</li>
+        <li>WarcasketAll</li>
+      </tags>
+    </apparel>
+  </VFEPirates.WarcasketDef>
+</Defs>

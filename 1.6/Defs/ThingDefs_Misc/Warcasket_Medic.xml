@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    Untuned placeholder: a copy of VFEP's VFEP_Warcasket_Siegebreaker (VFEP v3.09,
+    1.6/Defs/ThingDefs_Misc/Apparel_Various.xml), VFEP_SpacerWarcaskets research prereq
+    included. Every stat, cost and comp is Siegebreaker's until the set's own tuning lands;
+    Docs/Research/VFEP_WARCASKET_STATS.md tabulates the 10th-generation sets it will be
+    balanced against. The only additions are the ApparelExtension priority below and the
+    label/description text.
+
+    Art: texPath and wornGraphicPath point at VFEP's own Siegebreaker textures until the set's
+    art lands under Textures/Things/Pawn/Warcasketlike/WarcasketMedic/. ContentFinder resolves
+    a texture path across every loaded mod, so the borrowed path needs no patch.
+
+    ApparelExtension priority 1: VFEP_WarcasketArmorBase carries its own ApparelExtension and
+    inheritance appends list items, so this def resolves with two. VEF merges duplicate
+    extensions in a Def.ResolveReferences prefix, highest priority surviving, and
+    ApparelExtension.Merge does not copy every field; at equal priority the parent's copy
+    would win. At priority 1 every field of ours, from any load root, is kept. Any new
+    ApparelExtension field for this piece goes on this entry.
+
+    Compat patches reach this def from 1.6/Patches/SOS2Patch.xml (EVA tag, cold insulation)
+    and 1.6/Mods/VanillaGravshipExpanded/Patches/VacuumResistance.xml; see their headers.
+  -->
+  <VFEPirates.WarcasketDef ParentName="VFEP_WarcasketArmorBase">
+    <defName>MDWC_Warcasket_Medic</defName>
+    <label>medic warcasket</label>
+    <shortDescription>Specialized spacer-tech warcasket shell with standard protection, fitted with a field-medicine suite and a standard ranged shield.</shortDescription>
+    <description>Specialized spacer-tech warcasket shell with standard protection, fitted with a field-medicine suite and a standard ranged shield.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
+    <graphicData>
+      <texPath>Things/Pawn/Warcasketlike/WarcasketSiegebreaker/WarcasketSiegebreaker</texPath>
+    </graphicData>
+    <statBases>
+      <Mass>50</Mass>
+      <ArmorRating_Sharp>2</ArmorRating_Sharp>
+      <ArmorRating_Blunt>1</ArmorRating_Blunt>
+      <ArmorRating_Heat>1</ArmorRating_Heat>
+      <Insulation_Cold>80</Insulation_Cold>
+      <Insulation_Heat>80</Insulation_Heat>
+      <EquipDelay>1</EquipDelay>
+      <EnergyShieldRechargeRate>0.01</EnergyShieldRechargeRate>
+      <EnergyShieldEnergyMax>2.5</EnergyShieldEnergyMax>
+    </statBases>
+    <equippedStatOffsets>
+      <PsychicSensitivity>-0.5</PsychicSensitivity>
+      <ToxicResistance>0.5</ToxicResistance>
+      <SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">0.3</SlaveSuppressionOffset>
+      <VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">0.2</VacuumResistance>
+    </equippedStatOffsets>
+    <costList>
+      <ComponentSpacer>6</ComponentSpacer>
+      <Plasteel>145</Plasteel>
+      <Uranium>50</Uranium>
+    </costList>
+    <researchPrerequisites>
+      <li>VFEP_SpacerWarcaskets</li>
+    </researchPrerequisites>
+    <apparel>
+      <bodyPartGroups>
+        <li>Torso</li>
+        <li>Legs</li>
+        <li>Feet</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Warcasketlike/WarcasketSiegebreaker/WarcasketSiegebreaker</wornGraphicPath>
+      <layers>
+        <li>OnSkin</li>
+        <li>Middle</li>
+        <li>Shell</li>
+      </layers>
+      <tags>
+        <li>WarcasketVeteran</li>
+        <li>WarcasketAll</li>
+      </tags>
+    </apparel>
+    <comps>
+      <li Class="VEF.Apparels.CompProperties_ShieldBubble">
+        <compClass>VEF.Apparels.CompShieldBubble</compClass>
+        <blockRangedAttack>true</blockRangedAttack>
+        <blockMeleeAttack>false</blockMeleeAttack>
+        <showWhenDrafted>true</showWhenDrafted>
+        <showOnHostiles>true</showOnHostiles>
+        <showOnNeutralInCombat>true</showOnNeutralInCombat>
+        <shieldTexPath>Other/ShieldBubble</shieldTexPath>
+        <chargeFullyWhenMade>true</chargeFullyWhenMade>
+        <minShieldSize>2.1</minShieldSize>
+        <maxShieldSize>2.7</maxShieldSize>
+        <disableRotation>true</disableRotation>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="VEF.Apparels.ApparelExtension">
+        <priority>1</priority>
+        <traitsOnEquip>
+          <li>VFEP_WarcasketTrait</li>
+        </traitsOnEquip>
+        <traitsOnUnequip>
+          <li>VFEP_Shellcasket</li>
+        </traitsOnUnequip>
+        <pawnCapacityMinLevels>
+          <li>
+            <capacity>Moving</capacity>
+            <minLevel>0.7</minLevel>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <minLevel>0.7</minLevel>
+          </li>
+        </pawnCapacityMinLevels>
+      </li>
+    </modExtensions>
+  </VFEPirates.WarcasketDef>
+</Defs>

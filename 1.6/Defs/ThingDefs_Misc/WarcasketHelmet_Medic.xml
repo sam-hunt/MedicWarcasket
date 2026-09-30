@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    Untuned placeholder: a copy of VFEP's VFEP_WarcasketHelmet_Siegebreaker (VFEP v3.09,
+    1.6/Defs/ThingDefs_Misc/Apparel_Headgear.xml), uiIconScale included. Every value is
+    Siegebreaker's until the set's own tuning lands; see the armor def's header for the
+    reference tables and the borrowed-art note. This piece declares no ApparelExtension of
+    its own (it inherits VFEP_WarcasketHelmetBase's); when one is added, give it priority 1
+    as the armor's has.
+
+    Compat: SOS2Patch.xml gives it the EVA tag and Insulation_Cold 100 alongside the armor;
+    the VGE vacuum patch lowers its VacuumResistance to VGE1's warcasket-helmet value.
+  -->
+  <VFEPirates.WarcasketDef ParentName="VFEP_WarcasketHelmetBase">
+    <defName>MDWC_WarcasketHelmet_Medic</defName>
+    <label>medic warcasket helmet</label>
+    <shortDescription>Specialized spacer-tech warcasket helmet with standard protection, fitted with a diagnostic visor.</shortDescription>
+    <description>Specialized spacer-tech warcasket helmet with standard protection, fitted with a diagnostic visor.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
+    <graphicData>
+      <texPath>Things/Pawn/Warcasketlike/WarcasketSiegebreaker/WarcasketSiegebreakerHelmet</texPath>
+    </graphicData>
+    <uiIconScale>1.25</uiIconScale>
+    <statBases>
+      <Mass>8</Mass>
+      <ArmorRating_Sharp>2</ArmorRating_Sharp>
+      <ArmorRating_Blunt>1</ArmorRating_Blunt>
+      <ArmorRating_Heat>1</ArmorRating_Heat>
+      <Insulation_Cold>5</Insulation_Cold>
+      <Insulation_Heat>2</Insulation_Heat>
+      <EquipDelay>1</EquipDelay>
+    </statBases>
+    <equippedStatOffsets>
+      <PsychicSensitivity>-0.5</PsychicSensitivity>
+      <ToxicResistance>0.5</ToxicResistance>
+      <SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">0.1</SlaveSuppressionOffset>
+      <VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">0.7</VacuumResistance>
+    </equippedStatOffsets>
+    <costList>
+      <ComponentSpacer>2</ComponentSpacer>
+      <Plasteel>50</Plasteel>
+    </costList>
+    <researchPrerequisites>
+      <li>VFEP_SpacerWarcaskets</li>
+    </researchPrerequisites>
+    <apparel>
+      <bodyPartGroups>
+        <li>FullHead</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Warcasketlike/WarcasketSiegebreaker/WarcasketSiegebreakerHelmet</wornGraphicPath>
+      <layers>
+        <li>Overhead</li>
+      </layers>
+      <tags>
+        <li>WarcasketVeteran</li>
+        <li>WarcasketAll</li>
+      </tags>
+    </apparel>
+  </VFEPirates.WarcasketDef>
+</Defs>
