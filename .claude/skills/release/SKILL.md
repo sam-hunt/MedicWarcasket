@@ -15,7 +15,7 @@ prerelease whose zip can be tried on another machine without building from
 source. They never go to the Steam Workshop and get no `CHANGELOG.md` section.
 Otherwise an RC is held to the same bar as a stable release (it should be what
 would ship), so it runs every step below except the changelog and the
-Workshop paste. SemVer orders `0.1.0 < 0.2.0-rc.1 < 0.2.0-rc.2 < 0.2.0`, so
+Workshop paste. SemVer orders `1.3.0 < 1.4.0-rc.1 < 1.4.0-rc.2 < 1.4.0`, so
 candidates sit between stable versions without disturbing them.
 
 `$ARGUMENTS` is optional and resolved at step 6, where the version is first
@@ -183,12 +183,10 @@ final. Do all of the following, then present it as **one** confirmation:
 
 - Read the current version from `About/About.xml` (`<modVersion>`) and
   resolve the new version (from `$ARGUMENTS`, or ask now):
-  - **Current is stable** (`0.1.0`): apply the bump type, then either stable
-    (`0.2.0`) or the first candidate (`0.2.0-rc.1`). While no stable tag
-    exists yet, the About.xml version is the unreleased first release, so the
-    first release is that version itself (stable, or `0.1.0-rc.1`).
-  - **Current is an RC** (`0.2.0-rc.1`): either promote (`0.2.0`) or cut the
-    next candidate (`0.2.0-rc.2`). A bump type doesn't apply here; if the
+  - **Current is stable** (`1.3.0`): apply the bump type, then either stable
+    (`1.4.0`) or the first candidate (`1.4.0-rc.1`).
+  - **Current is an RC** (`1.4.0-rc.1`): either promote (`1.4.0`) or cut the
+    next candidate (`1.4.0-rc.2`). A bump type doesn't apply here; if the
     user gives one anyway, ask what they mean (a different target version
     abandons the current candidate line).
   - Before an RC, confirm its tag doesn't already exist (`git tag -l`).
@@ -209,7 +207,7 @@ final. Do all of the following, then present it as **one** confirmation:
     link reference at the bottom, above any older ones.
 - Bump the version strings in both files:
   - `About/About.xml` `<modVersion>`: the full version, suffix included
-    (`0.2.0-rc.1`). The game treats it as a display-only string, so testers
+    (`1.4.0-rc.1`). The game treats it as a display-only string, so testers
     with the Workshop copy also subscribed can tell the two apart.
   - `Source/1.6/Properties/AssemblyInfo.cs`: `AssemblyInformationalVersion`
     gets the same full version; `AssemblyVersion` and `AssemblyFileVersion`

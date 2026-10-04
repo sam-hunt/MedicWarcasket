@@ -30,7 +30,7 @@ jobs:
         # onto a markdown link cannot silently truncate the notes), then trims
         # blank lines off both ends.
         #
-        # A prerelease tag (any SemVer suffix, e.g. v0.2.0-rc.1) carries no
+        # A prerelease tag (any SemVer suffix, e.g. v1.4.0-rc.1) carries no
         # CHANGELOG section by design: candidates are private test builds that
         # never reach the Workshop, and their changes land in the stable
         # version's section at promotion. They get a fixed stub instead, with
