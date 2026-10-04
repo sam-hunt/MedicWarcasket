@@ -42,8 +42,6 @@ Siegebreaker copies with borrowed art and no abilities.
 
 ## Infrastructure follow-ups
 
-- **Create the GitHub repo** (`sam-hunt/MedicWarcasket`; `origin` already points at it) and
-  push. The l10n submodule's relative URL resolves against that remote.
 - **Cut a release candidate to exercise CI before the real release.** The release
   workflow fetches VEF and VFEP from the Workshop with SteamCMD (anonymous login) and injects
   them via `VEF_PATH` / `VFEP_PATH`, but it has never run in this repo. `/release major rc` tags
