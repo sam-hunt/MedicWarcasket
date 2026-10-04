@@ -12,3 +12,6 @@ using System.Runtime.InteropServices;
 [assembly: Guid("7f849955-b881-4f4f-90e1-eecf2bca1126")]
 [assembly: AssemblyVersion("0.1.0.0")]
 [assembly: AssemblyFileVersion("0.1.0.0")]
+// Mirrors About.xml <modVersion> verbatim, including any SemVer prerelease suffix
+// (0.2.0-rc.1); the two numeric attributes above can't hold one and stay X.Y.Z.0.
+[assembly: AssemblyInformationalVersion("0.1.0")]
