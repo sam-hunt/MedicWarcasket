@@ -148,11 +148,16 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
   v1.1.0 CWTL incident). Static ctors on startup run after defs load, so foreign targets are safe
   there. If a `Mod` subclass is added for settings, leave `PatchAll` where it is.
 - **Startup def-derived state must survive an in-process play-data reload** (a mid-session
-  language switch reloads every def). Anything beyond texture caching that reads or writes
-  defs at startup goes in an idempotent `Run()` invoked from a postfix on
-  `StaticConstructorOnStartupUtility.CallAll`, never in a bare static ctor;
+  language switch reloads every def). Anything that reads or writes defs at startup goes in an
+  idempotent `Run()` invoked from a postfix on `StaticConstructorOnStartupUtility.CallAll`,
+  never in a bare static ctor;
   `../UniqueMeleeWeapons/Source/1.6/Patches/StaticConstructorOnStartupUtility_CallAll_Patch.cs`
-  is the reference implementation. Nothing here needs it yet.
+  is the reference implementation. Nothing here needs it yet. Textures are not exempt:
+  mod-shipped ones are destroyed on the same reload (`ModContentPack.ClearDestroy`), so a static
+  texture field would be left a dead reference; resolve them through a getter that re-resolves
+  on a Unity-null `== null` check (never `??`/`??=`), as in
+  `~/dev/PersonaWeaponsUnbound/Source/1.6/Defs/PWU_Textures.cs`. Vanilla-path textures persist
+  and are safe as plain statics.
 - **No em dashes in player-facing text** (def labels/descriptions, `Keyed/`, `About.xml`);
   reflow the sentence instead. This file, code comments and def comments are unaffected.
 
