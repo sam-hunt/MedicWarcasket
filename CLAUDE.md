@@ -79,16 +79,19 @@ atomically. The deploy folder name follows the project name (`Mods/MedicWarcaske
   it excludes. It is generic over folders, so a new `1.7/` or `Sounds/` needs no build change; only
   a brand-new *file type* does. Local deploy and CI release both call it, so they can't drift.
 - **Stop hook (`.claude/hooks/sync-mod.sh`):** rebuilds+redeploys after a turn only when
-  mod-relevant files changed, logs to `$TMPDIR/mdwc-build.log`. On failure it exits 2 with the
-  errors on stderr, which Claude Code feeds back to the agent and the turn continues, so the
-  agent fixes the build rather than the user finding it later; a second failure in the same
-  turn (`stop_hook_active`) only warns, so it cannot loop. Wired via a
-  `Stop` hook in `.claude/settings.local.json`. It is local-only (see below); if it is ever
-  promoted to committed config, move the helper somewhere version-controlled.
+  mod-relevant files changed, logs to `$TMPDIR/MedicWarcasket-build.log`. On failure it
+  exits 2 with the errors on stderr, which Claude Code feeds back to the agent and the turn
+  continues, so the agent fixes the build rather than the user finding it later; a second
+  failure in the same turn (`stop_hook_active`) only warns, so it cannot loop. Tracked and wired
+  by the tracked `.claude/settings.json`; the script is byte-identical across the mod family
+  and derives the solution, project folder and mod name itself, so change it in the template
+  and copy it verbatim, never per repo. It bails when no RimWorld install is found, so CI and
+  contributors without the game are unaffected.
 
 **`.claude/` is only partly gitignored.** `.gitignore` carries `.claude/*` followed by
-`!.claude/skills/`, so the skills are tracked and shared while hooks and settings are local
-per-machine. Editing a skill is a committed, team-visible change and must keep in step with
+`!.claude/skills/`, `!.claude/hooks/` and `!.claude/settings.json`, so the skills, the Stop hook
+and its wiring are tracked and shared while `settings.local.json` (personal permissions) stays
+local per machine. Editing a skill is a committed, team-visible change and must keep in step with
 whatever it automates (e.g. `/release` encodes the CHANGELOG layout and the version scheme: release
 candidates are `X.Y.Z-rc.N` tags, CHANGELOG-less and Workshop-less, with the suffix in `modVersion`
 and `AssemblyInformationalVersion` only; `release.yml` treats any suffixed tag as a prerelease to
