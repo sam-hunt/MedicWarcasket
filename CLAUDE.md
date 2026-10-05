@@ -79,7 +79,10 @@ atomically. The deploy folder name follows the project name (`Mods/MedicWarcaske
   it excludes. It is generic over folders, so a new `1.7/` or `Sounds/` needs no build change; only
   a brand-new *file type* does. Local deploy and CI release both call it, so they can't drift.
 - **Stop hook (`.claude/hooks/sync-mod.sh`):** rebuilds+redeploys after a turn only when
-  mod-relevant files changed, logs to `$TMPDIR/mdwc-build.log`, warns on failure. Wired via a
+  mod-relevant files changed, logs to `$TMPDIR/mdwc-build.log`. On failure it exits 2 with the
+  errors on stderr, which Claude Code feeds back to the agent and the turn continues, so the
+  agent fixes the build rather than the user finding it later; a second failure in the same
+  turn (`stop_hook_active`) only warns, so it cannot loop. Wired via a
   `Stop` hook in `.claude/settings.local.json`. It is local-only (see below); if it is ever
   promoted to committed config, move the helper somewhere version-controlled.
 
@@ -143,6 +146,9 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
 - **C#:** root namespace `MedicWarcasket`; patch classes live in `Source/1.6/Patches/`
   under the `.Patches` namespace suffix to avoid RimWorld type-name conflicts. Log with the
   `[Medic Warcasket]` prefix.
+- **Warnings are build errors.** The csproj sets `TreatWarningsAsErrors`, so every compiler and
+  analyzer warning fails the build. Severities are pinned in `.editorconfig`: `warning` blocks the
+  build, `suggestion` is IDE-only. Fix the code, not the severity, unless the rule is wrong here.
 - **Patch timing is the load-bearing hazard of this mod.** `PatchAll()` runs from a
   `[StaticConstructorOnStartup]` (`ModInit.cs`), *not* a `Mod` subclass constructor, on purpose:
   Mod constructors run before defs load, and applying a detour JIT-compiles the target and runs
