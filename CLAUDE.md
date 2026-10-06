@@ -180,7 +180,7 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
   loads unconditionally and logs a "found no def named ..." startup error whenever the gating
   mod/DLC is absent.
 - The fix is a folder gate: ship the gated content from a compat load root, loaded via an
-  `IfModActive` entry in `LoadFolders.xml` (the Odyssey pair is drafted there, commented out).
+  `IfModActive` entry in `LoadFolders.xml` (the Vanilla Gravship Expanded entry is the model).
   Two flavors, mirroring the ungated roots: `1.6/Mods/<Mod Name>/` for version-specific content
   (Defs, Patches, and the DefInjected targeting them) and root-level `Mods/<Mod Name>/` for
   version-independent content (art). The def's `MayRequire` becomes redundant and should be

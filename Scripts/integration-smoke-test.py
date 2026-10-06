@@ -24,18 +24,18 @@ engine.PACKAGE_ID = "shunter.medicwarcasket"
 
 # RATIONALE: the first five entries are the l10n CANONICAL_ACTIVE_MODS (the
 # refresh shim explains them: VFE Pirates is the hard dep, VEF and Harmony
-# are its deps, Odyssey is the planned compat gate). Save Our Ship 2 is one
-# of two optional mods this repo integrates with: 1.6/Patches/SOS2Patch.xml
-# fires on its display name (or Universum's) and never runs otherwise, and
-# a failed PatchOperation is exactly the kind of error only a boot with the
-# mod active can surface. SOS2 hard-requires Vehicle Framework, which is
-# here only for that reason. Universum is not installed locally, and the
-# patch is the same either way. Vanilla Gravship Expanded (chapter 1) is
-# the other: LoadFolders.xml opens the 1.6/Mods/VanillaGravshipExpanded
-# root on its package id, and that root's vacuum-resistance patch only
-# ever runs with it active. It sits before our mod, as the mod a compat
-# root complements should. Probe last (auto-quit). Plain ids on purpose;
-# see the refresh shim's "_steam" note.
+# are its deps, Vanilla Gravship Expanded requires Odyssey). Save Our Ship 2
+# is one of two optional mods this repo integrates with:
+# 1.6/Patches/SOS2Patch.xml fires on its display name (or Universum's) and
+# never runs otherwise, and a failed PatchOperation is exactly the kind of
+# error only a boot with the mod active can surface. SOS2 hard-requires
+# Vehicle Framework, which is here only for that reason. Universum is not
+# installed locally, and the patch is the same either way. Vanilla Gravship
+# Expanded (chapter 1) is the other: LoadFolders.xml opens the
+# 1.6/Mods/VanillaGravshipExpanded root on its package id, and that root's
+# vacuum-resistance patch only ever runs with it active. It sits before our
+# mod, as the mod a compat root complements should. Probe last (auto-quit).
+# Plain ids on purpose; see the refresh shim's "_steam" note.
 engine.SMOKE_ACTIVE_MODS = [
     "brrainz.harmony",
     "ludeon.rimworld",

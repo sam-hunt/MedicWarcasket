@@ -21,14 +21,13 @@ engine.PACKAGE_ID = "shunter.medicwarcasket"
 # RATIONALE: VFE Pirates is the hard dependency (our defs parent on its
 # abstract warcasket bases and would not resolve without it); Vanilla
 # Expanded Framework and Harmony are VFEP's own hard deps and load before
-# it. Odyssey is the only DLC pinned: no DLC is hard-required, but Odyssey
-# is the planned compat gate (see the checker shim's REQUIRED_DLCS note),
-# so the sidecar is generated with it from day one. Ideology is NOT pinned
-# even though a stat leaf carries MayRequire for it: a gated leaf changes
-# a number, never a def or a key. No family sibling rides along; this
-# repo's list is its own. See the engine's header for the membership rule,
-# the lowercase-id warning, and the pinning rationale; order is load
-# order, the probe last.
+# it. Odyssey is the only DLC pinned: no DLC is hard-required, but the
+# sidecar is generated with it (see the checker shim's REQUIRED_DLCS note
+# for why). Ideology is NOT pinned even though a stat leaf carries
+# MayRequire for it: a gated leaf changes a number, never a def or a key. No
+# family sibling rides along; this repo's list is its own. See the engine's
+# header for the membership rule, the lowercase-id warning, and the pinning
+# rationale; order is load order, the probe last.
 #
 # Plain ids on purpose: when the Workshop copy of a mod and a local Mods/
 # copy coexist, RimWorld suffixes the Workshop one "_steam" and the plain id

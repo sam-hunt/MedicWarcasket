@@ -83,9 +83,8 @@ notes for the shim or flow edit this repo owes before continuing.
   as the English does. Paragraph breaks are the literal two-character
   `\n` sequences the def XML uses.
 - **Compat roots carry no strings.** `1.6/Mods/VanillaGravshipExpanded/`
-  ships only a patch with no translatable fields, and the Odyssey root
-  drafted in `LoadFolders.xml` is not live. Everything lands in the main
-  `1.6/Languages/<Language>/` tree today. If a gated root ever gains a
+  ships only a patch with no translatable fields. Everything lands in the
+  main `1.6/Languages/<Language>/` tree today. If a gated root ever gains a
   labelled def, its DefInjected must move into that root's own
   `Languages/` with a gate-suffixed filename (see CLAUDE.md's Localization
   and Optional-Content Gating section), never the main tree.
