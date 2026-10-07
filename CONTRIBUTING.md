@@ -52,7 +52,6 @@ this one.
 - Every translated entry carries the current English source in a comment
   directly above it, e.g. `<!-- EN: medic warcasket -->`; this is how stale
   translations are detected when the English changes.
-- Placeholders (`{0}`) must match the English exactly.
 - The three part descriptions share their second and third paragraphs; keep
   them identical across the three entries, and keep each part's
   `shortDescription` equal to its description's first paragraph, as the

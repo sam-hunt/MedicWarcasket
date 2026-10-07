@@ -374,7 +374,7 @@ warcasket-branded ranged weapons (e.g. a crypto cannon), not apparel, and likewi
 
 **None of these patches key off the `VFEP_WarcasketArmorBase`/`ShoulderPadBase`/`HelmetBase`
 parent type or a shared tag; they all match by literal `defName`.** A third-party warcasket def
-(such as anything Shipcracker Warcasket eventually adds) that parents on the same VFEP abstract
+(such as anything Medic Warcasket eventually adds) that parents on the same VFEP abstract
 bases is not covered by SOS2Patch.xml's EVA tag or Insulation_Cold override, and would need its
 own equivalent patch if that behavior is wanted.
 
