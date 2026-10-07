@@ -13,7 +13,7 @@ optional and Odyssey-only content must load only when the DLC is active. Require
 **Key technologies:** C# (.NET Framework 4.7.2), Harmony, RimWorld modding API, XML defs.
 
 **Def prefix:** `MDWC_`. **Current state: scaffold.** The three defs are untuned copies of
-VFEP's Siegebreaker set with borrowed Siegebreaker art and no abilities; `TODOs.md` holds
+VFEP's Siegebreaker set with the set's own art and no abilities; `TODOs.md` holds
 the scoping notes for the design work, and the sibling `../ShipcrackerWarcasket/` repo
 (same author, same VFEP base, a finished set with an ability) is the worked precedent for
 tuning rationale, render-tree art and ability wiring.
@@ -101,8 +101,8 @@ match).
 
 ```
 About/           - Mod metadata (About.xml; Preview.png and PublishedFileId.txt once published)
-Textures/        - Art (version-independent, loaded via the "/" root; no Common/ root). Empty
-                   until the set's art lands; the defs borrow VFEP's Siegebreaker paths
+Textures/        - Art (version-independent, loaded via the "/" root; no Common/ root), under
+                   VFEP's Things/Pawn/Warcasketlike/WarcasketMedic/ layout
 1.6/             - RimWorld 1.6 specific content
   Assemblies/    - Compiled DLLs (build output, gitignored)
   Defs/          - XML definitions (ThingDefs, etc.)

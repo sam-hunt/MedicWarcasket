@@ -3,10 +3,10 @@
   <!--
     Untuned placeholder: a copy of VFEP's VFEP_WarcasketShoulders_Siegebreaker (VFEP v3.09,
     1.6/Defs/ThingDefs_Misc/Apparel_Various.xml), its EnergyShieldRechargeRate offset
-    included. Every value is Siegebreaker's until the set's own tuning lands; see the armor
-    def's header for the reference tables and the borrowed-art note. This piece declares no
-    ApparelExtension of its own (it inherits VFEP_WarcasketShoulderPadBase's); when one is
-    added, give it priority 1 as the armor's has.
+    included. Every value but the art is Siegebreaker's until the set's own tuning lands; see
+    the armor def's header for the reference tables and the art and tint-mask note. This piece
+    declares no ApparelExtension of its own (it inherits VFEP_WarcasketShoulderPadBase's);
+    when one is added, give it priority 1 as the armor's has.
 
     Compat: SOS2Patch.xml and the VGE vacuum patch leave shoulder pads alone, as VFEP's and
     VGE1's own patches do for VFEP's.
@@ -17,7 +17,8 @@
     <shortDescription>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.</shortDescription>
     <description>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
     <graphicData>
-      <texPath>Things/Pawn/Warcasketlike/WarcasketSiegebreaker/WarcasketSiegebreakerShoulders</texPath>
+      <texPath>Things/Pawn/Warcasketlike/WarcasketMedic/WarcasketMedicShoulders</texPath>
+      <shaderType>CutoutComplex</shaderType>
     </graphicData>
     <statBases>
       <Mass>20</Mass>
@@ -46,7 +47,8 @@
         <li>Hands</li>
         <li>Neck</li>
       </bodyPartGroups>
-      <wornGraphicPath>Things/Pawn/Warcasketlike/WarcasketSiegebreaker/WarcasketSiegebreakerShoulders</wornGraphicPath>
+      <wornGraphicPath>Things/Pawn/Warcasketlike/WarcasketMedic/WarcasketMedicShoulders</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <layers>
         <li>OnSkin</li>
         <li>Middle</li>

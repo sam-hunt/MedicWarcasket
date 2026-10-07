@@ -1,7 +1,7 @@
 # TODOs
 
 Scoping notes for the work that has not landed yet. The set is a scaffold: three untuned
-Siegebreaker copies with borrowed art and no abilities.
+Siegebreaker copies with the set's own art and no abilities.
 
 ## Design (next session)
 
@@ -22,10 +22,16 @@ Siegebreaker copies with borrowed art and no abilities.
 - **Descriptions.** The three descriptions are placeholders written around the theme; rewrite
   them once the abilities exist, keeping the shared second and third paragraphs identical
   across the three defs and each `shortDescription` equal to its first paragraph.
-- **Art.** `texPath` / `wornGraphicPath` borrow VFEP's Siegebreaker textures. Custom art goes
-  under `Textures/Things/Pawn/Warcasketlike/WarcasketMedic/` (armor, shoulders, helmet, each
-  with `_north`/`_south`/`_east` facings plus the item icon), then repoint the three defs.
-  `About/Preview.png` and `About/ModIcon.png` are also missing.
+- **Art polish.** The set's textures are wired in, but each item icon (and the armor's and
+  shoulders' icon masks) is a straight copy of its `_south` facing; give them dedicated icon
+  art if that reads poorly in the foundry. `About/Preview.png` and `About/ModIcon.png` are
+  also missing.
+- **Helmet mask.** The armor and shoulders are masked; the helmet takes the whole-texture
+  tint. If a mask lands, wire it as the armor is (its header has the rationale):
+  `<shaderType>CutoutComplex</shaderType>` in `graphicData`,
+  `<useWornGraphicMask>true</useWornGraphicMask>` in `apparel`, masks named `_northm`/`_eastm`/
+  `_southm` for the worn graphic plus a bare `_m` for the item icon, and drop the "greyscale
+  and unmasked" line from the armor's header.
 - Acquisition and raid presence: all three pieces carry `WarcasketVeteran` and `WarcasketAll`
   like Siegebreaker, so veteran raiders can field the set. Decide whether a medic set should
   stay on the raid tables (AI never casts apparel abilities, so it is flavor and threat only).

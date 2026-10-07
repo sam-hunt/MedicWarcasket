@@ -36,8 +36,6 @@ spacer warcaskets research.
   set (same armor, shield bubble, costs and research), so for now the set plays like a Siegebreaker
 - **Planned**: the combat-medic direction, meaning abilities and stats that support keeping
   squadmates alive; none of it exists yet
-- **Art pending**: the textures are placeholders borrowed from the Siegebreaker set until custom
-  art is done
 - **Built on VFE Pirates** rather than beside it: the foundry, entombing, customization and
   removal surgery all apply unchanged, and the pieces mix and match with VFE Pirates' own sets
 

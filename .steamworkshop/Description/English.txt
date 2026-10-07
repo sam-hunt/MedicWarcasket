@@ -4,7 +4,7 @@ A new spacer-tier warcasket for [url=https://steamcommunity.com/sharedfiles/file
 
 [h1]About[/h1]
 
-The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot patching up squadmates under fire. It is in early development: the medic abilities are still being designed, and custom art is not done yet. Odyssey is optional.
+The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot patching up squadmates under fire. It is in early development: the medic abilities are still being designed. Odyssey is optional.
 
 [hr][/hr]
 [h2]The Set[/h2]

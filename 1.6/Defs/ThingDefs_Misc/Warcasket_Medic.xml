@@ -8,9 +8,16 @@
     balanced against. The only additions are the ApparelExtension priority below and the
     label/description text.
 
-    Art: texPath and wornGraphicPath point at VFEP's own Siegebreaker textures until the set's
-    art lands under Textures/Things/Pawn/Warcasketlike/WarcasketMedic/. ContentFinder resolves
-    a texture path across every loaded mod, so the borrowed path needs no patch.
+    Art: Textures/Things/Pawn/Warcasketlike/WarcasketMedic/, laid out as VFEP's sets are. The
+    worn graphic is Graphic_Multi (the _north/_east/_south facings); the item icon is the
+    parent's Graphic_Single, read from the bare-named file, which is a copy of the _south facing.
+
+    Masked tint, armor and shoulders (VFEP's sets have no masks; vanilla's prestige armors are
+    the pattern): CutoutComplex on both graphics, worn via apparel.useWornGraphicMask, so the
+    CompColorable colour paints the mask's red areas and the black-masked medical cross and
+    shoulder trim keep their painted colour (apparel graphics pass white as colorTwo). Mask
+    names differ by graphic class: Graphic_Multi reads <path>_northm, Graphic_Single <path>_m.
+    The helmet is greyscale and unmasked, so it keeps the whole-texture Cutout tint.
 
     ApparelExtension priority 1: VFEP_WarcasketArmorBase carries its own ApparelExtension and
     inheritance appends list items, so this def resolves with two. VEF merges duplicate
@@ -28,7 +35,8 @@
     <shortDescription>Specialized spacer-tech warcasket shell with standard protection, fitted with a field-medicine suite and a standard ranged shield.</shortDescription>
     <description>Specialized spacer-tech warcasket shell with standard protection, fitted with a field-medicine suite and a standard ranged shield.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
     <graphicData>
-      <texPath>Things/Pawn/Warcasketlike/WarcasketSiegebreaker/WarcasketSiegebreaker</texPath>
+      <texPath>Things/Pawn/Warcasketlike/WarcasketMedic/WarcasketMedic</texPath>
+      <shaderType>CutoutComplex</shaderType>
     </graphicData>
     <statBases>
       <Mass>50</Mass>
@@ -61,7 +69,8 @@
         <li>Legs</li>
         <li>Feet</li>
       </bodyPartGroups>
-      <wornGraphicPath>Things/Pawn/Warcasketlike/WarcasketSiegebreaker/WarcasketSiegebreaker</wornGraphicPath>
+      <wornGraphicPath>Things/Pawn/Warcasketlike/WarcasketMedic/WarcasketMedic</wornGraphicPath>
+      <useWornGraphicMask>true</useWornGraphicMask>
       <layers>
         <li>OnSkin</li>
         <li>Middle</li>
