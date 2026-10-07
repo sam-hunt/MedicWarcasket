@@ -68,9 +68,9 @@ jobs:
 
       # VFEPirates.dll and VEF.dll are referenced compile-only by the csproj (Private="false");
       # the Workshop copy is what players actually run against, so it is the compile contract -
-      # not a locally rebuilt branch DLL. Decided 2026-09-16 to fetch both here with SteamCMD
-      # rather than commit copies under source control, since committing would pin a version and
-      # let it drift from what's live on the Workshop.
+      # not a locally rebuilt branch DLL. Both are fetched here with SteamCMD rather than
+      # committed, since a committed copy would pin a version and drift from what's live on the
+      # Workshop.
       - name: Compute cache key date
         id: cache-date
         run: echo "yyyymm=$(date -u +%Y-%m)" >> "$GITHUB_OUTPUT"
