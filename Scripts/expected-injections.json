@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "gameBuild": "1.6.4871 rev591",
+    "activeDlcs": [
+      "Core",
+      "Odyssey"
+    ],
+    "modPackageId": "shunter.medicwarcasket",
+    "modName": "Medic Warcasket",
+    "activeMods": [
+      "brrainz.harmony",
+      "ludeon.rimworld",
+      "ludeon.rimworld.odyssey",
+      "oskarpotocki.vanillafactionsexpanded.core",
+      "oskarpotocki.vfe.pirates",
+      "shunter.medicwarcasket",
+      "shunter.l10nprobe"
+    ]
+  },
+  "defInjections": {
+    "ThingDef": {
+      "MDWC_WarcasketHelmet_Medic.description": {
+        "english": "Specialized spacer-tech warcasket helmet with standard protection, fitted with a diagnostic visor.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.",
+        "required": true
+      },
+      "MDWC_WarcasketHelmet_Medic.label": {
+        "english": "medic warcasket helmet",
+        "required": true
+      },
+      "MDWC_WarcasketHelmet_Medic.shortDescription": {
+        "english": "Specialized spacer-tech warcasket helmet with standard protection, fitted with a diagnostic visor.",
+        "required": true
+      },
+      "MDWC_WarcasketShoulders_Medic.description": {
+        "english": "Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.",
+        "required": true
+      },
+      "MDWC_WarcasketShoulders_Medic.label": {
+        "english": "medic warcasket shoulders",
+        "required": true
+      },
+      "MDWC_WarcasketShoulders_Medic.shortDescription": {
+        "english": "Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.",
+        "required": true
+      },
+      "MDWC_Warcasket_Medic.comps.CompShieldBubble.shieldTexPath": {
+        "english": "Other/ShieldBubble",
+        "normalized": "MDWC_Warcasket_Medic.comps.2.shieldTexPath"
+      },
+      "MDWC_Warcasket_Medic.description": {
+        "english": "Specialized spacer-tech warcasket shell with standard protection, fitted with a field-medicine suite and a standard ranged shield.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.",
+        "required": true
+      },
+      "MDWC_Warcasket_Medic.label": {
+        "english": "medic warcasket",
+        "required": true
+      },
+      "MDWC_Warcasket_Medic.shortDescription": {
+        "english": "Specialized spacer-tech warcasket shell with standard protection, fitted with a field-medicine suite and a standard ranged shield.",
+        "required": true
+      }
+    }
+  }
+}
