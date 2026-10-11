@@ -12,12 +12,11 @@
     worn graphic is Graphic_Multi (the _north/_east/_south facings); the item icon is the
     parent's Graphic_Single, read from the bare-named file, which is a copy of the _south facing.
 
-    Masked tint, armor and shoulders (VFEP's sets have no masks; vanilla's prestige armors are
-    the pattern): CutoutComplex on both graphics, worn via apparel.useWornGraphicMask, so the
+    Masked tint, all three pieces (VFEP's sets have no masks; vanilla's prestige armors are
+    the pattern): CutoutComplex on both graphics of each piece, worn via apparel.useWornGraphicMask, so the
     CompColorable colour paints the mask's red areas and the black-masked medical cross and
     shoulder trim keep their painted colour (apparel graphics pass white as colorTwo). Mask
     names differ by graphic class: Graphic_Multi reads <path>_northm, Graphic_Single <path>_m.
-    The helmet is greyscale and unmasked, so it keeps the whole-texture Cutout tint.
 
     ApparelExtension priority 1: VFEP_WarcasketArmorBase carries its own ApparelExtension and
     inheritance appends list items, so this def resolves with two. VEF merges duplicate
