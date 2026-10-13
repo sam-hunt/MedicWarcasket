@@ -25,9 +25,14 @@ and only these** (progressive disclosure; if `l10n/` is empty, run
   style rules, and vanilla-grounded common vocabulary. Read ONLY the target
   language's file.
 - `glossary/<Language>.md` (beside this file), this mod's own coined-term
-  table for the target language. Read it in the same pass; if it does not
-  exist yet, seed it per `glossary/README.md` from the sibling mod's file
-  before translating.
+  table for the target language. Read it in the same pass. Every file is
+  seeded: its inherited rows are the sibling Shipcracker Warcasket repo's
+  VFEP warcasket vocabulary (warcasket, parts, foundry, entomb, set names,
+  the VEF ability strings), copied verbatim so the sets read as one family
+  in-game, and its closing list names the terms the first pass must still
+  ground or coin. The pass fills that list in and never reopens an
+  inherited row (a change there is made in the Shipcracker glossary first,
+  then mirrored here and in Toxin Warcasket).
 - `l10n/lessons.md`, cross-language lessons; read when generating a new
   language, skim otherwise. Its free-prose register lesson applies with
   full force here: the three descriptions are lore paragraphs with no
@@ -55,6 +60,19 @@ notes for the shim or flow edit this repo owes before continuing.
   served entirely by the def XML's own fields; there is nothing under
   `1.6/Languages/English/`. The translation surface is DefInjected only,
   plus the Workshop page under `.steamworkshop/`.
+- **A reload comp's `chargeNoun`, should an ability add one, is shown only
+  through plural and lookup slots.** Vanilla prints it through
+  `{CHARGENOUN_plural}` and `{lookup: ...}` in five Keyed strings and
+  never bare. A rendering the language worker's fallback would mangle (a
+  multi-word noun, or German's appended `s`) gets its forms from
+  `1.6/Languages/<Language>/WordInfo/plural.txt` (`singular;plural`;
+  Russian also `case.txt` rows for both numbers), lowercase file names;
+  French's worker never reads the table, so a French noun must be a single
+  word; Japanese, Korean and Chinese need nothing. The checker ignores
+  these files; the noun's glossary row names the file it relies on. Each
+  glossary's "Charge nouns" section carries that language's constraint and
+  `l10n/lessons.md` the decompile-verified worker map; the Toxin Warcasket
+  skill and glossaries are the worked example with two live nouns.
 - **Enumerate the key set from `Scripts/expected-injections.json`, never
   from a Languages folder or by scanning `1.6/Defs/`.** The sidecar is a
   dump of what the live game walks; regenerate it (game closed) with

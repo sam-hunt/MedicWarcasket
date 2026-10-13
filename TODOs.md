@@ -29,11 +29,11 @@ Siegebreaker copies with the set's own art and no abilities.
 
 ## Translation (deferred to shortly before release)
 
-- No `1.6/Languages/` tree exists and no glossary files exist. The pass runs one language at a
-  time via `/translate <Language>`; seed each glossary from the sibling Shipcracker repo's per
-  `.claude/skills/translate/glossary/README.md`. The VFEP warcasket vocabulary is now shared by
-  more than one family mod; consider moving it upstream into `rimworld-l10n` before a third
-  copy is made.
+- No `1.6/Languages/` tree exists. The pass runs one language at a time via
+  `/translate <Language>`, after the English is final; every glossary is seeded with the
+  family's VFEP rows (mirrored from Toxin Warcasket's seeds) and lists what the pass must
+  still ground. The l10n pin is at v1.5.0. The VFEP warcasket vocabulary now lives in three
+  family repos; move it upstream into `rimworld-l10n` before a fourth mod copies it.
 - `.steamworkshop/Description/English.txt` is a draft; rewrite it with the final feature set
   before the pass translates it.
 
