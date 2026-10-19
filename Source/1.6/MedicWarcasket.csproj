@@ -14,13 +14,12 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
-  <!-- RimWorld Installation Path Configuration -->
-  <!-- Override with environment variables RIMWORLD_PATH / RIMWORLD_DATA_FOLDER or pass -p: properties to dotnet build -->
+  <!-- RimWorld install path: decides deployment only (DeployToModFolder below), never
+       what the build compiles against. Override with the RIMWORLD_PATH environment
+       variable or -p:RimWorldPath=...; the platform defaults cover a stock Steam install. -->
   <PropertyGroup>
     <RimWorldPath Condition="'$(RimWorldPath)' == ''">$(RIMWORLD_PATH)</RimWorldPath>
   </PropertyGroup>
-
-  <!-- Platform-specific defaults if RIMWORLD_PATH not set -->
   <PropertyGroup Condition="'$(RimWorldPath)' == '' And $([MSBuild]::IsOSPlatform('Windows'))">
     <RimWorldPath>C:\Program Files (x86)\Steam\steamapps\common\RimWorld</RimWorldPath>
   </PropertyGroup>
@@ -31,52 +30,20 @@
     <RimWorldPath>$(HOME)/Library/Application Support/Steam/steamapps/common/RimWorld</RimWorldPath>
   </PropertyGroup>
 
-  <!-- Platform-specific data folder names -->
-  <!-- Override with environment variable RIMWORLD_DATA_FOLDER or pass -p:RimWorldDataFolder="..." to dotnet build -->
+  <!-- Deployment needs a game to deploy into, whatever its layout: 1.6 keeps its
+       assemblies under <Platform>_Data/Managed/, 1.7 (Waylith) has them flat in the
+       install root, and both have Mods/. Gating on the layout would skip the deploy
+       on 1.7 while the build still succeeds, leaving a stale DLL in the Mods folder. -->
   <PropertyGroup>
-    <RimWorldDataFolder Condition="'$(RimWorldDataFolder)' == ''">$(RIMWORLD_DATA_FOLDER)</RimWorldDataFolder>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(RimWorldDataFolder)' == '' And $([MSBuild]::IsOSPlatform('Windows'))">
-    <RimWorldDataFolder>RimWorldWin64_Data</RimWorldDataFolder>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(RimWorldDataFolder)' == '' And $([MSBuild]::IsOSPlatform('Linux'))">
-    <RimWorldDataFolder>RimWorldLinux_Data</RimWorldDataFolder>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(RimWorldDataFolder)' == '' And $([MSBuild]::IsOSPlatform('OSX'))">
-    <RimWorldDataFolder>RimWorldMac_Data</RimWorldDataFolder>
-  </PropertyGroup>
-  <!-- WSL fallback: if Linux data folder not found, try Windows data folder -->
-  <PropertyGroup Condition="'$(RimWorldPath)' != '' And !Exists('$(RimWorldPath)/$(RimWorldDataFolder)/Managed/Assembly-CSharp.dll') And Exists('$(RimWorldPath)/RimWorldWin64_Data/Managed/Assembly-CSharp.dll')">
-    <RimWorldDataFolder>RimWorldWin64_Data</RimWorldDataFolder>
+    <RimWorldInstalled Condition="Exists('$(RimWorldPath)/Mods')">true</RimWorldInstalled>
   </PropertyGroup>
 
-  <!-- Detect if local RimWorld installation exists -->
-  <PropertyGroup>
-    <UseLocalRimWorld Condition="Exists('$(RimWorldPath)/$(RimWorldDataFolder)/Managed/Assembly-CSharp.dll')">true</UseLocalRimWorld>
-  </PropertyGroup>
-
-  <!-- Use local references when RimWorld is installed -->
-  <ItemGroup Condition="'$(UseLocalRimWorld)' == 'true'">
-    <Reference Include="Assembly-CSharp" Private="false">
-      <HintPath>$(RimWorldPath)/$(RimWorldDataFolder)/Managed/Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine" Private="false">
-      <HintPath>$(RimWorldPath)/$(RimWorldDataFolder)/Managed/UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule" Private="false">
-      <HintPath>$(RimWorldPath)/$(RimWorldDataFolder)/Managed/UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule" Private="false">
-      <HintPath>$(RimWorldPath)/$(RimWorldDataFolder)/Managed/UnityEngine.IMGUIModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule" Private="false">
-      <HintPath>$(RimWorldPath)/$(RimWorldDataFolder)/Managed/UnityEngine.TextRenderingModule.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <!-- Fall back to NuGet package for CI builds without local RimWorld -->
-  <ItemGroup Condition="'$(UseLocalRimWorld)' != 'true'">
-    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.*" />
+  <!-- The 1.6 build compiles against the published reference assemblies, never the
+       local install: since 1.7 the install carries no 1.6 assemblies (and no Managed/
+       folder at all), and CI has always used this package, so local and CI builds
+       now reference the same bits. The local game is only the decompile target. -->
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
   </ItemGroup>
 
   <!-- ===== Dependency-mod assemblies (compile-only) =====
@@ -201,6 +168,13 @@
       <_ModFiles Include="$(RepoRoot)/Textures/**/*.png;$(RepoRoot)/Textures/**/*.jpg;$(RepoRoot)/Textures/**/*.jpeg;$(RepoRoot)/*/Textures/**/*.png;$(RepoRoot)/*/Textures/**/*.jpg;$(RepoRoot)/*/Textures/**/*.jpeg;$(RepoRoot)/Mods/*/Textures/**/*.png;$(RepoRoot)/Mods/*/Textures/**/*.jpg;$(RepoRoot)/Mods/*/Textures/**/*.jpeg" />
       <_ModFiles Include="$(RepoRoot)/Sounds/**/*.wav;$(RepoRoot)/Sounds/**/*.mp3;$(RepoRoot)/Sounds/**/*.ogg;$(RepoRoot)/*/Sounds/**/*.wav;$(RepoRoot)/*/Sounds/**/*.mp3;$(RepoRoot)/*/Sounds/**/*.ogg" />
       <_ModFiles Include="$(RepoRoot)/Languages/**/*.xml;$(RepoRoot)/Languages/**/*.txt;$(RepoRoot)/*/Languages/**/*.xml;$(RepoRoot)/*/Languages/**/*.txt;$(RepoRoot)/*/Mods/*/Languages/**/*.xml;$(RepoRoot)/*/Mods/*/Languages/**/*.txt" />
+      <!-- Asset bundles are EXTENSIONLESS files (ModAssetBundlesHandler loads every extensionless
+           file directly under AssetBundles/, and only the _win/_mac/_linux one matching the OS), so
+           this is the one glob that can't whitelist by extension: it takes the folder's direct
+           children and excludes Unity's .manifest sidecars, which must never be copied in anyway.
+           Bundles are committed binaries built outside this build (CI has no Unity); see
+           UniqueMeleeWeapons' Source/UnityShaders/ for the family's Unity project and build script. -->
+      <_ModFiles Include="$(RepoRoot)/AssetBundles/*;$(RepoRoot)/*/AssetBundles/*;$(RepoRoot)/*/Mods/*/AssetBundles/*" Exclude="$(RepoRoot)/AssetBundles/*.manifest;$(RepoRoot)/*/AssetBundles/*.manifest;$(RepoRoot)/*/Mods/*/AssetBundles/*.manifest" />
       <!-- The lines above also match under the gated compat load roots (see
            LoadFolders.xml), which come in two flavors: version-specific ones nest
            inside the version folder as <version>/Mods/<Mod Name>/ (Defs, Patches,
@@ -231,7 +205,7 @@
        DLL for a Debug build (e.g. if a future Tests project's ProjectReference
        builds Debug under `dotnet test`). -->
   <Target Name="DeployToModFolder" AfterTargets="Build"
-          Condition="'$(UseLocalRimWorld)' == 'true' And '$(Configuration)' == 'Release'">
+          Condition="'$(RimWorldInstalled)' == 'true' And '$(Configuration)' == 'Release'">
     <CallTarget Targets="StageMod" />
   </Target>
 </Project>
