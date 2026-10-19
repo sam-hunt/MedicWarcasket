@@ -2,7 +2,7 @@
 
 > A RimWorld mod adding a combat-medic warcasket set for Vanilla Factions Expanded - Pirates
 
-[![RimWorld](https://img.shields.io/badge/RimWorld-1.6-blue.svg)](https://rimworldgame.com/)
+[![RimWorld](https://img.shields.io/badge/RimWorld-1.6%20%7C%201.7-blue.svg)](https://rimworldgame.com/)
 <!-- Steam badges, added on first Workshop publish with WORKSHOP_ID from About/PublishedFileId.txt:
 [![Subscribers](https://img.shields.io/steam/subscriptions/WORKSHOP_ID?logo=steam&label=subscribers)](https://steamcommunity.com/sharedfiles/filedetails/?id=WORKSHOP_ID)
 [![Downloads](https://img.shields.io/steam/downloads/WORKSHOP_ID?logo=steam&label=downloads)](https://steamcommunity.com/sharedfiles/filedetails/?id=WORKSHOP_ID)
@@ -41,7 +41,7 @@ spacer warcaskets research.
 
 ## Requirements
 
-- **RimWorld 1.6** or later
+- **RimWorld 1.6** or **1.7**
 - **Vanilla Factions Expanded - Pirates** (required), which itself requires
   **Vanilla Expanded Framework**
 - **Harmony** (auto-download from Steam Workshop if you don't have it)

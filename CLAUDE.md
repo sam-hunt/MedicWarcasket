@@ -261,14 +261,21 @@ and a prerelease flag instead; see the skill-sync paragraph above).
 ## Debugging
 
 1. **Dev Mode:** Settings > Dev Mode > Logging.
-2. **Log:** `%USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Player.log`
-   (WSL: `/mnt/c/Users/*/AppData/LocalLow/Ludeon Studios/RimWorld by Ludeon Studios/Player.log`;
-   Linux: `~/.config/unity3d/Ludeon Studios/RimWorld by Ludeon Studios/Player.log`).
+2. **Log:** under `%USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\`
+   (WSL: `/mnt/c/Users/*/AppData/LocalLow/Ludeon Studios/RimWorld by Ludeon Studios/`; Linux:
+   `~/.config/unity3d/Ludeon Studios/RimWorld by Ludeon Studios/`). On 1.7 it is `Logs/Player.log`,
+   with a timestamp and level (`ERROR`, `WARN`, `INFO`) on every entry and `    at ...` stack frames
+   under it; on 1.6 it is `Player.log` one level up. A 1.7 install leaves the 1.6 file in place,
+   stale.
 3. **Logging convention:** `Log.Message("[Medic Warcasket] ...")`; grep the prefix to
    isolate our output. VFEP's own messages carry no prefix; search by class name.
 4. **Inspect the API:** `monodis` for signatures, `ilspycmd -t "Namespace.ClassName"` for method
    bodies, against the local install's `Assembly-CSharp.dll` (source of truth over the Krafs ref
-   package) or the resolved `VFEPirates.dll` / `VEF.dll`. The `rimworld-logs` skill covers both.
+   package) or the resolved `VFEPirates.dll` / `VEF.dll`. On 1.7 the assembly sits flat in the
+   install root with `UnityStubs.dll` beside it for Unity-facing signatures; on 1.6 it is under
+   `RimWorldWin64_Data/Managed/`. The local install's assembly is now the 1.7 one, so a
+   decompile-verified call path in a def or code header that was verified on 1.6 should say so if
+   it is re-verified on 1.7 and differs. The `rimworld-logs` skill covers both.
 5. **In-game test list:** VFE Pirates (Workshop 2723801948) and Vanilla Expanded Framework must
    both be active and load before this mod; the local deploy shows up as `MedicWarcasket`
    in the mod list.
