@@ -117,6 +117,7 @@ Mods/<Name>/     - Optional-mod/DLC compat roots (version-independent art), none
 Source/1.6/      - C# source code targeting net472
 Scripts/         - l10n config shims + the expected-injections.json sidecar (not shipped)
 Docs/Research/   - VFEP warcasket stat tables and ability mechanics (reference, not shipped)
+Docs/Specs/      - Design specs for work tracked in TODOs.md (reference, not shipped)
 l10n/            - rimworld-l10n toolkit, git submodule pinned to a release tag (not shipped)
 LoadFolders.xml  - Tells RimWorld which folders to load per game version
 CHANGELOG.md     - Keep a Changelog format; load-bearing for releases (see below)

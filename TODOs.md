@@ -5,6 +5,12 @@ Siegebreaker copies with the set's own art and no abilities.
 
 ## Design (next session)
 
+- **Medical work for the wearer.** Own `MDWC_WarcasketTrait_Medic` in the Mechlord/Alpha Mechs
+  idiom, with its `disabledWorkTags` derived at startup from VFEP's trait minus Caring (and
+  ManualDumb swapped for Cleaning to keep VFEP's hauling exemption), so "Warcaskets can work!",
+  "can haul!" and Hardworking Warcaskets apply to the Medic unchanged. Spec, verified facts,
+  rejected options and the verification plan: `Docs/Specs/Medic-Work-Trait.md`. Review the spec,
+  then implement its section 7 checklist.
 - **Tune the set.** Every stat, cost and comp on the three defs is VFEP's Siegebreaker's
   (`Docs/Research/VFEP_WARCASKET_STATS.md` tabulates the 10th-generation sets; the sibling
   Shipcracker repo's def headers show the tuning rationale format). Decide what a medic
