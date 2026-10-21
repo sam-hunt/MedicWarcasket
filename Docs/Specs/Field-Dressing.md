@@ -182,7 +182,7 @@ the selected type to five whatever the other types hold. The discoverability tra
 pool (herbal full, glitterworld selected, "0 / 5" shown and no reload offered) cannot occur.
 
 - `Select(type)`: `loaded[selected] = remainingCharges; selected = type;
-  remainingCharges = loaded[type]`. Switching from three glitterworld to industrial shows the
+remainingCharges = loaded[type]`. Switching from three glitterworld to industrial shows the
   industrial count; switching back shows three again. Allowed at any time, including mid-walk
   (the pending cast keeps its own type, 3.3).
 - `Reconcile()`, run before every read: `loaded[selected] = remainingCharges`. This folds in
@@ -243,7 +243,7 @@ cancels the walk or the cast, and nothing is spent until the cast toil runs.
   asleep. VEF's goto driver has already given it the stand-and-face job; the stun holds a
   conscious target still for the second the dressing takes.
 - **Cast:** `TryConsume(pendingMedicine)`, then `quality =
-  TendUtility.CalculateBaseTendQuality(pilot, target, potency, qualityMax)` with the dose's
+TendUtility.CalculateBaseTendQuality(pilot, target, potency, qualityMax)` with the dose's
   stat bases, then over `TendableSet(target)` in tend-priority order
   (`TendUtility.SortByTendPriority`): `Tended(quality, qualityMax, i)`. Count tended, throw
   vanilla's `NumWoundsTended` text, play `TechMedicineUsed` when the dose's potency beats
@@ -289,11 +289,11 @@ superset. (Backporting it to Toxin is a family chore, not this spec's.) `ApplyTo
 `ModInit` after `PatchAll` and whenever the window closes; defaults are read from the defs so
 the def headers stay the record.
 
-| Setting | Def field | Default | Range |
-|---|---|---|---|
-| Doses per medicine type | comp `maxCharges` | 5 | 1..20, step 1 |
-| Cooldown (seconds) | ability `cooldownTime` (ticks ÷ 60) | 20 | 0..300, step 5 |
-| Range (cells) | ability `range` | 1.9 | 1.5..12.9, step 1 |
+| Setting                 | Def field                           | Default | Range             |
+| ----------------------- | ----------------------------------- | ------- | ----------------- |
+| Doses per medicine type | comp `maxCharges`                   | 5       | 1..20, step 1     |
+| Cooldown (seconds)      | ability `cooldownTime` (ticks ÷ 60) | 20      | 0..300, step 5    |
+| Range (cells)           | ability `range`                     | 1.9     | 1.5..12.9, step 1 |
 
 Settings strings are Keyed, which this mod does not have yet; see section 5.
 
