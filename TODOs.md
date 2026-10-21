@@ -6,11 +6,18 @@ passives, the field dressing, mod settings); every stat and cost is still Siegeb
 ## Design
 
 - **Medical work for the wearer.** Own `MDWC_WarcasketTrait_Medic` in the Mechlord/Alpha Mechs
-  idiom, with its `disabledWorkTags` derived at startup from VFEP's trait minus Caring (and
-  ManualDumb swapped for Cleaning to keep VFEP's hauling exemption), so "Warcaskets can work!",
-  "can haul!" and Hardworking Warcaskets apply to the Medic unchanged. Spec, verified facts,
-  rejected options and the verification plan: `Docs/Specs/Medic-Work-Trait.md`. Review the spec,
-  then implement its section 7 checklist.
+  idiom, its work profile, degree effects and VEF extension mirrored at startup from VFEP's
+  trait: Caring dropped with every Caring work type but Doctor (Childcare) re-blocked by work
+  type, ManualDumb swapped for Cleaning to keep VFEP's hauling exemption. "Warcaskets can
+  work!", "can haul!" and Hardworking Warcaskets then apply to the Medic unchanged. Spec,
+  verified facts, rejected options and the verification plan: `Docs/Specs/Medic-Work-Trait.md`,
+  reviewed; it assumes the 1.7-only (Phase C) migration has landed. Implement its section 7
+  checklist.
+  - Configurable work profile: consider a settings section with toggles that control the
+    Medic's work profile more completely, e.g. medical, other caring work and childcare, in
+    place of the fixed "Doctor open, Childcare blocked" choice. The mirror writes def fields,
+    so the toggles would feed its re-block set through `ApplyToDefs` like every other setting
+    (spec section 5).
 - **Tune the set.** Every stat, cost and comp on the three defs is VFEP's Siegebreaker's
   (`Docs/Research/VFEP_WARCASKET_STATS.md` tabulates the 10th-generation sets; the sibling
   Shipcracker repo's def headers show the tuning rationale format). Decide what a medic
