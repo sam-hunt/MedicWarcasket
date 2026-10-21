@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Field dressing (Source/1.6/Abilities/, Source/1.6/Comps/) -->
+  <MDWC_NoMedicineLoaded>No {0} loaded.</MDWC_NoMedicineLoaded>
+  <MDWC_NoWoundsToDress>{0} has no wounds to dress.</MDWC_NoWoundsToDress>
+  <MDWC_NothingToTreat>{0} has nothing to treat.</MDWC_NothingToTreat>
+  <MDWC_HostileTarget>{0} is hostile and still up.</MDWC_HostileTarget>
+  <MDWC_WoundsTended>{0} wounds tended</MDWC_WoundsTended>
+  <MDWC_MedicineOption>{0} ({1} / {2})</MDWC_MedicineOption>
+  <MDWC_TargetQuality>{0}, quality {1}</MDWC_TargetQuality>
+  <MDWC_LoadedDoses>Loaded doses: {0}</MDWC_LoadedDoses>
+  <MDWC_LoadedDosesEntry>{0} {1} / {2}</MDWC_LoadedDosesEntry>
+  <MDWC_LoadedDosesNone>none</MDWC_LoadedDosesNone>
+
+  <!-- Mod settings (Source/1.6/Settings/) -->
+  <MDWC_SettingsCategory>Medic Warcasket</MDWC_SettingsCategory>
+  <MDWC_SettingsUnavailable>These settings are unavailable. Another mod has changed the medic warcasket's definitions, so the set keeps its built-in values.</MDWC_SettingsUnavailable>
+
+  <MDWC_SectionDressing>Field dressing</MDWC_SectionDressing>
+
+  <MDWC_Doses>Doses per medicine type</MDWC_Doses>
+  <MDWC_DosesDesc>The number of doses of each medicine type the armor's suite holds when full. A suite already holding more than this loses the excess. Default: {0}.</MDWC_DosesDesc>
+
+  <MDWC_CastTime>Dressing time (seconds)</MDWC_CastTime>
+  <MDWC_CastTimeDesc>How long the pilot takes to apply a field dressing. The patient is held still until it is done. Default: {0}.</MDWC_CastTimeDesc>
+
+  <MDWC_Cooldown>Cooldown (seconds)</MDWC_Cooldown>
+  <MDWC_CooldownDesc>The time the pilot must wait after a field dressing before applying another. Default: {0}.</MDWC_CooldownDesc>
+
+  <MDWC_Range>Range (cells)</MDWC_Range>
+  <MDWC_RangeDesc>How close the pilot walks to the patient before applying the dressing. Within this range, a clear line of sight is enough. Default: {0}.</MDWC_RangeDesc>
+
+  <MDWC_DressingSummary>The suite holds up to {0} of each medicine type. Each dressing takes {1} s to apply, then {2} s of cooldown before the next.</MDWC_DressingSummary>
+
+  <MDWC_DefaultSuffix> (default)</MDWC_DefaultSuffix>
+
+</LanguageData>

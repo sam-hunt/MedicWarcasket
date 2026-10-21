@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    The Medic armor's active, granted by the armor's CompProperties_AbilitiesApparel and fed
+    by the medicine suite beside it (ThingDefs_Misc/Warcasket_Medic.xml). The rules live in
+    MedicWarcasket.Ability_FieldDressing; the gizmo (selected medicine's icon, loaded count,
+    right-click type switch) in Command_FieldDressing; the walk-then-cast job in
+    JobDriver_FieldDressing (JobDefs/FieldDressing.xml).
+
+    range is unset and requireLineOfSight off on purpose: the click is not range-limited, the
+    pilot walks to the patient and the job enforces sight at distanceToTarget. distanceToTarget
+    1.5 is how close the pilot gets before casting (touching, diagonals included); above it the
+    dressing is applied from that far with a clear line, which is what the range setting raises.
+    castTime 60 (1 s) and cooldownTime 1200 (20 s): Coagulate's warmup; the cooldown keeps one
+    medic from re-dressing the same squad every second while a stack of doses lasts. Both, and
+    distanceToTarget, are mod settings defaulting to these values.
+
+    Targeting: an explicit targetingParametersList entry rather than targetMode's generated
+    one, to keep mechanoids and the pilot out (canTargetSelf is honoured by the vanilla
+    Targeter). Faction is not checked, so a downed raider can be dressed before capture.
+
+    No iconPath: the gizmo, the cursor and the settings header show the selected (or the
+    industrial) medicine's own item icon, and vanilla's stack-count medicine art has no
+    bare-named file to point at. Custom ability art is a TODOs.md item.
+  -->
+  <VEF.Abilities.AbilityDef>
+    <defName>MDWC_FieldDressing</defName>
+    <label>field dressing</label>
+    <description>Apply a dose of the suite's selected medicine to every wound on a person or animal at once, at the quality the pilot's medical skill allows. With the medic helmet worn, diseases and infections are treated as well. The patient is held still while the dressing goes on.</description>
+    <abilityClass>MedicWarcasket.Ability_FieldDressing</abilityClass>
+    <gizmoClass>MedicWarcasket.Command_FieldDressing</gizmoClass>
+    <jobDef>MDWC_FieldDressing</jobDef>
+    <jobReportString>Applying a field dressing.</jobReportString>
+    <targetMode>Pawn</targetMode>
+    <targetingParametersList>
+      <li>
+        <canTargetPawns>true</canTargetPawns>
+        <canTargetHumans>true</canTargetHumans>
+        <canTargetAnimals>true</canTargetAnimals>
+        <canTargetMechs>false</canTargetMechs>
+        <canTargetSelf>false</canTargetSelf>
+        <canTargetBuildings>false</canTargetBuildings>
+        <canTargetLocations>false</canTargetLocations>
+      </li>
+    </targetingParametersList>
+    <distanceToTarget>1.5</distanceToTarget>
+    <requireLineOfSight>false</requireLineOfSight>
+    <castTime>60</castTime>
+    <cooldownTime>1200</cooldownTime>
+    <showUndrafted>true</showUndrafted>
+  </VEF.Abilities.AbilityDef>
+</Defs>

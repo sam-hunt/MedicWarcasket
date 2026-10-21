@@ -3,10 +3,24 @@
   <!--
     Untuned placeholder: a copy of VFEP's VFEP_Warcasket_Siegebreaker (VFEP v3.09,
     1.6/Defs/ThingDefs_Misc/Apparel_Various.xml), VFEP_SpacerWarcaskets research prereq
-    included. Every stat, cost and comp is Siegebreaker's until the set's own tuning lands;
+    included. Every stat and cost is Siegebreaker's until the set's own tuning lands;
     Docs/Research/VFEP_WARCASKET_STATS.md tabulates the 10th-generation sets it will be
-    balanced against. The only additions are the ApparelExtension priority below and the
-    label/description text.
+    balanced against. The set's own additions are the two medic comps below, the
+    ApparelExtension priority and the label/description text.
+
+    Field dressing: VEF CompAbilitiesApparel grants MDWC_FieldDressing (AbilityDefs/
+    FieldDressing.xml), fed by the medicine suite beside it. The ability reads the suite off
+    the apparel that grants it, so both comps must sit on this one def. The suite is vanilla's
+    CompApparelReloadable with compClass MedicWarcasket.CompFieldDressingSuite (Source/1.6/
+    Comps/): maxCharges 5 doses of EACH medicine type, one type selected at a time from the
+    gizmo, the selected type's count being the vanilla charge count; its DefInjected keys read
+    comps.CompFieldDressingSuite, since the handle is the comp class. ammoDef is the type the
+    selection starts from and the one the free first fill (vanilla's full charge on creation)
+    lands on; that fill is to be priced into the costList in the tuning pass. ammoCountPerCharge
+    1: one medicine item is one dose. chargeNoun "dose": the stats pane, the reload text and
+    the gizmo count the suite in doses. baseReloadTicks 60 and Standard_Reload are the family's
+    reloadable defaults. displayGizmoWhileUndrafted true alongside the ability's showUndrafted:
+    a medic dresses wounds in the hospital too. maxCharges is a mod setting defaulting to this.
 
     Art: Textures/Things/Pawn/Warcasketlike/WarcasketMedic/, laid out as VFEP's sets are. The
     worn graphic is Graphic_Multi (the _north/_east/_south facings); the item icon is the
@@ -81,6 +95,21 @@
       </tags>
     </apparel>
     <comps>
+      <li Class="CompProperties_ApparelReloadable">
+        <compClass>MedicWarcasket.CompFieldDressingSuite</compClass>
+        <maxCharges>5</maxCharges>
+        <ammoDef>MedicineIndustrial</ammoDef>
+        <ammoCountPerCharge>1</ammoCountPerCharge>
+        <baseReloadTicks>60</baseReloadTicks>
+        <soundReload>Standard_Reload</soundReload>
+        <chargeNoun>dose</chargeNoun>
+        <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+      </li>
+      <li Class="VEF.Abilities.CompProperties_AbilitiesApparel">
+        <abilities>
+          <li>MDWC_FieldDressing</li>
+        </abilities>
+      </li>
       <li Class="VEF.Apparels.CompProperties_ShieldBubble">
         <compClass>VEF.Apparels.CompShieldBubble</compClass>
         <blockRangedAttack>true</blockRangedAttack>
