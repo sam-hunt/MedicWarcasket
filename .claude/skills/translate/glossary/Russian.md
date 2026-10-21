@@ -35,8 +35,8 @@ adjective and its 10th-generation paragraph.
 
 ## Charge nouns
 
-No reload comp yet. If an ability lands with a `chargeNoun`, it is shown
-only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
+The armor's medicine suite has the `chargeNoun` "dose" (its row is *pass*,
+below the inherited rows). A charge noun is shown only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
 skill), and the Russian worker reads the `plural` table and the genitive slots go through `case` lookups, so every coined noun ships a `plural.txt` line and `case.txt` rows for both numbers under `1.6/Languages/Russian/WordInfo/`. Shipcracker's "fuel unit" row in its glossary
 is the worked example for this language.
 

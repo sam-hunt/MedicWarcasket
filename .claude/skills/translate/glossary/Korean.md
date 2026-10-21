@@ -39,8 +39,8 @@ prefix and its 10th-generation paragraph.
 
 ## Charge nouns
 
-No reload comp yet. If an ability lands with a `chargeNoun`, it is shown
-only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
+The armor's medicine suite has the `chargeNoun` "dose" (its row is *pass*,
+below the inherited rows). A charge noun is shown only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
 skill), and Korean falls to the base `Pluralize` (lookup, else unchanged), so one noun serves every slot and no lookup file is needed. Shipcracker's "fuel unit" row in its glossary
 is the worked example for this language.
 

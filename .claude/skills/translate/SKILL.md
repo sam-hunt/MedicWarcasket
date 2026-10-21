@@ -1,6 +1,6 @@
 ---
 name: translate
-description: Generate, update, or audit mod localization (DefInjected only) for a target language, grounded in Vanilla Factions Expanded - Pirates warcasket terminology plus vanilla Core/Odyssey apparel and medical terminology for Medic Warcasket's single warcasket set. Use when asked to add a language, update translations, or check translation freshness.
+description: Generate, update, or audit mod localization (DefInjected plus one Keyed file) for a target language, grounded in Vanilla Factions Expanded - Pirates warcasket terminology plus vanilla Core/Odyssey apparel and medical terminology for Medic Warcasket's single warcasket set. Use when asked to add a language, update translations, or check translation freshness.
 argument-hint: "[language, e.g. German | update | check]"
 ---
 
@@ -56,43 +56,82 @@ notes for the shim or flow edit this repo owes before continuing.
 
 ## This mod's translation surface
 
-- **No Keyed strings and no English Languages tree at all.** English is
-  served entirely by the def XML's own fields; there is nothing under
-  `1.6/Languages/English/`. The translation surface is DefInjected only,
-  plus the Workshop page under `.steamworkshop/`.
-- **A reload comp's `chargeNoun`, should an ability add one, is shown only
-  through plural and lookup slots.** Vanilla prints it through
-  `{CHARGENOUN_plural}` and `{lookup: ...}` in five Keyed strings and
-  never bare. A rendering the language worker's fallback would mangle (a
-  multi-word noun, or German's appended `s`) gets its forms from
-  `1.6/Languages/<Language>/WordInfo/plural.txt` (`singular;plural`;
-  Russian also `case.txt` rows for both numbers), lowercase file names;
-  French's worker never reads the table, so a French noun must be a single
-  word; Japanese, Korean and Chinese need nothing. The checker ignores
-  these files; the noun's glossary row names the file it relies on. Each
-  glossary's "Charge nouns" section carries that language's constraint and
-  `l10n/lessons.md` the decompile-verified worker map; the Toxin Warcasket
-  skill and glossaries are the worked example with two live nouns.
+- **Two surfaces plus the Workshop page.** The defs' English is served by
+  the def XML's own fields (DefInjected, below). Everything code prints is
+  the one Keyed file, `1.6/Languages/English/Keyed/MedicWarcasket.xml`,
+  translated to `1.6/Languages/<Language>/Keyed/MedicWarcasket.xml` with
+  the same keys:
+  - the mod settings window: `MDWC_SettingsCategory` (its header),
+    `MDWC_SettingsUnavailable`, the section header, and each setting's
+    label and `...Desc` tooltip (doses per medicine type, dressing time
+    and cooldown in seconds, range in cells). Each tooltip takes one
+    `{0}`, the default value; keep it and the label's unit.
+    `MDWC_DressingSummary` takes `{0}` the doses per type, `{1}` the
+    dressing time and `{2}` the cooldown, both in seconds before the unit
+    `s`. `MDWC_DefaultSuffix` keeps its leading space.
+  - the field dressing's runtime strings. `MDWC_NoMedicineLoaded` (the
+    disabled reason) takes `{0}`, the medicine's label;
+    `MDWC_NoWoundsToDress` and `MDWC_NothingToTreat` (invalid target,
+    without and with the helmet) and `MDWC_HostileTarget` (a conscious
+    enemy) take `{0}`, the target pawn's name;
+    `MDWC_WoundsTended` (the floating text, which code follows with
+    vanilla's quality line) takes `{0}`, the number of hediffs tended; `MDWC_MedicineOption` (a gizmo right-click line) takes
+    `{0}` the medicine's label, `{1}` its loaded doses and `{2}` the
+    maximum; `MDWC_TargetQuality` (the targeting cursor label) takes `{0}`
+    the medicine's label and `{1}` the tend quality, already a percentage;
+    `MDWC_LoadedDoses` (the armor's inspect line) takes `{0}`, either the
+    entries joined by a comma and space in code or `MDWC_LoadedDosesNone`;
+    each `MDWC_LoadedDosesEntry` takes `{0}` the medicine's label, `{1}`
+    its doses and `{2}` the maximum. Medicine labels arrive in the game's
+    own translation, capitalised in `MDWC_MedicineOption` and
+    `MDWC_TargetQuality` (each opens its line) and lowercase elsewhere.
+  Name the set's things with the same renderings as the DefInjected text
+  (field dressing, dose, medicine suite, warcasket).
 - **Enumerate the key set from `Scripts/expected-injections.json`, never
   from a Languages folder or by scanning `1.6/Defs/`.** The sidecar is a
   dump of what the live game walks; regenerate it (game closed) with
   `python3 Scripts/refresh-translation-expectations.py` whenever the
   checker reports it stale. Take the English source text for each
   `<!-- EN: -->` comment from the sidecar's `english` field.
-- **Def type folders** (the game rolls a def type without its own database
-  into its base; the checker maps these via `DEF_TYPE_ALIASES` in
-  `Scripts/check-translations.py`):
+- **Def type folders.** Never translate or place a non-`required` sidecar
+  entry (texture paths such as `shieldTexPath`) in any language file.
   - `DefInjected/ThingDef/` for the three `VFEPirates.WarcasketDef`s
     (`MDWC_Warcasket_Medic`, `MDWC_WarcasketShoulders_Medic`,
-    `MDWC_WarcasketHelmet_Medic`): `label`, `description`, and
+    `MDWC_WarcasketHelmet_Medic`): `label`, `description`,
     `shortDescription` (a VFEP field shown in the foundry's part picker;
-    translate it like any other). A `WarcasketDef` folder would never load.
-  - Never translate or place a non-`required` sidecar entry (texture paths
-    such as `shieldTexPath`) in any language file.
-  - When the set's abilities land they will add def types (VEF's
-    `VEF.Abilities.AbilityDef` is namespace-qualified; a `StatDef` or
-    `HediffDef` is bare); the regenerated sidecar names them, so add the
-    folders it lists rather than guessing.
+    translate it like any other), and on the armor the medicine suite's
+    `comps.CompFieldDressingSuite.chargeNoun` ("dose", next bullet) and
+    `comps.CompFieldDressingSuite.cooldownGerund` (vanilla's default "on
+    cooldown", which the def does not set but the probe dumps; the glossary
+    inherits Shipcracker's rendering). The walker keys a comp by its comp
+    class. The game rolls a def type without its own database into its
+    base and the checker maps the element tag via `DEF_TYPE_ALIASES` in
+    `Scripts/check-translations.py`; a `WarcasketDef` folder would never
+    load.
+  - `DefInjected/VEF.Abilities.AbilityDef/` (the full type name; it is its
+    own def database, so no alias) for `MDWC_FieldDressing`: `label`,
+    `description`, `jobReportString` and `verbProperties.label` (VEF
+    copies the label into the verb it generates for every ability; render
+    it identically to `label`, as Shipcracker's languages do).
+  - `DefInjected/JobDef/` for `MDWC_FieldDressing`: `reportString`. The
+    driver never shows it (it reports the ability's `jobReportString`),
+    but the walker lists it; render the two alike.
+- **The charge noun "dose" is shown only through plural and lookup slots.**
+  Vanilla prints the suite's `chargeNoun` through `{CHARGENOUN_plural}` and
+  `{lookup: ...}` in five Keyed strings (charges remaining, max charges,
+  reload cost, cost per charge, none left) and never bare. Every roster
+  language has a one-word equivalent; render it so the worker survives it.
+  A form the language worker's fallback would mangle (German's appended
+  `s`: "Dosis / Dosen") gets its forms from
+  `1.6/Languages/<Language>/WordInfo/plural.txt` (`singular;plural`, one
+  line; Russian also `case.txt` rows for both numbers), lowercase file
+  names. French's worker never reads the table, so the French noun must be
+  a single word. Japanese, Korean and Chinese need nothing. The checker
+  ignores these files; record the forms and the lookup file relied on in
+  the glossary's "Charge nouns" section (`l10n/lessons.md` has the
+  decompile-verified worker map; the Toxin Warcasket glossaries are the
+  worked example). If a language cannot be made to render "dose", fall
+  back to its rendering of "charge", which VFEP's own sets already use.
 - **The three descriptions share their second and third paragraphs
   verbatim** (the refit lore and the medic-series paragraph); only the
   first paragraph differs per part. Keep the shared paragraphs
@@ -109,8 +148,9 @@ notes for the shim or flow edit this repo owes before continuing.
 - **Workshop page:** `.steamworkshop/Description/<Language>.txt`, per
   `l10n/workshop.md` and the folder's own `README.md`. The title's anchor
   term is "warcasket"; every localized title must contain the rendering of
-  "warcasket" recorded in that language's glossary. There is no Keyed
-  title key to keep in step with (`WORKSHOP_TITLE_KEY` is `None`).
+  "warcasket" recorded in that language's glossary. The title is coupled to
+  the Keyed `MDWC_SettingsCategory` (the settings window's header,
+  `WORKSHOP_TITLE_KEY`), so translate the two together.
 
 ## This mod's grounding domain
 
@@ -132,8 +172,14 @@ Terms that MUST be grounded before use:
 - from vanilla Core (ground against the Core tar per `l10n/process.md`):
   apparel terms (armor, helmet, shoulder pads), plasteel, uranium, spacer
   tech level, energy shield / shield bubble, medic / doctor, medicine,
-  tend / tending, wound, bandage, "squad";
-- from vanilla Odyssey (ground against the Odyssey tar): vacuum.
+  tend / tending, tend quality and speed, wound, disease, infection,
+  bandage, "squad", and the three medicine labels (herbal, industrial,
+  glitterworld);
+- from vanilla Odyssey (ground against the Odyssey tar): vacuum;
+- this mod's own ability vocabulary, coined once and recorded in the
+  glossary: field dressing (the ability, and the verb "dress" in its
+  strings), dose (the charge noun and the settings' word), medicine suite
+  (the armor's reloadable), diagnostic visor.
 
 Grep the tars for just this handful of terms; never extract or read a
 whole tar. The vanilla-grounded answers for common words live in
@@ -149,8 +195,8 @@ workflows verbatim. This mod's specifics on top:
   languages). Sidecar regen: `python3
   Scripts/refresh-translation-expectations.py` (game must be closed; drives
   the deployed L10nProbe, which must have this mod ticked in its settings).
-- There is no compat-root routing to do today (see above); everything
-  lands in the main tree.
+- There is no compat-root routing to do today (see above); everything,
+  Keyed included, lands in the main tree.
 - The public roster is CONTRIBUTING.md's localization table, update it in
   the same commit as any language addition or native review.
 - Machine-assisted passes are run as one Opus subagent per language with a

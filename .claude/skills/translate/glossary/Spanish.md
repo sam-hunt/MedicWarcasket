@@ -39,8 +39,8 @@ it, and takes its Siegebreaker rendering and its 10th-generation paragraph.
 
 ## Charge nouns
 
-No reload comp yet. If an ability lands with a `chargeNoun`, it is shown
-only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
+The armor's medicine suite has the `chargeNoun` "dose" (its row is *pass*,
+below the inherited rows). A charge noun is shown only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
 skill), and the Spanish worker's rule pluralizes only the last word, so a multi-word noun ships a `singular;plural` line in `1.6/Languages/Spanish/WordInfo/plural.txt`. Shipcracker's "fuel unit" row in its glossary
 is the worked example for this language.
 

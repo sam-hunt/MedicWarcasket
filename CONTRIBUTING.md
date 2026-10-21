@@ -45,13 +45,21 @@ this one.
 
 ### Contributing a translation
 
-- Files live under `1.6/Languages/<Language>/DefInjected/`. English has no
-  Languages tree at all (the def XML serves it), so the key set comes from
+- Files live under `1.6/Languages/<Language>/`. English is served by the def
+  XML plus one Keyed file, `1.6/Languages/English/Keyed/MedicWarcasket.xml`
+  (the mod settings window and the field dressing's messages), translated to
+  `Keyed/MedicWarcasket.xml` with the same keys; keep every `{0}`-style
+  placeholder. The DefInjected key set comes from
   `Scripts/expected-injections.json`: `ThingDef` (the three warcasket parts,
-  which are `VFEPirates.WarcasketDef`s the game files under `ThingDef`).
+  which are `VFEPirates.WarcasketDef`s the game files under `ThingDef`, and
+  the armor's medicine suite and its "dose" charge noun),
+  `VEF.Abilities.AbilityDef` (the field dressing) and `JobDef` (its job
+  report).
 - Every translated entry carries the current English source in a comment
   directly above it, e.g. `<!-- EN: medic warcasket -->`; this is how stale
   translations are detected when the English changes.
+- The Workshop title must match the translated `MDWC_SettingsCategory` (the
+  settings window's header); the checker enforces it.
 - The three part descriptions share their second and third paragraphs; keep
   them identical across the three entries, and keep each part's
   `shortDescription` equal to its description's first paragraph, as the

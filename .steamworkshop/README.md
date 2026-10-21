@@ -20,8 +20,9 @@ title must contain the term VFE Pirates' own translation for that language
 uses for "warcasket" (the `translate` skill's glossary records it). Titles are
 fully localized with no English brand appended: Workshop search is
 language-agnostic (any language's title matches regardless of UI language)
-and the preview thumbnail already carries the English name. The mod has no
-settings, so there is no Keyed settings-category value the title must match.
+and the preview thumbnail already carries the English name. The title must
+equal the language's `MDWC_SettingsCategory` Keyed value (the settings window's
+header); the checker enforces the coupling.
 
 Player-facing rules from CLAUDE.md apply here too: no em dashes. Numbers on
 the page must match the defs; when a tuning change moves one, update this

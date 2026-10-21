@@ -49,8 +49,8 @@ not reopened here.
 
 ## Charge nouns
 
-No reload comp yet. If an ability lands with a `chargeNoun`, it is shown
-only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
+The armor's medicine suite has the `chargeNoun` "dose" (its row is *pass*,
+below the inherited rows). A charge noun is shown only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
 skill), and `LanguageWorker_French.Pluralize` is rule-only and never reads a `WordInfo/plural.txt`, so a charge noun must be a single word. Shipcracker's "fuel unit" row in its glossary
 is the worked example for this language.
 

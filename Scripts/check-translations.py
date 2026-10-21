@@ -15,7 +15,7 @@ import check_translations as engine  # noqa: E402  (import after sys.path edit)
 engine.REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # No [TranslationCanChangeCount]-style matching-token fields in this repo:
-# the surface is three apparel defs' label/description text.
+# the def text fields and the Keyed strings carry no such tokens.
 engine.PARITY_EXEMPT_FIELDS = set()
 
 # RATIONALE: no DLC is a hard dependency (About.xml's modDependencies are
@@ -28,26 +28,27 @@ engine.PARITY_EXEMPT_FIELDS = set()
 # stays out: nothing here will ever gate translatable content on it.
 engine.REQUIRED_DLCS = {"Odyssey"}
 
-# Every def here is a VFEPirates.WarcasketDef, a ThingDef subclass with no
-# database of its own (it adds shortDescription and three role flags). The
-# game rolls it into DefDatabase<ThingDef>, so the probe's walker dumps
-# these defs under ThingDef and DefInjected translations legally target
-# 1.6/Languages/<Language>/DefInjected/ThingDef/. The checker needs the
-# XML element tag mapped to that folder to match Defs/ against the sidecar.
+# The three warcasket parts are VFEPirates.WarcasketDefs, a ThingDef
+# subclass with no database of its own (it adds shortDescription and three
+# role flags). The game rolls it into DefDatabase<ThingDef>, so the probe's
+# walker dumps these defs under ThingDef and DefInjected translations
+# legally target 1.6/Languages/<Language>/DefInjected/ThingDef/. The checker
+# needs the XML element tag mapped to that folder to match Defs/ against the
+# sidecar.
+# The field dressing's VEF.Abilities.AbilityDef needs no alias: it is its
+# own def database, and its element tag is already its folder name.
 engine.DEF_TYPE_ALIASES = {
     "VFEPirates.WarcasketDef": "ThingDef",
 }
 
-# This mod ships no Languages/ tree yet: its translatable surface is
-# DefInjected only (the three defs' text fields) and there are no Keyed
-# strings in code. That is a legal state, not a config error, so the engine
-# notes it and checks sidecar freshness alone. Flip to False when a Keyed
-# file lands (e.g. for mod settings).
-engine.ALLOW_NO_KEYED_SURFACE = True
+# The mod settings window and the field dressing's runtime strings are a
+# real Keyed surface, so a missing Languages/ tree is a hard config error,
+# not a legal state.
+engine.ALLOW_NO_KEYED_SURFACE = False
 
-# No Keyed surface, so there is no settings-header key to couple the Steam
-# Workshop title to. The description format/coverage checks still run
-# against .steamworkshop/Description/.
-engine.WORKSHOP_TITLE_KEY = None
+# The localized Steam Workshop title lives in this Keyed key (the
+# settings-window header); the checker enforces the title-coupling rule
+# against each .steamworkshop/Description/<Language>.txt title line.
+engine.WORKSHOP_TITLE_KEY = "MDWC_SettingsCategory"
 
 raise SystemExit(engine.main())
