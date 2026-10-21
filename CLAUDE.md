@@ -12,11 +12,12 @@ optional and Odyssey-only content must load only when the DLC is active. Require
 
 **Key technologies:** C# (.NET Framework 4.7.2), Harmony, RimWorld modding API, XML defs.
 
-**Def prefix:** `MDWC_`. **Current state: scaffold.** The three defs are untuned copies of
-VFEP's Siegebreaker set with the set's own art and no abilities; `TODOs.md` holds
-the scoping notes for the design work, and the sibling `../ShipcrackerWarcasket/` repo
-(same author, same VFEP base, a finished set with an ability) is the worked precedent for
-tuning rationale, render-tree art and ability wiring.
+**Def prefix:** `MDWC_`. **Current state: mechanics in, tuning not.** The set's doctor
+passives (shoulders, helmet), the field dressing (a medicine suite and a VEF ability on the
+armor) and mod settings are implemented per `Docs/Specs/Field-Dressing.md`; every protection,
+cost and shield value is still Siegebreaker's. `TODOs.md` holds the ledger, and the sibling
+`../ShipcrackerWarcasket/` repo (same author, same VFEP base) is the worked precedent for
+tuning rationale, render-tree art and the settings/ability idioms this repo copies.
 
 ### Where documentation lives
 
@@ -110,11 +111,13 @@ Textures/        - Art (version-independent, loaded via the "/" root; no Common/
                    VFEP's Things/Pawn/Warcasketlike/WarcasketMedic/ layout
 1.6/             - RimWorld 1.6 specific content
   Assemblies/    - Compiled DLLs (build output, gitignored)
-  Defs/          - XML definitions (ThingDefs, etc.)
+  Defs/          - XML definitions (the three parts, the ability, its job)
+  Languages/     - English/Keyed/ only: settings and runtime strings (code-printed text)
   Patches/       - XML patches to modify base game/other mods
   Mods/<Name>/   - Optional-mod/DLC compat roots (version-specific), gated in LoadFolders.xml
 Mods/<Name>/     - Optional-mod/DLC compat roots (version-independent art), none yet
-Source/1.6/      - C# source code targeting net472
+Source/1.6/      - C# source code targeting net472: Abilities/ (the dressing, its gizmo and
+                   job driver), Comps/ (the medicine suite), Settings/, Patches/
 Scripts/         - l10n config shims + the expected-injections.json sidecar (not shipped)
 Docs/Research/   - VFEP warcasket stat tables and ability mechanics (reference, not shipped)
 Docs/Specs/      - Design specs for work tracked in TODOs.md (reference, not shipped)
@@ -164,13 +167,33 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
   its declaring type's static ctor. Our targets will often be VFEP's own methods, and a VFEP type
   whose cctor resolves defs would be permanently broken by an early patch (the BetterTradersGuild
   v1.1.0 CWTL incident). Static ctors on startup run after defs load, so foreign targets are safe
-  there. If a `Mod` subclass is added for settings, leave `PatchAll` where it is.
+  there. The `Mod` subclass (`Settings/MedicWarcasketMod.cs`) owns settings only; `PatchAll`
+  stays in `ModInit`, which then reads the setting defaults off the defs and writes the
+  player's values onto them (`MedicWarcasketSettings.LoadDefaultsFromDefs` / `ApplyToDefs`).
+- **Settings override def fields, never code paths.** A tunable is a def field (the ability's
+  `castTime`, `cooldownTime`, `distanceToTarget`; the suite's `maxCharges`) written by
+  `ApplyToDefs` at startup and whenever the window closes, so vanilla, VEF and our code all read
+  the setting through the def with nothing of their own; defaults come from the def XML, so the
+  def header stays the record. Live state a write leaves behind (a running cooldown, doses above
+  a lowered maximum) is reconciled by the instance on its next use, keyed on
+  `MedicWarcasketSettings.Generation`, as the Shipcracker repo does.
+- **Vanilla's reload queries are non-virtual.** `CompApparelReloadable.AmmoDef`, `NeedsReload`,
+  `ReloadFrom`, `Min/MaxAmmoNeeded` cannot be overridden; a reloadable that bends one does it with
+  a Harmony prefix gated on its own comp type (`Patches/CompApparelReloadable_Suite.cs`) so every
+  other reloadable passes through. The medicine suite keeps `remainingCharges` equal to the
+  selected type's count so only `AmmoDef` needs bending; read its header before touching it.
+- **Keyed strings a DLC owns are not available here.** Biotech's `NumWoundsTended` is the
+  precedent: a vanilla key used by a DLC-only feature may live in that DLC's `Languages/`, so a
+  key used from code is grepped across `Data/*/Languages/English/Keyed/` first and, if Core does
+  not own it, is replaced by an `MDWC_` key in the one Keyed file.
 - **Startup def-derived state must survive an in-process play-data reload** (a mid-session
   language switch reloads every def). Anything that reads or writes defs at startup goes in an
   idempotent `Run()` invoked from a postfix on `StaticConstructorOnStartupUtility.CallAll`,
   never in a bare static ctor;
   `../UniqueMeleeWeapons/Source/1.6/Patches/StaticConstructorOnStartupUtility_CallAll_Patch.cs`
-  is the reference implementation. Nothing here needs it yet. Textures are not exempt:
+  is the reference implementation; here it is `Startup.Run` (the settings), called once from
+  `ModInit` for the first load, which the in-flight `CallAll` postfix cannot see, and from
+  `Patches/StaticConstructorOnStartupUtility_CallAll.cs` on every reload. Textures are not exempt:
   mod-shipped ones are destroyed on the same reload (`ModContentPack.ClearDestroy`), so a static
   texture field would be left a dead reference; resolve them through a getter that re-resolves
   on a Unity-null `== null` check (never `??`/`??=`), as in
@@ -209,8 +232,11 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
 
 ## Localization Toolchain
 
-English (the def XML's `label`, `description` and VFEP's `shortDescription`) is the source of
-truth; there is no Keyed surface and no English `Languages/` tree. Other languages derive from it
+English is the source of truth: the def XML's `label`, `description`, VFEP's
+`shortDescription`, the reload comp's `chargeNoun` and the ability and job defs' strings, plus
+the one Keyed file `1.6/Languages/English/Keyed/MedicWarcasket.xml` for everything code prints
+(settings window, the dressing's messages); every new code-printed string goes in that file
+under the `MDWC_` prefix. Other languages derive from it
 via the `/translate` skill (`.claude/skills/translate/SKILL.md`: this mod's surface, grounding
 domain and per-language glossary; the family-wide process lives in the `l10n/` submodule) and
 are validated deterministically by `python3 Scripts/check-translations.py` (also a CI release
@@ -219,8 +245,9 @@ a dump of every injection point the *live* game sees for this mod, produced by
 `Scripts/refresh-translation-expectations.py` driving the L10nProbe dev mod (source at
 `l10n/probe/`; build/deploy it only from the canonical `~/dev/rimworld-l10n` checkout; this mod
 is ticked in the probe's settings) through the game's own walker. The checker refuses to run
-against stale expectations, so new content forces a regen; the release skill regenerates every
-release. **Translation passes are deferred until shortly before release**: they are
+against stale expectations, so new content forces a regen (a new def type adds a DefInjected
+folder: `VEF.Abilities.AbilityDef` and `JobDef` joined `ThingDef` with the dressing); the release
+skill regenerates every release. **Translation passes are deferred until shortly before release**: they are
 token-expensive, run one language at a time on explicit request, and must wait for the English
 text to be final. Regenerating the sidecar is always fine. No language exists yet; the public
 roster lives in CONTRIBUTING.md.

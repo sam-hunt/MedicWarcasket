@@ -4,12 +4,19 @@ A new spacer-tier warcasket for [url=https://steamcommunity.com/sharedfiles/file
 
 [h1]About[/h1]
 
-The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot patching up squadmates under fire. It is in early development: the medic abilities are still being designed. Odyssey is optional.
+The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot patching up squadmates under fire. It is in early development. Odyssey is optional.
 
 [hr][/hr]
 [h2]The Set[/h2]
 Armor, shoulder pads and helmet, welded on at the warcasket foundry and unlocked by researching spacer warcaskets. Mix and match the pieces with VFE Pirates' own sets as you please.
-The medic abilities and tuning are planned but not final, so expect this set to change as development continues.
+[list]
+[*][b]Shoulders:[/b] faster tending, and the pilot's manipulation held at full
+[*][b]Helmet:[/b] better tend quality, and the pilot's sight held at full
+[/list]
+The stats and costs are not tuned yet, so expect this set to change as development continues.
+
+[h2]Field dressing[/h2]
+The armor carries a medicine suite holding five doses of each medicine type. One cast tends every wound on a person or animal with the selected medicine, at the quality your pilot would give it; right-click the gizmo to pick the type. With the helmet on, the dressing treats diseases and infections too. Doses, dressing time, cooldown and range can be changed in the mod settings.
 
 [hr][/hr]
 [h1]Mod Compatibility[/h1]
