@@ -253,8 +253,8 @@ Middle+Shell or Overhead items; the combat pair has its `Vacsuit` tag commented 
   2026-09-16: mirror the nerf.** `1.6/Mods/VanillaGravshipExpanded/Patches/VacuumResistance.xml`,
   loaded via an `IfModActive="vanillaexpanded.gravship"` root, sets the armor to 0.22 and the
   helmet to 0.65, the same numbers VGE1 gives the five VFEP spacer sets.
-- **The dead recharge offset on our shoulders** (discrepancy 1) needs a decision either way:
-  drop it, move the number onto the armor, or implement a pawn-level recharge stat in C#.
+- **The dead recharge offset on our shoulders** (discrepancy 1) is dropped: the shoulders carry no
+  `EnergyShieldRechargeRate`.
 
 ## Design proposal (drafted 2026-09-16; approved with changes and landed the same day)
 

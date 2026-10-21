@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!--
-    Untuned placeholder: a copy of VFEP's VFEP_WarcasketHelmet_Siegebreaker (VFEP v3.09,
-    1.6/Defs/ThingDefs_Misc/Apparel_Headgear.xml), uiIconScale included. Every value is
-    Siegebreaker's but the art until the set's own tuning lands; see the armor def's header
-    for the reference tables and the art note. This piece declares no ApparelExtension of
-    its own (it inherits VFEP_WarcasketHelmetBase's); when one is added, give it priority 1
-    as the armor's has.
+    Untuned placeholder: the protection, insulation, mass, cost and the psychic and toxic offsets
+    are a copy of VFEP's VFEP_WarcasketHelmet_Siegebreaker (VFEP v3.09,
+    1.6/Defs/ThingDefs_Misc/Apparel_Headgear.xml), uiIconScale included, until the set's own
+    tuning lands; see the armor def's header for the reference tables and the art note.
+
+    The medic offsets are this set's own, and first guesses for the tuning pass.
+    MedicalTendQuality +0.10 is one Medicine level, equal to a hospital bed's offset. The Sight
+    floor of 1.0 only matters to an impaired pilot (a floor never lowers a capacity); it feeds
+    both tend stats through their Sight capacity factor and also steadies an impaired pilot's
+    aim, in character for a visor. Both reach the field dressing through vanilla's tend formula.
+
+    The field dressing (armor) treats diseases and infections, not just wounds, only while this
+    helmet is worn by the pilot; the check is a def comparison in Ability_FieldDressing (the
+    Controller helmet idiom). The description's first paragraph says so.
+
+    ApparelExtension priority 1, for the reason in the armor def's header: the
+    VFEP_WarcasketHelmetBase parent carries its own, and only the highest-priority copy keeps
+    its fields whole (Merge still ORs the parent's isUnifiedApparel and hideHead in). Any new
+    ApparelExtension field for this piece goes on this entry.
 
     Compat: SOS2Patch.xml gives it the EVA tag and Insulation_Cold 100 alongside the armor;
     the VGE vacuum patch lowers its VacuumResistance to VGE1's warcasket-helmet value.
@@ -14,8 +27,8 @@
   <VFEPirates.WarcasketDef ParentName="VFEP_WarcasketHelmetBase">
     <defName>MDWC_WarcasketHelmet_Medic</defName>
     <label>medic warcasket helmet</label>
-    <shortDescription>Specialized spacer-tech warcasket helmet with standard protection, fitted with a diagnostic visor.</shortDescription>
-    <description>Specialized spacer-tech warcasket helmet with standard protection, fitted with a diagnostic visor.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
+    <shortDescription>Specialized spacer-tech warcasket helmet with standard protection, fitted with a diagnostic visor that lets the field dressing treat disease and infection as well as wounds.</shortDescription>
+    <description>Specialized spacer-tech warcasket helmet with standard protection, fitted with a diagnostic visor that lets the field dressing treat disease and infection as well as wounds.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
     <graphicData>
       <texPath>Things/Pawn/Warcasketlike/WarcasketMedic/WarcasketMedicHelmet</texPath>
       <shaderType>CutoutComplex</shaderType>
@@ -33,6 +46,7 @@
     <equippedStatOffsets>
       <PsychicSensitivity>-0.5</PsychicSensitivity>
       <ToxicResistance>0.5</ToxicResistance>
+      <MedicalTendQuality>0.10</MedicalTendQuality>
       <SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">0.1</SlaveSuppressionOffset>
       <VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">0.7</VacuumResistance>
     </equippedStatOffsets>
@@ -57,5 +71,16 @@
         <li>WarcasketAll</li>
       </tags>
     </apparel>
+    <modExtensions>
+      <li Class="VEF.Apparels.ApparelExtension">
+        <priority>1</priority>
+        <pawnCapacityMinLevels>
+          <li>
+            <capacity>Sight</capacity>
+            <minLevel>1.0</minLevel>
+          </li>
+        </pawnCapacityMinLevels>
+      </li>
+    </modExtensions>
   </VFEPirates.WarcasketDef>
 </Defs>

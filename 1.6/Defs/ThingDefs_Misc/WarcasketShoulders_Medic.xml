@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!--
-    Untuned placeholder: a copy of VFEP's VFEP_WarcasketShoulders_Siegebreaker (VFEP v3.09,
-    1.6/Defs/ThingDefs_Misc/Apparel_Various.xml), its EnergyShieldRechargeRate offset
-    included. Every value but the art is Siegebreaker's until the set's own tuning lands; see
-    the armor def's header for the reference tables and the art and tint-mask note. This piece
-    declares no ApparelExtension of its own (it inherits VFEP_WarcasketShoulderPadBase's);
-    when one is added, give it priority 1 as the armor's has.
+    Untuned placeholder: the protection, insulation, mass and cost are a copy of VFEP's
+    VFEP_WarcasketShoulders_Siegebreaker (VFEP v3.09, 1.6/Defs/ThingDefs_Misc/Apparel_Various.xml)
+    until the set's own tuning lands; see the armor def's header for the reference tables and
+    the art and tint-mask note. Siegebreaker's EnergyShieldRechargeRate offset is not copied: it
+    is a thing-level stat, so an offset on a pawn's apparel never reaches the armor's shield.
+
+    The medic offsets are this set's own, and first guesses for the tuning pass. MedicalTendSpeed
+    +0.25 is about four Medicine levels on vanilla's skill curve for that stat. The Manipulation
+    floor of 1.0 only matters to an impaired pilot (a floor never lowers a capacity) and feeds
+    both tend stats through their Manipulation capacity factor. Both reach the field dressing
+    through vanilla's tend formula.
+
+    ApparelExtension priority 1, for the reason in the armor def's header: the
+    VFEP_WarcasketShoulderPadBase parent carries its own, and only the highest-priority copy
+    keeps its fields whole (Merge still ORs the parent's isUnifiedApparel in). Any new
+    ApparelExtension field for this piece goes on this entry.
 
     Compat: SOS2Patch.xml and the VGE vacuum patch leave shoulder pads alone, as VFEP's and
     VGE1's own patches do for VFEP's.
@@ -31,7 +41,7 @@
     </statBases>
     <equippedStatOffsets>
       <SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">0.2</SlaveSuppressionOffset>
-      <EnergyShieldRechargeRate>1</EnergyShieldRechargeRate>
+      <MedicalTendSpeed>0.25</MedicalTendSpeed>
       <VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">0.1</VacuumResistance>
     </equippedStatOffsets>
     <costList>
@@ -59,5 +69,16 @@
         <li>WarcasketAll</li>
       </tags>
     </apparel>
+    <modExtensions>
+      <li Class="VEF.Apparels.ApparelExtension">
+        <priority>1</priority>
+        <pawnCapacityMinLevels>
+          <li>
+            <capacity>Manipulation</capacity>
+            <minLevel>1.0</minLevel>
+          </li>
+        </pawnCapacityMinLevels>
+      </li>
+    </modExtensions>
   </VFEPirates.WarcasketDef>
 </Defs>
