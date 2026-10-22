@@ -4,12 +4,15 @@ using Verse;
 
 namespace MedicWarcasket;
 
-// One player-tunable number, stored in the units of the def field it overrides. Until the
-// player moves its slider it is DefaultValue, read from that field when defs load
-// (MedicWarcasketSettings.LoadDefaultsFromDefs), so the def and its header stay the record
-// of the shipped tuning and another mod's XML patch moves the default too. Only an override is
-// saved; a slider landing within half a step of the default clears it, and a saved override
-// outside the slider's range (saved before the range moved) reads as its nearest end.
+// One player-tunable number, held in the units the settings store it in (the def field's, or
+// the ones they convert that field to), shown as they are or scaled by DisplayScale. Until the
+// player moves its slider it is DefaultValue, read from the def field it overrides when defs
+// load (the settings' LoadDefaultsFromDefs), so the def and its header stay the record of the
+// shipped tuning and another mod's XML patch moves the default too. Only an override is saved;
+// a slider landing within half a step of the default clears it, and a saved override outside
+// the slider's range (saved before the range moved) reads as its nearest end.
+// The file is shared across the warcasket family and must stay byte-identical between the mods
+// but for the namespace and the key prefix; change it in one and copy it to the others.
 public sealed class Tunable
 {
     private const float Unset = -1f;
@@ -21,7 +24,7 @@ public sealed class Tunable
     // The value column is sized to the widest value a row can show, so the slider runs out to
     // it and the row ends near the window's edge; every format here is at most four characters,
     // so "00.00" with the default suffix (as translated) bounds it.
-    // The settings' summary rows share the indent and pad.
+    // The settings' summary and checkbox rows lay out with these constants too.
     internal const float RowHeight = 30f;
     internal const float RowGap = 6f;
     internal const float RowIndent = Listing.DefaultIndent;
@@ -49,17 +52,18 @@ public sealed class Tunable
 
     public float DefaultValue { get; set; }
 
-    // Stored units per shown unit, for a row that stores one unit and shows another. The
-    // slider, the value, the default and the tooltip all show scaled; Value and IntValue stay
-    // stored. No row in this mod is scaled; the family template keeps it.
+    // Stored units per shown unit, for a row that stores one unit and shows another (a fuel row
+    // storing chemfuel, so the saved number means the same with any tank, and showing the tank's
+    // own fuel at its rate). The slider, the value, the default and the tooltip all show scaled;
+    // Value and IntValue stay stored.
     public float DisplayScale { get; set; } = 1f;
 
-    // Filled into the label as {0} when set. Unused in this mod; part of the family template.
+    // Filled into the label as {0} when set (the name of the fuel a row counts in).
     public string LabelArg { get; set; }
 
     // Filled into the tooltip as {1} onward when set, after the default's {0}: figures the
     // tooltip quotes from other defs, read when the defaults are, so they follow whatever the
-    // loaded mods make of those defs. Unused in this mod; part of the family template.
+    // loaded mods make of those defs.
     public string[] DescArgs { get; set; }
 
     // Piecewise steps, for a row that wants a finer grid at the low end: each band covers the
