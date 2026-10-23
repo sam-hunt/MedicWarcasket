@@ -46,6 +46,10 @@ is the worked example for this language.
 
 ## To ground in the first pass
 
+- the trait label `medic warcasket` (Bio tab, beside VFEP's `warcasket`
+  trait): mirror the community pack's rendering of VFEP's trait label where
+  one exists, else the inherited warcasket noun under the label pattern; the
+  description reuses the pilot and pain vocabulary settled for the armor.
 - siegebreaker (the chassis, lore paragraph 3): the inherited set-name row above.
 - the 10th-generation paragraph: derive from the zh-Hans pack's Siegebreaker / Brute / Guardian / Sarcophagus / Controller descriptions, which share it verbatim.
 - medic (this set's name) and the Workshop title.

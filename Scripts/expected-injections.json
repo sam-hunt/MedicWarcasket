@@ -1,6 +1,6 @@
 {
   "meta": {
-    "gameBuild": "1.7.4984 rev1242",
+    "gameBuild": "1.7.4985 rev1269",
     "activeDlcs": [
       "Core",
       "Odyssey"
@@ -74,6 +74,18 @@
       "MDWC_Warcasket_Medic.shortDescription": {
         "english": "Specialized spacer-tech warcasket shell with standard protection, fitted with a field-medicine suite and a standard ranged shield.",
         "required": true
+      }
+    },
+    "TraitDef": {
+      "MDWC_WarcasketTrait_Medic.degreeDatas.medic_warcasket.description": {
+        "english": "{PAWN_nameDef} is entombed in a medic warcasket. No amount of pain will have an effect on {PAWN_objective}, and {PAWN_pronoun} can never go into a pain shock or drop unconscious due to pain. The suit is built around treating the wounded, so {PAWN_nameDef} keeps the use of {PAWN_possessive} medical and social faculties; the bulk of the armor and the energy it takes to move it make it a poor fit for most other work.",
+        "required": true,
+        "normalized": "MDWC_WarcasketTrait_Medic.degreeDatas.0.description"
+      },
+      "MDWC_WarcasketTrait_Medic.degreeDatas.medic_warcasket.label": {
+        "english": "medic warcasket",
+        "required": true,
+        "normalized": "MDWC_WarcasketTrait_Medic.degreeDatas.0.label"
       }
     },
     "VEF.Abilities.AbilityDef": {

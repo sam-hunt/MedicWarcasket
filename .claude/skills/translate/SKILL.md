@@ -116,6 +116,15 @@ notes for the shim or flow edit this repo owes before continuing.
   - `DefInjected/JobDef/` for `MDWC_FieldDressing`: `reportString`. The
     driver never shows it (it reports the ability's `jobReportString`),
     but the walker lists it; render the two alike.
+  - `DefInjected/TraitDef/` for `MDWC_WarcasketTrait_Medic`:
+    `degreeDatas.0.label` and `degreeDatas.0.description`. The label shows
+    in the Bio tab's traits list beside VFEP's own `warcasket` trait, so it
+    mirrors that trait's label in the language (`<set> + <VFEP trait
+    label>`, the glossary's label pattern); the description uses
+    `{PAWN_nameDef}` and the pronoun tokens like vanilla's trait
+    descriptions (VFEP's own uses only `{PAWN_nameDef}`). Nothing else on
+    the trait is text: its work profile and effects are overwritten at
+    startup from VFEP's trait, so no language file should carry them.
 - **The charge noun "dose" is shown only through plural and lookup slots.**
   Vanilla prints the suite's `chargeNoun` through `{CHARGENOUN_plural}` and
   `{lookup: ...}` in five Keyed strings (charges remaining, max charges,
