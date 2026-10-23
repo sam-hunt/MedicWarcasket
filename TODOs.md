@@ -1,18 +1,22 @@
 # TODOs
 
 Scoping notes for the work that has not landed yet. The set's mechanics are in (doctor
-passives, the field dressing, mod settings); every stat and cost is still Siegebreaker's.
+passives, the field dressing, mod settings, the medic work trait); every stat and cost is still
+Siegebreaker's.
 
 ## Design
 
-- **Medical work for the wearer.** Own `MDWC_WarcasketTrait_Medic` in the Mechlord/Alpha Mechs
-  idiom, its work profile, degree effects and VEF extension mirrored at startup from VFEP's
-  trait: Caring dropped with every Caring work type but Doctor (Childcare) re-blocked by work
-  type, ManualDumb swapped for Cleaning to keep VFEP's hauling exemption. "Warcaskets can
-  work!", "can haul!" and Hardworking Warcaskets then apply to the Medic unchanged. Spec,
-  verified facts, rejected options and the verification plan: `Docs/Specs/Medic-Work-Trait.md`,
-  reviewed; it assumes the 1.7-only (Phase C) migration has landed. Implement its section 7
-  checklist.
+- **Medic trait follow-ups.** The trait and its startup mirror are implemented per
+  `Docs/Specs/Medic-Work-Trait.md`.
+  - In-game verification: run the spec's section 6 list (never run; built and reviewed against
+    decompiles and the two Workshop DLLs only, plus one clean 1.7 boot that logged the mirrored
+    profile). Fresh entombings only, never a save from before the trait existed. Watch in
+    particular: the work tab under each of the three patch mods, the Bio tab's "Incapable of"
+    entry, and the slave case.
+  - Shock shoulders: VFEP's `VFEP_WarcasketShoulders_Shock` grants VFEP's trait on its own, so
+    a Medic armor plus Shock shoulders pilot loses Doctor (spec section 5). Propose upstream that
+    the lists move off the shoulders (the other eleven shoulder and helmet defs carry none); a
+    local patch would change VFEP for everyone and is not wanted.
   - Configurable work profile: consider a settings section with toggles that control the
     Medic's work profile more completely, e.g. medical, other caring work and childcare, in
     place of the fixed "Doctor open, Childcare blocked" choice. The mirror writes def fields,

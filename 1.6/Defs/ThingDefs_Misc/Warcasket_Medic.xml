@@ -32,6 +32,14 @@
     shoulder trim keep their painted colour (apparel graphics pass white as colorTwo). Mask
     names differ by graphic class: Graphic_Multi reads <path>_northm, Graphic_Single <path>_m.
 
+    Own trait on equip: traitsOnEquip grants MDWC_WarcasketTrait_Medic (TraitDefs/
+    WarcasketTrait_Medic.xml), not VFEP_WarcasketTrait, because the Medic's work profile must
+    differ from VFEP's (Doctor open) and a child ApparelExtension can only add to what a granted
+    trait blocks, never subtract; the trait is mirrored from VFEP's at startup so the patch mods
+    that reshape VFEP's profile reshape ours. traitsOnUnequip keeps VFEP_Shellcasket, the shared
+    "cut out of a warcasket" state every add-on set uses, so removal surgery and re-entombing in
+    any warcasket behave as for VFEP's own sets.
+
     ApparelExtension priority 1: VFEP_WarcasketArmorBase carries its own ApparelExtension and
     inheritance appends list items, so this def resolves with two. VEF merges duplicate
     extensions in a Def.ResolveReferences prefix, highest priority surviving, and
@@ -128,7 +136,7 @@
       <li Class="VEF.Apparels.ApparelExtension">
         <priority>1</priority>
         <traitsOnEquip>
-          <li>VFEP_WarcasketTrait</li>
+          <li>MDWC_WarcasketTrait_Medic</li>
         </traitsOnEquip>
         <traitsOnUnequip>
           <li>VFEP_Shellcasket</li>

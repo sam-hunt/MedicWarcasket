@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    The trait the Medic armor grants on equip (its ApparelExtension.traitsOnEquip), in the
+    Mechlord/Alpha Mechs idiom of an own trait beside VFEP_WarcasketTrait: VFEP's trait blocks
+    Caring, which is Doctor, and a child apparel extension can only add to what a granted trait
+    blocks, never subtract. Docs/Specs/Medic-Work-Trait.md is the design record.
+
+    Mirrored at startup, do not tune here. WorkProfile.Mirror (Source/1.6/WorkProfile.cs, run
+    first in Startup.Run on every play-data load) overwrites this def from VFEP_WarcasketTrait
+    as the full mod list leaves it, so "Warcaskets can work!", "can haul!" and Hardworking
+    Warcaskets shape the Medic exactly as they shape a Siegebreaker pilot without knowing we
+    exist. The contract:
+      - disabledWorkTags = VFEP's, with ManualDumb swapped for Cleaning (VFEP's hauling
+        exemption is a Harmony postfix keyed on its own def, so a copied ManualDumb would lose
+        hauling; ManualDumb covers only Hauling and Cleaning) and Caring removed.
+      - disabledWorkTypes = VFEP's, plus every Caring work type other than Doctor that the tags
+        no longer block (Childcare under Biotech, any modded one), only when VFEP's tags still
+        carried Caring; a patch mod that opened Caring for every warcasket opens it here too.
+      - degreeDatas[0]: every public field but the text, degree and commonality copied from
+        VFEP's degree, and the TraitExtension's fields copied from VFEP's extension. Both copies are full
+        overwrites, nulls included, so the Medic carries exactly what VFEP's trait carries on
+        the running game version: on 1.7, painFactor 0 and RestFallRateFactor 1.3 on the degree;
+        on 1.6, painFactor 0 on the extension and no stat factors.
+    The values below are the mirror's result from an unpatched VFEP trait on 1.7, so the def
+    reads correctly on its own. Every field used exists on 1.6 as well.
+
+    The extension omits painFactor on purpose, as VFEP's 1.7 copy does: VEF's TraitExtension
+    leaves the float uninitialised and its CalculatePain postfix multiplies pain by any value
+    other than 1, so an omitted painFactor is zero pain. The mirror overwrites it from VFEP's
+    extension before any pawn exists; the XML value would only ever apply if VFEP's trait had no
+    extension at all. apparelExclusiveTrait keeps trait-adding mods and
+    the trait-rolling code paths from handing this trait to a pawn outside the suit (VEF's
+    TraitSet.GainTrait prefix admits it only while a worn apparel lists it in traitsOnEquip).
+
+    The description must hold under every profile a patch mod can leave, so it states the suit's
+    intent rather than listing work types, and does not promise childcare.
+  -->
+  <TraitDef>
+    <defName>MDWC_WarcasketTrait_Medic</defName>
+    <commonality>0</commonality>
+    <disabledWorkTags>
+      <li>ManualSkilled</li>
+      <li>Cleaning</li>
+      <li>Animals</li>
+      <li>Artistic</li>
+      <li>Intellectual</li>
+    </disabledWorkTags>
+    <disabledWorkTypes>
+      <li MayRequire="Ludeon.RimWorld.Biotech">Childcare</li>
+    </disabledWorkTypes>
+    <degreeDatas>
+      <li>
+        <label>medic warcasket</label>
+        <description>{PAWN_nameDef} is entombed in a medic warcasket. No amount of pain will have an effect on {PAWN_objective}, and {PAWN_pronoun} can never go into a pain shock or drop unconscious due to pain. The suit is built around treating the wounded, so {PAWN_nameDef} keeps the use of {PAWN_possessive} medical and social faculties; the bulk of the armor and the energy it takes to move it make it a poor fit for most other work.</description>
+        <painFactor>0</painFactor>
+        <statFactors>
+          <RestFallRateFactor>1.3</RestFallRateFactor>
+        </statFactors>
+      </li>
+    </degreeDatas>
+    <modExtensions>
+      <li Class="VEF.Pawns.TraitExtension">
+        <apparelExclusiveTrait>true</apparelExclusiveTrait>
+      </li>
+    </modExtensions>
+  </TraitDef>
+</Defs>

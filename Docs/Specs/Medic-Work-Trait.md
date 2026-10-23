@@ -1,16 +1,27 @@
 # SPEC: Medical work for the entombed medic
 
-Status: DESIGN, nothing implemented. Verified against RimWorld 1.7.4984 rev1242, VFE Pirates
+Status: IMPLEMENTED on the shared `1.6/` tree (section 7, all but step 4's in-game run, which
+is ledgered in `TODOs.md`). Facts verified against RimWorld 1.7.4984 rev1242, VFE Pirates
 checkout at upstream `main` v4.02 (commit d851807; its 1.7 trait XML is byte-identical to the
 installed Workshop copy), VEF checkout at upstream `main` (commit 172479c5), and the installed
 Workshop copies of every third-party mod named below (Hardworking Warcaskets fetched with
-SteamCMD). Tracked by the "Medical work for the wearer" entry in `TODOs.md`.
+SteamCMD). Follow-ups tracked by the "Medic trait follow-ups" entry in `TODOs.md`.
 
-**Precondition:** the repo's Phase C migration (`../RIMWORLD_1.7_MIGRATION.md` section 7) has
-landed: the mod is 1.7-only, content lives under `1.7/`, source under `Source/1.7/` (net10).
-Every path below assumes that layout, and every VFEP fact is about VFEP's `1.7/` tree, which is
-what the game loads on 1.7. VFEP's `1.6/` trait differs (pain immunity on the VEF extension, no
-rest-fall factor) and is out of scope.
+**Version scope.** The work lands on the shared `1.6/` tree and the net472 `Source/1.6/`
+project that both game versions run (`../RIMWORLD_1.7_MIGRATION.md`, Phase A); the later Phase C
+conversion is a `git mv` of that tree, so nothing here is written twice. The mod has to behave on
+1.6 and 1.7 alike, and it does without a version check anywhere, because the one thing that
+differs between VFEP's two trees is *where* the trait's effects sit and the mirror (4.3) copies
+every place they can sit: the 1.6 tree puts pain immunity on the VEF `TraitExtension`
+(`painFactor 0`) and has no stat factors; the 1.7 tree (VFEP v4.02) puts `painFactor 0` and
+`RestFallRateFactor 1.3` on the degree and leaves the extension with `apparelExclusiveTrait`
+alone. Work tags and work types are byte-identical in both. Everything else the design leans on
+is the same on both versions (verified against the frozen 1.6 runtime, the 1.6 reference package
+and the installed Workshop DLLs): the public field sets of `TraitDef` and `TraitDegreeData`, the
+`WorkTags` enum, the vanilla read paths in 2.4, VFEP's two Harmony patches in 2.3 (both DLLs
+carry both; the slave patch keys on the worn apparel in both), and VEF's trait and apparel
+plumbing in 2.1. The section 2 facts below are stated for the 1.7 tree; the 1.6 differences are
+exactly the two named here.
 
 Not in scope: any change to VFE Pirates. An upstream proposal to move warcasket work blocking
 onto hediffs was vetoed by the VE design lead, so this spec assumes the trait mechanism stays
@@ -34,19 +45,22 @@ trait's non-work effects (pain immunity, the rest-fall factor) follow VFEP's tra
 `disabledWorkTags` ManualSkilled, ManualDumb, Animals, Artistic, Caring, Intellectual; one
 degree carrying the label, the description, `painFactor 0` and `statFactors`
 `RestFallRateFactor 1.3`; and a `VEF.Pawns.TraitExtension` declaring only
-`apparelExclusiveTrait true`. Its description is the only place the pain immunity and the work
+`apparelExclusiveTrait true`. (VFEP's `1.6/` copy: same tags, a bare degree, and the extension
+carrying `painFactor 0` beside the flag.) Its description is the only place the pain immunity and the work
 block are explained to the player, and it says the wearer "is not capable of doing any work".
 
-Pain immunity arrives twice. Vanilla applies the degree's `painFactor`. VEF's
-`HediffSet.CalculatePain` postfix multiplies pain by every trait extension's `painFactor`
-unless it is exactly 1, and `TraitExtension.painFactor` is a float with no initializer, so an
-extension that leaves the field out multiplies pain by 0 as well. Any `TraitExtension` we
+Pain immunity arrives twice on 1.7 and once on 1.6, and is total either way. Vanilla applies
+the degree's `painFactor`. VEF's `HediffSet.CalculatePain` postfix multiplies pain by every
+trait extension's `painFactor` unless it is exactly 1, and `TraitExtension.painFactor` is a
+float with no initializer, so an extension that leaves the field out multiplies pain by 0 as
+well. Any `TraitExtension` we
 declare inherits the same trap: leaving `painFactor` out means zero pain, not "unchanged".
 
-Every VFEP torso, and every third-party torso that copies VFEP's block (ours included,
-`1.7/Defs/ThingDefs_Misc/Warcasket_Medic.xml`), grants the trait through
+Every VFEP torso, and every third-party torso that copies VFEP's block (ours did until this
+spec landed, `1.6/Defs/ThingDefs_Misc/Warcasket_Medic.xml`), grants the trait through
 `VEF.Apparels.ApparelExtension.traitsOnEquip` and grants `VFEP_Shellcasket` through
-`traitsOnUnequip`. The abstract `VFEP_WarcasketArmorBase` carries neither list, so a child def
+`traitsOnUnequip`. One non-torso piece does too: `VFEP_WarcasketShoulders_Shock` carries the
+same two lists, alone among VFEP's shoulders and helmets (section 5). The abstract `VFEP_WarcasketArmorBase` carries neither list, so a child def
 decides its own traits. VEF (`Source/VEF/Apparels/Harmony/Apparel_Patches.cs`) applies them from
 postfixes on `Pawn_ApparelTracker.Notify_ApparelAdded` / `Notify_ApparelRemoved` and replays the
 equip side at `PostLoadInit`; the unequip side removes exactly the traits the removed apparel
@@ -165,15 +179,15 @@ same path.
 Own trait, Mechlord shape, with the work profile and the degree's effects derived at startup
 from VFEP's trait.
 
-### 4.1 TraitDef (`1.7/Defs/TraitDefs/WarcasketTrait_Medic.xml`, one def per file)
+### 4.1 TraitDef (`1.6/Defs/TraitDefs/WarcasketTrait_Medic.xml`, one def per file)
 
 ```xml
 <TraitDef>
   <defName>MDWC_WarcasketTrait_Medic</defName>
   <commonality>0</commonality>
-  <!-- Defaults equal what the startup mirror produces from an unpatched VFEP_WarcasketTrait,
-       so the def reads correctly on its own; the mirror overwrites them (contract in the
-       header). -->
+  <!-- Defaults equal what the startup mirror produces from an unpatched VFEP_WarcasketTrait on
+       1.7, so the def reads correctly on its own; the mirror overwrites them on both versions
+       (contract in the header). Every field used here exists on 1.6 too. -->
   <disabledWorkTags>
     <li>ManualSkilled</li>
     <li>Cleaning</li>
@@ -204,8 +218,9 @@ from VFEP's trait.
 
 `apparelExclusiveTrait true` (VFEP has it; Mechlord and Alpha Mechs do not) stops trait-adding
 mods and the trait-rolling code paths from ever handing the trait to a pawn outside the suit.
-The extension mirrors VFEP's literally, `painFactor` omitted and therefore 0 (2.1); the header
-says so, so nobody "fixes" it by adding `painFactor 1`.
+The extension mirrors VFEP's 1.7 copy literally, `painFactor` omitted and therefore 0 (2.1); the
+header says so, so nobody "fixes" it by adding `painFactor 1`. On 1.6 the mirror writes VFEP's
+explicit `painFactor 0` over it, to the same effect.
 
 ### 4.2 Armor def
 
@@ -216,8 +231,8 @@ why: own trait because the profile must differ from VFEP's and a child extension
 
 ### 4.3 Startup mirror
 
-A new idempotent `WorkProfile.Mirror()` (name to taste; `Source/1.7/`), called first from
-the existing `Startup.Run`, against the current DefDatabase:
+A new idempotent `WorkProfile.Mirror()` (`Source/1.6/WorkProfile.cs`), called first from the
+existing `Startup.Run`, against the current DefDatabase:
 
 1. `vfep = DefDatabase<TraitDef>.GetNamedSilentFail("VFEP_WarcasketTrait")`,
    `ours = DefDatabase<TraitDef>.GetNamedSilentFail("MDWC_WarcasketTrait_Medic")`. If either is
@@ -236,14 +251,24 @@ the existing `Startup.Run`, against the current DefDatabase:
    catch Hauling, which step 2's swap opens deliberately.
 4. **Degree effects.** Copy every public instance field of `vfep.degreeDatas[0]` onto
    `ours.degreeDatas[0]` except the text (`label`, `labelMale`, `labelFemale`,
-   `untranslatedLabel`, `description`), by reflection so a field VFEP starts using later is
-   carried too; `List<T>` values are copied into new lists. Today that carries `painFactor 0`
-   and `RestFallRateFactor 1.3`. The copy runs after `ResolveReferences`, so VFEP's values are
-   already resolved.
+   `untranslatedLabel`, `description`), the identity (`degree`: the armor grants degree 0 and
+   saves store it) and the selection weight (`commonality`), by reflection so a field VFEP starts using later is
+   carried too; `List<T>` values are copied into new lists. On 1.7 that carries `painFactor 0`
+   and `RestFallRateFactor 1.3`; on 1.6 it carries vanilla's defaults and a null `statFactors`.
+   The copy runs after `ResolveReferences`, so VFEP's values are already resolved.
 5. **Extension.** Copy every public field of VFEP's `VEF.Pawns.TraitExtension` onto ours
-   (`painFactor`, `apparelExclusiveTrait` today), for the same reason.
+   (`painFactor`, `apparelExclusiveTrait` today), for the same reason. On 1.6 this is where the
+   pain immunity comes from.
 6. One `Log.Message` with the resulting tags and work types, so a bug report's log shows the
-   profile the player actually got.
+   profile the player actually got. The whole mirror is wrapped so a failure is a `Log.Error`
+   and the settings behind it in `Startup.Run` still apply.
+
+**The copies are full overwrites, nulls included.** A field VFEP leaves at its default replaces
+whatever our XML carried, so a 1.6 game ends with no rest-fall factor on the Medic exactly as it
+has none on a Siegebreaker pilot. A "copy when the source is non-null" merge would leak the XML's
+1.7 shape onto 1.6 wearers and would stop following VFEP the day it drops a field. This rule is
+what makes the design version-agnostic, and it goes in the def header. The copy is shallow past
+the list objects: `StatModifier`s and curves stay shared with VFEP's degree, which nothing mutates.
 
 Why nothing more is needed: `Trait.AllowsWorkType`, `Trait.GetDisabledWorkTypes`, the degree's
 stat and pain fields and VEF's extension are all read live from the def (2.1, 2.4),
@@ -257,7 +282,7 @@ load needs the direct call). The mirror needs no plumbing of its own; `Startup`'
 it in its list of what runs.
 
 Ordering guarantee: every XML patch, including VEF toggleable ones, applies during def loading,
-before `CallAll`. So the mirror sees VFEP's trait exactly as the full mod list leaves it, in any
+before `CallAll`, on both versions. So the mirror sees VFEP's trait exactly as the full mod list leaves it, in any
 load order. That is the whole compatibility story:
 
 | Active alongside us    | VFEP's trait tags after patches                                     | Medic trait after the mirror                                           | Medic can                                                          |
@@ -279,14 +304,16 @@ No em dashes.
 ### 4.5 Localization surface
 
 A TraitDef adds a fourth DefInjected folder beside `ThingDef`, `VEF.Abilities.AbilityDef` and
-`JobDef`: `1.7/Languages/<Language>/DefInjected/TraitDef/`, with
+`JobDef`: `1.6/Languages/<Language>/DefInjected/TraitDef/`, with
 `MDWC_WarcasketTrait_Medic.degreeDatas.0.label` and `.description`. After the def lands:
 regenerate `Scripts/expected-injections.json` (the checker refuses stale expectations), add the
 folder to the def-type list in `.claude/skills/translate/SKILL.md` and to CLAUDE.md's
 Localization Toolchain sentence that names the def types, and seed the glossary with VFEP's own
 trait label as the term to mirror ("warcasket" trait in each language). No `DEF_TYPE_ALIASES`
 change: `TraitDef` is a real database. The mirror copies no text, so nothing it writes is
-translatable.
+translatable. The injection set is the same on 1.6 and 1.7 (the walker reflects over
+`TraitDegreeData`, whose fields match), so the shared tree stays within the migration guide's
+one-key-set rule (its A7).
 
 ### 4.6 Documentation touchpoints
 
@@ -320,6 +347,12 @@ translatable.
   default toggles tends at a heavy global work-speed penalty. That is the player's choice through
   that mod and consistent with how it treats VFEP's sets; the Workshop description should mention
   it so it is not reported as our bug.
+- **VFEP's Shock shoulders re-block Doctor in a mixed set.** `VFEP_WarcasketShoulders_Shock` is
+  the one non-torso VFEP piece with `traitsOnEquip` (VFEP's trait) and `traitsOnUnequip`
+  (Shellcasket), in both VFEP trees. A pilot in Medic armor and Shock shoulders carries both
+  traits, VFEP's blocks Caring, and Doctor is gone. Not ours to fix without changing VFEP
+  (out of scope); the Workshop description names the exception, and `TODOs.md` holds the
+  upstream proposal.
 - **Shellcasket** is unchanged: removal surgery still gives `VFEP_Shellcasket` (Social and
   Intellectual blocked, pain, rest-fall factor, market value hit) and re-entombing in any
   warcasket cures it.
@@ -328,7 +361,11 @@ translatable.
 
 ## 6. Verification
 
-Dev-mode harness, game closed between runs, VFEP chain plus Biotech plus this mod:
+Dev-mode harness, game closed between runs, VFEP chain plus Biotech plus this mod, on whichever
+Steam branch is installed (the rest-fall check in step 1 applies on 1.7 only; on 1.6 the stat
+must read 100%, as on a Siegebreaker pilot there). Use fresh entombings, never a save made before
+the trait existed: VEF's `PostLoadInit` replays the equip side only, so such a pawn keeps VFEP's
+trait beside ours and Doctor stays blocked.
 
 1. Entomb a colonist in the Medic set via the foundry (or dev-wear the three pieces). Work tab:
    Doctor assignable, Warden assignable, Hauling and Firefighter assignable, Childcare,
@@ -346,12 +383,14 @@ Dev-mode harness, game closed between runs, VFEP chain plus Biotech plus this mo
    clean after the sidecar regen.
 6. Slave wearing the set: Doctor allowed, Construction blocked (exercises VFEP's slave patch
    with a foreign trait).
+7. Medic armor with VFEP's Shock shoulders: both traits in the Bio tab, Doctor disabled (the
+   known exception, section 5); with any other VFEP shoulders or helmet, Doctor stays open.
 
 ## 7. Implementation checklist
 
-1. `1.7/Defs/TraitDefs/WarcasketTrait_Medic.xml` (4.1) with header.
+1. `1.6/Defs/TraitDefs/WarcasketTrait_Medic.xml` (4.1) with header.
 2. `Warcasket_Medic.xml`: swap `traitsOnEquip`; header note (4.2).
-3. `Source/1.7/WorkProfile.cs` with `Mirror()` (4.3); `Startup.Run` calls it first and its
+3. `Source/1.6/WorkProfile.cs` with `Mirror()` (4.3); `Startup.Run` calls it first and its
    header lists it.
 4. Build (warnings are errors), deploy, run section 6.
 5. Regenerate the sidecar, update the translate skill def-type list and glossary, and CLAUDE.md's

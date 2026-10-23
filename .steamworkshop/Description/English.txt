@@ -10,6 +10,7 @@ The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot p
 [h2]The Set[/h2]
 Armor, shoulder pads and helmet, welded on at the warcasket foundry and unlocked by researching spacer warcaskets. Mix and match the pieces with VFE Pirates' own sets as you please.
 [list]
+[*][b]Armor:[/b] the pilot keeps their medical work: tending, surgery, feeding and rescuing patients, on top of the wardening, hauling and firefighting every warcasket pilot can do. Everything else a warcasket blocks stays blocked. One exception: VFE Pirates' Shock shoulders weld on the standard warcasket trait by themselves, so a Medic wearing them loses the doctoring again.
 [*][b]Shoulders:[/b] faster tending, and the pilot's manipulation held at full
 [*][b]Helmet:[/b] better tend quality, and the pilot's sight held at full
 [/list]
@@ -26,6 +27,7 @@ The armor carries a medicine suite holding five doses of each medicine type. One
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]: required.
 [*]Save Our Ship 2: EVA rated under the same rules as VFE Pirates' own sets
 [*]Vanilla Gravship Expanded: follows its vacuum-resistance rules for warcaskets
+[*]Warcaskets can work!, Warcaskets can haul! and VFE Pirates - Hardworking Warcaskets: whatever they open for VFE Pirates' pilots they open for the Medic's too, Hardworking's work-speed penalty included
 [*]Not tested with Combat Extended (reports welcome)
 [/list]
 

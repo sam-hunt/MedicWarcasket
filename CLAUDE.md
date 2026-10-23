@@ -14,7 +14,8 @@ optional and Odyssey-only content must load only when the DLC is active. Require
 
 **Def prefix:** `MDWC_`. **Current state: mechanics in, tuning not.** The set's doctor
 passives (shoulders, helmet), the field dressing (a medicine suite and a VEF ability on the
-armor) and mod settings are implemented per `Docs/Specs/Field-Dressing.md`; every protection,
+armor) and mod settings are implemented per `Docs/Specs/Field-Dressing.md`, and the medic work
+trait (the wearer can doctor) per `Docs/Specs/Medic-Work-Trait.md`; every protection,
 cost and shield value is still Siegebreaker's. `TODOs.md` holds the ledger, and the sibling
 `../ShipcrackerWarcasket/` repo (same author, same VFEP base) is the worked precedent for
 tuning rationale, render-tree art and the settings/ability idioms this repo copies.
@@ -111,13 +112,14 @@ Textures/        - Art (version-independent, loaded via the "/" root; no Common/
                    VFEP's Things/Pawn/Warcasketlike/WarcasketMedic/ layout
 1.6/             - RimWorld 1.6 specific content
   Assemblies/    - Compiled DLLs (build output, gitignored)
-  Defs/          - XML definitions (the three parts, the ability, its job)
+  Defs/          - XML definitions (the three parts, the ability, its job, the medic trait)
   Languages/     - English/Keyed/ only: settings and runtime strings (code-printed text)
   Patches/       - XML patches to modify base game/other mods
   Mods/<Name>/   - Optional-mod/DLC compat roots (version-specific), gated in LoadFolders.xml
 Mods/<Name>/     - Optional-mod/DLC compat roots (version-independent art), none yet
 Source/1.6/      - C# source code targeting net472: Abilities/ (the dressing, its gizmo and
-                   job driver), Comps/ (the medicine suite), Settings/, Patches/
+                   job driver), Comps/ (the medicine suite), Settings/, Patches/,
+                   WorkProfile.cs (the medic trait's startup mirror)
 Scripts/         - l10n config shims + the expected-injections.json sidecar (not shipped)
 Docs/Research/   - VFEP warcasket stat tables and ability mechanics (reference, not shipped)
 Docs/Specs/      - Design specs for work tracked in TODOs.md (reference, not shipped)
@@ -177,6 +179,13 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
   def header stays the record. Live state a write leaves behind (a running cooldown, doses above
   a lowered maximum) is reconciled by the instance on its next use, keyed on
   `MedicWarcasketSettings.Generation`, as the Shipcracker repo does.
+- **The medic trait is mirrored from VFEP's at startup, on 1.6 and 1.7 alike.**
+  `MDWC_WarcasketTrait_Medic`'s work tags, work types, degree effects and VEF `TraitExtension`
+  are overwritten by `WorkProfile.Mirror` (first in `Startup.Run`) from `VFEP_WarcasketTrait`
+  as the full mod list leaves it, so editing or patching those fields on our def does not stick
+  and VFEP's per-version differences (where the pain immunity and rest-fall factor sit) need no
+  version check here. Only the degree's text is ours. The trait def's header carries the
+  contract; `Docs/Specs/Medic-Work-Trait.md` the rationale.
 - **Vanilla's reload queries are non-virtual.** `CompApparelReloadable.AmmoDef`, `NeedsReload`,
   `ReloadFrom`, `Min/MaxAmmoNeeded` cannot be overridden; a reloadable that bends one does it with
   a Harmony prefix gated on its own comp type (`Patches/CompApparelReloadable_Suite.cs`) so every
@@ -233,7 +242,8 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
 ## Localization Toolchain
 
 English is the source of truth: the def XML's `label`, `description`, VFEP's
-`shortDescription`, the reload comp's `chargeNoun` and the ability and job defs' strings, plus
+`shortDescription`, the reload comp's `chargeNoun`, the ability and job defs' strings and the
+trait degree's `label` and `description`, plus
 the one Keyed file `1.6/Languages/English/Keyed/MedicWarcasket.xml` for everything code prints
 (settings window, the dressing's messages); every new code-printed string goes in that file
 under the `MDWC_` prefix. Other languages derive from it
@@ -246,7 +256,8 @@ a dump of every injection point the *live* game sees for this mod, produced by
 `l10n/probe/`; build/deploy it only from the canonical `~/dev/rimworld-l10n` checkout; this mod
 is ticked in the probe's settings) through the game's own walker. The checker refuses to run
 against stale expectations, so new content forces a regen (a new def type adds a DefInjected
-folder: `VEF.Abilities.AbilityDef` and `JobDef` joined `ThingDef` with the dressing); the release
+folder: `VEF.Abilities.AbilityDef` and `JobDef` joined `ThingDef` with the dressing, `TraitDef`
+with the medic trait); the release
 skill regenerates every release. **Translation passes are deferred until shortly before release**: they are
 token-expensive, run one language at a time on explicit request, and must wait for the English
 text to be final. Regenerating the sidecar is always fine. No language exists yet; the public
