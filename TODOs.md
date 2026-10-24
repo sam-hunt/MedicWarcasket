@@ -25,8 +25,6 @@ the medic work trait); every stat and cost is still Siegebreaker's. Specs live i
     selection; a save mid-walk.
   - Medic trait: `Medic-Work-Trait.md` section 6, fresh entombings only. Watch the work tab
     under each patch mod, the Bio tab's "Incapable of", the slave case.
-- **Release candidate first.** `/release major rc` tags `v1.0.0-rc.1`. The CI workflow
-  (SteamCMD fetch of VEF and VFEP, translation gate, zip contents) has never run here.
 - **Translations.** English Keyed only so far. One language at a time via
   `/translate <Language>` once the English is final (defs, Keyed, Workshop page); the
   glossaries are seeded. The l10n pin (v1.5.0) moves at release.
