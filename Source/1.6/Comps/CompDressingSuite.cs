@@ -8,7 +8,7 @@ using Verse;
 namespace MedicWarcasket;
 
 // The armor's medicine suite: vanilla's CompApparelReloadable holding up to maxCharges doses of
-// EACH medicine type, one type selected at a time. The field dressing (Ability_FieldDressing)
+// EACH medicine type, one type selected at a time. The field dressing (Ability_MechaniteDressing)
 // spends a dose of the type that was selected when its target was clicked.
 //
 // The selected type's count IS the vanilla charge count. remainingCharges is kept equal to
@@ -36,7 +36,7 @@ namespace MedicWarcasket;
 // since been removed drops out silently, taking its doses with it, instead of logging a
 // null-key error on load. Declared by compClass on the armor's CompProperties_ApparelReloadable
 // entry; the DefInjected handle of that entry's text fields is this class's name.
-public class CompFieldDressingSuite : CompApparelReloadable
+public class CompDressingSuite : CompApparelReloadable
 {
     private ThingDef selected;
     private Dictionary<ThingDef, int> loaded = new();

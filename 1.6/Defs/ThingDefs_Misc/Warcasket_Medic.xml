@@ -8,13 +8,13 @@
     balanced against. The set's own additions are the two medic comps below, the
     ApparelExtension priority and the label/description text.
 
-    Field dressing: VEF CompAbilitiesApparel grants MDWC_FieldDressing (AbilityDefs/
-    FieldDressing.xml), fed by the medicine suite beside it. The ability reads the suite off
+    Field dressing: VEF CompAbilitiesApparel grants MDWC_MechaniteDressing (AbilityDefs/
+    MechaniteDressing.xml), fed by the medicine suite beside it. The ability reads the suite off
     the apparel that grants it, so both comps must sit on this one def. The suite is vanilla's
-    CompApparelReloadable with compClass MedicWarcasket.CompFieldDressingSuite (Source/1.6/
+    CompApparelReloadable with compClass MedicWarcasket.CompDressingSuite (Source/1.6/
     Comps/): maxCharges 5 doses of EACH medicine type, one type selected at a time from the
     gizmo, the selected type's count being the vanilla charge count; its DefInjected keys read
-    comps.CompFieldDressingSuite, since the handle is the comp class. ammoDef is the type the
+    comps.CompDressingSuite, since the handle is the comp class. ammoDef is the type the
     selection starts from and the one the free first fill (vanilla's full charge on creation)
     lands on; that fill is to be priced into the costList in the tuning pass. ammoCountPerCharge
     1: one medicine item is one dose. chargeNoun "dose": the stats pane, the reload text and
@@ -104,7 +104,7 @@
     </apparel>
     <comps>
       <li Class="CompProperties_ApparelReloadable">
-        <compClass>MedicWarcasket.CompFieldDressingSuite</compClass>
+        <compClass>MedicWarcasket.CompDressingSuite</compClass>
         <maxCharges>5</maxCharges>
         <ammoDef>MedicineIndustrial</ammoDef>
         <ammoCountPerCharge>1</ammoCountPerCharge>
@@ -115,7 +115,7 @@
       </li>
       <li Class="VEF.Abilities.CompProperties_AbilitiesApparel">
         <abilities>
-          <li>MDWC_FieldDressing</li>
+          <li>MDWC_MechaniteDressing</li>
         </abilities>
       </li>
       <li Class="VEF.Apparels.CompProperties_ShieldBubble">

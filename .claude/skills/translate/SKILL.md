@@ -100,8 +100,8 @@ notes for the shim or flow edit this repo owes before continuing.
     `MDWC_WarcasketHelmet_Medic`): `label`, `description`,
     `shortDescription` (a VFEP field shown in the foundry's part picker;
     translate it like any other), and on the armor the medicine suite's
-    `comps.CompFieldDressingSuite.chargeNoun` ("dose", next bullet) and
-    `comps.CompFieldDressingSuite.cooldownGerund` (vanilla's default "on
+    `comps.CompDressingSuite.chargeNoun` ("dose", next bullet) and
+    `comps.CompDressingSuite.cooldownGerund` (vanilla's default "on
     cooldown", which the def does not set but the probe dumps; the glossary
     inherits Shipcracker's rendering). The walker keys a comp by its comp
     class. The game rolls a def type without its own database into its
@@ -109,11 +109,11 @@ notes for the shim or flow edit this repo owes before continuing.
     `Scripts/check-translations.py`; a `WarcasketDef` folder would never
     load.
   - `DefInjected/VEF.Abilities.AbilityDef/` (the full type name; it is its
-    own def database, so no alias) for `MDWC_FieldDressing`: `label`,
+    own def database, so no alias) for `MDWC_MechaniteDressing`: `label`,
     `description`, `jobReportString` and `verbProperties.label` (VEF
     copies the label into the verb it generates for every ability; render
     it identically to `label`, as Shipcracker's languages do).
-  - `DefInjected/JobDef/` for `MDWC_FieldDressing`: `reportString`. The
+  - `DefInjected/JobDef/` for `MDWC_MechaniteDressing`: `reportString`. The
     driver never shows it (it reports the ability's `jobReportString`),
     but the walker lists it; render the two alike.
   - `DefInjected/TraitDef/` for `MDWC_WarcasketTrait_Medic`:

@@ -14,18 +14,18 @@ namespace MedicWarcasket;
 // rationale for them, are the defs'. Nothing here is saved into a game: a save loads the same
 // with any settings, and with none.
 //
-// The suite's doses override maxCharges on the armor's CompFieldDressingSuite entry; the
-// dressing's time, cooldown and range override the MDWC_FieldDressing AbilityDef's castTime and
+// The suite's doses override maxCharges on the armor's CompDressingSuite entry; the
+// dressing's time, cooldown and range override the MDWC_MechaniteDressing AbilityDef's castTime and
 // cooldownTime (shown in seconds, stored in ticks on the def) and distanceToTarget. The one
 // section ends on a line of what its sliders amount to.
 //
 // What a write leaves on live ability instances (a running cooldown, a tooltip cache) is
 // caught up by each instance on its next gizmo request, keyed on Generation
-// (Ability_FieldDressing.ReconcileSettings); doses above a lowered maximum are trimmed off the
+// (Ability_MechaniteDressing.ReconcileSettings); doses above a lowered maximum are trimmed off the
 // worn suites at once (TrimWornSuites).
 public class MedicWarcasketSettings : ModSettings
 {
-    private const string DressingDefName = "MDWC_FieldDressing";
+    private const string DressingDefName = "MDWC_MechaniteDressing";
     private const string ArmorDefName = "MDWC_Warcasket_Medic";
 
     // The whitespace above every section header but the first, and below the last row.
@@ -93,7 +93,7 @@ public class MedicWarcasketSettings : ModSettings
     }
 
     // A lowered dose count leaves worn suites above it, which vanilla's reload accounting
-    // cannot take (CompFieldDressingSuite); a stored armor is trimmed when equipped, and a suite
+    // cannot take (CompDressingSuite); a stored armor is trimmed when equipped, and a suite
     // saved above the count on load. Every live pawn, since a caravan or transporter pawn
     // spawns with no hook of its own.
     private static void TrimWornSuites()
@@ -105,7 +105,7 @@ public class MedicWarcasketSettings : ModSettings
             if (pawn.apparel == null)
                 continue;
             foreach (Apparel apparel in pawn.apparel.WornApparel)
-                apparel.TryGetComp<CompFieldDressingSuite>()?.Trim();
+                apparel.TryGetComp<CompDressingSuite>()?.Trim();
         }
     }
 
@@ -217,7 +217,7 @@ public class MedicWarcasketSettings : ModSettings
         {
             dressing = DefDatabase<AbilityDef>.GetNamedSilentFail(DressingDefName),
             suite = armor?.comps?.OfType<CompProperties_ApparelReloadable>()
-                .FirstOrDefault(p => p.compClass == typeof(CompFieldDressingSuite)),
+                .FirstOrDefault(p => p.compClass == typeof(CompDressingSuite)),
         };
         if (defs.dressing != null && defs.suite != null)
             return true;

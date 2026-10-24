@@ -12,7 +12,7 @@ namespace MedicWarcasket;
 
 // The Medic armor's active: one cast tends every tendable wound on a targeted person or
 // animal at the quality vanilla's formula gives this pilot with the loaded medicine, spending
-// one dose from the armor's suite (CompFieldDressingSuite, read off holder, which is why the
+// one dose from the armor's suite (CompDressingSuite, read off holder, which is why the
 // two comps share the armor def). With the medic helmet worn the cast also tends diseases and
 // infections. Modelled on Biotech's Coagulate, which likewise ignores vanilla's one-treatment
 // batch rule (TendUtility.GetOptimalHediffsToTendWithSingleTreatment) and tends everything.
@@ -20,7 +20,7 @@ namespace MedicWarcasket;
 // Targeting: any pawn on the map can be clicked; the range is not a limit (GetRangeForPawn
 // returns a number VEF treats as unlimited: no range ring, no range line in the tooltip,
 // CanHitTarget passes the distance test) and the def's requireLineOfSight is off, because the
-// job (JobDriver_FieldDressing) walks the pilot to the patient and enforces sight where it
+// job (JobDriver_MechaniteDressing) walks the pilot to the patient and enforces sight where it
 // matters, at the def's distanceToTarget. The pilot is excluded by the targeting parameters'
 // canTargetSelf, which the vanilla Targeter honours, and once more in ValidateTarget. A
 // hostile that is up and about is excluded too: faction is otherwise not checked, so a downed
@@ -54,7 +54,7 @@ namespace MedicWarcasket;
 // props (maxCharges); the ability reads them live. The one thing a settings write leaves on an
 // instance is a running cooldown stored as an end tick, capped to the new length on the next
 // gizmo request (ReconcileSettings), as Shipcracker's jump does.
-public class Ability_FieldDressing : Ability
+public class Ability_MechaniteDressing : Ability
 {
     // "Unlimited" as a finite number so VEF's range arithmetic and ring drawing stay sane.
     private const float UnlimitedRange = 10000f;
@@ -72,11 +72,11 @@ public class Ability_FieldDressing : Ability
     private ThingDef pendingMedicine;
     private string pendingMedicineName;
 
-    private CompFieldDressingSuite suite;
+    private CompDressingSuite suite;
     private int settingsGeneration = -1;
     private readonly List<Hediff> tendableScratch = new();
 
-    public CompFieldDressingSuite Suite => suite ??= holder?.TryGetComp<CompFieldDressingSuite>();
+    public CompDressingSuite Suite => suite ??= holder?.TryGetComp<CompDressingSuite>();
 
     // The type the targeter shows: the click's snapshot while targeting, else the selection.
     private ThingDef TargetingMedicine => targetingMedicine ?? Suite?.Selected;
@@ -120,7 +120,7 @@ public class Ability_FieldDressing : Ability
     {
         if (!base.IsEnabledForPawn(out reason))
             return false;
-        CompFieldDressingSuite suite = Suite;
+        CompDressingSuite suite = Suite;
         if (suite == null)
             return false;
         ThingDef medicine = suite.Selected;
@@ -180,7 +180,7 @@ public class Ability_FieldDressing : Ability
 
     public override void Cast(params GlobalTargetInfo[] targets)
     {
-        CompFieldDressingSuite suite = Suite;
+        CompDressingSuite suite = Suite;
         ThingDef medicine = pendingMedicine ?? suite?.Selected;
         pendingMedicine = null;
         if (suite == null || medicine == null || targets.Length == 0 || targets[0].Thing is not Pawn patient)

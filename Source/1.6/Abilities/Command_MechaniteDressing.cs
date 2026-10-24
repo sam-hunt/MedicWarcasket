@@ -22,16 +22,16 @@ namespace MedicWarcasket;
 // span of a right-click. With several medics selected VEF groups the gizmos by def and vanilla
 // merges the grouped menus by label, so rows with matching counts act on every selected suite
 // and rows with differing counts appear once per medic.
-public class Command_FieldDressing : Command_Ability
+public class Command_MechaniteDressing : Command_Ability
 {
-    public Command_FieldDressing(Pawn pawn, Ability ability) : base(pawn, ability)
+    public Command_MechaniteDressing(Pawn pawn, Ability ability) : base(pawn, ability)
     {
         RefreshIcon();
     }
 
-    private Ability_FieldDressing Dressing => (Ability_FieldDressing)ability;
+    private Ability_MechaniteDressing Dressing => (Ability_MechaniteDressing)ability;
 
-    private CompFieldDressingSuite Suite => Dressing.Suite;
+    private CompDressingSuite Suite => Dressing.Suite;
 
     public override string TopRightLabel => Suite?.LabelRemaining;
 
@@ -41,11 +41,11 @@ public class Command_FieldDressing : Command_Ability
     {
         get
         {
-            CompFieldDressingSuite suite = Suite;
+            CompDressingSuite suite = Suite;
             if (suite == null)
                 yield break;
             ThingDef selected = suite.Selected;
-            foreach (ThingDef type in CompFieldDressingSuite.Types)
+            foreach (ThingDef type in CompDressingSuite.Types)
             {
                 string label = "MDWC_MedicineOption".Translate(type.LabelCap, suite.Loaded(type), suite.MaxCharges);
                 yield return new FloatMenuOption(label, type == selected ? null : () => suite.Select(type), type);

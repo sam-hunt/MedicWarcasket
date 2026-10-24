@@ -4,7 +4,7 @@ using Verse;
 
 namespace MedicWarcasket.Patches;
 
-// The medicine suite (CompFieldDressingSuite) bends the one vanilla reload query that must
+// The medicine suite (CompDressingSuite) bends the one vanilla reload query that must
 // follow its selected type, and guards the one that could load behind its back. Both are
 // non-virtual on CompApparelReloadable, so the subclass cannot override them; every other
 // reloadable passes through untouched.
@@ -28,7 +28,7 @@ public static class CompApparelReloadable_Suite
     [HarmonyPatch(nameof(CompApparelReloadable.AmmoDef), MethodType.Getter)]
     public static bool AmmoDef(CompApparelReloadable __instance, ref ThingDef __result)
     {
-        if (__instance is not CompFieldDressingSuite suite)
+        if (__instance is not CompDressingSuite suite)
             return true;
         __result = suite.Selected;
         return false;
@@ -37,13 +37,13 @@ public static class CompApparelReloadable_Suite
     [HarmonyPrefix]
     [HarmonyPatch(nameof(CompApparelReloadable.ReloadFrom))]
     public static void ReloadFromPrefix(CompApparelReloadable __instance, out int __state) =>
-        __state = __instance is CompFieldDressingSuite ? __instance.RemainingCharges : 0;
+        __state = __instance is CompDressingSuite ? __instance.RemainingCharges : 0;
 
     [HarmonyPostfix]
     [HarmonyPatch(nameof(CompApparelReloadable.ReloadFrom))]
     public static void ReloadFromPostfix(CompApparelReloadable __instance, Thing ammo, int __state)
     {
-        if (__instance is not CompFieldDressingSuite suite || ammo?.def == null)
+        if (__instance is not CompDressingSuite suite || ammo?.def == null)
             return;
         int added = suite.RemainingCharges - __state;
         if (added > 0 && ammo.def != suite.Selected)

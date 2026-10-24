@@ -19,7 +19,7 @@
   },
   "defInjections": {
     "JobDef": {
-      "MDWC_FieldDressing.reportString": {
+      "MDWC_MechaniteDressing.reportString": {
         "english": "applying a field dressing.",
         "required": true
       }
@@ -49,12 +49,12 @@
         "english": "Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.",
         "required": true
       },
-      "MDWC_Warcasket_Medic.comps.CompFieldDressingSuite.chargeNoun": {
+      "MDWC_Warcasket_Medic.comps.CompDressingSuite.chargeNoun": {
         "english": "dose",
         "required": true,
         "normalized": "MDWC_Warcasket_Medic.comps.2.chargeNoun"
       },
-      "MDWC_Warcasket_Medic.comps.CompFieldDressingSuite.cooldownGerund": {
+      "MDWC_Warcasket_Medic.comps.CompDressingSuite.cooldownGerund": {
         "english": "on cooldown",
         "required": true,
         "normalized": "MDWC_Warcasket_Medic.comps.2.cooldownGerund"
@@ -89,19 +89,19 @@
       }
     },
     "VEF.Abilities.AbilityDef": {
-      "MDWC_FieldDressing.description": {
+      "MDWC_MechaniteDressing.description": {
         "english": "Apply a dose of the suite's selected medicine to every wound on a person or animal at once, at the quality the pilot's medical skill allows. With the medic helmet worn, diseases and infections are treated as well. The patient is held still while the dressing goes on.",
         "required": true
       },
-      "MDWC_FieldDressing.jobReportString": {
+      "MDWC_MechaniteDressing.jobReportString": {
         "english": "Applying a field dressing.",
         "required": true
       },
-      "MDWC_FieldDressing.label": {
+      "MDWC_MechaniteDressing.label": {
         "english": "field dressing",
         "required": true
       },
-      "MDWC_FieldDressing.verbProperties.label": {
+      "MDWC_MechaniteDressing.verbProperties.label": {
         "english": "field dressing",
         "required": true
       }

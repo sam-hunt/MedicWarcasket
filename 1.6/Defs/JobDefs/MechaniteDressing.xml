@@ -2,13 +2,13 @@
 <Defs>
   <!--
     The field dressing's cast job: VEF's VFEA_GotoTargetAndUseAbility with the driver swapped
-    for MedicWarcasket.JobDriver_FieldDressing, which walks to the patient without ordering
+    for MedicWarcasket.JobDriver_MechaniteDressing, which walks to the patient without ordering
     them to stand (see its header). reportString is never shown, the driver reports the
     ability's jobReportString, but it is a translatable field the walker lists.
   -->
   <JobDef>
-    <defName>MDWC_FieldDressing</defName>
-    <driverClass>MedicWarcasket.JobDriver_FieldDressing</driverClass>
+    <defName>MDWC_MechaniteDressing</defName>
+    <driverClass>MedicWarcasket.JobDriver_MechaniteDressing</driverClass>
     <reportString>applying a field dressing.</reportString>
     <carryThingAfterJob>true</carryThingAfterJob>
   </JobDef>

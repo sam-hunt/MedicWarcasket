@@ -13,7 +13,7 @@
     aim, in character for a visor. Both reach the field dressing through vanilla's tend formula.
 
     The field dressing (armor) treats diseases and infections, not just wounds, only while this
-    helmet is worn by the pilot; the check is a def comparison in Ability_FieldDressing (the
+    helmet is worn by the pilot; the check is a def comparison in Ability_MechaniteDressing (the
     Controller helmet idiom). The description's first paragraph says so.
 
     ApparelExtension priority 1, for the reason in the armor def's header: the

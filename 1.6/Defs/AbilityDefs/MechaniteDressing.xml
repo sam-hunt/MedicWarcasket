@@ -3,9 +3,9 @@
   <!--
     The Medic armor's active, granted by the armor's CompProperties_AbilitiesApparel and fed
     by the medicine suite beside it (ThingDefs_Misc/Warcasket_Medic.xml). The rules live in
-    MedicWarcasket.Ability_FieldDressing; the gizmo (selected medicine's icon, loaded count,
-    right-click type switch) in Command_FieldDressing; the walk-then-cast job in
-    JobDriver_FieldDressing (JobDefs/FieldDressing.xml).
+    MedicWarcasket.Ability_MechaniteDressing; the gizmo (selected medicine's icon, loaded count,
+    right-click type switch) in Command_MechaniteDressing; the walk-then-cast job in
+    JobDriver_MechaniteDressing (JobDefs/MechaniteDressing.xml).
 
     range is unset and requireLineOfSight off on purpose: the click is not range-limited, the
     pilot walks to the patient and the job enforces sight at distanceToTarget. distanceToTarget
@@ -24,12 +24,12 @@
     bare-named file to point at. Custom ability art is a TODOs.md item.
   -->
   <VEF.Abilities.AbilityDef>
-    <defName>MDWC_FieldDressing</defName>
+    <defName>MDWC_MechaniteDressing</defName>
     <label>field dressing</label>
     <description>Apply a dose of the suite's selected medicine to every wound on a person or animal at once, at the quality the pilot's medical skill allows. With the medic helmet worn, diseases and infections are treated as well. The patient is held still while the dressing goes on.</description>
-    <abilityClass>MedicWarcasket.Ability_FieldDressing</abilityClass>
-    <gizmoClass>MedicWarcasket.Command_FieldDressing</gizmoClass>
-    <jobDef>MDWC_FieldDressing</jobDef>
+    <abilityClass>MedicWarcasket.Ability_MechaniteDressing</abilityClass>
+    <gizmoClass>MedicWarcasket.Command_MechaniteDressing</gizmoClass>
+    <jobDef>MDWC_MechaniteDressing</jobDef>
     <jobReportString>Applying a field dressing.</jobReportString>
     <targetMode>Pawn</targetMode>
     <targetingParametersList>

@@ -13,7 +13,7 @@ namespace MedicWarcasket;
 // target to stand and face the caster (VFEA_StandAndFaceTarget), which pulls a patient out of
 // bed, so the cast then finds no bed and loses vanilla's bed tend-quality offset, and makes a
 // downed patient take a job. Here the patient is left to whatever they were doing; the
-// ability's stun (Ability_FieldDressing.PreWarmupAction) holds a conscious one still for the
+// ability's stun (Ability_MechaniteDressing.PreWarmupAction) holds a conscious one still for the
 // cast, and a bed patient stays in bed.
 //
 // The walk: the pilot paths to touch the patient and the cast starts as soon as they stand
@@ -22,11 +22,11 @@ namespace MedicWarcasket;
 // repathing every tick. The target despawning (death leaves a corpse, which is a despawn)
 // fails the job through the base driver; a patient going down does not.
 //
-// Declared by MDWC_FieldDressing's driverClass (JobDefs/FieldDressing.xml) and named by the
+// Declared by MDWC_MechaniteDressing's driverClass (JobDefs/MechaniteDressing.xml) and named by the
 // ability def's jobDef. The base driver sets playerForced for the walk, so damage taken on the
 // way does not interrupt it (Pawn_JobTracker.Notify_DamageTaken); a player order, a draft, a
 // mental break or being downed still does, and nothing is spent until the cast toil runs.
-public class JobDriver_FieldDressing : JobDriver_CastAbilityOnce
+public class JobDriver_MechaniteDressing : JobDriver_CastAbilityOnce
 {
     protected override IEnumerable<Toil> MakeNewToils()
     {
