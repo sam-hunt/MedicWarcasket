@@ -292,9 +292,10 @@ roster lives in CONTRIBUTING.md.
   enough that every translation fits Steam's byte limit. Read it before touching the text;
   the release skill translates `English.txt` from there.
 
-**Releases:** run the `/release` skill, or by hand: add the version's `## [X.Y.Z]` section to
-`CHANGELOG.md`, bump `About/About.xml` `<modVersion>` and `Source/1.6/Properties/AssemblyInfo.cs`,
-then push a `v*.*.*` tag. The GitHub Actions workflow (`.github/workflows/release.yml`) builds,
+**Releases:** run the `/release` skill, or by hand: rename the `## [Unreleased]` section of
+`CHANGELOG.md` to `## [X.Y.Z] - date` (merged contributions are recorded there as they land, so
+nothing is carried out of band), bump `About/About.xml` `<modVersion>` and
+`Source/1.6/Properties/AssemblyInfo.cs`, then push a `v*.*.*` tag. The GitHub Actions workflow (`.github/workflows/release.yml`) builds,
 stages via `StageMod`, lifts the tag's CHANGELOG section into the release body, and **fails the
 release if that section is missing** (except for `X.Y.Z-rc.N` candidate tags, which get a stub body
 and a prerelease flag instead; see the skill-sync paragraph above).

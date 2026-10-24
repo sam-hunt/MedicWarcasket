@@ -210,20 +210,24 @@ final. Do all of the following, then present it as **one** confirmation:
   - Before an RC, confirm its tag doesn't already exist (`git tag -l`).
 - **Stable releases only — the changelog.** An RC skips this bullet group
   entirely: no section, no link reference.
-  - Draft changelog notes from the full log since the last stable tag —
-    including any commits steps 3-4 just created — grouped under Keep a
-    Changelog headers (Added, Changed, Fixed), omitting chore/version-bump
-    commits.
+  - Start from whatever already sits under `## [Unreleased]` (entries
+    recorded when a change or contribution landed, with their credits), then
+    complete it from the full log since the last stable tag — including any
+    commits steps 3-4 just created — grouped under Keep a Changelog headers
+    (Added, Changed, Fixed), omitting chore/version-bump commits.
     When promoting, this spans every candidate: a fix for a bug that was
     introduced and fixed within the candidate line never reached Workshop
     users, so fold it into the entry it corrects or drop it.
   - Each changelog entry is a short one-liner fit for Steam Workshop change
     notes (see the note atop `CHANGELOG.md`).
-  - Update `CHANGELOG.md`: new `## [X.Y.Z] - YYYY-MM-DD` section at the top,
-    directly below the Keep a Changelog intro paragraph, using today's date
-    (this changelog carries no `[Unreleased]` heading; don't add one), plus a
+  - Update `CHANGELOG.md`: rename the `## [Unreleased]` heading to
+    `## [X.Y.Z] - YYYY-MM-DD` using today's date, put a fresh, empty
+    `## [Unreleased]` heading back above it, add a
     `[X.Y.Z]: https://github.com/sam-hunt/MedicWarcasket/releases/tag/vX.Y.Z`
-    link reference at the bottom, above any older ones.
+    link reference at the bottom above any older ones, and point the
+    `[Unreleased]` compare link at `compare/vX.Y.Z...HEAD` (adding it on the
+    first release). The workflow's extraction anchors on the version heading,
+    so the empty `[Unreleased]` section above it is harmless.
 - Bump the version strings in both files:
   - `About/About.xml` `<modVersion>`: the full version, suffix included
     (`1.4.0-rc.1`). The game treats it as a display-only string, so testers

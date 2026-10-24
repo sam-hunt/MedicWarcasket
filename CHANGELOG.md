@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Entries are short one-liners ready to paste as Steam Workshop change notes: what changed for the player, no rationale, no def names, no sub-bullets. -->
 
-<!-- Convention: no [Unreleased] heading; each release adds its section at the top,
-     directly below this intro, with a link reference at the bottom of the file.
-     The release workflow lifts the tagged version's section into the GitHub release
-     body verbatim and FAILS a stable release if the section is missing, so write the
-     section before tagging. Release candidates (X.Y.Z-rc.N) get no section: their
-     changes land in the stable version's section at promotion. The /release skill
-     walks through all of this. -->
+<!-- Convention: unreleased changes accumulate under the [Unreleased] heading at the top,
+     directly below this intro, so a merged contribution is recorded where the release
+     flow finds it. Each release renames that heading to its version and date and adds a
+     link reference at the bottom of the file. The release workflow lifts the tagged
+     version's section into the GitHub release body verbatim and FAILS a stable release
+     if the section is missing, so write the section before tagging. Release candidates
+     (X.Y.Z-rc.N) get no section: their changes land in the stable version's section at
+     promotion. The /release skill walks through all of this. -->
+
+## [Unreleased]
