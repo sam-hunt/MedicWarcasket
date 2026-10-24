@@ -107,7 +107,7 @@ match).
 ## Project Structure
 
 ```
-About/           - Mod metadata (About.xml; Preview.png and PublishedFileId.txt once published)
+About/           - Mod metadata (About.xml, Preview.png; PublishedFileId.txt once published)
 Textures/        - Art (version-independent, loaded via the "/" root; no Common/ root), under
                    VFEP's Things/Pawn/Warcasketlike/WarcasketMedic/ layout
 1.6/             - RimWorld 1.6 specific content
