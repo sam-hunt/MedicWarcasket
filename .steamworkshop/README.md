@@ -2,7 +2,7 @@
 
 Publishing metadata for the mod's Steam Workshop page. Nothing in this folder
 ships with the mod (the StageMod manifest never matches it) or is loaded by
-RimWorld. A `Media/` folder for Workshop images can live here later.
+RimWorld. `Images/` holds the Workshop page's images, uploaded by hand.
 
 ## Description/
 
