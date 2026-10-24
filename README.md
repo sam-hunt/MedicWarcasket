@@ -20,7 +20,7 @@ customized part by part at the foundry, with a range of sets that carries a colo
 industrial era into the late game. This mod adds one more set to that range: the Medic, a
 10th-generation spacer-tier warcasket built to keep its pilot patching up squadmates under fire.
 
-The mod is in early development: the doctor passives and the field dressing are in, but the
+The mod is in early development: the doctor passives and the mechanite dressing are in, but the
 stats and costs are still untuned placeholders.
 
 Odyssey is optional.
@@ -34,10 +34,12 @@ spacer warcaskets research.
 
 - **Doctor passives**: the shoulders speed up tending and hold the pilot's Manipulation at full;
   the helmet raises tend quality and holds Sight at full
-- **Field dressing**: one cast tends every wound on a person or animal with the medicine loaded
-  in the armor's suite, which holds five doses of each medicine type; pick the type from the
-  gizmo's right-click menu. With the helmet on, it treats diseases and infections too
-- **Mod settings** for the doses per type, the dressing time, the cooldown and the range
+- **Mechanite dressing**: a green beam tends every wound on a person or animal, one at a time and
+  worst first, using the medicine kits loaded in the armor's suite; the patient is held still
+  until it is done. Dressings can be queued, and Shift-click chains patients. With the helmet on,
+  it treats diseases and infections too
+- **Mod settings** for the medicine, the kits held, the warmup, the time per wound, the cooldown
+  and the range
 - **Not yet tuned**: protection, shield, costs and research are still copies of VFE Pirates'
   Siegebreaker set, and the passive and ability numbers are first guesses
 - **Built on VFE Pirates** rather than beside it: the foundry, entombing, customization and

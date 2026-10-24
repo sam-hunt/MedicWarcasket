@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    The mechanite dressing's stream from pilot to patient: Biotech's Mote_GraserBeamBase with a
+    green graphicData.color, which the MoteBeam shader multiplies into its output. A copy rather
+    than a child because the base is a Biotech def and the mod does not require Biotech. Spawned
+    with MakeInteractionOverlay and maintained each beam tick; fadeOutUnmaintained lets it fade
+    on its own when the beam ends.
+  -->
+  <ThingDef ParentName="MoteBase">
+    <defName>MDWC_Mote_DressingBeam</defName>
+    <thingClass>MoteDualAttached</thingClass>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <mote>
+      <fadeInTime>0.2</fadeInTime>
+      <fadeOutTime>0.3</fadeOutTime>
+      <solidTime>999999</solidTime>
+      <needsMaintenance>True</needsMaintenance>
+      <rotateTowardsTarget>True</rotateTowardsTarget>
+      <scaleToConnectTargets>True</scaleToConnectTargets>
+      <fadeOutUnmaintained>True</fadeOutUnmaintained>
+    </mote>
+    <drawOffscreen>true</drawOffscreen>
+    <graphicData>
+      <texPath>Things/Mote/GraserBeam</texPath>
+      <borderMipMaps>true</borderMipMaps>
+      <graphicClass>Graphic_MoteWithAgeSecs</graphicClass>
+      <shaderType>MoteBeam</shaderType>
+      <color>(0.45, 0.85, 0.52)</color>
+      <shaderParameters>
+        <_ExtraTexA>/Things/Mote/BeamSecondaryNoise_A</_ExtraTexA>
+        <_ExtraTexB>/Things/Mote/BeamSecondaryNoise_B</_ExtraTexB>
+        <_ScrollSpeedA>-4</_ScrollSpeedA>
+        <_ScrollSpeedB>3</_ScrollSpeedB>
+        <_Intensity>2</_Intensity>
+      </shaderParameters>
+    </graphicData>
+  </ThingDef>
+</Defs>

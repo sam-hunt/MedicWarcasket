@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!--
-    The field dressing's cast job: VEF's VFEA_GotoTargetAndUseAbility with the driver swapped
+    The mechanite dressing's cast job: VEF's VFEA_GotoTargetAndUseAbility with the driver swapped
     for MedicWarcasket.JobDriver_MechaniteDressing, which walks to the patient without ordering
     them to stand (see its header). reportString is never shown, the driver reports the
     ability's jobReportString, but it is a translatable field the walker lists.
+
+    checkOverrideOnDamage Never: damage never interrupts the job in any phase. Vanilla considers
+    an override only for a job that is not player-forced, and the dressing is not always
+    player-forced (a queued order, a drafted pilot's cast), so the def says it outright.
   -->
   <JobDef>
     <defName>MDWC_MechaniteDressing</defName>
     <driverClass>MedicWarcasket.JobDriver_MechaniteDressing</driverClass>
-    <reportString>applying a field dressing.</reportString>
+    <reportString>applying a mechanite dressing.</reportString>
+    <checkOverrideOnDamage>Never</checkOverrideOnDamage>
     <carryThingAfterJob>true</carryThingAfterJob>
   </JobDef>
 </Defs>

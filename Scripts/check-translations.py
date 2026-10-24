@@ -35,13 +35,13 @@ engine.REQUIRED_DLCS = {"Odyssey"}
 # legally target 1.6/Languages/<Language>/DefInjected/ThingDef/. The checker
 # needs the XML element tag mapped to that folder to match Defs/ against the
 # sidecar.
-# The field dressing's VEF.Abilities.AbilityDef needs no alias: it is its
+# The mechanite dressing's VEF.Abilities.AbilityDef needs no alias: it is its
 # own def database, and its element tag is already its folder name.
 engine.DEF_TYPE_ALIASES = {
     "VFEPirates.WarcasketDef": "ThingDef",
 }
 
-# The mod settings window and the field dressing's runtime strings are a
+# The mod settings window and the mechanite dressing's runtime strings are a
 # real Keyed surface, so a missing Languages/ tree is a hard config error,
 # not a legal state.
 engine.ALLOW_NO_KEYED_SURFACE = False

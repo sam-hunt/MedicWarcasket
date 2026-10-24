@@ -8,19 +8,20 @@
     balanced against. The set's own additions are the two medic comps below, the
     ApparelExtension priority and the label/description text.
 
-    Field dressing: VEF CompAbilitiesApparel grants MDWC_MechaniteDressing (AbilityDefs/
+    Mechanite dressing: VEF CompAbilitiesApparel grants MDWC_MechaniteDressing (AbilityDefs/
     MechaniteDressing.xml), fed by the medicine suite beside it. The ability reads the suite off
-    the apparel that grants it, so both comps must sit on this one def. The suite is vanilla's
-    CompApparelReloadable with compClass MedicWarcasket.CompDressingSuite (Source/1.6/
-    Comps/): maxCharges 5 doses of EACH medicine type, one type selected at a time from the
-    gizmo, the selected type's count being the vanilla charge count; its DefInjected keys read
-    comps.CompDressingSuite, since the handle is the comp class. ammoDef is the type the
-    selection starts from and the one the free first fill (vanilla's full charge on creation)
-    lands on; that fill is to be priced into the costList in the tuning pass. ammoCountPerCharge
-    1: one medicine item is one dose. chargeNoun "dose": the stats pane, the reload text and
-    the gizmo count the suite in doses. baseReloadTicks 60 and Standard_Reload are the family's
-    reloadable defaults. displayGizmoWhileUndrafted true alongside the ability's showUndrafted:
-    a medic dresses wounds in the hospital too. maxCharges is a mod setting defaulting to this.
+    the apparel that grants it, so both comps must sit on this one def. The suite is
+    MedicWarcasket.CompProperties_DressingSuite (Source/1.6/Comps/), a CompApparelReloadable
+    whose props class sets the compClass, so none is declared here; its DefInjected keys read
+    comps.CompDressingSuite, since the handle is the comp class. It holds kits of ONE medicine,
+    ammoDef: one kit is one medicine item (ammoCountPerCharge 1) and one vanilla charge, and
+    maxCharges 5 is the kits held when full. Each kit treats severityPerKit (20) severity, one
+    vanilla treatment's cap. chargeNoun "kit": the stats pane and the reload text count the
+    suite in kits. The free first fill (vanilla's full charge on creation) is five kits of
+    ammoDef, to be priced into the costList in the tuning pass. ammoDef and maxCharges are mod
+    settings defaulting to these values. baseReloadTicks 60 and Standard_Reload are the
+    family's reloadable defaults. displayGizmoWhileUndrafted true alongside the ability's
+    showUndrafted: a medic dresses wounds in the hospital too.
 
     Art: Textures/Things/Pawn/Warcasketlike/WarcasketMedic/, laid out as VFEP's sets are. The
     worn graphic is Graphic_Multi (the _north/_east/_south facings); the item icon is the
@@ -53,8 +54,8 @@
   <VFEPirates.WarcasketDef ParentName="VFEP_WarcasketArmorBase">
     <defName>MDWC_Warcasket_Medic</defName>
     <label>medic warcasket</label>
-    <shortDescription>Specialized spacer-tech warcasket shell with standard protection, fitted with a field-medicine suite and a standard ranged shield.</shortDescription>
-    <description>Specialized spacer-tech warcasket shell with standard protection, fitted with a field-medicine suite and a standard ranged shield.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
+    <shortDescription>Specialized spacer-tech warcasket shell with standard protection, fitted with a mechanite dressing suite and a standard ranged shield.</shortDescription>
+    <description>Specialized spacer-tech warcasket shell with standard protection, fitted with a mechanite dressing suite and a standard ranged shield.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
     <graphicData>
       <texPath>Things/Pawn/Warcasketlike/WarcasketMedic/WarcasketMedic</texPath>
       <shaderType>CutoutComplex</shaderType>
@@ -103,14 +104,14 @@
       </tags>
     </apparel>
     <comps>
-      <li Class="CompProperties_ApparelReloadable">
-        <compClass>MedicWarcasket.CompDressingSuite</compClass>
+      <li Class="MedicWarcasket.CompProperties_DressingSuite">
         <maxCharges>5</maxCharges>
-        <ammoDef>MedicineIndustrial</ammoDef>
+        <ammoDef>MedicineUltratech</ammoDef>
         <ammoCountPerCharge>1</ammoCountPerCharge>
         <baseReloadTicks>60</baseReloadTicks>
         <soundReload>Standard_Reload</soundReload>
-        <chargeNoun>dose</chargeNoun>
+        <chargeNoun>kit</chargeNoun>
+        <severityPerKit>20</severityPerKit>
         <displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
       </li>
       <li Class="VEF.Abilities.CompProperties_AbilitiesApparel">

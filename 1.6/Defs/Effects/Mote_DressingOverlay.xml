@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    The green shimmer over the patient while the stream runs: Core's Mote_ResurrectAbility with
+    fadeOutUnmaintained, so it fades once the beam stops maintaining it. A copy rather than a
+    child because the vanilla def has no DefOf handle and needs the changes. _MultiplyTexB names
+    Cloudy_A where vanilla names Cloudy_C: Cloudy_C ships in no archive, and a missing slot
+    blanks the cloud layer.
+  -->
+  <ThingDef ParentName="MoteBase">
+    <defName>MDWC_Mote_DressingOverlay</defName>
+    <thingClass>MoteAttached</thingClass>
+    <altitudeLayer>MoteOverhead</altitudeLayer>
+    <mote>
+      <fadeInTime>0.35</fadeInTime>
+      <fadeOutTime>0.25</fadeOutTime>
+      <solidTime>999999</solidTime>
+      <needsMaintenance>True</needsMaintenance>
+      <fadeOutUnmaintained>True</fadeOutUnmaintained>
+    </mote>
+    <graphicData>
+      <graphicClass>Graphic_PawnBodySilhouette</graphicClass>
+      <color>(0.45, 0.85, 0.52, 1.0)</color>
+      <shaderType>MoteMultiplyAddScroll</shaderType>
+      <texPath>Things/Mote/Transparent</texPath>
+      <shaderParameters>
+        <_MultiplyTexA>/Things/Mote/Cloudy_B</_MultiplyTexA>
+        <_MultiplyTexB>/Things/Mote/Cloudy_A</_MultiplyTexB>
+        <_DetailTex>/Things/Mote/Speckles</_DetailTex>
+        <_detailIntensity>1.3</_detailIntensity>
+        <_texAScale>0.4</_texAScale>
+        <_texBScale>0.3</_texBScale>
+        <_DetailScale>1.25</_DetailScale>
+        <_texAScrollSpeed>(0, 0.15, 0)</_texAScrollSpeed>
+        <_texBScrollSpeed>(0.12, 0, 0)</_texBScrollSpeed>
+        <_detailScrollSpeed>(0.15, 0.15, 0)</_detailScrollSpeed>
+      </shaderParameters>
+    </graphicData>
+  </ThingDef>
+</Defs>

@@ -4,82 +4,119 @@ using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 using Verse.Sound;
 using VEF.Abilities;
 using Ability = VEF.Abilities.Ability;
 
 namespace MedicWarcasket;
 
-// The Medic armor's active: one cast tends every tendable wound on a targeted person or
-// animal at the quality vanilla's formula gives this pilot with the loaded medicine, spending
-// one dose from the armor's suite (CompDressingSuite, read off holder, which is why the
-// two comps share the armor def). With the medic helmet worn the cast also tends diseases and
-// infections. Modelled on Biotech's Coagulate, which likewise ignores vanilla's one-treatment
-// batch rule (TendUtility.GetOptimalHediffsToTendWithSingleTreatment) and tends everything.
+// The Medic armor's active: the pilot primes the suite (the warmup), then streams carrier
+// mechanites onto a patient along a beam that tends one wound per interval, most urgent first,
+// paying for each wound out of the suite's kits (CompDressingSuite, read off holder, which is
+// why the two comps share the armor def) as it is tended, then holds still for a warmdown while
+// the glow fades. With the medic helmet worn the beam also tends diseases and infections. The
+// phases are the job's toils (JobDriver_MechaniteDressing); this class holds the dressing's
+// state and does the work each toil calls into: PreWarmupAction and WarmupToil (the warmup),
+// Cast (the connect), BeamTick, WarmdownTick and EndCastJob (the settling on every job end).
+// Design in Docs/Specs/Mechanite-Dressing.md.
+//
+// Ordering: CreateCastJob hands the job to Pawn_JobTracker.TryTakeOrderedJob rather than VEF's
+// StartAbilityJob, so a plain click interrupts the current job and clears the queue as any
+// vanilla order does, a Shift-click appends (QueueOrder) and a click on the patient already
+// being dressed is a no-op (JobIsSameAs). It also leaves CompAbilities.currentlyCasting alone:
+// VEF writes it at order time, which a queued job would read stale; here the driver binds it
+// when the job starts. ITargetingSource is re-listed so MultiSelect can be re-implemented as
+// true, which keeps the vanilla Targeter open after each Shift-click; the Targeter re-enters
+// through OrderForceTarget without VEF's DoTargeting, so that override orders directly instead
+// of indexing currentTargets.
 //
 // Targeting: any pawn on the map can be clicked; the range is not a limit (GetRangeForPawn
-// returns a number VEF treats as unlimited: no range ring, no range line in the tooltip,
-// CanHitTarget passes the distance test) and the def's requireLineOfSight is off, because the
-// job (JobDriver_MechaniteDressing) walks the pilot to the patient and enforces sight where it
-// matters, at the def's distanceToTarget. The pilot is excluded by the targeting parameters'
-// canTargetSelf, which the vanilla Targeter honours, and once more in ValidateTarget. A
-// hostile that is up and about is excluded too: faction is otherwise not checked, so a downed
-// raider can be dressed before capture, but a conscious enemy would only be walked up to and
-// held still for the cast.
+// returns a number VEF treats as unlimited) and the def's requireLineOfSight is off, because
+// the job walks the pilot to the patient and enforces sight where it matters, at the def's
+// distanceToTarget. The pilot is excluded by the targeting parameters' canTargetSelf and once
+// more in ValidateTarget. A hostile that is up and about is excluded too: a downed raider can be
+// dressed before capture, but a conscious enemy would only be walked up to and held still.
+// MouseAttachment applies vanilla's cursor rule, the no-shoot cross over an invalid target and
+// def.icon (the configured medicine's, written by the settings) over a valid one; ValidateTarget
+// is asked quietly there, since VEF's default would repeat the rejection message every frame.
 //
-// The medicine is fixed at the click: DoAction snapshots the suite's selection for the
-// targeter, CreateCastJob carries it into pendingMedicine (scribed, so a save mid-walk keeps
-// it) when the target is confirmed, and the walk and the cast read that; changing the gizmo's
-// selection mid-walk, or opening and cancelling a second targeting, changes the next cast,
-// not this one. A pending type with no dose left at cast time, reachable only through dev
-// tools, aborts the cast with the disabled reason and no cooldown; so does a patient someone
-// else finished tending during the walk.
+// Charging (3.2 of the spec): an injury costs min(severity, severityPerKit), any other tendable
+// hediff a whole kit, and a tendAllAtOnce hediff a kit for the first of its def in a dressing;
+// the suite's Draw spends it, forgiving a shortfall on the last kit. Medicine XP is vanilla's
+// per-treatment lump (Toils_Tend.FinalizeTend: 500 on a humanlike, 175 on an animal, times the
+// medicine's MedicineTendXpGainFactor) pro rata to the kit share each wound drew, so a kit's
+// worth of dressing earns one treatment's XP and chip damage cannot farm it.
 //
-// Stun: Verb_CastAbility.TryStartCastOn's stunTargetWhileCasting is vanilla's, with no VEF
-// equivalent, so PreWarmupAction mirrors it (StunFor without battle log or mote) to hold a
-// conscious patient still for the cast; a stun neither ends a bed patient's rest nor moves a
-// downed one, and a sleeper is not woken, since RestUtility.WakeUp would end the rest job and
-// with it the bed's tend-quality offset.
+// The stun (StunHandler.StunFor without battle log or mote) is refreshed every tick of the
+// warmup and the beam with a window of a few ticks, so it lasts the warmup plus one interval
+// per wound and lapses on its own on any exit; StopStun is never called, since it would also
+// cut a stun from elsewhere. A downed patient is skipped: StunHandlerTick zeroes a downed pawn's
+// stun every tick, and they need no holding. A sleeper is not woken, so a bed patient keeps
+// the bed's tend-quality offset.
 //
-// Tend quality and XP follow vanilla's DoTend where it applies: CalculateBaseTendQuality with
-// the dose's stat bases (the patient's bed offset and the self-tend factor come with it), the
-// tend records, the guest counter and quest signal, the glitterworld sound. The per-hediff
-// "Tended / Quality" text vanilla throws for batch position 0 is suppressed (every hediff is
-// tended at position 1, as Coagulate does) in favour of one text with the count and the base
-// quality. Biotech's NumWoundsTended key is not in Core, so the text is this mod's own.
-// Medicine XP is a flat 60 (one base-length tend job's worth at SkillTuning.XpPerTickDefault
-// over 600 ticks), since a per-wound scale would reward chip damage.
+// Motes are not scribed; every tick recreates any that are missing, as VEF's warmupMote code
+// does, so a save mid-dressing resumes with its visuals. The scribed state is the dressing in
+// flight; Init runs again on the first gizmo draw after every load and must not reset it, so it
+// clears only the cached suite reference.
 //
-// The mod settings write onto the def (cast time, cooldown, distanceToTarget) and the suite's
-// props (maxCharges); the ability reads them live. The one thing a settings write leaves on an
-// instance is a running cooldown stored as an end tick, capped to the new length on the next
-// gizmo request (ReconcileSettings), as Shipcracker's jump does.
-public class Ability_MechaniteDressing : Ability
+// The mod settings write onto the def (castTime, cooldownTime, distanceToTarget, the extension's
+// ticksPerTend) and the suite's props (ammoDef, maxCharges); the dressing reads them live, bar
+// the warmup length, which VEF's wait toil fixes at job start. A running cooldown stored as an
+// end tick is capped to the new length on the next gizmo request (ReconcileSettings).
+public class Ability_MechaniteDressing : Ability, ITargetingSource
 {
     // "Unlimited" as a finite number so VEF's range arithmetic and ring drawing stay sane.
     private const float UnlimitedRange = 10000f;
 
-    // One vanilla tend job's worth of Medicine XP: the wait toil learns XpPerTickDefault per
-    // tick over its 600 base ticks.
-    private const float TreatmentXp = 600f * SkillTuning.XpPerTickDefault;
+    // The stun refreshed each tick lasts this long past the last refresh.
+    private const int StunRefreshTicks = 5;
+
+    // The emitter glow, and the beam's origin, sit this far in front of the pilot.
+    private const float GlowDistance = 0.5f;
 
     private const float TextMoteFadeDelay = 3.65f;
 
-    // The selection snapshotted at the click, for the targeter; then the type the ordered cast
-    // spends. Scribed by defName so a medicine whose mod is gone loads as nothing rather than
-    // as a missing-def error.
-    private ThingDef targetingMedicine;
-    private ThingDef pendingMedicine;
-    private string pendingMedicineName;
+    private enum BeamState
+    {
+        Running,
+        Complete,
+        Dry,
+        Broken,
+    }
+
+    // The dressing in flight, scribed. The medicine goes out by defName so one whose mod is gone
+    // loads as nothing rather than as a missing-def error.
+    private Pawn patient;
+    private ThingDef medicine;
+    private string medicineName;
+    private float quality;
+    private float maxQuality;
+    private int tended;
+    private int remaining;
+    private int ticksIntoWound;
+    private bool connected;
+    private bool beaming;
+    private List<HediffDef> chargedAllAtOnce = new();
 
     private CompDressingSuite suite;
     private int settingsGeneration = -1;
+    private Vector3 glowOffset;
+    private Mote glow;
+    private MoteDualAttached beam;
+    private Mote overlay;
+    private Sustainer tendSound;
     private readonly List<Hediff> tendableScratch = new();
+    private readonly HashSet<HediffDef> costScratch = new();
 
     public CompDressingSuite Suite => suite ??= holder?.TryGetComp<CompDressingSuite>();
 
-    // The type the targeter shows: the click's snapshot while targeting, else the selection.
-    private ThingDef TargetingMedicine => targetingMedicine ?? Suite?.Selected;
+    private DressingExtension Extension => def.GetModExtension<DressingExtension>();
+
+    public bool Connected => connected;
+
+    // Tended / (tended + still tendable), for the beam toil's progress bar.
+    public float BeamProgress => tended + remaining > 0 ? (float)tended / (tended + remaining) : 0f;
 
     public override float GetRangeForPawn() => UnlimitedRange;
 
@@ -88,6 +125,8 @@ public class Ability_MechaniteDressing : Ability
     public override bool CanAutoCast => false;
 
     public override bool AutoCast => false;
+
+    bool ITargetingSource.MultiSelect => true;
 
     public override void Init()
     {
@@ -100,7 +139,7 @@ public class Ability_MechaniteDressing : Ability
 
     public bool TreatsDiseases => WearsMedicHelmet(pawn);
 
-    // Every hediff one cast tends, in tend-priority order: injuries and fresh missing parts,
+    // Every hediff the beam tends, in tend-priority order: injuries and fresh missing parts,
     // plus every other tendable hediff (diseases, infections) with the helmet worn.
     private void FillTendable(Pawn patient, List<Hediff> outHediffs)
     {
@@ -116,6 +155,31 @@ public class Ability_MechaniteDressing : Ability
         TendUtility.SortByTendPriority(outHediffs);
     }
 
+    // What one hediff draws from the suite. charged collects the tendAllAtOnce defs already
+    // paid for in the same dressing (or the same estimate), which cost nothing again.
+    private static float CostOf(Hediff hediff, float severityPerKit, ICollection<HediffDef> charged)
+    {
+        if (hediff is Hediff_Injury)
+            return Mathf.Min(hediff.Severity, severityPerKit);
+        HediffCompProperties_TendDuration tendProps = hediff.def.CompProps<HediffCompProperties_TendDuration>();
+        if (tendProps != null && tendProps.tendAllAtOnce)
+        {
+            if (charged.Contains(hediff.def))
+                return 0f;
+            charged.Add(hediff.def);
+        }
+        return severityPerKit;
+    }
+
+    private float TotalCost(List<Hediff> hediffs, float severityPerKit)
+    {
+        costScratch.Clear();
+        float total = 0f;
+        for (int i = 0; i < hediffs.Count; i++)
+            total += CostOf(hediffs[i], severityPerKit, costScratch);
+        return total;
+    }
+
     public override bool IsEnabledForPawn(out string reason)
     {
         if (!base.IsEnabledForPawn(out reason))
@@ -123,24 +187,10 @@ public class Ability_MechaniteDressing : Ability
         CompDressingSuite suite = Suite;
         if (suite == null)
             return false;
-        ThingDef medicine = suite.Selected;
-        if (suite.HasDose(medicine))
+        if (suite.HasKit)
             return true;
-        reason = "MDWC_NoMedicineLoaded".Translate(medicine.label);
+        reason = "MDWC_NoMedicineLoaded".Translate(suite.AmmoDef.label);
         return false;
-    }
-
-    public override void DoAction()
-    {
-        targetingMedicine = Suite?.Selected;
-        base.DoAction();
-    }
-
-    public override void CreateCastJob(params GlobalTargetInfo[] targets)
-    {
-        pendingMedicine = TargetingMedicine;
-        targetingMedicine = null;
-        base.CreateCastJob(targets);
     }
 
     public override bool ValidateTarget(LocalTargetInfo target, bool showMessages = true)
@@ -166,87 +216,312 @@ public class Ability_MechaniteDressing : Ability
     private string NothingToTendMessage(Pawn patient) =>
         (TreatsDiseases ? "MDWC_NothingToTreat" : "MDWC_NoWoundsToDress").Translate(patient.LabelShortCap);
 
-    // Runs at the wait toil's init, with the pilot in reach of the patient. The targets are
-    // read off the pilot's own CompAbilities rather than VEF's cached Comp, which Init never
-    // resets and so may still be a previous wearer's.
+    // The Targeter's re-entry after a Shift-click, which skips VEF's DoTargeting and would
+    // otherwise write currentTargets[-1] through the base.
+    public override void OrderForceTarget(LocalTargetInfo target) => CreateCastJob(target);
+
+    // Vanilla's order semantics in place of VEF's StartAbilityJob (see the header). The def has
+    // no AbilityExtension_AbilityMods and the pilot is never a caravan member while this shows,
+    // so skipping the base's Valid, PreCast and caravan branches loses nothing.
+    public override void CreateCastJob(params GlobalTargetInfo[] targets)
+    {
+        currentTargetingIndex = -1;
+        currentTargets = new GlobalTargetInfo[def.targetCount];
+        if (targets.Length == 0 || targets[0].Thing is not Pawn target || pawn.jobs == null)
+            return;
+        Job job = JobMaker.MakeJob(def.jobDef, target);
+        pawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
+    }
+
+    // The job's check toil, with the pilot in reach: the patient still has something to treat
+    // and the suite holds a kit. Nothing has been spent yet. The cast time was fixed when the
+    // job started, so a zero warmup is simply a wait toil of no ticks.
+    public bool CheckBeforeWarmup(Pawn patient)
+    {
+        if (!ValidateTarget(patient))
+            return false;
+        if (Suite is { HasKit: true })
+            return true;
+        Messages.Message("MDWC_NoMedicineLoaded".Translate(Suite?.AmmoDef.label), pawn, MessageTypeDefOf.RejectInput, historical: false);
+        return false;
+    }
+
+    // The warmup's start, at the wait toil's init: the dressing's state begins here, read off
+    // the pilot's own CompAbilities (the driver bound it at job start), and the glow appears in
+    // front of the pilot toward the patient, fixed for the job since the pilot stands still.
     public override void PreWarmupAction()
     {
         base.PreWarmupAction();
-        int ticks = GetCastTimeForPawn();
-        if (ticks <= 0 || pawn.GetComp<CompAbilities>()?.currentlyCastingTargets?.FirstOrDefault().Thing is not Pawn patient || patient == pawn)
-            return;
-        patient.stances?.stunner?.StunFor(ticks, pawn, addBattleLog: false, showMote: false);
+        patient = pawn.GetComp<CompAbilities>()?.currentlyCastingTargets?.FirstOrDefault().Thing as Pawn;
+        medicine = Suite?.AmmoDef;
+        tended = 0;
+        remaining = 0;
+        ticksIntoWound = 0;
+        connected = false;
+        beaming = false;
+        chargedAllAtOnce.Clear();
+        glowOffset = Vector3.zero;
+        if (patient != null)
+            MaintainGlow(1f);
     }
 
+    public override void WarmupToil(Toil toil)
+    {
+        base.WarmupToil(toil);
+        toil.AddPreTickAction(WarmupTick);
+    }
+
+    private void WarmupTick()
+    {
+        if (patient == null)
+            return;
+        if (!InReach(patient))
+        {
+            pawn.jobs.EndCurrentJob(JobCondition.Incompletable);
+            return;
+        }
+        MaintainGlow(1f);
+        RefreshStun();
+    }
+
+    // The connect, at VEF's cast toil: no base.Cast, whose first line would start the cooldown
+    // (EndCastJob starts it instead, after the warmdown) and whose remaining steps this def
+    // does not use. Someone else may have finished the patient during the warmup, in which case
+    // the beam toil passes straight to the warmdown.
     public override void Cast(params GlobalTargetInfo[] targets)
     {
-        CompDressingSuite suite = Suite;
-        ThingDef medicine = pendingMedicine ?? suite?.Selected;
-        pendingMedicine = null;
-        if (suite == null || medicine == null || targets.Length == 0 || targets[0].Thing is not Pawn patient)
+        if (patient == null || medicine == null || Suite == null)
             return;
-
-        var tended = new List<Hediff>();
-        FillTendable(patient, tended);
-        if (tended.Count == 0)
-        {
-            Messages.Message(NothingToTendMessage(patient), patient, MessageTypeDefOf.RejectInput, historical: false);
+        FillTendable(patient, tendableScratch);
+        remaining = tendableScratch.Count;
+        if (remaining == 0 || !Suite.HasKit)
             return;
-        }
-        if (!suite.TryConsume(medicine))
-        {
-            Messages.Message("MDWC_NoMedicineLoaded".Translate(medicine.label), pawn, MessageTypeDefOf.RejectInput, historical: false);
-            return;
-        }
-
-        base.Cast(targets);
-
-        float quality = TendUtility.CalculateBaseTendQuality(pawn, patient, medicine);
-        float maxQuality = medicine.GetStatValueAbstract(StatDefOf.MedicalQualityMax);
-        for (int i = 0; i < tended.Count; i++)
-            tended[i].Tended(quality, maxQuality, 1);
-
-        if (patient.Spawned)
-        {
-            string text = "MDWC_WoundsTended".Translate(tended.Count) + "\n" + "Quality".Translate() + " " + quality.ToStringPercent();
-            MoteMaker.ThrowText(patient.DrawPos, patient.Map, text, Color.white, TextMoteFadeDelay);
-            if (medicine.GetStatValueAbstract(StatDefOf.MedicalPotency) > ThingDefOf.MedicineIndustrial.GetStatValueAbstract(StatDefOf.MedicalPotency))
-                SoundDefOf.TechMedicineUsed.PlayOneShot(new TargetInfo(patient.Position, patient.Map));
-        }
-
-        patient.records.Increment(RecordDefOf.TimesTendedTo);
-        pawn.records.Increment(RecordDefOf.TimesTendedOther);
-        pawn.skills?.Learn(SkillDefOf.Medicine, TreatmentXp);
-        if (pawn.Faction == Faction.OfPlayer)
-        {
-            if (patient.Faction != null && patient.Faction != pawn.Faction && !patient.IsPrisoner)
-                patient.mindState.timesGuestTendedToByPlayer++;
-            QuestUtility.SendQuestTargetSignals(patient.questTags, "PlayerTended", patient.Named("SUBJECT"));
-        }
+        quality = TendUtility.CalculateBaseTendQuality(pawn, patient, medicine);
+        maxQuality = medicine.GetStatValueAbstract(StatDefOf.MedicalQualityMax);
+        connected = true;
+        beaming = true;
+        ticksIntoWound = 0;
+        MaintainBeam();
+        if (medicine.GetStatValueAbstract(StatDefOf.MedicalPotency) > ThingDefOf.MedicineIndustrial.GetStatValueAbstract(StatDefOf.MedicalPotency))
+            SoundDefOf.TechMedicineUsed.PlayOneShot(new TargetInfo(patient.Position, patient.Map));
     }
 
-    // The cursor over a target: the medicine's item icon when the dressing can be applied
-    // there (the def has no icon of its own), vanilla's no-shoot cross otherwise. The vanilla
-    // Targeter hands a pawn under the mouse through without its hit test, so the validity is
-    // decided here.
+    // One tick of the beam toil; true once the beam has ended, by any of its three exits. Each
+    // interval tends the top of the tendable set as it stands then, so a wound taken mid-beam
+    // joins by priority and lengthens the beam, and each wound is paid for as it is tended.
+    public bool BeamTick()
+    {
+        if (!beaming)
+            return true;
+        if (patient == null || patient.Dead || !patient.Spawned)
+            return EndBeam(BeamState.Broken);
+        if (!InReach(patient))
+            return EndBeam(BeamState.Broken);
+
+        MaintainGlow(1f);
+        MaintainBeam();
+        RefreshStun();
+        MaintainTendSound();
+
+        ticksIntoWound++;
+        if (ticksIntoWound < Mathf.Max(1, Extension.ticksPerTend))
+            return false;
+        ticksIntoWound = 0;
+
+        FillTendable(patient, tendableScratch);
+        remaining = tendableScratch.Count;
+        if (remaining == 0)
+            return EndBeam(BeamState.Complete);
+        CompDressingSuite suite = Suite;
+        if (suite == null || !suite.HasKit)
+            return EndBeam(BeamState.Dry);
+        TendOne(tendableScratch[0], suite);
+
+        FillTendable(patient, tendableScratch);
+        remaining = tendableScratch.Count;
+        if (remaining == 0)
+            return EndBeam(BeamState.Complete);
+        if (!suite.HasKit)
+            return EndBeam(BeamState.Dry);
+        return false;
+    }
+
+    // Batch position 1 keeps vanilla's per-hediff "Tended / Quality" text off, as Coagulate
+    // does; the dressing shows one text per beam instead.
+    private void TendOne(Hediff hediff, CompDressingSuite suite)
+    {
+        float severityPerKit = suite.SeverityPerKit;
+        float cost = CostOf(hediff, severityPerKit, chargedAllAtOnce);
+        hediff.Tended(quality, maxQuality, 1);
+        suite.Draw(cost);
+        tended++;
+        if (pawn.skills != null && cost > 0f)
+        {
+            float lump = patient.RaceProps.Animal ? 175f : 500f;
+            pawn.skills.Learn(SkillDefOf.Medicine, lump * medicine.MedicineTendXpGainFactor * cost / severityPerKit);
+        }
+        FleckMaker.ThrowMetaIcon(patient.Position, patient.Map, FleckDefOf.HealingCross);
+    }
+
+    private bool EndBeam(BeamState state)
+    {
+        beaming = false;
+        tendSound?.End();
+        tendSound = null;
+        if (patient == null || !patient.Spawned)
+            return true;
+        int found = tended + remaining;
+        string text = state switch
+        {
+            BeamState.Complete => "MDWC_WoundsTended".Translate(tended) + "\n" + "Quality".Translate() + " " + quality.ToStringPercent(),
+            BeamState.Dry => "MDWC_WoundsTendedDry".Translate(medicine.label, tended, found),
+            _ => "MDWC_BeamBroken".Translate(tended, found),
+        };
+        MoteMaker.ThrowText(patient.DrawPos, patient.Map, text, Color.white, TextMoteFadeDelay);
+        if (state == BeamState.Complete)
+            MoteMaker.MakeAttachedOverlay(patient, MDWC_DefOf.MDWC_Mote_DressingFlash, Vector3.zero);
+        return true;
+    }
+
+    // One tick of the warmdown: only the glow is kept, its alpha falling with the fraction of
+    // the warmdown left, so the fade lasts exactly the warmdown at any setting. The beam and the
+    // overlay lapse (fadeOutUnmaintained), and so does the stun.
+    public void WarmdownTick(float fractionLeft) => MaintainGlow(Mathf.Clamp01(fractionLeft));
+
+    // Every job end, from VEF's driver finish action: the cooldown starts here, after the
+    // warmdown, so the gizmo stays enabled through the beam and a plain click on another
+    // patient interrupts the running dressing as any player order does. The once-per-treatment
+    // side effects of TendUtility.DoTend (records, the guest counter and quest signal, the
+    // animal bond roll, the Ideology role) are done once per dressing that tended anything.
+    // Notify_SelfTended is unreachable, since the pilot cannot target themself.
+    public override void EndCastJob()
+    {
+        base.EndCastJob();
+        tendSound?.End();
+        tendSound = null;
+        if (connected)
+            cooldown = Find.TickManager.TicksGame + GetCooldownForPawn();
+        bool pilotAlive = pawn != null && !pawn.Dead;
+        if (beaming && patient != null && patient.Spawned)
+            MoteMaker.ThrowText(patient.DrawPos, patient.Map, "MDWC_WoundsTendedPartial".Translate(tended, tended + remaining), Color.white, TextMoteFadeDelay);
+        if (tended > 0 && patient != null && pilotAlive)
+        {
+            patient.records.Increment(RecordDefOf.TimesTendedTo);
+            pawn.records.Increment(RecordDefOf.TimesTendedOther);
+            if (pawn.Faction == Faction.OfPlayer)
+            {
+                if (patient.Faction != null && patient.Faction != pawn.Faction && !patient.IsPrisoner)
+                    patient.mindState.timesGuestTendedToByPlayer++;
+                QuestUtility.SendQuestTargetSignals(patient.questTags, "PlayerTended", patient.Named("SUBJECT"));
+            }
+            if (pawn.RaceProps.Humanlike && patient.RaceProps.Animal && patient.RaceProps.playerCanChangeMaster
+                && RelationsUtility.TryDevelopBondRelation(pawn, patient, 0.004f)
+                && pawn.Faction != null && pawn.Faction != patient.Faction)
+                InteractionWorker_RecruitAttempt.DoRecruit(pawn, patient, useAudiovisualEffects: false);
+            if (ModsConfig.IdeologyActive && pawn.Ideo != null && pawn.Ideo.GetRole(pawn)?.def.roleEffects is { } roleEffects)
+                foreach (RoleEffect roleEffect in roleEffects)
+                    roleEffect.Notify_Tended(pawn, patient);
+        }
+        patient = null;
+        medicine = null;
+        tended = 0;
+        remaining = 0;
+        ticksIntoWound = 0;
+        connected = false;
+        beaming = false;
+        chargedAllAtOnce.Clear();
+        glowOffset = Vector3.zero;
+        glow = null;
+        beam = null;
+        overlay = null;
+    }
+
+    // Within the def's distanceToTarget with a clear line, the walk's own stopping rule.
+    private bool InReach(Pawn patient) =>
+        pawn.Spawned && patient.Spawned && patient.Map == pawn.Map
+        && pawn.Position.DistanceTo(patient.Position) <= def.distanceToTarget
+        && GenSight.LineOfSight(pawn.Position, patient.Position, pawn.Map, skipFirstCell: true);
+
+    private void RefreshStun()
+    {
+        if (patient.Downed || patient.Dead)
+            return;
+        patient.stances?.stunner?.StunFor(StunRefreshTicks, pawn, addBattleLog: false, showMote: false);
+    }
+
+    private Vector3 GlowOffset()
+    {
+        if (glowOffset == Vector3.zero && patient != null)
+        {
+            Vector3 toward = (patient.DrawPos - pawn.DrawPos).Yto0();
+            glowOffset = toward.sqrMagnitude > 0.001f ? toward.normalized * GlowDistance : new Vector3(0f, 0f, GlowDistance);
+        }
+        return glowOffset;
+    }
+
+    private void MaintainGlow(float alpha)
+    {
+        if (!pawn.Spawned)
+            return;
+        if (glow == null || glow.Destroyed)
+            glow = MoteMaker.MakeAttachedOverlay(pawn, MDWC_DefOf.MDWC_Mote_DressingGlow, GlowOffset());
+        if (glow == null)
+            return;
+        glow.instanceColor = new Color(1f, 1f, 1f, alpha);
+        glow.Maintain();
+    }
+
+    private void MaintainBeam()
+    {
+        if (!pawn.Spawned || !patient.Spawned)
+            return;
+        if (beam == null || beam.Destroyed)
+            beam = MoteMaker.MakeInteractionOverlay(MDWC_DefOf.MDWC_Mote_DressingBeam, pawn, patient, GlowOffset(), Vector3.zero);
+        beam?.Maintain();
+        if (overlay == null || overlay.Destroyed)
+            overlay = MoteMaker.MakeAttachedOverlay(patient, MDWC_DefOf.MDWC_Mote_DressingOverlay, Vector3.zero);
+        overlay?.Maintain();
+    }
+
+    // The beam's own tend loop: VEF's warmupSound sustainer lapses with the warmup toil.
+    private void MaintainTendSound()
+    {
+        if (tendSound == null || tendSound.Ended)
+            tendSound = SoundDefOf.Interact_Tend.TrySpawnSustainer(SoundInfo.InMap(new TargetInfo(pawn.Position, pawn.Map), MaintenanceType.PerTick));
+        else
+            tendSound.Maintain();
+    }
+
+    // Vanilla's cursor rule: the no-shoot cross over anything the dressing cannot be ordered
+    // on, else the def's icon through the base. ValidateTarget is asked quietly, since VEF's
+    // default would repeat its rejection message every frame; the vanilla Targeter hands a pawn
+    // under the mouse through without its hit test, so the validity is decided here.
     protected override Texture2D MouseAttachment(GlobalTargetInfo target)
     {
         if (target.Thing is not Pawn patient || !ValidateTarget(patient, showMessages: false))
             return TexCommand.CannotShoot;
-        Texture2D medicineIcon = TargetingMedicine?.uiIcon;
-        return medicineIcon != null ? medicineIcon : TexCommand.Attack;
+        return base.MouseAttachment(target);
     }
 
-    // The label beside the cursor: the medicine, and over a valid patient the base quality the
-    // formula would give them, bed offset included.
+    // The label beside the cursor: the medicine and, over a valid patient, the base quality
+    // the formula would give them (bed offset included), then the wounds and the kits they
+    // cost, with what is loaded when that is less.
     public override string ExtraLabelMouseAttachment(LocalTargetInfo target)
     {
-        ThingDef medicine = TargetingMedicine;
+        CompDressingSuite suite = Suite;
+        ThingDef medicine = suite?.AmmoDef;
         if (medicine == null)
             return null;
-        if (target.Thing is Pawn patient && ValidateTarget(patient, showMessages: false))
-            return "MDWC_TargetQuality".Translate(medicine.LabelCap, TendUtility.CalculateBaseTendQuality(pawn, patient, medicine).ToStringPercent());
-        return medicine.LabelCap;
+        if (target.Thing is not Pawn patient || !ValidateTarget(patient, showMessages: false))
+            return medicine.LabelCap;
+        string first = "MDWC_TargetQuality".Translate(medicine.LabelCap, TendUtility.CalculateBaseTendQuality(pawn, patient, medicine).ToStringPercent());
+        FillTendable(patient, tendableScratch);
+        float kits = TotalCost(tendableScratch, suite.SeverityPerKit) / suite.SeverityPerKit;
+        string kitsText = kits.ToString("0.0");
+        string second = kits > suite.Available
+            ? "MDWC_TargetCostShort".Translate(tendableScratch.Count, kitsText, suite.Available.ToString("0.0"))
+            : "MDWC_TargetCost".Translate(tendableScratch.Count, kitsText);
+        return first + "\n" + second;
     }
 
     public override Gizmo GetGizmo()
@@ -269,16 +544,26 @@ public class Ability_MechaniteDressing : Ability
     public override void ExposeData()
     {
         base.ExposeData();
+        Scribe_References.Look(ref patient, "patient");
         if (Scribe.mode == LoadSaveMode.Saving)
-            pendingMedicineName = pendingMedicine?.defName;
-        Scribe_Values.Look(ref pendingMedicineName, "pendingMedicine");
+            medicineName = medicine?.defName;
+        Scribe_Values.Look(ref medicineName, "medicine");
+        Scribe_Values.Look(ref quality, "quality");
+        Scribe_Values.Look(ref maxQuality, "maxQuality");
+        Scribe_Values.Look(ref tended, "tended");
+        Scribe_Values.Look(ref remaining, "remaining");
+        Scribe_Values.Look(ref ticksIntoWound, "ticksIntoWound");
+        Scribe_Values.Look(ref connected, "connected");
+        Scribe_Values.Look(ref beaming, "beaming");
+        Scribe_Collections.Look(ref chargedAllAtOnce, "chargedAllAtOnce", LookMode.Def);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
-            pendingMedicine = pendingMedicineName == null ? null : DefDatabase<ThingDef>.GetNamedSilentFail(pendingMedicineName);
-            if (pendingMedicine != null && !pendingMedicine.IsMedicine)
-                pendingMedicine = null;
+            chargedAllAtOnce ??= new List<HediffDef>();
+            medicine = medicineName == null ? null : DefDatabase<ThingDef>.GetNamedSilentFail(medicineName);
+            if (medicine != null && !medicine.IsMedicine)
+                medicine = null;
         }
         if (Scribe.mode == LoadSaveMode.Saving || Scribe.mode == LoadSaveMode.PostLoadInit)
-            pendingMedicineName = null;
+            medicineName = null;
     }
 }

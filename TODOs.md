@@ -7,20 +7,16 @@
   header is the format, `VFEP_WARCASKET_STATS.md` the tables). Folds in:
   - the passives (`MedicalTendSpeed` +0.25, `MedicalTendQuality` +0.10 are first guesses)
   - ~~the dressing's medicine XP (60 per cast, chosen without play testing)~~
-  - welding costs, the free first fill of five industrial medicine included
+  - welding costs, the free first fill of five glitterworld medicine kits included
   - the helmet: does its Sight floor overlap the Sarcophagus helmet? could the floor be lower?
-- **Mechanite dressing.** Rework the field dressing per `Docs/Specs/Mechanite-Dressing.md`
-  (locked 2026-10-25): a warmup glow, a beam tending one wound per second, a warmdown, kits
-  charged by wound severity as vanilla treatments are, tend XP at vanilla parity, a Toxin-style
-  gauge, medicine chosen in the settings only, queueable orders. The identifier rename lands
-  with it; no save carries the old names.
 - **Adrenaline shot.** The Workshop page already names it on the shoulders, so it ships with
   the release that carries that text. Scope: a shoulder-granted stimulant, pain suppressant or
-  anaesthetic shot, perhaps autocast on the target when a field dressing completes.
+  anaesthetic shot, perhaps autocast on the target when a mechanite dressing completes.
 - **Descriptions.** The three def descriptions are theme placeholders. Rewrite around the final
   features, shared paragraphs identical across the pieces, each `shortDescription` equal to
   its first paragraph. The ability description and the Keyed strings are first drafts.
-- **In-game verification.** Never run; both features were built against decompiles only.
+- **In-game verification.** Never run; the features were built against decompiles only.
+  - Mechanite dressing: the verification list in `Mechanite-Dressing.md` section 6.
   - Medic trait: `Medic-Work-Trait.md` section 6, fresh entombings only. Watch the work tab
     under each patch mod, the Bio tab's "Incapable of", the slave case.
   - On 1.6 as well as 1.7: the mechanite dressing was specced against the 1.7 install alone,

@@ -1,6 +1,9 @@
 # SPEC: Doctor passives and the field dressing
 
-Status: DESIGN, nothing implemented. Written 2026-10-21 against the installed RimWorld
+Status: IMPLEMENTED, then superseded in part. `Mechanite-Dressing.md` supersedes sections 3.2 to
+3.5 and the settings table in 3.6; the dressing they describe was reworked into the mechanite
+dressing. The doctor passives (3.1), the engine facts in section 2 and the medic trait spec
+(`Medic-Work-Trait.md`) stand. Written 2026-10-21 against the installed RimWorld
 1.7.4982 rev1280 (`Assembly-CSharp.dll` via `ilspycmd`; the 1.6 Krafs reference 1.6.4871 for
 the build), Core and Biotech XML from the same install, VEF and VFE Pirates at the checkouts
 under `../VanillaExpanded/` (upstream `main`). Tracked by the "Abilities and gizmos" entry in

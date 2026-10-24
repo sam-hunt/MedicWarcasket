@@ -13,8 +13,9 @@ optional and Odyssey-only content must load only when the DLC is active. Require
 **Key technologies:** C# (.NET Framework 4.7.2), Harmony, RimWorld modding API, XML defs.
 
 **Def prefix:** `MDWC_`. **Current state: mechanics in, tuning not.** The set's doctor
-passives (shoulders, helmet), the field dressing (a medicine suite and a VEF ability on the
-armor) and mod settings are implemented per `Docs/Specs/Field-Dressing.md`, and the medic work
+passives (shoulders, helmet) are implemented per `Docs/Specs/Field-Dressing.md`, the mechanite
+dressing (a medicine suite of kits with a gauge, a VEF ability on the armor, and mod settings) per
+`Docs/Specs/Mechanite-Dressing.md`, and the medic work
 trait (the wearer can doctor) per `Docs/Specs/Medic-Work-Trait.md`; every protection,
 cost and shield value is still Siegebreaker's. `TODOs.md` holds the ledger, and the sibling
 `../ShipcrackerWarcasket/` repo (same author, same VFEP base) is the worked precedent for
@@ -112,13 +113,15 @@ Textures/        - Art (version-independent, loaded via the "/" root; no Common/
                    VFEP's Things/Pawn/Warcasketlike/WarcasketMedic/ layout
 1.6/             - RimWorld 1.6 specific content
   Assemblies/    - Compiled DLLs (build output, gitignored)
-  Defs/          - XML definitions (the three parts, the ability, its job, the medic trait)
+  Defs/          - XML definitions (the three parts, the ability, its job, the medic trait,
+                   Effects/ with the dressing's four motes)
   Languages/     - English/Keyed/ only: settings and runtime strings (code-printed text)
   Patches/       - XML patches to modify base game/other mods
   Mods/<Name>/   - Optional-mod/DLC compat roots (version-specific), gated in LoadFolders.xml
 Mods/<Name>/     - Optional-mod/DLC compat roots (version-independent art), none yet
-Source/1.6/      - C# source code targeting net472: Abilities/ (the dressing, its gizmo and
-                   job driver), Comps/ (the medicine suite), Settings/, Patches/,
+Source/1.6/      - C# source code targeting net472: Abilities/ (the dressing, its extension and
+                   job driver), Comps/ (the medicine suite), Gizmos/ (the suite's gauge),
+                   Settings/ (the tunables and the medicine row), Patches/,
                    WorkProfile.cs (the medic trait's startup mirror)
 Scripts/         - l10n config shims + the expected-injections.json sidecar (not shipped)
 Docs/Research/   - VFEP warcasket stat tables and ability mechanics (reference, not shipped)
@@ -173,10 +176,11 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
   stays in `ModInit`, which then reads the setting defaults off the defs and writes the
   player's values onto them (`MedicWarcasketSettings.LoadDefaultsFromDefs` / `ApplyToDefs`).
 - **Settings override def fields, never code paths.** A tunable is a def field (the ability's
-  `castTime`, `cooldownTime`, `distanceToTarget`; the suite's `maxCharges`) written by
+  `castTime`, `cooldownTime`, `distanceToTarget`, `icon`; its extension's `ticksPerTend`; the
+  suite's `maxCharges` and `ammoDef`) written by
   `ApplyToDefs` at startup and whenever the window closes, so vanilla, VEF and our code all read
   the setting through the def with nothing of their own; defaults come from the def XML, so the
-  def header stays the record. Live state a write leaves behind (a running cooldown, doses above
+  def header stays the record. Live state a write leaves behind (a running cooldown, kits above
   a lowered maximum) is reconciled by the instance on its next use, keyed on
   `MedicWarcasketSettings.Generation`, as the Shipcracker repo does.
 - **The medic trait is mirrored from VFEP's at startup, on 1.6 and 1.7 alike.**
@@ -188,9 +192,10 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
   contract; `Docs/Specs/Medic-Work-Trait.md` the rationale.
 - **Vanilla's reload queries are non-virtual.** `CompApparelReloadable.AmmoDef`, `NeedsReload`,
   `ReloadFrom`, `Min/MaxAmmoNeeded` cannot be overridden; a reloadable that bends one does it with
-  a Harmony prefix gated on its own comp type (`Patches/CompApparelReloadable_Suite.cs`) so every
-  other reloadable passes through. The medicine suite keeps `remainingCharges` equal to the
-  selected type's count so only `AmmoDef` needs bending; read its header before touching it.
+  a Harmony prefix gated on its own comp type so every other reloadable passes through. The
+  medicine suite prefixes `NeedsReload` and `MaxAmmoNeeded` to the gauge's target
+  (`Patches/CompApparelReloadable_Reload.cs`); `AmmoDef` is its props' own field and needs no
+  bending. Read the suite's header before touching it.
 - **Keyed strings a DLC owns are not available here.** Biotech's `NumWoundsTended` is the
   precedent: a vanilla key used by a DLC-only feature may live in that DLC's `Languages/`, so a
   key used from code is grepped across `Data/*/Languages/English/Keyed/` first and, if Core does
@@ -242,7 +247,7 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
 ## Localization Toolchain
 
 English is the source of truth: the def XML's `label`, `description`, VFEP's
-`shortDescription`, the reload comp's `chargeNoun`, the ability and job defs' strings and the
+`shortDescription`, the reload comp's `chargeNoun` ("kit"), the ability and job defs' strings and the
 trait degree's `label` and `description`, plus
 the one Keyed file `1.6/Languages/English/Keyed/MedicWarcasket.xml` for everything code prints
 (settings window, the dressing's messages); every new code-printed string goes in that file

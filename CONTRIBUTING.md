@@ -47,13 +47,13 @@ this one.
 
 - Files live under `1.6/Languages/<Language>/`. English is served by the def
   XML plus one Keyed file, `1.6/Languages/English/Keyed/MedicWarcasket.xml`
-  (the mod settings window and the field dressing's messages), translated to
+  (the mod settings window and the mechanite dressing's messages), translated to
   `Keyed/MedicWarcasket.xml` with the same keys; keep every `{0}`-style
   placeholder. The DefInjected key set comes from
   `Scripts/expected-injections.json`: `ThingDef` (the three warcasket parts,
   which are `VFEPirates.WarcasketDef`s the game files under `ThingDef`, and
-  the armor's medicine suite and its "dose" charge noun),
-  `VEF.Abilities.AbilityDef` (the field dressing) and `JobDef` (its job
+  the armor's medicine suite and its "kit" charge noun),
+  `VEF.Abilities.AbilityDef` (the mechanite dressing) and `JobDef` (its job
   report).
 - Every translated entry carries the current English source in a comment
   directly above it, e.g. `<!-- EN: medic warcasket -->`; this is how stale

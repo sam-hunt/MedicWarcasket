@@ -15,12 +15,12 @@ life of that release.
   development", no "not tuned yet", no "coming soon", no feature that is not in the tagged
   build. Work-in-progress notes live in `TODOs.md` and the CHANGELOG, never here.
 - **Headline features at a high level.** Name what the set does in the words a player uses
-  (the pilot can doctor; one cast dresses every wound). Leave out how it is done (traits,
+  (the pilot can doctor; one beam dresses every wound). Leave out how it is done (traits,
   mirrors, comps, def names), edge cases and residuals; those are for the def headers and the
   GitHub page a curious player can follow. A line earns its place by holding interest, not
   by being complete.
-- **No def numbers.** Doses, offsets, ranges and prices change with tuning and go stale on a
-  page nobody re-pastes. Say "a medicine suite", not "five doses of each type". The mod
+- **No def numbers.** Kits, offsets, ranges and prices change with tuning and go stale on a
+  page nobody re-pastes. Say "a suite of medicine kits", not "five kits". The mod
   settings window shows the current numbers.
 - **One compat line per mod, verdict first.** "Save Our Ship 2: EVA rated like VFE Pirates'
   own sets." A known conflict gets one plain sentence; the mechanism does not.

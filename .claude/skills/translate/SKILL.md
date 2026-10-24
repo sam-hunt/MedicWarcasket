@@ -63,30 +63,39 @@ notes for the shim or flow edit this repo owes before continuing.
   the same keys:
   - the mod settings window: `MDWC_SettingsCategory` (its header),
     `MDWC_SettingsUnavailable`, the section header, and each setting's
-    label and `...Desc` tooltip (doses per medicine type, dressing time
-    and cooldown in seconds, range in cells). Each tooltip takes one
-    `{0}`, the default value; keep it and the label's unit.
-    `MDWC_DressingSummary` takes `{0}` the doses per type, `{1}` the
-    dressing time and `{2}` the cooldown, both in seconds before the unit
-    `s`. `MDWC_DefaultSuffix` keeps its leading space.
-  - the field dressing's runtime strings. `MDWC_NoMedicineLoaded` (the
+    label and `...Desc` tooltip (medicine, kits held, warmup, time per
+    wound and cooldown in seconds, range in cells). Each tooltip takes one
+    `{0}`, the default value (for the medicine, its capitalised label);
+    keep it and the label's unit. `MDWC_DressingSummary` takes `{0}` the
+    kits held, `{1}` the medicine's label (lowercase, in the game's own
+    translation), `{2}` the severity per kit, `{3}` the warmup, `{4}` the
+    seconds per wound and `{5}` the cooldown, the times in seconds before
+    the unit `s`; `MDWC_DressingSummaryNoCooldown` takes `{0}` to `{4}`
+    only. `MDWC_DefaultSuffix` keeps its leading space.
+  - the mechanite dressing's runtime strings. `MDWC_NoMedicineLoaded` (the
     disabled reason) takes `{0}`, the medicine's label;
     `MDWC_NoWoundsToDress` and `MDWC_NothingToTreat` (invalid target,
     without and with the helmet) and `MDWC_HostileTarget` (a conscious
-    enemy) take `{0}`, the target pawn's name;
-    `MDWC_WoundsTended` (the floating text, which code follows with
-    vanilla's quality line) takes `{0}`, the number of hediffs tended; `MDWC_MedicineOption` (a gizmo right-click line) takes
-    `{0}` the medicine's label, `{1}` its loaded doses and `{2}` the
-    maximum; `MDWC_TargetQuality` (the targeting cursor label) takes `{0}`
-    the medicine's label and `{1}` the tend quality, already a percentage;
-    `MDWC_LoadedDoses` (the armor's inspect line) takes `{0}`, either the
-    entries joined by a comma and space in code or `MDWC_LoadedDosesNone`;
-    each `MDWC_LoadedDosesEntry` takes `{0}` the medicine's label, `{1}`
-    its doses and `{2}` the maximum. Medicine labels arrive in the game's
-    own translation, capitalised in `MDWC_MedicineOption` and
-    `MDWC_TargetQuality` (each opens its line) and lowercase elsewhere.
+    enemy) take `{0}`, the target pawn's name; the floating texts take
+    counts of wounds: `MDWC_WoundsTended` (which code follows with
+    vanilla's quality line) `{0}` tended, `MDWC_WoundsTendedPartial` and
+    `MDWC_BeamBroken` `{0}` tended of `{1}` found, `MDWC_WoundsTendedDry`
+    (the suite ran out) `{0}` the medicine's label, `{1}` tended of `{2}`
+    found; `MDWC_TargetQuality` (the targeting cursor label, first line)
+    takes `{0}` the medicine's label and `{1}` the tend quality, already a
+    percentage; `MDWC_TargetCost` (its second line) takes `{0}` the wound
+    count and `{1}` the kits it costs, one decimal, and `MDWC_TargetCostShort`
+    adds `{2}`, the kits loaded, one decimal; `MDWC_KitsLoaded` (the armor's
+    inspect line) takes `{0}` the kits loaded, one decimal, and `{1}` the
+    maximum; `MDWC_StatSeverityPerKit` and `...Desc` are the stat's label
+    and tooltip, with no placeholders; `MDWC_GaugeTip` (the tank gauge's
+    tooltip) takes `{0}` the sealed kits, `{1}` what is left of the open
+    kit, already a percentage, `{2}` the severity per kit and `{3}` the
+    kits colonists reload to. Medicine labels arrive in the game's own
+    translation, capitalised in `MDWC_TargetQuality` (it opens its line)
+    and lowercase elsewhere.
   Name the set's things with the same renderings as the DefInjected text
-  (field dressing, dose, medicine suite, warcasket).
+  (mechanite dressing, kit, medicine suite, warcasket).
 - **Enumerate the key set from `Scripts/expected-injections.json`, never
   from a Languages folder or by scanning `1.6/Defs/`.** The sidecar is a
   dump of what the live game walks; regenerate it (game closed) with
@@ -100,14 +109,17 @@ notes for the shim or flow edit this repo owes before continuing.
     `MDWC_WarcasketHelmet_Medic`): `label`, `description`,
     `shortDescription` (a VFEP field shown in the foundry's part picker;
     translate it like any other), and on the armor the medicine suite's
-    `comps.CompDressingSuite.chargeNoun` ("dose", next bullet) and
+    `comps.CompDressingSuite.chargeNoun` ("kit", next bullet) and
     `comps.CompDressingSuite.cooldownGerund` (vanilla's default "on
     cooldown", which the def does not set but the probe dumps; the glossary
     inherits Shipcracker's rendering). The walker keys a comp by its comp
     class. The game rolls a def type without its own database into its
     base and the checker maps the element tag via `DEF_TYPE_ALIASES` in
     `Scripts/check-translations.py`; a `WarcasketDef` folder would never
-    load.
+    load. The same folder lists the dressing's four motes
+    (`MDWC_Mote_DressingGlow/Beam/Overlay/Flash.label`): they inherit Core's
+    `MoteBase` label "Mote", never shown in play; render it as Core's own
+    mote label in the language (grep the Core tar for a `Mote_` label).
   - `DefInjected/VEF.Abilities.AbilityDef/` (the full type name; it is its
     own def database, so no alias) for `MDWC_MechaniteDressing`: `label`,
     `description`, `jobReportString` and `verbProperties.label` (VEF
@@ -125,13 +137,13 @@ notes for the shim or flow edit this repo owes before continuing.
     descriptions (VFEP's own uses only `{PAWN_nameDef}`). Nothing else on
     the trait is text: its work profile and effects are overwritten at
     startup from VFEP's trait, so no language file should carry them.
-- **The charge noun "dose" is shown only through plural and lookup slots.**
+- **The charge noun "kit" is shown only through plural and lookup slots.**
   Vanilla prints the suite's `chargeNoun` through `{CHARGENOUN_plural}` and
   `{lookup: ...}` in five Keyed strings (charges remaining, max charges,
   reload cost, cost per charge, none left) and never bare. Every roster
   language has a one-word equivalent; render it so the worker survives it.
   A form the language worker's fallback would mangle (German's appended
-  `s`: "Dosis / Dosen") gets its forms from
+  `s` on a noun with another plural) gets its forms from
   `1.6/Languages/<Language>/WordInfo/plural.txt` (`singular;plural`, one
   line; Russian also `case.txt` rows for both numbers), lowercase file
   names. French's worker never reads the table, so the French noun must be
@@ -139,7 +151,7 @@ notes for the shim or flow edit this repo owes before continuing.
   ignores these files; record the forms and the lookup file relied on in
   the glossary's "Charge nouns" section (`l10n/lessons.md` has the
   decompile-verified worker map; the Toxin Warcasket glossaries are the
-  worked example). If a language cannot be made to render "dose", fall
+  worked example). If a language cannot be made to render "kit", fall
   back to its rendering of "charge", which VFEP's own sets already use.
 - **The three descriptions share their second and third paragraphs
   verbatim** (the refit lore and the medic-series paragraph); only the
@@ -186,9 +198,11 @@ Terms that MUST be grounded before use:
   glitterworld);
 - from vanilla Odyssey (ground against the Odyssey tar): vacuum;
 - this mod's own ability vocabulary, coined once and recorded in the
-  glossary: field dressing (the ability, and the verb "dress" in its
-  strings), dose (the charge noun and the settings' word), medicine suite
-  (the armor's reloadable), diagnostic visor.
+  glossary: mechanite dressing (the ability, and the verb "dress" in its
+  strings; keep "mechanite" as vanilla renders "mechanites" in the
+  language), kit (the charge noun and the settings' word; vanilla prints it
+  as "Kits" and "Reload cost per kit"), medicine suite (the armor's
+  reloadable), diagnostic visor.
 
 Grep the tars for just this handful of terms; never extract or read a
 whole tar. The vanilla-grounded answers for common words live in

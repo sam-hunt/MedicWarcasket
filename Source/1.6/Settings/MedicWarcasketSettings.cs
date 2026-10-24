@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -8,21 +7,26 @@ using AbilityDef = VEF.Abilities.AbilityDef;
 
 namespace MedicWarcasket;
 
-// The set's mod settings. Each Tunable overrides a def field, written onto the def by
+// The set's mod settings. Each setting overrides a def field, written onto the def by
 // ApplyToDefs (at startup, then whenever the window closes), so every reader of those fields,
 // vanilla's and VEF's included, sees the setting with no code of its own. The defaults, and the
 // rationale for them, are the defs'. Nothing here is saved into a game: a save loads the same
 // with any settings, and with none.
 //
-// The suite's doses override maxCharges on the armor's CompDressingSuite entry; the
-// dressing's time, cooldown and range override the MDWC_MechaniteDressing AbilityDef's castTime and
-// cooldownTime (shown in seconds, stored in ticks on the def) and distanceToTarget. The one
-// section ends on a line of what its sliders amount to.
+// On the armor's CompProperties_DressingSuite entry, the medicine overrides ammoDef and the kits
+// maxCharges. On the MDWC_MechaniteDressing AbilityDef, the warmup, cooldown and range override
+// castTime, cooldownTime (shown in seconds, stored in ticks on the def) and distanceToTarget,
+// and the time per wound overrides its DressingExtension's ticksPerTend (likewise). The medicine
+// also writes its uiIcon onto the ability's icon while the def names no iconPath of its own, so
+// VEF's gizmo and targeting cursor show it unaided. The one section ends on a line of what its
+// rows amount to.
 //
 // What a write leaves on live ability instances (a running cooldown, a tooltip cache) is
 // caught up by each instance on its next gizmo request, keyed on Generation
-// (Ability_MechaniteDressing.ReconcileSettings); doses above a lowered maximum are trimmed off the
-// worn suites at once (TrimWornSuites).
+// (Ability_MechaniteDressing.ReconcileSettings); kits above a lowered maximum are trimmed off
+// the worn suites at once (TrimWornSuites). A medicine change needs nothing of either: kits are
+// a vanilla charge count with no type of their own, so those loaded count as the new medicine
+// and the next reload fetches it.
 public class MedicWarcasketSettings : ModSettings
 {
     private const string DressingDefName = "MDWC_MechaniteDressing";
@@ -34,33 +38,39 @@ public class MedicWarcasketSettings : ModSettings
     // Bumped by every ApplyToDefs, including the one at startup.
     public static int Generation { get; private set; }
 
-    // The suite's maxCharges, per medicine type. The cast time is banded: quarter seconds at the
-    // short end, where they matter, coarser steps as it reaches a slow dressing.
-    // VEF paths to the target with PathEndMode.Touch at a distanceToTarget of 1.5 or less, so
-    // the range's minimum is the adjacent dressing.
-    public readonly Tunable doses = new("Doses", 1f, 20f, 1f, Whole);
+    public readonly MedicineSetting medicine = new();
+
+    // The suite's maxCharges. The warmup is banded: quarter seconds at the short end, where they
+    // matter, coarser steps as it reaches a slow dressing.
+    // The range sits on RimWorld's x.9 radii, which put the 2.9 default on the grid (the Tunable
+    // clears a value within half a step of the default, so an off-grid default could never be
+    // left by one step). Its 1.9 minimum reaches the same cells as 1.5, the adjacent ones
+    // diagonals included; the dressing's own walk always paths to touch, so no VEF pathing
+    // threshold constrains it.
+    public readonly Tunable kits = new("Kits", 1f, 20f, 1f, Whole);
     public readonly Tunable castTime = new("CastTime", 0f, 10f, 0.25f, v => v.ToString("0.##"))
     {
         StepBands = [(3f, 0.25f), (6f, 0.5f), (10f, 1f)],
     };
+    public readonly Tunable tendInterval = new("TendInterval", 0.25f, 5f, 0.25f, v => v.ToString("0.##"));
     public readonly Tunable cooldown = new("Cooldown", 0f, 300f, 5f, Whole);
-    public readonly Tunable range = new("Range", 1.5f, 12.5f, 1f, v => v.ToString("0.#"));
+    public readonly Tunable range = new("Range", 1.9f, 12.9f, 1f, v => v.ToString("0.#"));
 
     private bool defaultsLoaded;
     private Vector2 scrollPosition;
     private float contentHeight;
 
-    // The icon beside the section header: the industrial medicine's, which is what the
-    // dressing's gizmo shows by default (the ability def has no icon of its own).
-    private Texture2D dressingIcon;
+    // The severity one kit treats, quoted by the summary line; a def field with no setting.
+    private int severityPerKit;
 
-    private IEnumerable<Tunable> All => [doses, castTime, cooldown, range];
+    private IEnumerable<Tunable> All => [kits, castTime, tendInterval, cooldown, range];
 
     private static string Whole(float v) => Mathf.RoundToInt(v).ToString();
 
     public override void ExposeData()
     {
         base.ExposeData();
+        medicine.ExposeData();
         foreach (Tunable tunable in All)
             tunable.ExposeData();
     }
@@ -71,12 +81,13 @@ public class MedicWarcasketSettings : ModSettings
     {
         if (!TryGetDefs(out Defs defs))
             return;
-        dressingIcon = ThingDefOf.MedicineIndustrial.uiIcon;
-
-        doses.DefaultValue = defs.suite.maxCharges;
+        medicine.DefaultValue = defs.suite.ammoDef;
+        kits.DefaultValue = defs.suite.maxCharges;
         castTime.DefaultValue = (float)defs.dressing.castTime / GenTicks.TicksPerRealSecond;
+        tendInterval.DefaultValue = (float)defs.extension.ticksPerTend / GenTicks.TicksPerRealSecond;
         cooldown.DefaultValue = (float)defs.dressing.cooldownTime / GenTicks.TicksPerRealSecond;
         range.DefaultValue = defs.dressing.distanceToTarget;
+        severityPerKit = Mathf.RoundToInt(defs.suite.severityPerKit);
         defaultsLoaded = true;
     }
 
@@ -84,15 +95,23 @@ public class MedicWarcasketSettings : ModSettings
     {
         if (!defaultsLoaded || !TryGetDefs(out Defs defs))
             return;
-        defs.suite.maxCharges = Mathf.Max(1, doses.IntValue);
+        ThingDef chosen = medicine.Value;
+        if (chosen != null)
+        {
+            defs.suite.ammoDef = chosen;
+            if (defs.dressing.iconPath.NullOrEmpty())
+                defs.dressing.icon = chosen.uiIcon != null ? chosen.uiIcon : BaseContent.BadTex;
+        }
+        defs.suite.maxCharges = Mathf.Max(1, kits.IntValue);
         defs.dressing.castTime = Mathf.RoundToInt(castTime.Value * GenTicks.TicksPerRealSecond);
         defs.dressing.cooldownTime = Mathf.RoundToInt(cooldown.Value * GenTicks.TicksPerRealSecond);
         defs.dressing.distanceToTarget = range.Value;
+        defs.extension.ticksPerTend = Mathf.Max(1, Mathf.RoundToInt(tendInterval.Value * GenTicks.TicksPerRealSecond));
         Generation++;
         TrimWornSuites();
     }
 
-    // A lowered dose count leaves worn suites above it, which vanilla's reload accounting
+    // A lowered kit count leaves worn suites above it, which vanilla's reload accounting
     // cannot take (CompDressingSuite); a stored armor is trimmed when equipped, and a suite
     // saved above the count on load. Every live pawn, since a caravan or transporter pawn
     // spawns with no hook of its own.
@@ -109,14 +128,15 @@ public class MedicWarcasketSettings : ModSettings
         }
     }
 
-    // One row per tunable under the section's header, then a reset button below. The section
+    // One row per setting under the section's header, then a reset button below. The section
     // is headed by whitespace and a medium-font header rather than a rule, which reads as
     // another slider, and the rows sit indented under it; it closes on the same gap so the list
-    // does not end flush on its last row. The list scrolls once it outgrows the window's height
-    // (a small window, a large font), sized from the previous frame's listing height; the
-    // scrollbar only takes its width once it is needed. maxOneColumn keeps the listing growing
-    // downward: past its rect's height it would start a new column off to the right, outside
-    // the window, and never report the height the scroll view needs.
+    // does not end flush on its last row. The header's icon is the configured medicine's, read
+    // on each draw so it follows the medicine row at once. The list scrolls once it outgrows the
+    // window's height (a small window, a large font), sized from the previous frame's listing
+    // height; the scrollbar only takes its width once it is needed. maxOneColumn keeps the
+    // listing growing downward: past its rect's height it would start a new column off to the
+    // right, outside the window, and never report the height the scroll view needs.
     // While the defs were not found there is nothing to tune, so the page says so instead of
     // drawing rows around the -1 the defaults never got.
     public void DoWindowContents(Rect inRect)
@@ -136,9 +156,11 @@ public class MedicWarcasketSettings : ModSettings
         Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
         var listing = new Listing_Standard { maxOneColumn = true };
         listing.Begin(viewRect);
-        SectionHeader(listing, "MDWC_SectionDressing", dressingIcon, first: true);
-        doses.DoRow(listing);
+        SectionHeader(listing, "MDWC_SectionDressing", medicine.Value?.uiIcon, first: true);
+        medicine.DoRow(listing);
+        kits.DoRow(listing);
         castTime.DoRow(listing);
+        tendInterval.DoRow(listing);
         cooldown.DoRow(listing);
         range.DoRow(listing);
         SummaryRow(listing, DressingSummary);
@@ -150,15 +172,24 @@ public class MedicWarcasketSettings : ModSettings
         if (Widgets.ButtonText(new Rect(inRect.x, inRect.yMax - buttonHeight, buttonWidth, buttonHeight),
                 "RestoreToDefaultSettings".Translate()))
         {
+            medicine.Reset();
             foreach (Tunable tunable in All)
                 tunable.Reset();
         }
     }
 
-    // What the section's sliders amount to: the suite's capacity per type and the dressing's
-    // time and cooldown, in the formats their rows show.
-    private string DressingSummary() =>
-        "MDWC_DressingSummary".Translate(doses.IntValue, castTime.Value.ToString("0.##"), Whole(cooldown.Value));
+    // What the section's rows amount to: the suite's capacity and medicine, what a kit treats,
+    // and the dressing's timings, in the formats their rows show; a cooldown of 0 ends the line
+    // on its own clause rather than "0 s of cooldown".
+    private string DressingSummary()
+    {
+        string medicineLabel = medicine.Value?.label ?? string.Empty;
+        string warmup = castTime.Value.ToString("0.##");
+        string perWound = tendInterval.Value.ToString("0.##");
+        if (Mathf.RoundToInt(cooldown.Value) == 0)
+            return "MDWC_DressingSummaryNoCooldown".Translate(kits.IntValue, medicineLabel, severityPerKit, warmup, perWound);
+        return "MDWC_DressingSummary".Translate(kits.IntValue, medicineLabel, severityPerKit, warmup, perWound, Whole(cooldown.Value));
+    }
 
     // A muted line under a section's rows, indented and padded as they are, as tall as its text.
     private static void SummaryRow(Listing_Standard listing, Func<string> summary)
@@ -202,27 +233,28 @@ public class MedicWarcasketSettings : ModSettings
     private struct Defs
     {
         public AbilityDef dressing;
-        public CompProperties_ApparelReloadable suite;
+        public CompProperties_DressingSuite suite;
+        public DressingExtension extension;
     }
 
-    // All or nothing: with either target missing (another mod patched it away) the settings
-    // leave every def at its XML values and say so once, as a warning, since the set itself
-    // still works.
+    // All or nothing: with any target missing (another mod patched it away) the settings leave
+    // every def at its XML values and say so once, as a warning, since the set itself still
+    // works.
     private static bool warned;
 
     private static bool TryGetDefs(out Defs defs)
     {
-        ThingDef armor = DefDatabase<ThingDef>.GetNamedSilentFail(ArmorDefName);
+        AbilityDef dressing = DefDatabase<AbilityDef>.GetNamedSilentFail(DressingDefName);
         defs = new Defs
         {
-            dressing = DefDatabase<AbilityDef>.GetNamedSilentFail(DressingDefName),
-            suite = armor?.comps?.OfType<CompProperties_ApparelReloadable>()
-                .FirstOrDefault(p => p.compClass == typeof(CompDressingSuite)),
+            dressing = dressing,
+            suite = DefDatabase<ThingDef>.GetNamedSilentFail(ArmorDefName)?.GetCompProperties<CompProperties_DressingSuite>(),
+            extension = dressing?.GetModExtension<DressingExtension>(),
         };
-        if (defs.dressing != null && defs.suite != null)
+        if (defs.dressing != null && defs.suite != null && defs.extension != null)
             return true;
         if (!warned)
-            Log.Warning("[Medic Warcasket] Settings could not find the field dressing ability or the armor's medicine suite; the set keeps its XML values.");
+            Log.Warning("[Medic Warcasket] Settings could not find the mechanite dressing ability, its dressing extension or the armor's dressing suite; the set keeps its XML values.");
         warned = true;
         return false;
     }

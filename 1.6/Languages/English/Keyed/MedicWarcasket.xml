@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
-  <!-- Field dressing (Source/1.6/Abilities/, Source/1.6/Comps/) -->
+  <!-- Mechanite dressing (Source/1.6/Abilities/, Source/1.6/Comps/, Source/1.6/Gizmos/) -->
   <MDWC_NoMedicineLoaded>No {0} loaded.</MDWC_NoMedicineLoaded>
   <MDWC_NoWoundsToDress>{0} has no wounds to dress.</MDWC_NoWoundsToDress>
   <MDWC_NothingToTreat>{0} has nothing to treat.</MDWC_NothingToTreat>
   <MDWC_HostileTarget>{0} is hostile and still up.</MDWC_HostileTarget>
   <MDWC_WoundsTended>{0} wounds tended</MDWC_WoundsTended>
-  <MDWC_MedicineOption>{0} ({1} / {2})</MDWC_MedicineOption>
+  <MDWC_WoundsTendedPartial>Interrupted: {0} of {1} wounds tended</MDWC_WoundsTendedPartial>
+  <MDWC_WoundsTendedDry>Out of {0}: {1} of {2} wounds tended</MDWC_WoundsTendedDry>
+  <MDWC_BeamBroken>Stream broken: {0} of {1} wounds tended</MDWC_BeamBroken>
   <MDWC_TargetQuality>{0}, quality {1}</MDWC_TargetQuality>
-  <MDWC_LoadedDoses>Loaded doses: {0}</MDWC_LoadedDoses>
-  <MDWC_LoadedDosesEntry>{0} {1} / {2}</MDWC_LoadedDosesEntry>
-  <MDWC_LoadedDosesNone>none</MDWC_LoadedDosesNone>
+  <MDWC_TargetCost>Wounds: {0}, kits: {1}</MDWC_TargetCost>
+  <MDWC_TargetCostShort>Wounds: {0}, kits: {1} ({2} loaded)</MDWC_TargetCostShort>
+  <MDWC_KitsLoaded>Kits loaded: {0} / {1}</MDWC_KitsLoaded>
+  <MDWC_StatSeverityPerKit>Severity per kit</MDWC_StatSeverityPerKit>
+  <MDWC_StatSeverityPerKitDesc>The total severity of injuries one kit of medicine treats, as one vanilla treatment does. A disease, infection or fresh missing part takes a whole kit.</MDWC_StatSeverityPerKitDesc>
+  <MDWC_GaugeTip>{0} sealed kits and {1} of an open kit. A kit treats up to {2} severity of injuries, or one illness. Colonists reload this suite to {3} kits.</MDWC_GaugeTip>
 
   <!-- Mod settings (Source/1.6/Settings/) -->
   <MDWC_SettingsCategory>Medic Warcasket</MDWC_SettingsCategory>
   <MDWC_SettingsUnavailable>These settings are unavailable. Another mod has changed the medic warcasket's definitions, so the set keeps its built-in values.</MDWC_SettingsUnavailable>
 
-  <MDWC_SectionDressing>Field dressing</MDWC_SectionDressing>
+  <MDWC_SectionDressing>Mechanite dressing</MDWC_SectionDressing>
 
-  <MDWC_Doses>Doses per medicine type</MDWC_Doses>
-  <MDWC_DosesDesc>The number of doses of each medicine type the armor's suite holds when full. A suite already holding more than this loses the excess. Default: {0}.</MDWC_DosesDesc>
+  <MDWC_Medicine>Medicine</MDWC_Medicine>
+  <MDWC_MedicineDesc>The medicine the armor's suite is loaded with. Herbal medicine is too crude for the carriers. Kits already loaded count as the new medicine. Default: {0}.</MDWC_MedicineDesc>
 
-  <MDWC_CastTime>Dressing time (seconds)</MDWC_CastTime>
-  <MDWC_CastTimeDesc>How long the pilot takes to apply a field dressing. The patient is held still until it is done. Default: {0}.</MDWC_CastTimeDesc>
+  <MDWC_Kits>Kits held</MDWC_Kits>
+  <MDWC_KitsDesc>The number of medicine kits the armor's suite holds when full. A suite already holding more than this loses the excess. Default: {0}.</MDWC_KitsDesc>
+
+  <MDWC_CastTime>Warmup (seconds)</MDWC_CastTime>
+  <MDWC_CastTimeDesc>How long the suite primes before the stream reaches the patient. The patient is held still from the start. Default: {0}.</MDWC_CastTimeDesc>
+
+  <MDWC_TendInterval>Time per wound (seconds)</MDWC_TendInterval>
+  <MDWC_TendIntervalDesc>How long the stream spends on each wound or illness. A patient with more to treat keeps the stream, and the hold, going longer. Default: {0}.</MDWC_TendIntervalDesc>
 
   <MDWC_Cooldown>Cooldown (seconds)</MDWC_Cooldown>
-  <MDWC_CooldownDesc>The time the pilot must wait after a field dressing before applying another. Default: {0}.</MDWC_CooldownDesc>
+  <MDWC_CooldownDesc>The time the pilot must wait after a dressing before starting another. Queued dressings wait it out. Default: {0}.</MDWC_CooldownDesc>
 
   <MDWC_Range>Range (cells)</MDWC_Range>
-  <MDWC_RangeDesc>How close the pilot walks to the patient before applying the dressing. Within this range, a clear line of sight is enough. Default: {0}.</MDWC_RangeDesc>
+  <MDWC_RangeDesc>How close the pilot walks to the patient before starting the stream, which also needs a clear line of sight. Default: {0}.</MDWC_RangeDesc>
 
-  <MDWC_DressingSummary>The suite holds up to {0} of each medicine type. Each dressing takes {1} s to apply, then {2} s of cooldown before the next.</MDWC_DressingSummary>
+  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, with {5} s of cooldown after.</MDWC_DressingSummary>
+  <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
 
   <MDWC_DefaultSuffix> (default)</MDWC_DefaultSuffix>
 

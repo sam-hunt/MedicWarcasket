@@ -35,8 +35,9 @@ adjective and its 10th-generation paragraph.
 
 ## Charge nouns
 
-The armor's medicine suite has the `chargeNoun` "dose" (its row is *pass*,
-below the inherited rows). A charge noun is shown only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
+The armor's medicine suite has the `chargeNoun` "kit" (its row is *pass*,
+below the inherited rows); render it with the language's natural word for a medicine kit. It is the
+vanilla reload "charge noun", which vanilla prints as "Kits" and "Reload cost per kit". A charge noun is shown only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
 skill), and the Russian worker reads the `plural` table and the genitive slots go through `case` lookups, so every coined noun ships a `plural.txt` line and `case.txt` rows for both numbers under `1.6/Languages/Russian/WordInfo/`. Shipcracker's "fuel unit" row in its glossary
 is the worked example for this language.
 
@@ -51,6 +52,7 @@ is the worked example for this language.
 - medic (this set's name) and the Workshop title.
 - pilot (the wearer, every description), where no inherited row covers it.
 - Core medical vocabulary once the abilities exist: tend, medicine, surgery, bleeding, infection, pain, and whatever hediffs or stats the final text names.
+- mechanite dressing (the ability): keep "mechanite" as vanilla renders "mechanites" in this language (match vanilla's rendering; ground it in the first pass), with "dressing" in the tending sense and the verb "dress" in its strings.
 - This mod's coinages, once the descriptions are final.
 
 ## Pending native review

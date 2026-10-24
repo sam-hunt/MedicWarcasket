@@ -10,13 +10,15 @@ The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot p
 [h2]The Set[/h2]
 Armor, shoulder pads and helmet, welded at the warcasket foundry and unlocked by Spacer Warcaskets research. Mix and match the pieces with VFE Pirates' own sets as you please.
 [list]
-[*][b]Armor:[/b] Grants field-dressing, and remains able to do medical work: tending, surgery, feeding and rescue
+[*][b]Armor:[/b] Grants mechanite dressing, and remains able to do medical work: tending, surgery, feeding and rescue
 [*][b]Shoulders:[/b] Grants adrenaline shot, faster tending, and the pilot's manipulation held at full
 [*][b]Helmet:[/b] better tend quality, and the pilot's sight held at full
 [/list]
 
-[h2]Field dressing[/h2]
-The armor carries a medicine suite which tends every wound on a pawn with the selected medicine, at the quality the pilot would give it; right-click the gizmo to pick the type. With the helmet on, the dressing treats diseases and infections too. Doses, dressing time, cooldown and range can be changed in the mod settings.
+[h2]Mechanite dressing[/h2]
+The armor carries a suite of medicine kits. Point it at a wounded pawn and the pilot streams mechanites over them in a green beam, tending one wound after another, worst first, at the quality the pilot would give it. The patient is held still until the last wound is done, and the pilot earns medicine experience for each one. With the helmet on, the dressing treats diseases and infections too.
+
+Dressings can be queued, and Shift-click chains several patients in a row. Drag the suite's gauge to set how full colonists keep it. The medicine it uses, the number of kits and the timings can be changed in the mod settings.
 
 [hr][/hr]
 [h1]Mod Compatibility[/h1]

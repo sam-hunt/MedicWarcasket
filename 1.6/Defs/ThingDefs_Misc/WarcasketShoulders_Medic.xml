@@ -10,7 +10,7 @@
     The medic offsets are this set's own, and first guesses for the tuning pass. MedicalTendSpeed
     +0.25 is about four Medicine levels on vanilla's skill curve for that stat. The Manipulation
     floor of 1.0 only matters to an impaired pilot (a floor never lowers a capacity) and feeds
-    both tend stats through their Manipulation capacity factor. Both reach the field dressing
+    both tend stats through their Manipulation capacity factor. Both reach the mechanite dressing
     through vanilla's tend formula.
 
     ApparelExtension priority 1, for the reason in the armor def's header: the

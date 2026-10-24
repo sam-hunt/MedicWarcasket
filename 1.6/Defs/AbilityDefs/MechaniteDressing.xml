@@ -3,34 +3,40 @@
   <!--
     The Medic armor's active, granted by the armor's CompProperties_AbilitiesApparel and fed
     by the medicine suite beside it (ThingDefs_Misc/Warcasket_Medic.xml). The rules live in
-    MedicWarcasket.Ability_MechaniteDressing; the gizmo (selected medicine's icon, loaded count,
-    right-click type switch) in Command_MechaniteDressing; the walk-then-cast job in
-    JobDriver_MechaniteDressing (JobDefs/MechaniteDressing.xml).
+    MedicWarcasket.Ability_MechaniteDressing; the walk, warmup, beam and warmdown job in
+    MedicWarcasket.JobDriver_MechaniteDressing (JobDefs/MechaniteDressing.xml).
 
     range is unset and requireLineOfSight off on purpose: the click is not range-limited, the
-    pilot walks to the patient and the job enforces sight at distanceToTarget. distanceToTarget
-    1.5 is how close the pilot gets before casting (touching, diagonals included); above it the
-    dressing is applied from that far with a clear line, which is what the range setting raises.
-    castTime 60 (1 s) and cooldownTime 1200 (20 s): Coagulate's warmup; the cooldown keeps one
-    medic from re-dressing the same squad every second while a stack of doses lasts. Both, and
-    distanceToTarget, are mod settings defaulting to these values.
+    pilot walks to the patient and the job driver enforces distance and sight at
+    distanceToTarget. 2.9 is how close the pilot gets before the dressing starts (RimWorld's
+    x.9 radii put it on the settings grid); the range setting moves it.
+    castTime 60 (1 s) is the warmup before the stream connects, and cooldownTime 0 lets
+    dressings follow one another: the kits a dressing draws are the limit, not a timer. Both,
+    distanceToTarget and the extension's ticksPerTend are mod settings defaulting to these
+    values.
+
+    DressingExtension: ticksPerTend is the time the beam spends on each wound; warmdownTicks is
+    the pilot's hold after the beam ends, over which the glow fades. VEF ignores the extension.
+    warmdownTicks has no setting.
+
+    Sounds: warmupStartSound plays once as the warmup begins and warmupSound loops through it,
+    both VEF fields; both are placeholders for the sound pass.
 
     Targeting: an explicit targetingParametersList entry rather than targetMode's generated
     one, to keep mechanoids and the pilot out (canTargetSelf is honoured by the vanilla
     Targeter). Faction is not checked, so a downed raider can be dressed before capture.
 
-    No iconPath: the gizmo, the cursor and the settings header show the selected (or the
-    industrial) medicine's own item icon, and vanilla's stack-count medicine art has no
-    bare-named file to point at. Custom ability art is a TODOs.md item.
+    No iconPath: the mod settings write the configured medicine's uiIcon onto def.icon at
+    startup, so the gizmo, the cursor and the settings header show that item's icon until
+    custom ability art lands.
   -->
   <VEF.Abilities.AbilityDef>
     <defName>MDWC_MechaniteDressing</defName>
-    <label>field dressing</label>
-    <description>Apply a dose of the suite's selected medicine to every wound on a person or animal at once, at the quality the pilot's medical skill allows. With the medic helmet worn, diseases and infections are treated as well. The patient is held still while the dressing goes on.</description>
+    <label>mechanite dressing</label>
+    <description>Seed the suite's medicine into a batch of carrier mechanites and stream them onto a person or animal nearby. The carriers dress the patient's wounds one at a time, most urgent first, at the quality the pilot's medical skill and the medicine allow. With the medic helmet worn, they treat diseases and infections as well. A kit of medicine is drawn on as each wound is dressed, about one gunshot or one illness per kit, and the patient is held still while the stream runs.</description>
     <abilityClass>MedicWarcasket.Ability_MechaniteDressing</abilityClass>
-    <gizmoClass>MedicWarcasket.Command_MechaniteDressing</gizmoClass>
     <jobDef>MDWC_MechaniteDressing</jobDef>
-    <jobReportString>Applying a field dressing.</jobReportString>
+    <jobReportString>Applying a mechanite dressing.</jobReportString>
     <targetMode>Pawn</targetMode>
     <targetingParametersList>
       <li>
@@ -43,10 +49,18 @@
         <canTargetLocations>false</canTargetLocations>
       </li>
     </targetingParametersList>
-    <distanceToTarget>1.5</distanceToTarget>
+    <distanceToTarget>2.9</distanceToTarget>
     <requireLineOfSight>false</requireLineOfSight>
     <castTime>60</castTime>
-    <cooldownTime>1200</cooldownTime>
+    <cooldownTime>0</cooldownTime>
+    <warmupStartSound>MechSerumUsed</warmupStartSound>
+    <warmupSound>Interact_Tend</warmupSound>
     <showUndrafted>true</showUndrafted>
+    <modExtensions>
+      <li Class="MedicWarcasket.DressingExtension">
+        <ticksPerTend>60</ticksPerTend>
+        <warmdownTicks>60</warmdownTicks>
+      </li>
+    </modExtensions>
   </VEF.Abilities.AbilityDef>
 </Defs>
