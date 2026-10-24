@@ -286,9 +286,11 @@ roster lives in CONTRIBUTING.md.
   probe is ticked for every family mod but each boot loads only its own list.
 - **`.steamworkshop/`** holds the Workshop title and BBCode description per language
   (`Description/<Language>.txt`, the toolkit's convention; its `README.md` has the format and
-  title rule). It is player-facing text and will quote def numbers once tuned, so a tuning
-  change that moves one updates `English.txt` in the same commit; the release skill translates
-  it from there.
+  title rule). It is the mod's marketing page, pasted only at releases, and its
+  `CLAUDE.md` is the editorial contract: shipped state only, headline features without
+  mechanics or def numbers, sectioned and skimmable, in the author's own voice, and short
+  enough that every translation fits Steam's byte limit. Read it before touching the text;
+  the release skill translates `English.txt` from there.
 
 **Releases:** run the `/release` skill, or by hand: add the version's `## [X.Y.Z]` section to
 `CHANGELOG.md`, bump `About/About.xml` `<modVersion>` and `Source/1.6/Properties/AssemblyInfo.cs`,
