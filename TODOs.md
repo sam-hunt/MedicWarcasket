@@ -1,92 +1,52 @@
 # TODOs
 
-Scoping notes for the work that has not landed yet. The set's mechanics are in (doctor
-passives, the field dressing, mod settings, the medic work trait); every stat and cost is still
-Siegebreaker's.
+Work that has not landed. The mechanics are in (doctor passives, field dressing, settings,
+the medic work trait); every stat and cost is still Siegebreaker's. Specs live in
+`Docs/Specs/`, the VFEP stat tables and ability roster in `Docs/Research/`.
 
-## Design
+## Before the first release
 
-- **Medic trait follow-ups.** The trait and its startup mirror are implemented per
-  `Docs/Specs/Medic-Work-Trait.md`.
-  - In-game verification: run the spec's section 6 list (never run; built and reviewed against
-    decompiles and the two Workshop DLLs only, plus one clean 1.7 boot that logged the mirrored
-    profile). Fresh entombings only, never a save from before the trait existed. Watch in
-    particular: the work tab under each of the three patch mods, the Bio tab's "Incapable of"
-    entry, and the slave case.
-  - Shock shoulders: VFEP's `VFEP_WarcasketShoulders_Shock` grants VFEP's trait on its own, so
-    a Medic armor plus Shock shoulders pilot loses Doctor (spec section 5). Propose upstream that
-    the lists move off the shoulders (the other eleven shoulder and helmet defs carry none); a
-    local patch would change VFEP for everyone and is not wanted.
-  - Configurable work profile: consider a settings section with toggles that control the
-    Medic's work profile more completely, e.g. medical, other caring work and childcare, in
-    place of the fixed "Doctor open, Childcare blocked" choice. The mirror writes def fields,
-    so the toggles would feed its re-block set through `ApplyToDefs` like every other setting
-    (spec section 5).
-- **Tune the set.** Every stat, cost and comp on the three defs is VFEP's Siegebreaker's
-  (`Docs/Research/VFEP_WARCASKET_STATS.md` tabulates the 10th-generation sets; the sibling
-  Shipcracker repo's def headers show the tuning rationale format). Decide what a medic
-  suit gives up and what it gains, then price it against Siegebreaker, Guardian, Sarcophagus
-  and Brute at market value, as Shipcracker's armor header does.
-- **Field dressing follow-ups.** The passives and the dressing are implemented per
-  `Docs/Specs/Field-Dressing.md` (its sections 2 to 5 remain the reference; where the code
-  departs from the spec the file headers say so: click range unlimited with the walk gated by
-  `distanceToTarget`, an own JobDef so a bed patient stays in bed, no `defaultMedicine` prop,
-  own `MDWC_WoundsTended` text since Biotech owns `NumWoundsTended`).
-  `Docs/Research/WARCASKET_ABILITIES.md` is the roster context.
-  - In-game verification: run the spec's section 6 list (never run; the implementation was
-    built and reviewed against decompiles only). Watch in particular: the stun on a drafted
-    ally, a downed raider and a pet; the bed patient's quality offset; the automatic reload
-    switching medicine with the selection; a save mid-walk.
-  - Medicine XP: 60 per cast (one base-length tend job's worth), chosen without play testing;
-    confirm or retune against what a medic actually earns per fight.
-  - Passive offset sizes: `MedicalTendSpeed` +0.25 and `MedicalTendQuality` +0.10 are first
-    guesses; retune with the set (folds into "Tune the set").
-  - Healing beam: add a cast effect for the field dressing (VEF `castFleck` / `fleckOnTarget`,
-    or an effecter) once the ability is signed off.
-  - Auxiliary shot: consider a shoulder-granted stimulant / pain suppressant / anaesthetic
-    shot that autocasts on the target when a field dressing completes.
-  - Helmet: consider whether its Sight floor and tend quality overlap the Sarcophagus helmet
-    or leave it under-attractive against the tier's alternatives.
-  - Gizmo art: consider a custom ability texture with the medicine type as a partial overlay
-    instead of the medicine's item icon.
-  - Welding costs: balance pass on all three pieces' costLists once the abilities are
-    signed off, the free first fill of five industrial medicine included (folds into "Tune the
-    set").
-- **Descriptions.** The three descriptions are placeholders written around the theme; rewrite
-  them now that the abilities exist, keeping the shared second and third paragraphs identical
-  across the three defs and each `shortDescription` equal to its first paragraph. The ability
-  def's description and the Keyed strings are first drafts in the same register.
-- **Art polish.** `About/Preview.png`, ability gizmos, hero art's arm injectors revision
-- Acquisition and raid presence: all three pieces carry `WarcasketVeteran` and `WarcasketAll`
-  like Siegebreaker, so veteran raiders can field the set. Decide whether a medic set should
-  stay on the raid tables (AI never casts apparel abilities, so it is flavor and threat only).
+- **Tune the set.** Decide what a medic suit gives up and gains, then price the three pieces
+  against Siegebreaker, Guardian, Sarcophagus and Brute at market value (Shipcracker's armor
+  header is the format, `VFEP_WARCASKET_STATS.md` the tables). Folds in:
+  - the passives (`MedicalTendSpeed` +0.25, `MedicalTendQuality` +0.10 are first guesses)
+  - the dressing's medicine XP (60 per cast, chosen without play testing)
+  - welding costs, the free first fill of five industrial medicine included
+  - the helmet: does its Sight floor and tend quality overlap the Sarcophagus helmet?
+- **Adrenaline shot.** The Workshop page already names it on the shoulders, so it ships with
+  the release that carries that text. Scope: a shoulder-granted stimulant, pain suppressant or
+  anaesthetic shot, perhaps autocast on the target when a field dressing completes.
+- **Descriptions.** The three def descriptions are theme placeholders. Rewrite around the final
+  features, shared paragraphs identical across the pieces, each `shortDescription` equal to
+  its first paragraph. The ability description and the Keyed strings are first drafts.
+- **In-game verification.** Never run; both features were built against decompiles only.
+  - Field dressing: `Field-Dressing.md` section 6. Watch the stun on a drafted ally, a downed
+    raider and a pet; the bed patient's quality offset; the reload switching with the
+    selection; a save mid-walk.
+  - Medic trait: `Medic-Work-Trait.md` section 6, fresh entombings only. Watch the work tab
+    under each patch mod, the Bio tab's "Incapable of", the slave case.
+- **Release candidate first.** `/release major rc` tags `v1.0.0-rc.1`. The CI workflow
+  (SteamCMD fetch of VEF and VFEP, translation gate, zip contents) has never run here.
+- **Translations.** English Keyed only so far. One language at a time via
+  `/translate <Language>` once the English is final (defs, Keyed, Workshop page); the
+  glossaries are seeded. The l10n pin (v1.5.0) moves at release.
+- **First Workshop publish.** Commit `About/PublishedFileId.txt`, add the Workshop link and the
+  Steam badges to the README, paste the description.
 
-## Translation (deferred to shortly before release)
+## Later
 
-- Only the English Keyed file exists under `1.6/Languages/`. The pass runs one language at a
-  time via `/translate <Language>`, after the English is final; every glossary is seeded with the
-  family's VFEP rows (mirrored from Toxin Warcasket's seeds) and lists what the pass must
-  still ground. The l10n pin is at v1.5.0. The VFEP warcasket vocabulary now lives in three
-  family repos; move it upstream into `rimworld-l10n` before a fourth mod copies it.
-- `.steamworkshop/Description/English.txt` is a draft; rewrite it with the final feature set
-  before the pass translates it.
-
-## Infrastructure follow-ups
-
-- **Cut a release candidate to exercise CI before the real release.** The release
-  workflow fetches VEF and VFEP from the Workshop with SteamCMD (anonymous login) and injects
-  them via `VEF_PATH` / `VFEP_PATH`, but it has never run in this repo. `/release major rc` tags
-  `v1.0.0-rc.1`: a GitHub prerelease that needs no CHANGELOG section. Check the Workshop
-  fetch step, the translation gate and the zip's contents.
-- **Unit tests.** Five siblings carry a headless xUnit net472 suite at
-  `Tests/1.6/<Mod>.Tests.csproj` (Krafs ref, no live game; XenogermTraderStock's CLAUDE.md
-  has the mono/copy-target notes). There is now pure logic worth covering: `Tunable.Snap`
-  with step bands (Shipcracker's `TunableSnapTests` is the template) and the suite's bucket
-  accounting if it is ever split from the comp.
-- **Tunable.cs has diverged from the family template.** This repo's copy adds step bands
-  (the cast-time slider's 0.25 / 0.5 / 1 s steps); Shipcracker's is the template and Toxin's
-  is older still. Backport the bands upstream so the three copies converge again.
-- **First Workshop publish.** Upload writes `About/PublishedFileId.txt`; commit it, add the
-  Workshop link to the README's Installation section, fill the id into the README's
-  commented-out Steam badges and uncomment them, and
-  paste `.steamworkshop/Description/English.txt` into the page.
+- **Configurable work profile.** Settings toggles over the Caring work types instead of the
+  fixed "Doctor open, Childcare blocked" (`Medic-Work-Trait.md` section 5); they would feed the
+  mirror through `ApplyToDefs`.
+- **Shock shoulders upstream.** VFEP's Shock shoulders grant VFEP's trait by themselves, so a
+  Medic wearing them loses Doctor (same spec, section 5). Propose moving the lists off the
+  shoulders upstream; no local patch.
+- **Dressing polish.** A cast effect (VEF `castFleck` / `fleckOnTarget` or an effecter); a gizmo
+  texture with the medicine type overlaid instead of the medicine's item icon.
+- **Art.** Ability gizmos; the hero art's arm injectors.
+- **Raid presence.** The pieces carry `WarcasketVeteran` and `WarcasketAll` like Siegebreaker;
+  decide whether a medic set stays on the raid tables (AI never casts apparel abilities).
+- **Unit tests.** Siblings carry a headless xUnit net472 suite (`Tests/1.6/<Mod>.Tests.csproj`);
+  `Tunable.Snap` with step bands is worth covering (Shipcracker's `TunableSnapTests`).
+- **VFEP vocabulary upstream.** It is seeded in three family glossaries; move it into
+  `rimworld-l10n` before a fourth copies it.
