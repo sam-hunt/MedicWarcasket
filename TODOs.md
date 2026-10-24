@@ -9,6 +9,11 @@
   - the dressing's medicine XP (60 per cast, chosen without play testing)
   - welding costs, the free first fill of five industrial medicine included
   - the helmet: does its Sight floor overlap the Sarcophagus helmet? could the floor be lower?
+- **Mechanite infusion.** Rework the field dressing per `Docs/Specs/Mechanite-Infusion.md`
+  (DESIGN, awaiting review): a warmup glow, a beam tending one wound per second, a warmdown,
+  kits charged by wound severity as vanilla treatments are, a Toxin-style gauge, medicine chosen
+  in the settings only, queueable orders. The identifier rename lands before the first publish
+  or not at all.
 - **Adrenaline shot.** The Workshop page already names it on the shoulders, so it ships with
   the release that carries that text. Scope: a shoulder-granted stimulant, pain suppressant or
   anaesthetic shot, perhaps autocast on the target when a field dressing completes.
@@ -18,6 +23,8 @@
 - **In-game verification.** Never run; both features were built against decompiles only.
   - Medic trait: `Medic-Work-Trait.md` section 6, fresh entombings only. Watch the work tab
     under each patch mod, the Bio tab's "Incapable of", the slave case.
+  - On 1.6 as well as 1.7: the mechanite infusion was specced against the 1.7 install alone,
+    on Ludeon's word that 1.6 behaves the same. Rerun its visuals and assets checks there.
 - Mod settings section title/icon tooltip ability descriptions, similar to Toxin
 - **First Workshop publish.** Commit `About/PublishedFileId.txt`, add the Workshop link and the
   Steam badges to the README, paste the description.
@@ -30,8 +37,11 @@
 - **Shock shoulders upstream.** VFEP's Shock shoulders grant VFEP's trait by themselves, so a
   Medic wearing them loses Doctor (same spec, section 5). Propose moving the lists off the
   shoulders upstream; no local patch.
-- **Dressing polish.** A cast effect (VEF `castFleck` / `fleckOnTarget` or an effecter); a gizmo
-  texture with the medicine type overlaid instead of the medicine's item icon.
+- **Infusion sounds.** The spec's sounds are placeholders (`Mechanite-Infusion.md` 3.5):
+  the serum's `MechSerumUsed` at the warmup, vanilla's `Interact_Tend` loop through the warmup
+  and the beam, and `TechMedicineUsed` when the beam connects. Review whether a beam-like
+  sustainer, a weapon's if nothing else fits, suits the stream better, and check the layering
+  and volumes. A DLC sound needs a fallback for when the DLC is absent.
 - **Art.** Ability gizmos
 - **Raid presence.** The pieces carry `WarcasketVeteran` and `WarcasketAll` like Siegebreaker;
   decide whether a medic set stays on the raid tables (AI never casts apparel abilities, can we make them?).
