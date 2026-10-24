@@ -4,20 +4,19 @@ A new spacer-tier warcasket for [url=https://steamcommunity.com/sharedfiles/file
 
 [h1]About[/h1]
 
-The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot patching up squadmates under fire. It is in early development. Odyssey is optional.
+The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot patching up squadmates under fire.
 
 [hr][/hr]
 [h2]The Set[/h2]
-Armor, shoulder pads and helmet, welded on at the warcasket foundry and unlocked by researching spacer warcaskets. Mix and match the pieces with VFE Pirates' own sets as you please.
+Armor, shoulder pads and helmet, welded at the warcasket foundry and unlocked by Spacer Warcaskets research. Mix and match the pieces with VFE Pirates' own sets as you please.
 [list]
-[*][b]Armor:[/b] the pilot keeps their medical work: tending, surgery, feeding and rescuing patients, on top of the wardening, hauling and firefighting every warcasket pilot can do. Everything else a warcasket blocks stays blocked. One exception: VFE Pirates' Shock shoulders weld on the standard warcasket trait by themselves, so a Medic wearing them loses the doctoring again.
-[*][b]Shoulders:[/b] faster tending, and the pilot's manipulation held at full
+[*][b]Armor:[/b] Grants field-dressing, and remains able to do medical work: tending, surgery, feeding and rescue
+[*][b]Shoulders:[/b] Grants adrenaline shot, faster tending, and the pilot's manipulation held at full
 [*][b]Helmet:[/b] better tend quality, and the pilot's sight held at full
 [/list]
-The stats and costs are not tuned yet, so expect this set to change as development continues.
 
 [h2]Field dressing[/h2]
-The armor carries a medicine suite holding five doses of each medicine type. One cast tends every wound on a person or animal with the selected medicine, at the quality your pilot would give it; right-click the gizmo to pick the type. With the helmet on, the dressing treats diseases and infections too. Doses, dressing time, cooldown and range can be changed in the mod settings.
+The armor carries a medicine suite which tends every wound on a pawn with the selected medicine, at the quality the pilot would give it; right-click the gizmo to pick the type. With the helmet on, the dressing treats diseases and infections too. Doses, dressing time, cooldown and range can be changed in the mod settings.
 
 [hr][/hr]
 [h1]Mod Compatibility[/h1]
@@ -27,20 +26,15 @@ The armor carries a medicine suite holding five doses of each medicine type. One
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]: required.
 [*]Save Our Ship 2: EVA rated under the same rules as VFE Pirates' own sets
 [*]Vanilla Gravship Expanded: follows its vacuum-resistance rules for warcaskets
-[*]Warcaskets can work!, Warcaskets can haul! and VFE Pirates - Hardworking Warcaskets: whatever they open for VFE Pirates' pilots they open for the Medic's too, Hardworking's work-speed penalty included
+[*]Warcaskets can work!, Warcaskets can haul! and VFE Pirates - Hardworking Warcaskets: Yes.
 [*]Not tested with Combat Extended (reports welcome)
 [/list]
 
 [hr][/hr]
 [h1]FAQ[/h1]
-[b]Q: Do I need Odyssey?[/b]
-A: No, it is optional.
 
 [b]Q: How do I get it?[/b]
 A: Research spacer warcaskets, then weld it on at the warcasket foundry like any other set.
-
-[b]Q: Was this made with LLMs?[/b]
-A: Some of the grunt code, and most localizations. I'm a software engineer by trade, and have been writing code for 25 years. All code is manually reviewed and tested; all bug reports and mod-conflicts followed up personally as time and detail allows. All art is either commissioned from humans, hand-authored in Krita, or both.
 
 [hr][/hr]
 [h1]Links[/h1]
