@@ -200,7 +200,7 @@ from VFEP's trait.
   </disabledWorkTypes>
   <degreeDatas>
     <li>
-      <label>medic warcasket</label>
+      <label>warcasket</label>
       <description>...</description>   <!-- see 4.4 -->
       <painFactor>0</painFactor>
       <statFactors>
@@ -294,10 +294,10 @@ load order. That is the whole compatibility story:
 
 ### 4.4 Player-facing text
 
-Label `medic warcasket` (shows in the Bio traits list). Description in VFEP's register with
-`{PAWN_nameDef}` grammar, stating the pain immunity, that the suit is built around treating the
-wounded so the pilot keeps their medical and social faculties, and that other work is beyond the
-suit. It must stay true under every row of the table above, so it should describe the suit's
+Label `warcasket`, VFEP's own (shows in the Bio traits list). Description in VFEP's register with
+`{PAWN_nameDef}` grammar, stating the pain immunity, that the suit is built for treating the
+wounded so the pilot can still doctor, and that other work is beyond the suit. Kept to two short
+paragraphs: the tooltip lists the work disables (and on 1.7 the pain and rest-fall factors) below it. It must stay true under every row of the table above, so it should describe the suit's
 intent rather than enumerate blocked work types, and it must not promise care for children.
 No em dashes.
 
@@ -370,7 +370,7 @@ trait beside ours and Doctor stays blocked.
 1. Entomb a colonist in the Medic set via the foundry (or dev-wear the three pieces). Work tab:
    Doctor assignable, Warden assignable, Hauling and Firefighter assignable, Childcare,
    Cleaning, Construction, Research, Cooking and Handling disabled. Bio tab: Traits shows
-   "medic warcasket"; "Incapable of" lists no Caring entry and does list Cleaning; Medicine
+   "warcasket"; "Incapable of" lists no Caring entry and does list Cleaning; Medicine
    skill not greyed. Health tab: pain stays 0 after a dev hit. Info card stats: rest fall rate
    factor at 130%, as on a Siegebreaker pilot.
 2. Tend a wounded pawn and perform a surgery; feed a patient.

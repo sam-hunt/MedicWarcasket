@@ -1,9 +1,5 @@
 # TODOs
 
-## Mechanite dressing
-
-- review gizmo tooltip text
-
 ## Before the first release
 
 - **Tune the set.** Decide what a medic suit gives up and gains, then price the three pieces
@@ -19,14 +15,8 @@
 - **Descriptions.** The three def descriptions are theme placeholders. Rewrite around the final
   features, shared paragraphs identical across the pieces, each `shortDescription` equal to
   its first paragraph. The ability description and the Keyed strings are first drafts.
-- **In-game verification.** Never run; the features were built against decompiles only.
-  - Mechanite dressing: the verification list in `Mechanite-Dressing.md` section 6.
-  - Medic trait: `Medic-Work-Trait.md` section 6, fresh entombings only. Watch the work tab
-    under each patch mod, the Bio tab's "Incapable of", the slave case.
-  - On 1.6 as well as 1.7: the mechanite dressing was specced against the 1.7 install alone,
-    on Ludeon's word that 1.6 behaves the same. Rerun its visuals and assets checks there.
 - **Mod settings section title/icon tooltip ability descriptions**, similar to Toxin
-- **Trait label should drop "medic" from "medic warcasket"** and tighten tooltip prose
+- **Smoke test on 1.6**
 - **First Workshop publish.** Commit `About/PublishedFileId.txt`, add the Workshop link and the
   Steam badges to the README, paste the description.
 

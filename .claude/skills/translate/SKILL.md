@@ -131,10 +131,10 @@ notes for the shim or flow edit this repo owes before continuing.
     driver never shows it (it reports the ability's `jobReportString`),
     but the walker lists it; render the two alike.
   - `DefInjected/TraitDef/` for `MDWC_WarcasketTrait_Medic`:
-    `degreeDatas.0.label` and `degreeDatas.0.description`. The label shows
-    in the Bio tab's traits list beside VFEP's own `warcasket` trait, so it
-    mirrors that trait's label in the language (`<set> + <VFEP trait
-    label>`, the glossary's label pattern); the description uses
+    `degreeDatas.0.label` and `degreeDatas.0.description`. The label is
+    VFEP's own trait label, `warcasket`, shown in the Bio tab's traits
+    list, so it renders exactly as VFEP's does in the language, with no set
+    name; the description uses
     `{PAWN_nameDef}` and the pronoun tokens like vanilla's trait
     descriptions (VFEP's own uses only `{PAWN_nameDef}`). Nothing else on
     the trait is text: its work profile and effects are overwritten at

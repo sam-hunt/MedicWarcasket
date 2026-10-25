@@ -33,8 +33,10 @@
     the trait-rolling code paths from handing this trait to a pawn outside the suit (VEF's
     TraitSet.GainTrait prefix admits it only while a worn apparel lists it in traitsOnEquip).
 
+    The label is VFEP's own, so the Bio tab names the state as it does for every warcasket pilot.
     The description must hold under every profile a patch mod can leave, so it states the suit's
-    intent rather than listing work types, and does not promise childcare.
+    intent rather than listing work types, and does not promise childcare. It stays short because
+    the tooltip lists the work disables beneath it, and on 1.7 the pain and rest-fall factors too.
   -->
   <TraitDef>
     <defName>MDWC_WarcasketTrait_Medic</defName>
@@ -51,8 +53,8 @@
     </disabledWorkTypes>
     <degreeDatas>
       <li>
-        <label>medic warcasket</label>
-        <description>{PAWN_nameDef} is entombed in a medic warcasket. No amount of pain will have an effect on {PAWN_objective}, and {PAWN_pronoun} can never go into a pain shock or drop unconscious due to pain. The suit is built around treating the wounded, so {PAWN_nameDef} keeps the use of {PAWN_possessive} medical and social faculties; the bulk of the armor and the energy it takes to move it make it a poor fit for most other work.</description>
+        <label>warcasket</label>
+        <description>{PAWN_nameDef} is entombed in a warcasket. Pain has no effect on {PAWN_objective}, and {PAWN_pronoun} can never go into pain shock or drop unconscious from it.\n\nBuilt for treating the wounded, the suit leaves {PAWN_objective} free to doctor, but it is too bulky for most other work.</description>
         <painFactor>0</painFactor>
         <statFactors>
           <RestFallRateFactor>1.3</RestFallRateFactor>
