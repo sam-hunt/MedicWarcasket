@@ -77,8 +77,8 @@ notes for the shim or flow edit this repo owes before continuing.
     `MDWC_NoWoundsToDress` and `MDWC_NothingToTreat` (invalid target,
     without and with the helmet) and `MDWC_HostileTarget` (a conscious
     enemy) take `{0}`, the target pawn's name; the floating texts take
-    counts of wounds: `MDWC_WoundsTended` (which code follows with
-    vanilla's quality line) `{0}` tended, `MDWC_WoundsTendedPartial` and
+    counts of wounds: `MDWC_WoundsTended` (a complete beam's
+    count, under the last wound's text, never for one wound) `{0}` tended, `MDWC_WoundsTendedPartial` and
     `MDWC_BeamBroken` `{0}` tended of `{1}` found, `MDWC_WoundsTendedDry`
     (the suite ran out) `{0}` the medicine's label, `{1}` tended of `{2}`
     found; `MDWC_TargetQuality` (the targeting cursor label, first line)

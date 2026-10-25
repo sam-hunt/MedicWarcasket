@@ -335,24 +335,30 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
         CompDressingSuite suite = Suite;
         if (suite == null || !suite.HasKit)
             return EndBeam(BeamState.Dry);
-        TendOne(tendableScratch[0], suite);
+        string tendText = TendOne(tendableScratch[0], suite);
 
         FillTendable(patient, tendableScratch);
         remaining = tendableScratch.Count;
         if (remaining == 0)
-            return EndBeam(BeamState.Complete);
+            return EndBeam(BeamState.Complete, tendText);
         if (!suite.HasKit)
-            return EndBeam(BeamState.Dry);
+            return EndBeam(BeamState.Dry, tendText);
+        ThrowText(tendText);
         return false;
     }
 
-    // Batch position 1 keeps vanilla's per-hediff "Tended / Quality" text off, as Coagulate
-    // does; the dressing shows one text per beam instead.
-    private void TendOne(Hediff hediff, CompDressingSuite suite)
+    // Returns the wound's floating text, which the caller throws, joined to the beam's outcome
+    // when this wound ended it, so the two never overlap. Batch position 1 keeps vanilla's own
+    // per-hediff text off, as Coagulate does; ours reads as vanilla's, with the quality this
+    // wound rolled (CompTended's random offset on the base). The label is read before tending,
+    // as vanilla's is, since a fresh missing part relabels once tended.
+    private string TendOne(Hediff hediff, CompDressingSuite suite)
     {
+        string label = hediff.Label;
         float severityPerKit = suite.SeverityPerKit;
         float cost = CostOf(hediff, severityPerKit, chargedAllAtOnce);
         hediff.Tended(quality, maxQuality, 1);
+        float rolled = hediff.TryGetComp<HediffComp_TendDuration>()?.tendQuality ?? quality;
         suite.Draw(cost);
         tended++;
         if (pawn.skills != null && cost > 0f)
@@ -361,9 +367,12 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
             pawn.skills.Learn(SkillDefOf.Medicine, lump * medicine.MedicineTendXpGainFactor * cost / severityPerKit);
         }
         FleckMaker.ThrowMetaIcon(patient.Position, patient.Map, FleckDefOf.HealingCross);
+        return "TextMote_Tended".Translate(label).CapitalizeFirst() + "\n" + "Quality".Translate() + " " + rolled.ToStringPercent();
     }
 
-    private bool EndBeam(BeamState state)
+    // The outcome goes under the last wound's text when a tend ended the beam. A complete beam
+    // of one wound needs no count, its wound's text already says it.
+    private bool EndBeam(BeamState state, string tendText = null)
     {
         beaming = false;
         tendSound?.End();
@@ -371,13 +380,15 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
         if (patient == null || !patient.Spawned)
             return true;
         int found = tended + remaining;
-        string text = state switch
+        string outcome = state switch
         {
-            BeamState.Complete => "MDWC_WoundsTended".Translate(tended) + "\n" + "Quality".Translate() + " " + quality.ToStringPercent(),
+            BeamState.Complete => tended > 1 ? "MDWC_WoundsTended".Translate(tended).Resolve() : null,
             BeamState.Dry => "MDWC_WoundsTendedDry".Translate(medicine.label, tended, found),
             _ => "MDWC_BeamBroken".Translate(tended, found),
         };
-        MoteMaker.ThrowText(patient.DrawPos, patient.Map, text, Color.white, TextMoteFadeDelay);
+        string text = tendText == null ? outcome : outcome == null ? tendText : tendText + "\n" + outcome;
+        if (text != null)
+            ThrowText(text);
         if (state == BeamState.Complete)
             MoteMaker.MakeAttachedOverlay(patient, MDWC_DefOf.MDWC_Mote_DressingFlash, Vector3.zero);
         return true;
@@ -403,7 +414,7 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
             cooldown = Find.TickManager.TicksGame + GetCooldownForPawn();
         bool pilotAlive = pawn != null && !pawn.Dead;
         if (beaming && patient != null && patient.Spawned)
-            MoteMaker.ThrowText(patient.DrawPos, patient.Map, "MDWC_WoundsTendedPartial".Translate(tended, tended + remaining), Color.white, TextMoteFadeDelay);
+            ThrowText("MDWC_WoundsTendedPartial".Translate(tended, tended + remaining));
         if (tended > 0 && patient != null && pilotAlive)
         {
             patient.records.Increment(RecordDefOf.TimesTendedTo);
@@ -441,6 +452,9 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
         pawn.Spawned && patient.Spawned && patient.Map == pawn.Map
         && pawn.Position.DistanceTo(patient.Position) <= def.distanceToTarget
         && GenSight.LineOfSight(pawn.Position, patient.Position, pawn.Map, skipFirstCell: true);
+
+    private void ThrowText(string text) =>
+        MoteMaker.ThrowText(patient.DrawPos, patient.Map, text, Color.white, TextMoteFadeDelay);
 
     private void RefreshStun()
     {

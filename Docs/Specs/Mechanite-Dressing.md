@@ -429,9 +429,11 @@ suite reference, never this state.
     and line of sight; on failure the beam breaks.
   - Each time `ticksPerTend` elapses: re-run `FillTendable` (injuries and fresh missing parts,
     plus every other tendable hediff with the helmet worn, in tend-priority order). Tend its first
-    entry with `Tended(quality, maxQuality, 1)`; batch position 1 keeps suppressing vanilla's
-    per-hediff text. Then `Draw` its cost (3.2), grant its XP (below), and throw one
-    `HealingCross` at the patient.
+    entry with `Tended(quality, maxQuality, 1)`; batch position 1 suppresses vanilla's
+    per-hediff text, and the dressing throws its own in vanilla's words ("{wound} tended",
+    "Quality {q}" with the quality that wound rolled), so each wound is announced as it lands.
+    Then `Draw` its cost (3.2), grant its XP (below), and throw one `HealingCross` at the
+    patient.
 
     The **first wound lands one interval after the beam connects**, so a beam over `n` wounds
     runs `n × ticksPerTend`. Each wound is paid for as it is tended: an interrupted beam has
@@ -440,7 +442,9 @@ suite reference, never this state.
 
   - The beam ends when nothing is left to tend (**complete**), when the suite runs dry with work
     left (**dry**), or when range or sight is lost (**broken**). All three show their outcome text
-    on the patient at once and go on to the warmdown. A complete beam also spawns the flash.
+    on the patient at once and go on to the warmdown; when a tend ended the beam, the outcome
+    goes under that wound's text in the same mote, so the two never overlap. A complete beam
+    states its count ("{n} wounds tended") only past one wound, and also spawns the flash.
   - The toil's progress bar is tended / (tended + still tendable).
 
 - **Warmdown** (toil 7): the pilot holds still. The beam and overlay are no longer maintained and
