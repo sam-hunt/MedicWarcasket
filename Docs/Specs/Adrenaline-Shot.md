@@ -1,6 +1,7 @@
 # SPEC: Adrenaline shot (the shoulders' active)
 
-Status: DRAFT 2026-10-25, for review. Written against the installed RimWorld 1.7.4985 rev1269
+Status: DRAFT 2026-10-25, revised the same day after the first review (the four changes are
+in the brief table). Written against the installed RimWorld 1.7.4985 rev1269
 (`Assembly-CSharp.dll` via `ilspycmd`, Core XML), the 1.6 Krafs reference 1.6.4871 for the
 member checks, the VEF checkout at `../VanillaExpanded/VanillaExpandedFramework/` (58c884b9,
 2026-10-21) with every VEF member cited confirmed in the Workshop `VEF.dll` players run (the 1.6
@@ -21,10 +22,13 @@ readings this draft takes of the brief, for the review to confirm or move.
 | ------------------------------------------------------------------------------------- | -------- |
 | A gizmo and targeter like the mechanite dressing's                                    | 3.3, 3.5 |
 | A go-juice-like hediff that fades over 3 hours                                        | 3.2      |
-| Each level of fading takes 10% off the sleep need, floored at 0%                      | 3.2, 4   |
+| A rest cost as the shot fades: a rest fall factor on the hediff (review: not a stage hook) | 3.2, 4   |
 | Charge noun "shot", "charge" or whatever fits and translates                          | 3.1, 4   |
 | Reloaded with go-juice, one go-juice loading several shots                            | 3.1, 3.6 |
 | Stops a heart attack outright, at any severity                                        | 3.3      |
+| Review: a pawn with a heart attack can always be targeted                             | 3.3      |
+| Review: on a heart attack the shot cures instead of stimulating                       | 3.3      |
+| Review: a top-left message naming the pawn, not a floating text                       | 3.3      |
 | An autocast toggle, offered while the armor is worn, firing as a dressing ends        | 3.4      |
 
 ## 1. Fiction
@@ -32,18 +36,20 @@ readings this draft takes of the brief, for the review to confirm or move.
 The shoulders' field-medicine manipulators carry an injector fed from a vial of go-juice. The
 suit does not inject the drug raw: it refines the vial into a few measured shots of a short,
 sharp stimulant and delivers one into whoever the pilot reaches for, the pilot included. For a
-few hours the patient feels almost no pain and moves, sees and thinks faster. The surge fades in
-steps, and every step the body pays for out of its reserves: the patient will need sleep sooner.
-A shot also jolts a failing heart back into rhythm, which is the one thing it does that no
-amount of bandaging can.
+few hours the patient feels almost no pain and moves, sees and thinks faster, the surge fading
+in steps, and all the while the body burns through its reserves: the patient will need sleep
+sooner. A shot into a failing heart is spent on the heart alone: it jolts it back into rhythm,
+which is the one thing the shot does that no amount of bandaging can, and there is nothing left
+over to stimulate.
 
 This fiction explains each mechanic:
 
 - **A refined go-juice** is why the shot is go-juice's effect on a shorter clock, with no
   addiction and no tolerance: the carrier chemicals never reach the bloodstream.
-- **The fade in steps** is the hediff's stages; **the body paying for each** is the rest cost
-  at each step's end.
-- **The heart** is why the shot cures a heart attack and nothing else.
+- **The fade in steps** is the hediff's stages; **the reserves burning** is the faster rest fall
+  under every stage.
+- **The heart** is why the shot cures a heart attack and nothing else, and why a shot spent on
+  one gives no surge.
 - **The injector is on the shoulders**, so the shot comes with the shoulders alone; the autocast
   needs the armor's dressing to follow, which is why the toggle appears only with the armor.
 - **The pilot's own shot** matters less than it sounds: a warcasket pilot already feels no pain
@@ -86,13 +92,9 @@ This fiction explains each mechanic:
 - `Hediff.CurStageIndex` is `def.StageAtSeverity(Severity)`: the last stage whose `minSeverity`
   the severity meets, so **indexes grow with severity** and a fading hediff's index falls.
   `ConfigErrors` requires ascending `minSeverity`.
-- **The stage hook is on the hediff, not on a comp.** `Hediff.Severity`'s setter compares the
-  index before and after the write and calls `protected virtual void
-OnStageIndexChanged(int newIndex)` (1.6 and 1.7; the base body only refreshes a thought cache)
-  whenever it moved, in either direction, before `Notify_HediffChanged`. `HediffComp` has no
-  stage virtual; its hooks are `CompPostTick(ref float)`, `CompPostTickInterval(ref float, int)`,
-  `CompPostMake`, `CompPostPostAdd`, `CompPostPostRemoved`, `CompPostMerged`, `CompExposeData`,
-  `CompLabelInBracketsExtra`, `CompTipStringExtra`, `CompShouldRemove`.
+- For the record, since the first draft used it: the stage hook is `Hediff`'s `protected
+  virtual void OnStageIndexChanged(int newIndex)` (1.6 and 1.7), called by the `Severity`
+  setter on any index move; `HediffComp` has no stage virtual. The design below needs neither.
 - `HediffComp_SeverityPerDay` adds `severityPerDay × 200 / 60000` every 200 ticks from
   `CompPostTickInterval`, scaled by the stage's `severityGainFactor`; it **caches the per-day
   value per instance** in `CompPostPostAdd` (`Props.CalculateSeverityPerDay()`), so a later write
@@ -107,15 +109,15 @@ OnStageIndexChanged(int newIndex)` (1.6 and 1.7; the base body only refreshes a 
   must *set* the severity writes the existing hediff's `Severity` directly.
 - Labels: `Hediff.Label` is `LabelBase (stage label, comp extras)`, so a labelled stage shows
   as "heart attack (painful)" and a per-day comp adds "3h" after it.
-- **Rest.** `Need.CurLevel`'s setter clamps to `[0, MaxLevel]` (1.6 and 1.7), so a flat
-  subtraction floors itself. `Need_Rest` falls `1.5833e-5` per tick while rested (×0.7 tired,
-  ×0.3 very tired), times the hediff set's `restFallFactor`s and the pawn's `RestFallRateFactor`
-  stat, ticked every 150 ticks: a rested pawn loses 1.0 in about 25 hours, so **0.1 of rest is
-  about 2.5 hours awake**. `Tired` starts under 0.28, `VeryTired` under 0.14. Animals have the
-  need (`RaceProperties.needsRest` is true for everything but mechanoids); `pawn.needs.rest` can
-  be null and is null-checked.
-- `HediffStage` carries `label`, `painFactor`, `capMods`, `restFallFactor`,
-  `restFallFactorOffset`, `statOffsets`, `statFactors`, `blocksSleeping` and the rest; `HediffDef`
+- **Rest.** `Need_Rest` falls `1.5833e-5` per tick while rested (×0.7 tired, ×0.3 very tired,
+  ×0.6 exhausted), times `HediffSet.RestFallFactor` (**the product of every hediff stage's
+  `restFallFactor`, plus the `restFallFactorOffset`s, read live on every need tick**) and the
+  pawn's `RestFallRateFactor` stat, ticked every 150 ticks; resting gains are unaffected by
+  either. A rested pawn loses 1.0 in about 25 hours, **0.04 an hour**. `Tired` starts under
+  0.28, `VeryTired` under 0.14. Animals have the need (`RaceProperties.needsRest` is true for
+  everything but mechanoids).
+- `HediffStage` carries `label`, `painFactor`, `capMods`, `restFallFactor` (1), `restFallFactorOffset`,
+  `statOffsets`, `statFactors`, `blocksSleeping` and the rest; `HediffDef`
   carries `initialSeverity` (0.5), `maxSeverity`, `minSeverity`, `isBad` (true),
   `everCurableByItem` (true), `scenarioCanAdd`, `defaultLabelColor`, `labelNoun`, `tags`.
 
@@ -216,58 +218,59 @@ checks for the armor except the autocast (3.4).
 - `JobDefs/AdrenalineShot.xml`: `MDWC_AdrenalineShot`, `driverClass`
   `MedicWarcasket.JobDriver_AdrenalineShot`, `reportString` "giving an adrenaline shot.",
   `checkOverrideOnDamage` Never, `carryThingAfterJob` true, as the dressing's job.
-- `HediffDefs/AdrenalineShot.xml`: `MDWC_AdrenalineShot`, section 3.2.
+- `HediffDefs/AdrenalineShot.xml`: `MDWC_AdrenalineShot`, section 3.2, XML only.
 
 `MDWC_DefOf` gains `MDWC_AdrenalineShot` (AbilityDef and HediffDef, the same name in two
 databases, as the dressing's AbilityDef and JobDef share theirs), `HeartAttack` (HediffDef, by
 name since `HediffDefOf` lacks it) and `Ingest_Inject` (SoundDef, likewise).
 
-### 3.2 The hediff: three levels, each paid for as it ends
+### 3.2 The hediff: three levels, burning rest all the way down
 
-`MDWC_AdrenalineShot`, `hediffClass` `MedicWarcasket.Hediff_AdrenalineShot : HediffWithComps`,
-label "adrenaline shot", `labelNoun` "an adrenaline shot", `isBad` false, `everCurableByItem`
-false (a healer mech serum must not spend itself on a stimulant), `scenarioCanAdd` false,
-`initialSeverity` 1, `maxSeverity` 1, label colour go-juice's (1, 0, 0.5), a
-`HediffCompProperties_SeverityPerDay` of **-8** with `showHoursToRecover` (1.0 fades in 3 h), and
-three stages, go-juice's effect at the top and tapering by thirds:
+`MDWC_AdrenalineShot`, pure XML: `hediffClass` `Hediff_High` (go-juice's, which shows the
+severity as a percentage), label "adrenaline shot", `labelNoun` "an adrenaline shot", `isBad`
+false, `everCurableByItem` false (a healer mech serum must not spend itself on a stimulant),
+`scenarioCanAdd` false, `initialSeverity` 1, `maxSeverity` 1, label colour go-juice's
+(1, 0, 0.5), a `HediffCompProperties_SeverityPerDay` of **-8** with `showHoursToRecover` (1.0
+fades in 3 h), and three stages, go-juice's effect at the top and tapering by thirds, every
+stage carrying the same `restFallFactor`:
 
-| Level (stage label) | `minSeverity` | `painFactor` | Consciousness | Sight | Moving |
-| ------------------- | ------------- | ------------ | ------------- | ----- | ------ |
-| rush                | 0.667         | 0.1          | +0.20         | +0.35 | +0.50  |
-| fading              | 0.334         | 0.4          | +0.13         | +0.23 | +0.33  |
-| wearing off         | 0             | 0.7          | +0.07         | +0.12 | +0.17  |
+| Level (stage label) | `minSeverity` | `painFactor` | Consciousness | Sight | Moving | `restFallFactor` |
+| ------------------- | ------------- | ------------ | ------------- | ----- | ------ | ---------------- |
+| rush                | 0.667         | 0.1          | +0.20         | +0.35 | +0.50  | 3                |
+| fading              | 0.334         | 0.4          | +0.13         | +0.23 | +0.33  | 3                |
+| wearing off         | 0             | 0.7          | +0.07         | +0.12 | +0.17  | 3                |
 
 Each level lasts an hour by default. The health tab reads "adrenaline shot (rush, 3h)".
 
-**The comedown.** A new `DefModExtension` on the hediff def, `MedicWarcasket.AdrenalineExtension`,
-carries `restPerLevel` (0.1). `Hediff_AdrenalineShot` keeps a scribed `lastStage` and:
-
-- overrides `OnStageIndexChanged(int newIndex)` (2.3): when `newIndex < lastStage` and the
-  hediff is on a live, spawned-or-not pawn with a rest need, subtracts `restPerLevel × (lastStage
-  - newIndex)` from `pawn.needs.rest.CurLevel` (the setter floors at 0), then records the new
-  index. An upward move (a refresh, 3.3) only records.
-- overrides `PostRemoved()`: when the removal is the fade reaching zero (`Severity <= 0`) and the
-  pawn is alive, subtracts one more `restPerLevel`, so the last level is paid for as it ends like
-  the others. A removal for any other reason (death, dev tools) costs nothing.
-- `PostMake` sets `lastStage` to the stage at `initialSeverity`, so the first write costs nothing.
-
-So a full shot that runs its course costs 0.3 of rest in three instalments at the end of each
-hour, about 7.5 hours of wakefulness for 3 hours of go-juice-grade boost (2.3). The level count
-is the stage list in XML; the cost per level and the duration are settings (3.7).
+**The comedown is the rest fall factor** (2.3), vanilla's own lever (wake-up's high slows the
+fall the same way): while under a shot the patient's rest falls three times as fast, so a full
+shot that runs its course costs about 0.24 of rest beyond the 0.12 three waking hours cost
+anyway, roughly six hours of wakefulness for three hours of go-juice-grade boost. It is paid
+continuously rather than at each level's end, which is what the hediff set reads and what the
+need's own tired and very-tired brakes already shape; a sleeping patient pays nothing, since
+the factor only scales the fall. The factor is a setting written onto all three stages (3.7),
+read live, so it reaches shots already running. The pilot's own `RestFallRateFactor` x1.3
+(2.4) multiplies on top for a self-shot.
 
 **No merge.** The shot refreshes rather than stacks (3.3), so the severity never exceeds 1 and a
-second shot restarts the clock from the top level; the levels the patient then fades through
-again are paid for again.
+second shot restarts the clock from the top level.
 
 ### 3.3 The shot (`Ability_AdrenalineShot`)
 
-**Valid target** (`ValidateTarget`, after the base): a spawned, living pawn, humanlike or animal,
-the pilot included; **never a pawn hostile to the pilot, downed or not** ("{0} is hostile"): a
-shot that lifts the pain of a downed raider can stand them back up, which is the dressing's
-hostile rule with the downed exception removed, and the reason the two differ. A patient already
-at the top level is refused ("{0} is already running on adrenaline"), so a double click cannot
-waste a shot; a patient at a lower level, or under none, is valid, and a refresh is the way to
-keep a squadmate going. A heart attack makes any non-hostile patient valid whatever their level.
+**Valid target** (`ValidateTarget`, after the base), a spawned, living pawn, humanlike or
+animal, the pilot included, by three rules in this order:
+
+1. **A pawn with a heart attack is always valid**, whoever they are and whatever else they
+   carry: the shot will be spent on the heart (below) and stands nobody up, so hostility does
+   not enter. Raiders and prisoners do get them (2.2's givers sit on the age-related heart
+   hediffs every humanlike can carry, and on wake-up's high), so a captive worth keeping can be
+   saved. A conscious hostile is held by the warmup's stun like any other patient.
+2. Otherwise, **never a pawn hostile to the pilot, downed or not** ("{0} is hostile"): a shot
+   that lifts the pain of a downed raider can stand them back up, which is the dressing's
+   hostile rule with the downed exception removed, and the reason the two differ.
+3. Otherwise, a patient already at the top level is refused ("{0} is already running on
+   adrenaline"), so a double click cannot waste a shot; a patient at a lower level, or under
+   none, is valid, and a refresh is the way to keep a squadmate going.
 
 **Enabled** (`IsEnabledForPawn`, after the base cooldown check): the shoulders' reloadable
 holds a shot; else "No shots loaded" (vanilla's `CommandReload_NoCharges` wording through our
@@ -286,13 +289,16 @@ label reads "Shots: {loaded} / {max}" and, over a patient with a heart attack, a
 **`Apply(patient)`**, the one path both the cast toil and the autocast (3.4) use, in order:
 
 1. Spend one shot: `reloadable.UsedOnce()`.
-2. Cure: every `HeartAttack` hediff on the patient is removed through
-   `pawn.health.RemoveHediff` (2.2), and "Heart attack stopped" is thrown over the patient in
-   the dressing's text style. Only this outcome gets a text: a routine shot is announced by its
-   sound and its appearance in the health tab, so it never overlaps the dressing's wound texts.
-3. Stimulate: if the patient already carries `MDWC_AdrenalineShot`, set its `Severity` to 1
-   (an upward stage move, free); else make the hediff and `AddHediff` it. The hediff needs no
-   body part.
+2. **Either** cure: if the patient has any `HeartAttack` hediff, remove every one through
+   `pawn.health.RemoveHediff` (2.2) and post a message naming the pawn, "{0}'s heart attack has
+   stopped.", as a positive event with the patient as its jump target
+   (`Messages.Message(text, patient, MessageTypeDefOf.PositiveEvent)`): a life saved rates the
+   top-left of the screen, where vanilla announces the attack itself, not a floating label the
+   player can miss. No stimulant is applied: the shot was spent on the heart.
+3. **Or** stimulate: if the patient already carries `MDWC_AdrenalineShot`, set its `Severity`
+   to 1; else make the hediff and `AddHediff` it. The hediff needs no body part. No text: the
+   sound and the health tab carry a routine shot, so nothing overlaps the dressing's wound
+   texts.
 4. `Ingest_Inject` plays at the patient (2.1).
 5. Start the cooldown: `cooldown = TicksGame + GetCooldownForPawn()`, where VEF's own `Cast`
    would have.
@@ -328,9 +334,10 @@ toil's start, and completes at once otherwise:
 - the pilot wears the shoulders with `AutoCast` on and a shot loaded, and the shot's cooldown is
   clear (a running cooldown skips the patient rather than waiting);
 - the patient is in the **dressing's** reach (the beam just ended there) and `ValidateTarget`
-  passes without messages, which excludes hostiles and a patient already at the top level;
+  passes without messages: a heart attack always passes, else no hostile and no patient
+  already at the top level;
 - the patient is not lying in a bed, unless they have a heart attack: a hospital dressing is
-  not a fight, and a shot there would only cost the patient sleep they are about to get.
+  not a fight, and a shot there would only cost the patient the sleep they are about to get.
 
 The beam's outcome does not matter: a complete or a dry beam both go on to the shot; a broken
 beam fails the reach check and skips it. A dressing whose connect found nothing to tend still
@@ -390,12 +397,14 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 | ------------------- | ---------------------------------------------------------------- | ------- | --------------- |
 | Shots per vial      | shoulders' reloadable `maxCharges`                               | 3       | 1..10, step 1   |
 | Duration (hours)    | hediff `HediffCompProperties_SeverityPerDay.severityPerDay`      | 3       | 0.5..12, step 0.5 |
-| Comedown (% rest)   | `AdrenalineExtension.restPerLevel` (shown ×100)                  | 10      | 0..50, step 5   |
+| Rest fall under a shot (×) | every stage's `restFallFactor` on the hediff                | 3       | 1..6, step 0.5  |
 | Cooldown (seconds)  | ability `cooldownTime` (ticks ÷ 60)                              | 0       | 0..300, step 5  |
 
 - The duration is stored as hours and written as `severityPerDay = -24 / hours`; the default is
   read back as `-24 / severityPerDay`. A shot already in flight keeps the rate it was applied
-  with (2.3), as a dressing in flight keeps its colour; the next shot takes the new one.
+  with (2.3), as a dressing in flight keeps its colour; the next shot takes the new one. The
+  rest fall factor is written onto all three stages and read live, so it reaches every shot at
+  once; its default is the first stage's XML value.
 - `ApplyToDefs` also writes go-juice's `uiIcon` onto the shot def's `icon` while it has no
   `iconPath`, and trims worn shoulders above a lowered `maxCharges` (`remainingCharges` is
   protected; a tiny `CompApparelReloadable` subclass is **not** worth it: the dev "reload to
@@ -403,40 +412,43 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
   new maximum, which spends nothing real).
 - The warmup (30 ticks) and the range (2.9) are def fields without settings; the level count is
   the stage list. Section 4 lists them as levers.
-- Summary line: "The shoulders hold {0} shots per vial of go-juice. A shot lasts {1} h and fades
-  in three levels, each costing {2}% of the patient's rest as it ends, with {3} s of cooldown
-  between shots." A second key ends "..., and the next shot can follow at once." when the
-  cooldown is 0.
+- Summary line: "The shoulders hold {0} shots per vial of go-juice. A shot lasts {1} h, fading
+  in three levels, and the patient's rest falls {2} times as fast until it ends, with {3} s of
+  cooldown between shots." A second key ends "..., and the next shot can follow at once." when
+  the cooldown is 0.
 - `TryGetDefs` grows by the shot's three defs; all-or-nothing as now, with the warning naming
   what is missing.
 
 ### 3.8 Charging, from the player's side
 
 One vial of go-juice loads three shots, each about 18 silver of a 53-silver vial, for 3 hours of
-go-juice's full effect tapering to a third, with no addiction and no tolerance, against a rest
-bill of 0.3 paid as the levels end. Go-juice itself gives 16 hours and +0.4 rest for 53 silver
+go-juice's full effect tapering to a third, with no addiction and no tolerance, against rest
+falling three times as fast until it ends. Go-juice itself gives 16 hours and +0.4 rest for 53 silver
 and an addiction roll, so the shot is the costlier way to use the drug, bought for its safety,
 its reach from the shoulders, the heart, and the fact that it is the pilot who carries it into
-a fight. Colonists fetch a new vial only once the last shot is spent; a forced early reload
+a fight. A shot spent on a heart attack buys the cure alone, at the same price. Colonists fetch a new vial only once the last shot is spent; a forced early reload
 pays a whole vial.
 
 ## 4. Readings taken, and open levers
 
 Readings of the brief for the review to confirm:
 
-1. **"Each level of fading reduces sleep need level by 10%"** is read as a *cost*: at the end
-   of each level the patient's rest need drops 0.1, floored at 0 by the setter (3.2). The other
-   reading, a slower rest fall per level (`restFallFactor`), reads as a benefit and would make
-   the shot strictly better than go-juice, which gives rest rather than taking it; the cost
-   reading is also what "floored at 0%" implies. Three levels at 0.1 is steep next to vanilla's
-   drugs (go-juice gives +0.4, wake-up fills the need): both numbers are settings.
+1. **The rest cost is a fall factor, not a per-level deduction** (review): the first draft
+   paid 0.1 at the end of each level through a hediff class on the stage hook; the factor is
+   vanilla's own lever, needs no C#, reads a settings change live, and lets the tired brakes
+   and sleep itself behave as they always do. The one thing lost is the lump: a patient who
+   sleeps through the shot pays nothing. x3 lands near the first draft's total (3.2) and is a
+   setting; the same factor on every stage keeps the tooltip to one sentence, and a ladder
+   (x2, x3, x4) is a three-number change if the fade should be felt in the bill as well.
 2. **Charge noun "shot".** It reads as vanilla's own nouns do ("Shots remaining: 2 / 3", "No
    shots left"), has a one-word equivalent in every roster language, and is the word the
    Workshop page already uses. "Charge" would be VFEP's generic and says less.
 3. **Three shots per vial.** Vanilla's refill packs hold three (smokepop) at a chemfuel cost;
    three keeps the first fill at one vial and the corner count legible.
 4. **The hostile rule is stricter than the dressing's** (3.3): the dressing may tend a downed
-   raider for capture, the shot may not stand one up.
+   raider for capture, the shot may not stand one up. **A heart attack overrides it** (review):
+   such a pawn is always a target, and the shot spent on them is cure only, so nothing stands
+   up; the message names the pawn.
 5. **Self-target is allowed** (3.3): a medic who cannot inject themself is a worse medic, the
    walk is skipped, and the pilot's painlessness only trims what they gain from it.
 6. **The autocast toil sits before the warmdown** (3.4), inside the stun, so the shot lands on
@@ -452,9 +464,7 @@ Open levers, each small:
    pass in `TODOs.md` should also hear `Ingest_Inject` against the dressing's sounds.
 3. **The taper.** Equal stages (go-juice's numbers at every level) are a three-line XML change;
    the taper is here so the fade is felt before the bill arrives.
-4. **A rest refund on the heart.** A shot that only stops a heart attack still costs the full
-   comedown; a refund would need the hediff to know why it was given.
-5. **Autocast after a dry beam.** It fires now (the patient still has wounds, the stimulant
+4. **Autocast after a dry beam.** It fires now (the patient still has wounds, the stimulant
    still helps); skipping it would read "no medicine, no shot", which is not the fiction.
 
 ## 5. Localization surface
@@ -463,15 +473,16 @@ Drafts, no em dashes (player-facing):
 
 - Ability `label` "adrenaline shot". `description`: "Inject a nearby person or animal, or the
   pilot, with a refined shot of go-juice. For a few hours they feel almost no pain and move, see
-  and think faster. The effect fades in levels, and each level costs the patient some of their
-  rest as it ends. The shot also stops a heart attack outright.\n\nThe shoulders hold several
+  and think faster, while their rest falls much faster than usual. The effect fades in levels.
+  On a patient with a heart attack the shot is spent on the heart instead: it stops the attack
+  outright and gives no surge.\n\nThe shoulders hold several
   shots per vial of go-juice, and reload once the last is spent. With the medic armor worn,
   right-click to give every patient a shot as their dressing ends." `jobReportString` "Giving
   an adrenaline shot."; the JobDef's `reportString` "giving an adrenaline shot.".
 - Hediff `label` "adrenaline shot", `labelNoun` "an adrenaline shot", `description` "A refined
   shot of go-juice, fading in levels. Pain is dulled and movement, sight and thought are
-  quickened; each level that passes costs some rest." Stage labels "rush", "fading", "wearing
-  off".
+  quickened, while the body burns through its rest far faster than usual." Stage labels "rush",
+  "fading", "wearing off".
 - Shoulders: `chargeNoun` "shot" (vanilla prints "Shots remaining", "No shots left" and the refill
   line "1 go-juice"); vanilla's `cooldownGerund` default joins the DefInjected set as the armor's did.
   The `shortDescription` and first paragraph gain the injector: "fitted with field-medicine
@@ -481,22 +492,22 @@ Drafts, no em dashes (player-facing):
   `MDWC_ShotsDesc` "The number of shots the shoulders refine from one vial of go-juice. Shoulders
   already holding more than this lose the excess. Default: {0}."; `MDWC_ShotDuration` "Duration
   (hours)", `MDWC_ShotDurationDesc` "How long a shot lasts, fading in three levels. A shot
-  already given keeps its own clock. Default: {0}."; `MDWC_Comedown` "Comedown per level (% of
-  rest)", `MDWC_ComedownDesc` "The rest a patient loses at the end of each level of a shot.
-  Default: {0}."; `MDWC_ShotCooldown` "Cooldown (seconds)", `MDWC_ShotCooldownDesc` "The time
+  already given keeps its own clock. Default: {0}."; `MDWC_RestFall` "Rest fall under a shot (x)",
+  `MDWC_RestFallDesc` "How many times faster a patient's rest falls while a shot lasts. Sleep
+  restores rest as usual. Default: {0}."; `MDWC_ShotCooldown` "Cooldown (seconds)", `MDWC_ShotCooldownDesc` "The time
   the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient
   instead. Default: {0}."; `MDWC_ShotSummary` (four arguments, 3.7) and
   `MDWC_ShotSummaryNoCooldown` (three); `MDWC_NoShotsLoaded` "No shots loaded.";
   `MDWC_ShotHostile` "{0} is hostile."; `MDWC_ShotAlreadyRushing` "{0} is already running on
   adrenaline."; `MDWC_ShotsLabel` "Shots: {0} / {1}" (the cursor); `MDWC_ShotStopsHeartAttack`
-  "Stops the heart attack" (the cursor's second line); `MDWC_HeartAttackStopped` "Heart attack
-  stopped" (the text mote); `MDWC_ShotAutocastDesc` "Autocast: a shot to each patient as their
+  "Stops the heart attack" (the cursor's second line); `MDWC_HeartAttackStopped` "{0}'s heart attack
+  has stopped." (the top-left message, `{0}` the patient's name); `MDWC_ShotAutocastDesc` "Autocast: a shot to each patient as their
   dressing ends." The warmup and range keys of the dressing are not reused: the shot's rows do
   not exist.
 - DefInjected: `VEF.Abilities.AbilityDef/` gains `MDWC_AdrenalineShot` (`label`, `description`,
   `jobReportString`, `verbProperties.label`); `JobDef/` gains `MDWC_AdrenalineShot.reportString`;
   `HediffDef/` is a new folder with the hediff's `label`, `labelNoun`, `description` and
-  `stages.N.label`; `ThingDef/` gains the shoulders' `comps.CompApparelReloadable.chargeNoun` and
+  `stages.N.label` (the probe decides whether the three stage labels are dumped); `ThingDef/` gains the shoulders' `comps.CompApparelReloadable.chargeNoun` and
   `cooldownGerund`. Regenerate `Scripts/expected-injections.json`. The translate skill's surface
   list, Keyed list and the glossary's charge-noun section gain "shot" beside "kit"; the
   `WordInfo` note for "kit" applies to "shot" in the same languages.
@@ -508,24 +519,29 @@ Drafts, no em dashes (player-facing):
 Dev mode, VFEP chain plus this mod, fresh saves:
 
 1. **Settings.** The new section shows go-juice's icon and the shot's tooltip, four rows, and a
-   summary reading "3 shots", "3 h", "10%", "and the next shot can follow at once". Set the
+   summary reading "3 shots", "3 h", "3 times as fast", "and the next shot can follow at once". Set the
    cooldown to 20: the summary's last clause changes. Reset restores all four. Lower the shots
    to 2 on worn shoulders holding 3: the corner count reads "2 / 2".
 2. **A shot.** Click the gizmo: the cursor shows go-juice's icon and "Shots: 3 / 3" over a
    colonist, the cross over a raider (downed or not) and over a pawn already at "rush", and
-   "Stops the heart attack" as a second line over a dev-given heart attack. Click the colonist:
+   "Stops the heart attack" as a second line over a dev-given heart attack, on a raider and on a
+   "rush" patient too. Click the colonist:
    the pilot walks within 2.9 cells, holds them for 0.5 s, `Ingest_Inject` plays at the patient,
    the health tab shows "adrenaline shot (rush, 3h)" with pain ×0.1 and the three offsets, the
    corner count reads "2 / 3", the shoulders' inspect line "Shots remaining: 2 / 3", and no
    text mote appears. Click the pilot: no walk, the same result on the pilot, whose pain stays
    0.
-3. **The comedown.** Speed time: at 1 h the label reads "(fading, 2h)" and the rest need drops
-   by exactly 0.10; at 2 h "(wearing off, 1h)" and another 0.10; at 3 h the hediff is gone and
-   a third 0.10 is taken. A patient at 0.05 rest ends at 0, not below. Re-shoot a patient at
-   "fading": the label returns to "rush, 3h" with no rest change, and the next hour costs 0.10
-   again.
-4. **The heart.** Dev-give a heart attack: the shot removes it at any stage, "Heart attack
-   stopped" rises over the patient, and the shot's hediff is applied as well.
+3. **The comedown.** Speed time with the patient awake: the rest need falls about 0.12 an hour
+   instead of 0.04 (the Needs tab's fall rate reads x3 under the hediff's name); at 1 h the
+   label reads "(fading, 2h)", at 2 h "(wearing off, 1h)", at 3 h the hediff is gone and the
+   fall is normal again. Put a patient under a shot to bed: rest rises at the usual rate. Set
+   the factor to 1.5 in the settings while a shot runs: the fall changes at once. Re-shoot a
+   patient at "fading": the label returns to "rush, 3h".
+4. **The heart.** Dev-give a heart attack to a colonist, a downed raider and a patient at
+   "rush": the shot removes it at any stage, the message "{name}'s heart attack has stopped."
+   appears top-left and jumps to the pawn, a shot is spent, and **no** adrenaline hediff is
+   applied (the "rush" patient's existing one is left as it was). The pilot's own heart attack
+   is stopped the same way with no walk.
 5. **Reload.** Spend all three: a colonist fetches one go-juice and the count returns to
    "3 / 3". At "1 / 3" nobody reloads; the float menu on a vial offers a reload that spends the
    vial and returns "3 / 3". The dev "Reload to full" button works.
@@ -533,8 +549,8 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    With the armor, right-click shows the check in the gizmo's **top-left** with the count still
    in the top-right, and the tooltip gains the autocast line. Dress a wounded, standing colonist:
    after the last wound's text the patient is held another 0.5 s, the shot lands, then the glow
-   fades. Dress a bed patient: no shot; give them a heart attack first: the shot lands. Dress a
-   downed raider: no shot. Dress a patient at "rush": no shot. Empty the shoulders: no shot and
+   fades. Dress a bed patient: no shot; give them a heart attack first: the shot cures it and
+   nothing else. Dress a downed raider: no shot; give them a heart attack: cured. Dress a patient at "rush": no shot. Empty the shoulders: no shot and
    no message. Save and reload: the check is still on and the shot still fires.
 7. **Queue.** The dressing's queue test (`Mechanite-Dressing.md` 6.8) passes unchanged, and the
    same test on the shot: Shift-click three colonists, a waypoint between two of them, a plain
@@ -548,20 +564,19 @@ Dev mode, VFEP chain plus this mod, fresh saves:
 
 ## 7. Implementation checklist
 
-1. Defs (3.1, 3.2): the shoulders' two comps, the ability, the job, the hediff with its
-   extension; `MDWC_DefOf` fields.
+1. Defs (3.1, 3.2): the shoulders' two comps, the ability, the job, the hediff; `MDWC_DefOf`
+   fields.
 2. The hoist (3.5): `Ability_MedicTargeted` and `JobDriver_MedicCast`, the dressing rebased on
    them with its headers trimmed to what is its own, the queue test re-run before anything new
    is added.
-3. `Hediff_AdrenalineShot` and `AdrenalineExtension` (3.2).
-4. `Ability_AdrenalineShot` (3.3, 3.4), `JobDriver_AdrenalineShot` (3.5),
+3. `Ability_AdrenalineShot` (3.3, 3.4), `JobDriver_AdrenalineShot` (3.5),
    `Command_AdrenalineShot` (3.6); the dressing driver's shot toil (3.4).
-5. Settings (3.7): the section, four rows, the summary keys, the icon write, the trim.
-6. Player-facing text (section 5); regenerate the sidecar.
-7. Build, deploy, run section 6.
-8. Supporting documentation, as a side effect of the landed code: `CLAUDE.md` (the overview's
+4. Settings (3.7): the section, four rows, the summary keys, the icon write, the trim.
+5. Player-facing text (section 5); regenerate the sidecar.
+6. Build, deploy, run section 6.
+7. Supporting documentation, as a side effect of the landed code: `CLAUDE.md` (the overview's
    feature line and spec pointer, the project structure gaining `HediffDefs/`, the settings
-   bullet gaining the shot's fields, the `Abilities/` line), `TODOs.md` (close the adrenaline
+   bullet gaining the shot's fields and the stage factors, the `Abilities/` line), `TODOs.md` (close the adrenaline
    item; add the first fill of one vial to the tuning item; the art item already names go-juice),
    `CHANGELOG.md` `[Unreleased]`, the Workshop description, `README.md`, the translate skill and
    its glossary.
