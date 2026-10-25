@@ -38,8 +38,8 @@ spacer warcaskets research.
   worst first, using the medicine kits loaded in the armor's suite; the patient is held still
   until it is done. Dressings can be queued, and Shift-click chains patients. With the helmet on,
   it treats diseases and infections too
-- **Mod settings** for the medicine, the kits held, the warmup, the time per wound, the cooldown
-  and the range
+- **Mod settings** for the medicine, the VFX color, the kit capacity, the warmup, the time per
+  wound, the cooldown and the range
 - **Not yet tuned**: protection, shield, costs and research are still copies of VFE Pirates'
   Siegebreaker set, and the passive and ability numbers are first guesses
 - **Built on VFE Pirates** rather than beside it: the foundry, entombing, customization and

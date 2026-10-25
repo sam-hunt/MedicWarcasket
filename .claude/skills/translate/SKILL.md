@@ -63,11 +63,12 @@ notes for the shim or flow edit this repo owes before continuing.
   the same keys:
   - the mod settings window: `MDWC_SettingsCategory` (its header),
     `MDWC_SettingsUnavailable`, the section header, and each setting's
-    label and `...Desc` tooltip (medicine, kits held, warmup, time per
-    wound and cooldown in seconds, range in cells). Each tooltip takes one
-    `{0}`, the default value (for the medicine, its capitalised label);
+    label and `...Desc` tooltip (medicine, VFX color with its three option
+    labels, kit capacity, warmup, time per wound and cooldown in seconds,
+    range in cells). Each tooltip takes one `{0}`, the default value (for
+    the medicine, its capitalised label; for the color, its option label);
     keep it and the label's unit. `MDWC_DressingSummary` takes `{0}` the
-    kits held, `{1}` the medicine's label (lowercase, in the game's own
+    kit capacity, `{1}` the medicine's label (lowercase, in the game's own
     translation), `{2}` the severity per kit, `{3}` the warmup, `{4}` the
     seconds per wound and `{5}` the cooldown, the times in seconds before
     the unit `s`; `MDWC_DressingSummaryNoCooldown` takes `{0}` to `{4}`

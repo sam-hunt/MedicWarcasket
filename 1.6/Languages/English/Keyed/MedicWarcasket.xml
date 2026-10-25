@@ -26,7 +26,13 @@
   <MDWC_Medicine>Medicine</MDWC_Medicine>
   <MDWC_MedicineDesc>The medicine the armor's suite is loaded with. Herbal medicine is too crude for the carriers. Kits already loaded count as the new medicine. Default: {0}.</MDWC_MedicineDesc>
 
-  <MDWC_Kits>Kits held</MDWC_Kits>
+  <MDWC_Tint>VFX color</MDWC_Tint>
+  <MDWC_TintDesc>The color of the dressing's glow, stream and overlay, and of the suite's gauge. A dressing already running keeps its color until it ends. Default: {0}.</MDWC_TintDesc>
+  <MDWC_TintDefault>Blue</MDWC_TintDefault>
+  <MDWC_TintGreen>Green</MDWC_TintGreen>
+  <MDWC_TintPink>Pink</MDWC_TintPink>
+
+  <MDWC_Kits>Kit capacity</MDWC_Kits>
   <MDWC_KitsDesc>The number of medicine kits the armor's suite holds when full. A suite already holding more than this loses the excess. Default: {0}.</MDWC_KitsDesc>
 
   <MDWC_CastTime>Warmup (seconds)</MDWC_CastTime>
@@ -40,12 +46,6 @@
 
   <MDWC_Range>Range (cells)</MDWC_Range>
   <MDWC_RangeDesc>How close the pilot walks to the patient before starting the stream, which also needs a clear line of sight. Default: {0}.</MDWC_RangeDesc>
-
-  <MDWC_Tint>Color</MDWC_Tint>
-  <MDWC_TintDesc>The color of the dressing's glow, stream and overlay, and of the suite's gauge. A dressing already running keeps its color until it ends. Default: {0}.</MDWC_TintDesc>
-  <MDWC_TintDefault>Medical blue</MDWC_TintDefault>
-  <MDWC_TintGreen>Green</MDWC_TintGreen>
-  <MDWC_TintPink>Pink</MDWC_TintPink>
 
   <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, with {5} s of cooldown after.</MDWC_DressingSummary>
   <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, and the next can start at once.</MDWC_DressingSummaryNoCooldown>

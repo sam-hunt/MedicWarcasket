@@ -26,6 +26,7 @@ public sealed class TintSetting
     private const float LabelShare = 0.4f;
     private const float OptionPad = 10f;
     private const float SwatchSize = 16f;
+    private const float RadioPad = 8f;
     private const float SwatchPad = 4f;
 
     private static readonly Tint[] Options = [Tint.Default, Tint.Green, Tint.Pink];
@@ -55,9 +56,9 @@ public sealed class TintSetting
     public void ExposeData() => Scribe_Values.Look(ref tintName, Key);
 
     // Laid out as a Tunable row: "MDWC_Tint" on the left, then the options side by side across
-    // the slider and value columns, each a radio button, a swatch of its colour and its label,
-    // with "(default)" on the default's. "MDWC_TintDesc" with the default's label is the whole
-    // row's tooltip.
+    // the slider and value columns, each a radio button, a swatch of its colour and its label.
+    // The default is first and unmarked, so a short label fits a narrow window; "MDWC_TintDesc"
+    // with its label is the whole row's tooltip.
     public void DoRow(Listing_Standard listing)
     {
         Rect row = listing.GetRect(Tunable.RowHeight);
@@ -89,13 +90,10 @@ public sealed class TintSetting
         float radioY = rect.y + (rect.height - Widgets.RadioButtonSize) / 2f;
         bool clicked = Widgets.RadioButton(rect.x, radioY, chosen);
 
-        var swatch = new Rect(rect.x + Widgets.RadioButtonSize + SwatchPad, rect.y + (rect.height - SwatchSize) / 2f, SwatchSize, SwatchSize);
+        var swatch = new Rect(rect.x + Widgets.RadioButtonSize + RadioPad, rect.y + (rect.height - SwatchSize) / 2f, SwatchSize, SwatchSize);
         Widgets.DrawBoxSolid(swatch, ColorOf(option));
         var labelRect = new Rect(swatch.xMax + SwatchPad, rect.y, rect.xMax - swatch.xMax - SwatchPad, rect.height);
-        string label = Label(option);
-        if (option == Tint.Default)
-            label += "MDWC_DefaultSuffix".Translate();
-        Widgets.Label(labelRect, label.Truncate(labelRect.width));
+        Widgets.Label(labelRect, Label(option).Truncate(labelRect.width));
         var rest = new Rect(swatch.x, rect.y, rect.xMax - swatch.x, rect.height);
         if (Widgets.ButtonInvisible(rest) && !chosen)
         {

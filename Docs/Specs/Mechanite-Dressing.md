@@ -596,12 +596,12 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 | Setting            | Def field                                     | Default      | Range                 |
 | ------------------ | --------------------------------------------- | ------------ | --------------------- |
 | Medicine           | suite `ammoDef`, and ability `icon` (3.8)     | glitterworld | eligible list (3.1)   |
-| Kits held          | suite `maxCharges`                            | 5            | 1..20, step 1         |
+| VFX color          | the three motes' `graphicData.color` (rgb)    | medical blue | blue, green, pink     |
+| Kit capacity       | suite `maxCharges`                            | 5            | 1..20, step 1         |
 | Warmup (s)         | ability `castTime` (ticks ÷ 60)               | 1            | 0..10, current bands  |
 | Time per wound (s) | `DressingExtension.ticksPerTend` (ticks ÷ 60) | 1            | 0.25..5, step 0.25    |
 | Cooldown (s)       | ability `cooldownTime` (ticks ÷ 60)           | 0            | 0..300, step 5        |
 | Range (cells)      | ability `distanceToTarget`                    | 2.9          | **1.9..12.9**, step 1 |
-| Color              | the three motes' `graphicData.color` (rgb)    | medical blue | blue, green, pink     |
 
 `warmdownTicks` (60) and `severityPerKit` (20) are def fields without settings (section 4).
 
@@ -623,8 +623,9 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
   - It is saved by defName; a name that no longer resolves to an eligible medicine reads as the
     default. "Restore default settings" resets it too.
   - `TryGetDefs` finds the suite by `compClass` and the extension by type.
-- **The color row** (`Settings/TintSetting.cs`) is a row of three radio buttons, each with a
-  swatch, saved by name; an unknown name reads as the default. "Default" means each mote's own
+- **The VFX color row** (`Settings/TintSetting.cs`), under the medicine's so the picked rows
+  sit above the sliders, is a row of three radio buttons, each with a swatch, the default first
+  and unmarked, saved by name; an unknown name reads as the default. "Default" means each mote's own
   XML colour, so a patch that recolours a mote moves the default. `ApplyToDefs` writes the rgb
   over each mote's `graphicData.color`, keeping that mote's alpha, then rebuilds the def's cached
   graphic: a mote reaches its graphic through `GraphicColoredFor`, which answers a colour the
@@ -736,7 +737,7 @@ Drafts, no em dashes (player-facing):
   - `MDWC_Medicine` "Medicine"; `MDWC_MedicineDesc` "The medicine the armor's suite is loaded
     with. Herbal medicine is too crude for the carriers. Kits already loaded count as the new
     medicine. Default: {0}."
-  - `MDWC_Kits` "Kits held"; `MDWC_KitsDesc` "The number of medicine kits the armor's suite holds
+  - `MDWC_Kits` "Kit capacity"; `MDWC_KitsDesc` "The number of medicine kits the armor's suite holds
     when full. A suite already holding more than this loses the excess. Default: {0}."
   - `MDWC_TendInterval` "Time per wound (seconds)"; `MDWC_TendIntervalDesc` "How long the stream
     spends on each wound or illness. A patient with more to treat keeps the stream, and the hold,
@@ -775,13 +776,13 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    the section header icon and the stat sheet's reload line; the loaded kits carry over, and the
    next reload fetches the new medicine. The range slider steps 1.9, 2.9, 3.9 and on to 12.9,
    every step choosable. The defaults are warmup 1 s, 1 s per wound, cooldown 0, range 2.9 and 5
-   kits. The color row shows blue (default), green and pink with their swatches; picking green
+   kits. The VFX color row shows blue, green and pink with their swatches; picking green
    and closing the window turns the gauge green at once and the next dressing's glow, beam and
    overlay with it, a dressing already running keeping its colour, and the beam keeps its
    flowing noise and the overlay its silhouette in every colour. Reset restores all seven.
 2. **Gauge.** It shows "5.0 / 5" with four kit ticks. Drag the target to 3: the suite is not
    reloaded past 3. Spend 0.6 of a kit: no reload yet. Spend the rest of it: one kit is fetched.
-   Lower kits held to 4 in the settings: the gauge redraws at 4 with its target clamped. For a
+   Lower the kit capacity to 4 in the settings: the gauge redraws at 4 with its target clamped. For a
    non-player wearer the gauge is not draggable.
 3. **A full dressing.** Dev-wound a colonist with rifle hits of 12 and 11 and a 4-severity
    scratch:

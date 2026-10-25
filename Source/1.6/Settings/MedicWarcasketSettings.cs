@@ -20,8 +20,8 @@ namespace MedicWarcasket;
 // also writes its uiIcon onto the ability's icon while the def names no iconPath of its own, so
 // VEF's gizmo and targeting cursor show it unaided. The tint overrides the rgb of the three
 // dressing motes' graphicData.color, each keeping its own alpha, and the gauge reads its colours
-// off the beam's (Gizmo_DressingSuite). The one section ends on a line of what its rows amount
-// to.
+// off the beam's (Gizmo_DressingSuite). The two picked rows sit above the sliders, and the one
+// section ends on a line of what its rows amount to.
 //
 // What a write leaves on live ability instances (a running cooldown, a tooltip cache) is
 // caught up by each instance on its next gizmo request, keyed on Generation
@@ -194,12 +194,12 @@ public class MedicWarcasketSettings : ModSettings
         listing.Begin(viewRect);
         SectionHeader(listing, "MDWC_SectionDressing", medicine.Value?.uiIcon, first: true);
         medicine.DoRow(listing);
+        tint.DoRow(listing);
         kits.DoRow(listing);
         castTime.DoRow(listing);
         tendInterval.DoRow(listing);
         cooldown.DoRow(listing);
         range.DoRow(listing);
-        tint.DoRow(listing);
         SummaryRow(listing, DressingSummary);
         listing.Gap(SectionGap);
         contentHeight = listing.CurHeight;
