@@ -1,5 +1,7 @@
 # TODOs
 
+- Test mechanite dressing cooldown/queuing
+
 ## Before the first release
 
 - **Tune the set.** Decide what a medic suit gives up and gains, then price the three pieces
@@ -8,10 +10,15 @@
   - the passives (`MedicalTendSpeed` +0.25, `MedicalTendQuality` +0.10 are first guesses)
   - welding costs, the free first fill of five glitterworld medicine kits included
   - the helmet: does its Sight floor overlap the Sarcophagus helmet? could the floor be lower?
-- **Consider Mechanite dressing autocast**
+- **Mechanite dressing autocast** could we implement this (disabled by default, toggleable via
+  gizmo as other (VEF?) abilities are) for nearby colonists only? not friendlies/neutrals/animals
+- **Mechanite dressing reloads** How to handle partial remainders so the gauge looks full/reloaded?
+- **Mechanite dressing reload def** mod setting row tooltip overlaps button click dropdown float
+  menu making it difficult to read
 - **Adrenaline shot.** The Workshop page already names it on the shoulders, so it ships with
-  the release that carries that text. Scope: a shoulder-granted stimulant, pain suppressant or
-  anaesthetic shot, perhaps autocast on the target when a mechanite dressing completes.
+  the release that carries that text. Spec'd in `Docs/Specs/Adrenaline-Shot.md` (draft, for
+  review): a shoulder reloadable of go-juice shots, a three-level fading hediff that costs rest
+  as each level ends, a heart-attack cure, and an autocast as a mechanite dressing ends.
 - **Descriptions.** The three def descriptions are theme placeholders. Rewrite around the final
   features, shared paragraphs identical across the pieces, each `shortDescription` equal to
   its first paragraph. The ability description and the Keyed strings are first drafts.
