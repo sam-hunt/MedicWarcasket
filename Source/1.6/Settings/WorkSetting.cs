@@ -19,9 +19,9 @@ public sealed class WorkSetting
 {
     private const string Key = "Work";
 
-    // The default's word in the tooltip, in the colours of the box's states: vanilla's
-    // readable red for the cross, and a green as bright for the tick.
-    private static readonly Color EnabledColor = ColorLibrary.LightGreen;
+    // The default's word in the tooltip, in the colours of the box's states: pure green for
+    // the tick, vanilla's readable red for the cross.
+    private static readonly Color EnabledColor = Color.green;
     private static readonly Color DisabledColor = ColorLibrary.RedReadable;
 
     private Dictionary<string, bool> overrides = [];
