@@ -116,17 +116,9 @@ public class MedicWarcasketSettings : ModSettings
     // The hediff's stage count, quoted by the shot's summary line.
     private int shotLevels;
 
-    private const string WorkIconPath = "World/WorldObjects/Expanding/Sites/MiningWorkSite";
-    private static Texture2D workIcon;
-    private static Texture2D WorkIcon
-    {
-        get
-        {
-            if (workIcon == null)
-                workIcon = ContentFinder<Texture2D>.Get(WorkIconPath, reportFailure: false);
-            return workIcon;
-        }
-    }
+    // The work section's header icon, vanilla's mining work site. Its art is in the base game's
+    // Resources, not Ideology's, so it loads whatever DLCs are active and survives a reload.
+    private Texture2D workIcon;
 
     private IEnumerable<Tunable> All => [kits, castTime, tendInterval, cooldown, range, shots, shotDuration, restFall, shotCooldown];
 
@@ -167,6 +159,7 @@ public class MedicWarcasketSettings : ModSettings
         shotLevels = defs.adrenaline.stages.Count;
         shotIcon = defs.injector.ammoDef?.uiIcon;
         shotTip = HeaderTip(defs.shot.LabelCap, defs.shot.description);
+        workIcon = ContentFinder<Texture2D>.Get("World/WorldObjects/Expanding/Sites/MiningWorkSite");
         defaultsLoaded = true;
     }
 
@@ -305,7 +298,7 @@ public class MedicWarcasketSettings : ModSettings
         SummaryRow(listing, ShotSummary);
         if (WorkProfile.Toggleable.Count > 0)
         {
-            SectionHeader(listing, "MDWC_SectionWork", WorkIcon, HeaderTip("MDWC_SectionWork".Translate(), "MDWC_SectionWorkDesc".Translate()));
+            SectionHeader(listing, "MDWC_SectionWork", workIcon, HeaderTip("MDWC_SectionWork".Translate(), "MDWC_SectionWorkDesc".Translate()));
             work.DoRows(listing);
             SummaryRow(listing, WorkSummary);
         }
