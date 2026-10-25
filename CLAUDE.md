@@ -1,354 +1,91 @@
 # CLAUDE.md
 
-Guidance for Claude Code (claude.ai/code) when working in this repository.
+Guidance for Claude Code when working in this repository. This file holds only what applies
+across the whole repo. Folder guides load on their own when work touches them: `1.6/CLAUDE.md`
+(defs, patches, languages, gating), `Source/1.6/CLAUDE.md` (C#), `Scripts/CLAUDE.md` (l10n and
+release tooling), `.steamworkshop/CLAUDE.md` (Workshop page).
 
-## Project Overview
+## Project
 
-**Medic Warcasket** is a RimWorld 1.6 mod adding a single new warcasket apparel set (armor,
-shoulder pads, helmet) for Vanilla Factions Expanded - Pirates (VFE Pirates), a combat-medic
-set on VFEP's 10th-generation spacer chassis. VFE Pirates is a hard dependency; Odyssey is
-optional and Odyssey-only content must load only when the DLC is active. Requires Harmony
-(bootstrapped in `ModInit.cs`; patch classes, when any exist, live in `Source/1.6/Patches/`).
+**Medic Warcasket** is a RimWorld 1.6/1.7 mod adding one warcasket apparel set (armor, shoulder
+pads, helmet) for Vanilla Factions Expanded - Pirates (VFEP): a combat medic on VFEP's
+10th-generation spacer chassis. VFEP and Harmony are the hard dependencies (VEF comes with VFEP);
+Odyssey and other optional content load only when present. C# (.NET Framework 4.7.2), Harmony,
+XML defs. Def prefix `MDWC_`.
 
-**Key technologies:** C# (.NET Framework 4.7.2), Harmony, RimWorld modding API, XML defs.
+**State: mechanics in, tuning not.** The doctor passives, the mechanite dressing, the adrenaline
+shot and the medic work trait are implemented; every protection, cost and shield value is still
+Siegebreaker's. `TODOs.md` is the ledger. Each feature's design rationale is a `Docs/Specs/`
+file; the sibling `../ShipcrackerWarcasket/` repo (same author, same VFEP base) is the worked
+precedent for tuning rationale, render-tree art and the settings/ability idioms copied here.
 
-**Def prefix:** `MDWC_`. **Current state: mechanics in, tuning not.** The set's doctor
-passives (shoulders, helmet) are implemented per `Docs/Specs/Field-Dressing.md`, the mechanite
-dressing (a medicine suite of kits with a gauge, a VEF ability on the armor, and mod settings) per
-`Docs/Specs/Mechanite-Dressing.md`, the adrenaline shot (a go-juice injector on the shoulders,
-a VEF ability with a fading hediff, a heart-attack cure and an autocast the dressing fires) per
-`Docs/Specs/Adrenaline-Shot.md`, and the medic work
-trait (the wearer can doctor) per `Docs/Specs/Medic-Work-Trait.md`; every protection,
-cost and shield value is still Siegebreaker's. `TODOs.md` holds the ledger, and the sibling
-`../ShipcrackerWarcasket/` repo (same author, same VFEP base) is the worked precedent for
-tuning rationale, render-tree art and the settings/ability idioms this repo copies.
+## Documentation rules
 
-### Where documentation lives
+- **The file's header is the record.** Per-item values, tuning numbers and decompile-verified
+  call paths live in the header comment of the file they describe, with the _why_. No guide
+  restates a def value or call path; a line joins a guide only when it constrains other files.
+- **Comments describe the present, git describes the past.** No dates, previous values, dropped
+  attempts or "seen in game" notes in comments; that history goes in the commit message. Def
+  comments ship in the bundle, so keep them lean.
+- **Never read a `Docs/Specs/` file whole** (400 to 900 lines each). Grep for the section you
+  need, or delegate a spec-wide question to a subagent and keep its answer.
+- **Dependency sources are read-only.** `../VanillaExpanded/VanillaFactionsExpanded-Pirates/`
+  (its `CLAUDE.md` maps the warcasket subsystem) and
+  `../VanillaExpanded/VanillaExpandedFramework/` are upstream checkouts; never commit into them.
 
-**This file holds only cross-cutting rules and rationale.** Per-item values, tuning numbers and
-decompile-verified call paths live in the header comment of the file they describe. When adding
-or changing something, put the _why_ there and only add a line here if it constrains work in
-other files. Do not restate def values or call paths here; they drift.
-
-**Comments describe the present, git describes the past.** A header or code comment explains the
-current state where the code does not make it obvious: engine facts it relies on, what a number is
-balanced against, cross-file coupling. It carries no dates, no previous values, no record of what
-was tried and dropped, and no "seen in game" notes; that history belongs in the commit message
-and diff. Def comments ship in the bundle, so keep them lean.
-
-**Never read a `Docs/Specs/` file whole into the lead model's context.** Each runs to hundreds
-of lines (the largest near 900). Grep for the section or table you need and read only that
-range, or delegate a question spanning a whole spec to a cheaper subagent and keep its answer.
-The code and def headers are the current record; a spec is the design rationale behind them.
-
-## Build Commands
+## Build
 
 ```bash
-# Build (outputs to 1.6/Assemblies/ AND atomically redeploys to the RimWorld Mods folder)
-dotnet build MedicWarcasket.sln -c Release
-
-# Stage the mod into an arbitrary folder (used by CI; same manifest as the local deploy)
-dotnet build Source/1.6/MedicWarcasket.csproj -c Release \
-  -t:StageMod -p:StageDir=/path/to/output/MedicWarcasket
-
-# Override RimWorld install path
-RIMWORLD_PATH="/path/to/RimWorld" dotnet build MedicWarcasket.sln -c Release
-# Or: dotnet build -p:RimWorldPath="/path/to/RimWorld"
+dotnet build MedicWarcasket.sln -c Release   # builds 1.6/Assemblies/ and redeploys to Mods/MedicWarcasket
 ```
 
-The build compiles against the `Krafs.Rimworld.Ref` NuGet package, pinned to the final 1.6 build,
-locally and in CI alike; the local install is never referenced (since 1.7 it carries no 1.6
-assemblies) and only serves as the decompile target. The RimWorld install path, auto-detected on
-Windows/Linux/Mac including WSL targeting a Windows install, decides deployment alone. Debug builds
-go to the default `bin/` and never deploy; only Release builds touch `1.6/Assemblies/` and the Mods
-folder. The mod runs on 1.6 and 1.7 from the one `1.6/` tree (`LoadFolders.xml` lists it under both
-versions): the 1.7 runtime maps every UnityEngine reference onto its `UnityStubs` assembly, so the
-net472 DLL loads unchanged.
+Compiles against the pinned `Krafs.Rimworld.Ref` 1.6 package; the local install (auto-detected,
+or `RIMWORLD_PATH`, in WSL the Windows path) only decides deployment and serves as the decompile
+target. Release builds deploy atomically through the csproj's `StageMod` target, the one file
+manifest, which CI calls too; Debug builds never deploy. The csproj's comments cover path
+detection, the compile-only VFEP/VEF references and the manifest's globbing. The Stop hook
+`.claude/hooks/sync-mod.sh` (self-documenting, byte-identical across the mod family) rebuilds
+after any turn that changed mod files and feeds a failing build back to the agent.
+**Warnings are build errors** (`TreatWarningsAsErrors`, severities pinned in `.editorconfig`):
+fix the code, not the severity.
 
-**WSL setup:** `RIMWORLD_PATH` in `~/.bashrc` pointing at the Windows install, e.g.
-`/mnt/c/Program Files (x86)/Steam/steamapps/common/RimWorld`.
-
-### Dependency-mod assemblies
-
-`VFEPirates.dll` and `VEF.dll` are referenced compile-only (`Private="false"`), resolved by the
-csproj in this order: explicit override (`-p:VfePiratesDir=` / `-p:VefDir=` or the `VFEP_PATH` /
-`VEF_PATH` env vars), the Steam Workshop copy beside the install (ids 2723801948 and 2023507013),
-the sibling source checkouts under `../VanillaExpanded/`, then the RimWorld `Mods/` folder. The
-Workshop copy is preferred because it is what players run against. Both references are skipped
-silently when the DLL is absent, so a build still succeeds without them until code uses their
-types. CI fetches both DLLs from the Workshop with SteamCMD in the release workflow and injects
-them via the `VEF_PATH` / `VFEP_PATH` environment variables.
-
-Reference source checkouts: `../VanillaExpanded/VanillaFactionsExpanded-Pirates/` (its
-`CLAUDE.md` maps the warcasket subsystem: `WarcasketDef`, `Apparel_Warcasket`,
-`Building_WarcasketFoundry`, the entombing jobs) and `../VanillaExpanded/VanillaExpandedFramework/`.
-Both are upstream repos, not ours: read from them, never commit into them from here.
-
-### Deployment
-
-The repo lives outside the Mods folder; every local Release build redeploys automatically and
-atomically. The deploy folder name follows the project name (`Mods/MedicWarcasket`).
-
-- **One manifest, one place:** the `_ModFiles` ItemGroup in the `StageMod` target of
-  `Source/1.6/MedicWarcasket.csproj`; see that target's comments for how it globs and what
-  it excludes. It is generic over folders, so a new `1.7/` or `Sounds/` needs no build change; only
-  a brand-new _file type_ does. Local deploy and CI release both call it, so they can't drift.
-- **Stop hook (`.claude/hooks/sync-mod.sh`):** rebuilds+redeploys after a turn only when
-  mod-relevant files changed, logs to `$TMPDIR/MedicWarcasket-build.log`. On failure it
-  exits 2 with the errors on stderr, which Claude Code feeds back to the agent and the turn
-  continues, so the agent fixes the build rather than the user finding it later; a second
-  failure in the same turn (`stop_hook_active`) only warns, so it cannot loop. Tracked and wired
-  by the tracked `.claude/settings.json`; the script is byte-identical across the mod family
-  and derives the solution, project folder and mod name itself, so change it in the template
-  and copy it verbatim, never per repo. It bails when no RimWorld install is found, so CI and
-  contributors without the game are unaffected.
-
-**`.claude/` is only partly gitignored.** `.gitignore` carries `.claude/*` followed by
-`!.claude/skills/`, `!.claude/hooks/` and `!.claude/settings.json`, so the skills, the Stop hook
-and its wiring are tracked and shared while `settings.local.json` (personal permissions) stays
-local per machine. Editing a skill is a committed, team-visible change and must keep in step with
-whatever it automates (e.g. `/release` encodes the CHANGELOG layout and the version scheme: release
-candidates are `X.Y.Z-rc.N` tags, CHANGELOG-less and Workshop-less, with the suffix in `modVersion`
-and `AssemblyInformationalVersion` only; `release.yml` treats any suffixed tag as a prerelease to
-match).
-
-## Project Structure
+## Layout
 
 ```
-About/           - Mod metadata (About.xml, Preview.png; PublishedFileId.txt once published)
-Textures/        - Art (version-independent, loaded via the "/" root; no Common/ root), under
-                   VFEP's Things/Pawn/Warcasketlike/WarcasketMedic/ layout
-1.6/             - RimWorld 1.6 specific content
-  Assemblies/    - Compiled DLLs (build output, gitignored)
-  Defs/          - XML definitions (the three parts, the two abilities and their jobs, the
-                   shot's hediff, the medic trait, Effects/ with the dressing's motes)
-  Languages/     - English/Keyed/ only: settings and runtime strings (code-printed text)
-  Patches/       - XML patches to modify base game/other mods
-  Mods/<Name>/   - Optional-mod/DLC compat roots (version-specific), gated in LoadFolders.xml
-Mods/<Name>/     - Optional-mod/DLC compat roots (version-independent art), none yet
-Source/1.6/      - C# source code targeting net472: Abilities/ (the shared targeted-ability
-                   and walk-and-cast bases, the dressing with its extension and driver, the
-                   shot with its driver and command), Comps/ (the medicine suite), Gizmos/
-                   (the suite's gauge),
-                   Settings/ (the tunables and the medicine row), Patches/,
-                   WorkProfile.cs (the medic trait's startup mirror)
-Scripts/         - l10n config shims + the expected-injections.json sidecar (not shipped)
-Docs/Research/   - VFEP warcasket stat tables and ability mechanics (reference, not shipped)
-Docs/Specs/      - Design specs for work tracked in TODOs.md (reference, not shipped)
-l10n/            - rimworld-l10n toolkit, git submodule pinned to a release tag (not shipped)
-LoadFolders.xml  - Tells RimWorld which folders to load per game version
-CHANGELOG.md     - Keep a Changelog format; load-bearing for releases (see below)
-TODOs.md         - Scoping notes for the feature work that has not landed yet
+About/            Mod metadata
+1.6/              Defs, Patches, Languages/English/Keyed, Mods/<compat roots>; serves 1.6 and 1.7
+Source/1.6/       C# (net472)
+Textures/         Art, version-independent, under VFEP's Warcasketlike/ layout
+Scripts/          l10n shims and the smoke test             (not shipped)
+l10n/             rimworld-l10n toolkit, pinned submodule   (not shipped)
+Docs/Research/    VFEP warcasket stat tables and ability mechanics
+Docs/Specs/       Design specs behind the landed features
+.steamworkshop/   Workshop page text                        (not shipped)
+LoadFolders.xml   Load roots per game version, compat roots gated by package id
 ```
 
-## RimWorld Modding Context
+## Cross-cutting rules
 
-- Target framework: .NET Framework 4.7.2
-- References RimWorld assemblies via cross-platform paths in .csproj
-- Uses `Verse` namespace for core modding APIs
-- XML Defs define game objects; Patches modify existing Defs via XPath
-- Harmony is referenced (`Lib.Harmony`, compile-only) and bootstrapped in `ModInit.cs`; the
-  runtime DLL comes from the `brrainz.harmony` mod dependency declared in About.xml.
+- **One def per file**, named after the def with the `MDWC_` prefix stripped.
+- **Log with the `[Medic Warcasket]` prefix.** Root namespace `MedicWarcasket`.
+- **No em dashes in player-facing text** (labels, descriptions, `Keyed/`, `About.xml`); reflow
+  the sentence. Code comments, def comments and these guides are unaffected.
+- **Settings override def fields, never code paths**, written onto the defs at startup and on
+  window close, so defaults come from the XML and the def header stays the record.
+- **Every startup read or write of defs goes through `Startup.Run`**, idempotent and re-run on
+  every in-process play-data reload; never a bare static ctor.
+- **English is the source of truth for text.** Translations come from the `/translate` skill,
+  one language at a time, shortly before a release and never earlier.
+- **`.claude/` is partly tracked** (`skills/`, `hooks/`, `settings.json`; the rest is personal).
+  Editing a skill is a team-visible change that must keep in step with what it automates.
 
-### Conventions
+## Releases and debugging
 
-- All defs use the `MDWC_` prefix. **One def per file** in every `Defs/` `.xml`, named after the
-  def with the prefix stripped. Defs load recursively and the deploy manifest globs, so new
-  files/subfolders need no build change.
-- Warcasket parts are `VFEPirates.WarcasketDef`s parented on VFEP's abstract bases
-  (`VFEP_WarcasketArmorBase`, `VFEP_WarcasketShoulderPadBase`, `VFEP_WarcasketHelmetBase`), so
-  the foundry, entombing flow and removal surgery pick them up without C#. Check VFEP's XML
-  before reimplementing anything a base already provides.
-- Every VFEP warcasket base already carries a `VEF.Apparels.ApparelExtension`, and VEF merges
-  duplicate extensions at resolve time, keeping the highest `priority` and dropping fields its
-  `Merge` does not copy. Any `ApparelExtension` entry we declare carries `priority` 1 so ours
-  survives; any new `ApparelExtension` field, from any load root, must go on that entry
-  (rationale in the armor def's header).
-- **Drawing on the wearer goes through the pawn render tree, not draw hooks.** Extra worn
-  graphics are `apparel.renderNodeProperties` entries on the def; the sibling Shipcracker
-  repo's thruster glow (its armor def, `Source/1.6/Rendering/` and the render-node patch) is
-  the worked precedent, including the zoomed-out pawn cache and draw-order traps. Read its
-  CLAUDE.md bullet before adding a worn graphic here.
-- **C#:** root namespace `MedicWarcasket`; patch classes live in `Source/1.6/Patches/`
-  under the `.Patches` namespace suffix to avoid RimWorld type-name conflicts. Log with the
-  `[Medic Warcasket]` prefix.
-- **Warnings are build errors.** The csproj sets `TreatWarningsAsErrors`, so every compiler and
-  analyzer warning fails the build. Severities are pinned in `.editorconfig`: `warning` blocks the
-  build, `suggestion` is IDE-only. Fix the code, not the severity, unless the rule is wrong here.
-- **Patch timing is the load-bearing hazard of this mod.** `PatchAll()` runs from a
-  `[StaticConstructorOnStartup]` (`ModInit.cs`), _not_ a `Mod` subclass constructor, on purpose:
-  Mod constructors run before defs load, and applying a detour JIT-compiles the target and runs
-  its declaring type's static ctor. Our targets will often be VFEP's own methods, and a VFEP type
-  whose cctor resolves defs would be permanently broken by an early patch (the BetterTradersGuild
-  v1.1.0 CWTL incident). Static ctors on startup run after defs load, so foreign targets are safe
-  there. The `Mod` subclass (`Settings/MedicWarcasketMod.cs`) owns settings only; `PatchAll`
-  stays in `ModInit`, which then reads the setting defaults off the defs and writes the
-  player's values onto them (`MedicWarcasketSettings.LoadDefaultsFromDefs` / `ApplyToDefs`).
-- **Settings override def fields, never code paths.** A tunable is a def field (the dressing's
-  `castTime`, `cooldownTime`, `distanceToTarget`, `icon`; its extension's `ticksPerTend`; the
-  suite's `maxCharges` and `ammoDef`; the three dressing motes' `graphicData.color`; the shot's
-  `cooldownTime` and `icon`, the injector's `maxCharges`, the adrenaline hediff's
-  `severityPerDay` and its stages' `restFallFactor`) written by
-  `ApplyToDefs` at startup and whenever the window closes, so vanilla, VEF and our code all read
-  the setting through the def with nothing of their own; defaults come from the def XML, so the
-  def header stays the record. Live state a write leaves behind (a running cooldown, kits above
-  a lowered maximum, a mote def's cached graphic) is reconciled by the instance on its next use,
-  keyed on `MedicWarcasketSettings.Generation`, as the Shipcracker repo does, or by the write
-  itself (`RebuildGraphic`, whose comment has the recolour trap).
-- **The two actives share their ordering and walk.** `Ability_MedicTargeted` (vanilla order
-  semantics through `TryTakeOrderedJob`, Shift-click chaining, the cursor rule, the stun) and
-  `JobDriver_MedicCast` (the walk, the cooldown wait, the check, the start-only binding of
-  VEF's cast state; it finds its ability as the worn one whose def names its JobDef) are the
-  bases; the dressing and the shot add only their own phases. A new targeted ability derives
-  from both and gets its own JobDef. **VEF never fires an apparel ability's autocast** (its one
-  consumer reads learned abilities only) and resets the flag on every wearer re-bind, so an
-  apparel autocast is read and fired by our own code and kept across `Init`, as the shot's is
-  by the dressing's shot toil.
-- **The medic trait is mirrored from VFEP's at startup, on 1.6 and 1.7 alike.**
-  `MDWC_WarcasketTrait_Medic`'s work tags, work types, degree effects and VEF `TraitExtension`
-  are overwritten by `WorkProfile.Mirror` (first in `Startup.Run`) from `VFEP_WarcasketTrait`
-  as the full mod list leaves it, so editing or patching those fields on our def does not stick
-  and VFEP's per-version differences (where the pain immunity and rest-fall factor sit) need no
-  version check here. Only the degree's text is ours. The Caring work types the tags leave open
-  are the settings' toggles (`WorkSetting`), written through `WorkProfile.Apply` on every
-  `ApplyToDefs`. The trait def's header carries the contract; `Docs/Specs/Medic-Work-Trait.md`
-  the rationale.
-- **Vanilla's reload queries are non-virtual.** `CompApparelReloadable.AmmoDef`, `NeedsReload`,
-  `ReloadFrom`, `Min/MaxAmmoNeeded` cannot be overridden; a reloadable that bends one does it with
-  a Harmony prefix gated on its own comp type so every other reloadable passes through. The
-  medicine suite prefixes `NeedsReload` and `MaxAmmoNeeded` to the gauge's target
-  (`Patches/CompApparelReloadable_Reload.cs`); `AmmoDef` is its props' own field and needs no
-  bending. Read the suite's header before touching it.
-- **Keyed strings a DLC owns are not available here.** Biotech's `NumWoundsTended` is the
-  precedent: a vanilla key used by a DLC-only feature may live in that DLC's `Languages/`, so a
-  key used from code is grepped across `Data/*/Languages/English/Keyed/` first and, if Core does
-  not own it, is replaced by an `MDWC_` key in the one Keyed file.
-- **Startup def-derived state must survive an in-process play-data reload** (a mid-session
-  language switch reloads every def). Anything that reads or writes defs at startup goes in an
-  idempotent `Run()` invoked from a postfix on `StaticConstructorOnStartupUtility.CallAll`,
-  never in a bare static ctor;
-  `../UniqueMeleeWeapons/Source/1.6/Patches/StaticConstructorOnStartupUtility_CallAll_Patch.cs`
-  is the reference implementation; here it is `Startup.Run` (the settings), called once from
-  `ModInit` for the first load, which the in-flight `CallAll` postfix cannot see, and from
-  `Patches/StaticConstructorOnStartupUtility_CallAll.cs` on every reload. Textures are not exempt:
-  mod-shipped ones are destroyed on the same reload (`ModContentPack.ClearDestroy`), so a static
-  texture field would be left a dead reference; resolve them through a getter that re-resolves
-  on a Unity-null `== null` check (never `??`/`??=`), as in
-  `~/dev/PersonaWeaponsUnbound/Source/1.6/Defs/PWU_Textures.cs`. Vanilla-path textures persist
-  and are safe as plain statics.
-- **No em dashes in player-facing text** (def labels/descriptions, `Keyed/`, `About.xml`);
-  reflow the sentence instead. This file, code comments and def comments are unaffected.
+Run the `/release` skill. It encodes the CHANGELOG layout, the version scheme (`X.Y.Z-rc.N`
+candidates are CHANGELOG-less and Workshop-less prereleases) and the pre-release checks;
+`.github/workflows/release.yml` fails a stable release whose CHANGELOG section is missing.
 
-## Localization and Optional-Content Gating
-
-- `MayRequire`/`MayRequireAnyOf` work on def root nodes and list items, but the DefInjected loader
-  ignores XML attributes entirely. A DefInjected entry for a gated def placed in the main tree
-  loads unconditionally and logs a "found no def named ..." startup error whenever the gating
-  mod/DLC is absent.
-- The fix is a folder gate: ship the gated content from a compat load root, loaded via an
-  `IfModActive` entry in `LoadFolders.xml` (the Vanilla Gravship Expanded entry is the model).
-  Two flavors, mirroring the ungated roots: `1.6/Mods/<Mod Name>/` for version-specific content
-  (Defs, Patches, and the DefInjected targeting them) and root-level `Mods/<Mod Name>/` for
-  version-independent content (art). The def's `MayRequire` becomes redundant and should be
-  dropped when it moves. A compat art variant goes at the main tree's exact texture path in
-  the `Mods/<Mod Name>/` root, not under a new name behind a patch: a load folder listed
-  later wins a shared relative path, so the gated root must stay below `/` in
-  `LoadFolders.xml`. Gate on the package id (`ludeon.rimworld.odyssey`), never
-  `PatchOperationFindMod` (matches by display name). The one deliberate exception is a patch
-  that mirrors a VFEP patch: `1.6/Patches/SOS2Patch.xml` copies VFEP's own display-name gate so
-  the Medic and VFEP's sets flip to EVA-rated under exactly the same condition.
-- Compat roots must sit BESIDE the well-known folders, never inside them: anything under
-  `1.6/Defs/**` or `1.6/Languages/**` loads unconditionally at any depth.
-- The game gates a DefInjected entry by the load root that CONTAINS it, never by the def it
-  targets. The reverse mistake also bites: a main-tree def's translation placed in a compat root
-  silently vanishes when the gate is closed.
-- A compat root's language files must never reuse a main-tree file's language-relative path
-  (`DefInjected/<Type>/<File>.xml`, `Keyed/<File>.xml`): the game dedups language files per mod by
-  that path and silently skips one whole file, in an enumeration order that is not LoadFolders
-  order. Suffix compat-root filenames with the gate's name (`Apparel_Odyssey.xml`).
-
-## Localization Toolchain
-
-English is the source of truth: the def XML's `label`, `description`, VFEP's
-`shortDescription`, the reload comps' `chargeNoun`s ("kit", "shot"), the ability and job defs'
-strings, the adrenaline hediff's labels and stages, and the trait degree's `label` and
-`description`, plus
-the one Keyed file `1.6/Languages/English/Keyed/MedicWarcasket.xml` for everything code prints
-(settings window, the two abilities' messages); every new code-printed string goes in that file
-under the `MDWC_` prefix. Other languages derive from it
-via the `/translate` skill (`.claude/skills/translate/SKILL.md`: this mod's surface, grounding
-domain and per-language glossary; the family-wide process lives in the `l10n/` submodule) and
-are validated deterministically by `python3 Scripts/check-translations.py` (also a CI release
-gate). The DefInjected expected set is the checked-in sidecar `Scripts/expected-injections.json`:
-a dump of every injection point the _live_ game sees for this mod, produced by
-`Scripts/refresh-translation-expectations.py` driving the L10nProbe dev mod (source at
-`l10n/probe/`; build/deploy it only from the canonical `~/dev/rimworld-l10n` checkout; this mod
-is ticked in the probe's settings) through the game's own walker. The checker refuses to run
-against stale expectations, so new content forces a regen (a new def type adds a DefInjected
-folder: `VEF.Abilities.AbilityDef` and `JobDef` joined `ThingDef` with the dressing, `TraitDef`
-with the medic trait, `HediffDef` with the shot); the release
-skill regenerates every release. **Translation passes are deferred until shortly before release**: they are
-token-expensive, run one language at a time on explicit request, and must wait for the English
-text to be final. Regenerating the sidecar is always fine. No language exists yet; the public
-roster lives in CONTRIBUTING.md.
-
-- **Shared l10n toolkit (`l10n/` submodule):** the checker/refresh/smoke engines, per-language
-  mechanics references, cross-language lessons and Workshop conventions come from the
-  `rimworld-l10n` repo, consumed as a git submodule pinned to a semver release tag (`git submodule
-status` names it; if `l10n/` is empty, run `git submodule update --init`). `Scripts/*.py` are
-  thin per-repo config shims over its engines; each shim's comments carry this repo's rationale
-  (the VFEP dependency chain, why Odyssey is the only DLC pinned, why SOS2 and VGE1 are on the
-  smoke list).
-  Never edit `l10n/` in place here: mod-independent learnings go upstream in the canonical
-  checkout; mod-specific ones go in the skill's glossary. The pin moves only at release, at the
-  start of a translation pass, or when a new major lands (`l10n/tools/bump-consumer.sh`), never
-  per upstream commit.
-- **Def type folder:** the defs are `VFEPirates.WarcasketDef`, a `ThingDef` subclass without its
-  own database, so the game dumps and injects them under `ThingDef`; the checker maps the element
-  tag via `DEF_TYPE_ALIASES`. A DefInjected folder named `WarcasketDef` would never load.
-- **Startup smoke test (pre-release):** `python3 Scripts/integration-smoke-test.py` (game closed)
-  boots the deployed mod on a pinned list (VFEP chain + Odyssey + the two optional integrations:
-  Save Our Ship 2 with Vehicle Framework so `SOS2Patch.xml` actually runs, and Vanilla Gravship
-  Expanded so the `1.6/Mods/VanillaGravshipExpanded` root opens), then classifies logged errors
-  by origin and fails on anything attributed to this mod or a VFEP/VEF/SOS2/VGE seam.
-  Wired into the release skill. Sibling-mod "dump WILL fail" warnings at launch are expected: the
-  probe is ticked for every family mod but each boot loads only its own list.
-- **`.steamworkshop/`** holds the Workshop title and BBCode description per language
-  (`Description/<Language>.txt`, the toolkit's convention; its `README.md` has the format and
-  title rule). It is the mod's marketing page, pasted only at releases, and its
-  `CLAUDE.md` is the editorial contract: shipped state only, headline features without
-  mechanics or def numbers, sectioned and skimmable, in the author's own voice, and short
-  enough that every translation fits Steam's byte limit. Read it before touching the text;
-  the release skill translates `English.txt` from there.
-
-**Releases:** run the `/release` skill, or by hand: rename the `## [Unreleased]` section of
-`CHANGELOG.md` to `## [X.Y.Z] - date` (merged contributions are recorded there as they land, so
-nothing is carried out of band), bump `About/About.xml` `<modVersion>` and
-`Source/1.6/Properties/AssemblyInfo.cs`, then push a `v*.*.*` tag. The GitHub Actions workflow (`.github/workflows/release.yml`) builds,
-stages via `StageMod`, lifts the tag's CHANGELOG section into the release body, and **fails the
-release if that section is missing** (except for `X.Y.Z-rc.N` candidate tags, which get a stub body
-and a prerelease flag instead; see the skill-sync paragraph above).
-
-## Debugging
-
-1. **Dev Mode:** Settings > Dev Mode > Logging.
-2. **Log:** under `%USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\`
-   (WSL: `/mnt/c/Users/*/AppData/LocalLow/Ludeon Studios/RimWorld by Ludeon Studios/`; Linux:
-   `~/.config/unity3d/Ludeon Studios/RimWorld by Ludeon Studios/`). On 1.7 it is `Logs/Player.log`,
-   with a timestamp and level (`ERROR`, `WARN`, `INFO`) on every entry and `    at ...` stack frames
-   under it; on 1.6 it is `Player.log` one level up. A 1.7 install leaves the 1.6 file in place,
-   stale.
-3. **Logging convention:** `Log.Message("[Medic Warcasket] ...")`; grep the prefix to
-   isolate our output. VFEP's own messages carry no prefix; search by class name.
-4. **Inspect the API:** `monodis` for signatures, `ilspycmd -t "Namespace.ClassName"` for method
-   bodies, against the local install's `Assembly-CSharp.dll` (source of truth over the Krafs ref
-   package) or the resolved `VFEPirates.dll` / `VEF.dll`. On 1.7 the assembly sits flat in the
-   install root with `UnityStubs.dll` beside it for Unity-facing signatures; on 1.6 it is under
-   `RimWorldWin64_Data/Managed/`. The local install's assembly is now the 1.7 one, so a
-   decompile-verified call path in a def or code header that was verified on 1.6 should say so if
-   it is re-verified on 1.7 and differs. The `rimworld-logs` skill covers both, and its
-   `spirv-dump.py` reads the 1.7 shaders (SPIR-V in `Assets.zip`), which is how a mote's shader
-   math and exact uniform names are checked; the 1.6 Unity shaders are unreadable here.
-5. **In-game test list:** VFE Pirates (Workshop 2723801948) and Vanilla Expanded Framework must
-   both be active and load before this mod; the local deploy shows up as `MedicWarcasket`
-   in the mod list.
+The `rimworld-logs` skill finds `Player.log` on 1.6 and 1.7 and disassembles the game, VFEP and
+VEF assemblies; the local install's assembly, now the 1.7 one, is the source of truth over the
+Krafs package. In game, VFEP and Vanilla Expanded Framework must load before this mod, which
+appears as `MedicWarcasket` in the list.

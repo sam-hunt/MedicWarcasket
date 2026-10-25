@@ -191,8 +191,8 @@ notes for the shim or flow edit this repo owes before continuing.
   ships only a patch with no translatable fields. Everything lands in the
   main `1.6/Languages/<Language>/` tree today. If a gated root ever gains a
   labelled def, its DefInjected must move into that root's own
-  `Languages/` with a gate-suffixed filename (see CLAUDE.md's Localization
-  and Optional-Content Gating section), never the main tree.
+  `Languages/` with a gate-suffixed filename (see `1.6/CLAUDE.md`'s gating
+  section), never the main tree.
 - **Workshop page:** `.steamworkshop/Description/<Language>.txt`, per
   `l10n/workshop.md` and the folder's own `README.md`. The title's anchor
   term is "warcasket"; every localized title must contain the rendering of

@@ -107,7 +107,7 @@ python3 Scripts/check-translations.py --strict
 - If the diff shows **added or changed keys**, translate them in every
   language now (the `translate` skill's update pass), then rerun the checker.
   Keys from a compat root's defs (`1.6/Mods/<Mod Name>/`) belong in that
-  root's `Languages/`, never the main tree (see CLAUDE.md's gating section).
+  root's `Languages/`, never the main tree (see `1.6/CLAUDE.md`'s gating section).
 - Report the per-language checker result (missing keys, stale entries,
   errors). CI's release gate runs the same script without `--strict` against
   the checked-in sidecar; the stricter local run surfaces warnings while
@@ -183,7 +183,7 @@ python3 Scripts/integration-smoke-test.py
   error only a boot with the mod active can surface, and this is the only
   automated coverage either seam gets. It exists because the
   BetterTradersGuild v1.1.0 CWTL regression showed such a problem can be
-  invisible without an integration mod active (see this repo's CLAUDE.md
+  invisible without an integration mod active (see this repo's `Source/1.6/CLAUDE.md`
   patch-timing note).
 - On PASS, report the summary line and move on — no confirmation. On FAIL,
   show the gated error blocks and **stop** — the release does not proceed
