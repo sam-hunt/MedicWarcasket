@@ -143,7 +143,7 @@ def dump(path):
         elif op in (253,):
             print("  Return")
         elif op == 12:
-            print("  %%%d = ExtInst %s" % (a[1], " ".join(ref(x) for x in a[3:])))
+            print("  %%%d = ExtInst %d %s" % (a[1], a[3], " ".join(ref(x) for x in a[4:])))
         elif op in (65, 66):
             print("  %%%d = %s %s[%s]" % (a[1], name, ref(a[2]), ",".join(ref(x) for x in a[3:])))
         elif len(a) >= 2:
