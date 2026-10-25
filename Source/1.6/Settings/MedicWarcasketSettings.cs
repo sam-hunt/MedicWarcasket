@@ -21,7 +21,7 @@ namespace MedicWarcasket;
 // VEF's gizmo and targeting cursor show it unaided. The tint overrides the rgb of the three
 // dressing motes' graphicData.color, each keeping its own alpha, and the gauge reads its colours
 // off the beam's (Gizmo_DressingSuite). The two picked rows sit above the sliders, and the one
-// section ends on a line of what its rows amount to.
+// section ends on a line of what its rows amount to. Its header carries the ability's tooltip.
 //
 // What a write leaves on live ability instances (a running cooldown, a tooltip cache) is
 // caught up by each instance on its next gizmo request, keyed on Generation
@@ -74,6 +74,10 @@ public class MedicWarcasketSettings : ModSettings
     // Each mote's graphicData.color as the XML leaves it, by MoteDefNames order.
     private Color[] moteColors;
 
+    // The tooltip over the section's header: the dressing, its name as VEF titles an ability's
+    // tooltip over the description its command shows in game.
+    private string dressingTip;
+
     private IEnumerable<Tunable> All => [kits, castTime, tendInterval, cooldown, range];
 
     private static string Whole(float v) => Mathf.RoundToInt(v).ToString();
@@ -104,6 +108,7 @@ public class MedicWarcasketSettings : ModSettings
         for (int i = 0; i < defs.motes.Length; i++)
             moteColors[i] = defs.motes[i].graphicData.color;
         tint.DefaultValue = moteColors[0];
+        dressingTip = HeaderTip(defs.dressing.LabelCap, defs.dressing.description);
         defaultsLoaded = true;
     }
 
@@ -192,7 +197,7 @@ public class MedicWarcasketSettings : ModSettings
         Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
         var listing = new Listing_Standard { maxOneColumn = true };
         listing.Begin(viewRect);
-        SectionHeader(listing, "MDWC_SectionDressing", medicine.Value?.uiIcon, first: true);
+        SectionHeader(listing, "MDWC_SectionDressing", medicine.Value?.uiIcon, dressingTip, first: true);
         medicine.DoRow(listing);
         tint.DoRow(listing);
         kits.DoRow(listing);
@@ -244,8 +249,8 @@ public class MedicWarcasketSettings : ModSettings
 
     // The header's text in the medium font after its icon, a square as tall as the header; a
     // header whose texture is missing starts its text at the left edge rather than after an
-    // empty slot.
-    private static void SectionHeader(Listing_Standard listing, string key, Texture2D icon, bool first = false)
+    // empty slot. The tooltip covers the icon and the text only, not the empty width after them.
+    private static void SectionHeader(Listing_Standard listing, string key, Texture2D icon, string tooltip, bool first = false)
     {
         const float headerGap = 4f;
         const float headerHeight = 32f;
@@ -253,6 +258,7 @@ public class MedicWarcasketSettings : ModSettings
         if (!first)
             listing.Gap(SectionGap);
         Rect rect = listing.GetRect(headerHeight);
+        float left = rect.xMin;
         if (icon != null && icon != BaseContent.BadTex)
         {
             GUI.DrawTexture(rect.LeftPartPixels(headerHeight), icon);
@@ -262,11 +268,19 @@ public class MedicWarcasketSettings : ModSettings
         TextAnchor anchor = Text.Anchor;
         Text.Font = GameFont.Medium;
         Text.Anchor = TextAnchor.MiddleLeft;
-        Widgets.Label(rect, key.Translate());
+        string label = key.Translate();
+        Widgets.Label(rect, label);
+        if (!tooltip.NullOrEmpty())
+            TooltipHandler.TipRegion(new Rect(left, rect.y, rect.xMin - left + Text.CalcSize(label).x, rect.height), tooltip);
         Text.Anchor = anchor;
         Text.Font = font;
         listing.Gap(headerGap);
     }
+
+    // An ability's tooltip as VEF opens one: its name in vanilla's tip title colour over its
+    // description. VEF's stat lines are left out; the rows above the summary quote those numbers.
+    private static string HeaderTip(string label, string description) =>
+        description.NullOrEmpty() ? null : label.Colorize(ColoredText.TipSectionTitleColor) + "\n\n" + description;
 
     private struct Defs
     {

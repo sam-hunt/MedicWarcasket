@@ -15,7 +15,6 @@
 - **Descriptions.** The three def descriptions are theme placeholders. Rewrite around the final
   features, shared paragraphs identical across the pieces, each `shortDescription` equal to
   its first paragraph. The ability description and the Keyed strings are first drafts.
-- **Mod settings section title/icon tooltip ability descriptions**, similar to Toxin
 - **Smoke test on 1.6**
 - **First Workshop publish.** Commit `About/PublishedFileId.txt`, add the Workshop link and the
   Steam badges to the README, paste the description.
@@ -33,8 +32,7 @@
   and the beam, and `TechMedicineUsed` when the beam connects. Review whether a beam-like
   sustainer, a weapon's if nothing else fits, suits the stream better, and check the layering
   and volumes. A DLC sound needs a fallback for when the DLC is absent.
-- **Art.** Ability gizmos; until the dressing's icon lands, the medicine's item icon stands in
-  on the gizmo, the cursor and the settings header (`Mechanite-Dressing.md` 3.8).
+- **Art.** Ability gizmos switch from glitterworld medicine and go-juice once commissioned art lands
 - **Raid presence.** The pieces carry `WarcasketVeteran` and `WarcasketAll` like Siegebreaker;
   decide whether a medic set stays on the raid tables (AI never casts apparel abilities, can we make them?).
 - **Unit tests.** Siblings carry a headless xUnit net472 suite (`Tests/1.6/<Mod>.Tests.csproj`);
