@@ -7,7 +7,6 @@ using Verse;
 using Verse.AI;
 using Verse.Sound;
 using VEF.Abilities;
-using Ability = VEF.Abilities.Ability;
 
 namespace MedicWarcasket;
 
@@ -18,31 +17,14 @@ namespace MedicWarcasket;
 // the glow fades. With the medic helmet worn the beam also tends diseases and infections. The
 // phases are the job's toils (JobDriver_MechaniteDressing); this class holds the dressing's
 // state and does the work each toil calls into: PreWarmupAction and WarmupToil (the warmup),
-// Cast (the connect), BeamTick, WarmdownTick and EndCastJob (the settling on every job end).
-// Design in Docs/Specs/Mechanite-Dressing.md.
+// Cast (the connect), BeamTick, WarmdownTick and EndCastJob (the settling on every job end). The ordering, targeting, walk
+// and cursor idioms are the base's (Ability_MedicTargeted). Design in
+// Docs/Specs/Mechanite-Dressing.md.
 //
-// Ordering: CreateCastJob hands the job to Pawn_JobTracker.TryTakeOrderedJob rather than VEF's
-// StartAbilityJob, so a plain click interrupts the current job and clears the queue as any
-// vanilla order does, a Shift-click appends (QueueOrder) and a click on the patient already
-// being dressed is a no-op (JobIsSameAs). It also leaves CompAbilities.currentlyCasting alone:
-// VEF writes it at order time, which a queued job would read stale; here the driver binds it
-// when the job starts. ITargetingSource is re-listed so MultiSelect can be re-implemented as
-// true, which keeps the vanilla Targeter open after each Shift-click; the Targeter re-enters
-// through OrderForceTarget without VEF's DoTargeting, so that override orders directly instead
-// of indexing currentTargets.
-//
-// Targeting: any pawn on the map can be clicked; the range is not a limit (GetRangeForPawn
-// returns a number VEF treats as unlimited) and the def's requireLineOfSight is off, because
-// the job walks the pilot to the patient and enforces sight where it matters, at the def's
-// distanceToTarget. The pilot is excluded by the targeting parameters' canTargetSelf and once
-// more in ValidateTarget. A hostile that is up and about is excluded too: a downed raider can be
-// dressed before capture, but a conscious enemy would only be walked up to and held still.
-// MouseAttachment applies vanilla's cursor rule, the no-shoot cross over an invalid target and
-// def.icon (the configured medicine's, written by the settings) over a valid one; ValidateTarget
-// is asked quietly there, since VEF's default would repeat the rejection message every frame.
-// HidePawnTooltips is on, as on Ideology's Convert and Counsel: the hovered pawn's tooltip
-// (TooltipGiverList) opens at the cursor where the cursor label already sits, and both reflow
-// with the cursor's distance to the screen edge, so no offset keeps them apart.
+// Targeting: the pilot is excluded by the targeting parameters' canTargetSelf and once more in
+// ValidateTarget. A hostile that is up and about is excluded too: a downed raider can be
+// dressed before capture, but a conscious enemy would only be walked up to and held still. The
+// cursor shows def.icon, the configured medicine's, written by the settings.
 //
 // Charging (3.2 of the spec): an injury costs min(severity, severityPerKit), any other tendable
 // hediff a whole kit, and a tendAllAtOnce hediff a kit for the first of its def in a dressing;
@@ -51,12 +33,8 @@ namespace MedicWarcasket;
 // medicine's MedicineTendXpGainFactor) pro rata to the kit share each wound drew, so a kit's
 // worth of dressing earns one treatment's XP and chip damage cannot farm it.
 //
-// The stun (StunHandler.StunFor without battle log or mote) is refreshed every tick of the
-// warmup and the beam with a window of a few ticks, so it lasts the warmup plus one interval
-// per wound and lapses on its own on any exit; StopStun is never called, since it would also
-// cut a stun from elsewhere. A downed patient is skipped: StunHandlerTick zeroes a downed pawn's
-// stun every tick, and they need no holding. A sleeper is not woken, so a bed patient keeps
-// the bed's tend-quality offset.
+// The stun (the base's RefreshStun) is refreshed every tick of the warmup and the beam, so it
+// lasts the warmup plus one interval per wound and lapses on its own on any exit. A sleeper is not woken, so a bed patient keeps the bed's tend-quality offset.
 //
 // Motes are not scribed; every tick recreates any that are missing, as VEF's warmupMote code
 // does, so a save mid-dressing resumes with its visuals. The scribed state is the dressing in
@@ -65,20 +43,11 @@ namespace MedicWarcasket;
 //
 // The mod settings write onto the def (castTime, cooldownTime, distanceToTarget, the extension's
 // ticksPerTend) and the suite's props (ammoDef, maxCharges); the dressing reads them live, bar
-// the warmup length, which VEF's wait toil fixes at job start. A running cooldown stored as an
-// end tick is capped to the new length on the next gizmo request (ReconcileSettings).
-public class Ability_MechaniteDressing : Ability, ITargetingSource
+// the warmup length, which VEF's wait toil fixes at job start.
+public class Ability_MechaniteDressing : Ability_MedicTargeted
 {
-    // "Unlimited" as a finite number so VEF's range arithmetic and ring drawing stay sane.
-    private const float UnlimitedRange = 10000f;
-
-    // The stun refreshed each tick lasts this long past the last refresh.
-    private const int StunRefreshTicks = 5;
-
     // The emitter glow, and the beam's origin, sit this far in front of the pilot.
     private const float GlowDistance = 0.5f;
-
-    private const float TextMoteFadeDelay = 3.65f;
 
     private enum BeamState
     {
@@ -103,7 +72,6 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
     private List<HediffDef> chargedAllAtOnce = new();
 
     private CompDressingSuite suite;
-    private int settingsGeneration = -1;
     private Vector3 glowOffset;
     private Mote glow;
     private MoteDualAttached beam;
@@ -120,18 +88,6 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
 
     // Tended / (tended + still tendable), for the beam toil's progress bar.
     public float BeamProgress => tended + remaining > 0 ? (float)tended / (tended + remaining) : 0f;
-
-    public override float GetRangeForPawn() => UnlimitedRange;
-
-    // VEF's only auto-cast consumer reads CompAbilities.LearnedAbilities, never an apparel
-    // comp's GivenAbilities, so an apparel ability's toggle would show and never fire.
-    public override bool CanAutoCast => false;
-
-    public override bool AutoCast => false;
-
-    bool ITargetingSource.MultiSelect => true;
-
-    public override bool HidePawnTooltips => true;
 
     public override void Init()
     {
@@ -221,27 +177,10 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
     private string NothingToTendMessage(Pawn patient) =>
         (TreatsDiseases ? "MDWC_NothingToTreat" : "MDWC_NoWoundsToDress").Translate(patient.LabelShortCap);
 
-    // The Targeter's re-entry after a Shift-click, which skips VEF's DoTargeting and would
-    // otherwise write currentTargets[-1] through the base.
-    public override void OrderForceTarget(LocalTargetInfo target) => CreateCastJob(target);
-
-    // Vanilla's order semantics in place of VEF's StartAbilityJob (see the header). The def has
-    // no AbilityExtension_AbilityMods and the pilot is never a caravan member while this shows,
-    // so skipping the base's Valid, PreCast and caravan branches loses nothing.
-    public override void CreateCastJob(params GlobalTargetInfo[] targets)
-    {
-        currentTargetingIndex = -1;
-        currentTargets = new GlobalTargetInfo[def.targetCount];
-        if (targets.Length == 0 || targets[0].Thing is not Pawn target || pawn.jobs == null)
-            return;
-        Job job = JobMaker.MakeJob(def.jobDef, target);
-        pawn.jobs.TryTakeOrderedJob(job, JobTag.Misc);
-    }
-
     // The job's check toil, with the pilot in reach: the patient still has something to treat
     // and the suite holds a kit. Nothing has been spent yet. The cast time was fixed when the
     // job started, so a zero warmup is simply a wait toil of no ticks.
-    public bool CheckBeforeWarmup(Pawn patient)
+    public override bool CheckBeforeWarmup(Pawn patient)
     {
         if (!ValidateTarget(patient))
             return false;
@@ -286,7 +225,7 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
             return;
         }
         MaintainGlow(1f);
-        RefreshStun();
+        RefreshStun(patient);
     }
 
     // The connect, at VEF's cast toil: no base.Cast, whose first line would start the cooldown
@@ -325,7 +264,7 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
 
         MaintainGlow(1f);
         MaintainBeam();
-        RefreshStun();
+        RefreshStun(patient);
         MaintainTendSound();
 
         ticksIntoWound++;
@@ -449,21 +388,7 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
         overlay = null;
     }
 
-    // Within the def's distanceToTarget with a clear line, the walk's own stopping rule.
-    private bool InReach(Pawn patient) =>
-        pawn.Spawned && patient.Spawned && patient.Map == pawn.Map
-        && pawn.Position.DistanceTo(patient.Position) <= def.distanceToTarget
-        && GenSight.LineOfSight(pawn.Position, patient.Position, pawn.Map, skipFirstCell: true);
-
-    private void ThrowText(string text) =>
-        MoteMaker.ThrowText(patient.DrawPos, patient.Map, text, Color.white, TextMoteFadeDelay);
-
-    private void RefreshStun()
-    {
-        if (patient.Downed || patient.Dead)
-            return;
-        patient.stances?.stunner?.StunFor(StunRefreshTicks, pawn, addBattleLog: false, showMote: false);
-    }
+    private void ThrowText(string text) => ThrowText(patient, text);
 
     private Vector3 GlowOffset()
     {
@@ -508,17 +433,6 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
             tendSound.Maintain();
     }
 
-    // Vanilla's cursor rule: the no-shoot cross over anything the dressing cannot be ordered
-    // on, else the def's icon through the base. ValidateTarget is asked quietly, since VEF's
-    // default would repeat its rejection message every frame; the vanilla Targeter hands a pawn
-    // under the mouse through without its hit test, so the validity is decided here.
-    protected override Texture2D MouseAttachment(GlobalTargetInfo target)
-    {
-        if (target.Thing is not Pawn patient || !ValidateTarget(patient, showMessages: false))
-            return TexCommand.CannotShoot;
-        return base.MouseAttachment(target);
-    }
-
     // The label beside the cursor: the medicine and, over a valid patient, the base quality
     // the formula would give them (bed offset included), then the wounds and the kits they
     // cost, with what is loaded when that is less.
@@ -538,23 +452,6 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
             ? "MDWC_TargetCostShort".Translate(tendableScratch.Count, kitsText, suite.Available.ToString("0.0"))
             : "MDWC_TargetCost".Translate(tendableScratch.Count, kitsText);
         return first + "\n" + second;
-    }
-
-    public override Gizmo GetGizmo()
-    {
-        if (settingsGeneration != MedicWarcasketSettings.Generation)
-            ReconcileSettings();
-        return base.GetGizmo();
-    }
-
-    // A running cooldown is an end tick, so a lowered cooldown setting would not shorten it
-    // and VEF's cooldown overlay would overflow the button; cap it at the new length.
-    private void ReconcileSettings()
-    {
-        settingsGeneration = MedicWarcasketSettings.Generation;
-        int ceiling = Find.TickManager.TicksGame + GetCooldownForPawn();
-        if (cooldown > ceiling)
-            cooldown = ceiling;
     }
 
     public override void ExposeData()
