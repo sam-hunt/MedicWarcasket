@@ -54,8 +54,16 @@ namespace MedicWarcasket;
 // the warmup length, which VEF's wait toil fixes at job start.
 public class Ability_MechaniteDressing : Ability_MedicTargeted
 {
-    // The emitter glow, and the beam's origin, sit this far in front of the pilot.
+    // The emitter glow, and the beam's origin, sit this far in front of the pilot, lifted this
+    // far up the screen so the beam leaves the chassis's chest rather than its waist: a pawn's
+    // DrawPos is its body's centre, and a warcasket's bulk draws well below it.
     private const float GlowDistance = 0.5f;
+    private const float GlowLift = 0.2f;
+
+    // The beam's patient end lands within this radius of the patient's centre, re-aimed on each
+    // wound tended, so the stream reads as working wound to wound instead of into one point. A
+    // humanlike's torso spans about this far either side of the centre.
+    private const float TendRadius = 0.3f;
 
     private enum BeamState
     {
@@ -77,6 +85,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
     private int ticksIntoWound;
     private bool connected;
     private bool beaming;
+    private Vector3 beamTarget;
     private List<HediffDef> chargedAllAtOnce = new();
 
     private CompDressingSuite suite;
@@ -255,6 +264,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         connected = true;
         beaming = true;
         ticksIntoWound = 0;
+        AimBeam();
         MaintainBeam();
         if (medicine.GetStatValueAbstract(StatDefOf.MedicalPotency) > ThingDefOf.MedicineIndustrial.GetStatValueAbstract(StatDefOf.MedicalPotency))
             SoundDefOf.TechMedicineUsed.PlayOneShot(new TargetInfo(patient.Position, patient.Map));
@@ -290,6 +300,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         if (suite == null || !suite.HasKit)
             return EndBeam(BeamState.Dry);
         string tendText = TendOne(tendableScratch[0], suite);
+        AimBeam();
 
         FillTendable(patient, tendableScratch);
         remaining = tendableScratch.Count;
@@ -425,6 +436,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         ticksIntoWound = 0;
         connected = false;
         beaming = false;
+        beamTarget = Vector3.zero;
         chargedAllAtOnce.Clear();
         shotToFollow = null;
         glowOffset = Vector3.zero;
@@ -441,8 +453,17 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         {
             Vector3 toward = (patient.DrawPos - pawn.DrawPos).Yto0();
             glowOffset = toward.sqrMagnitude > 0.001f ? toward.normalized * GlowDistance : new Vector3(0f, 0f, GlowDistance);
+            glowOffset.z += GlowLift;
         }
         return glowOffset;
+    }
+
+    // Picks where on the patient the beam lands next; MaintainBeam writes it onto the live
+    // mote, whose draw recomputes the end from the patient's DrawPos plus the offset.
+    private void AimBeam()
+    {
+        Vector2 point = Rand.InsideUnitCircle * TendRadius;
+        beamTarget = new Vector3(point.x, 0f, point.y);
     }
 
     private void MaintainGlow(float alpha)
@@ -462,8 +483,12 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         if (!pawn.Spawned || !patient.Spawned)
             return;
         if (beam == null || beam.Destroyed)
-            beam = MoteMaker.MakeInteractionOverlay(MDWC_DefOf.MDWC_Mote_DressingBeam, pawn, patient, GlowOffset(), Vector3.zero);
-        beam?.Maintain();
+            beam = MoteMaker.MakeInteractionOverlay(MDWC_DefOf.MDWC_Mote_DressingBeam, pawn, patient, GlowOffset(), beamTarget);
+        if (beam != null)
+        {
+            beam.UpdateTargets(pawn, patient, GlowOffset(), beamTarget);
+            beam.Maintain();
+        }
         if (overlay == null || overlay.Destroyed)
             overlay = MoteMaker.MakeAttachedOverlay(patient, MDWC_DefOf.MDWC_Mote_DressingOverlay, Vector3.zero);
         overlay?.Maintain();
@@ -513,6 +538,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         Scribe_Values.Look(ref ticksIntoWound, "ticksIntoWound");
         Scribe_Values.Look(ref connected, "connected");
         Scribe_Values.Look(ref beaming, "beaming");
+        Scribe_Values.Look(ref beamTarget, "beamTarget");
         Scribe_Collections.Look(ref chargedAllAtOnce, "chargedAllAtOnce", LookMode.Def);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {

@@ -4,8 +4,9 @@
     The mechanite dressing's stream from pilot to patient: Biotech's Mote_GraserBeamBase with a
     graphicData.color, which the MoteBeam shader multiplies into its output. A copy rather than a
     child because the base is a Biotech def and the mod does not require Biotech. Spawned with
-    MakeInteractionOverlay and maintained each beam tick; fadeOutUnmaintained lets it fade on
-    its own when the beam ends.
+    MakeInteractionOverlay and maintained each beam tick, its patient end re-aimed through
+    UpdateTargets on every wound tended; fadeOutUnmaintained lets it fade on its own when the
+    beam ends.
 
     The colour is the dressing's, shared by the glow and the overlay and the gauge: vanilla's
     medical bed sheet (Building_Bed.SheetColorMedical), a code constant whose value, 0.886,
