@@ -20,7 +20,7 @@ mind as well as in its mechanics. Section 3.10 has the identifier rename.
 
 | Request                                                                                          | Section       |
 | ------------------------------------------------------------------------------------------------ | ------------- |
-| Green tinted beam, resurrect-style overlay, `Mote_ResurrectFlash`, healing crosses               | 3.7           |
+| Green tinted beam, resurrect-style overlay, `Mote_ResurrectFlash`                                | 3.7           |
 | A soft green glow in front of the pilot from the warmup through the beam, fading over a warmdown | 3.5, 3.7      |
 | Rename to "mechanite dressing"                                                                   | 1, 3.10       |
 | Warmup (cast time) default 1 s                                                                   | 3.5, 3.9      |
@@ -175,11 +175,9 @@ ITargetingSource.MultiSelect => true`), the rest mapping to the inherited member
   `MoteDualAttached`; with `scaleToConnectTargets` it stretches between the two anchors.
   `MoteMaker.MakeAttachedOverlay(Thing, ThingDef, offset, scale, solidTimeOverride)` returns a
   `Mote` that follows the thing (world-space offset). `Mote.Maintain()` keeps a `needsMaintenance`
-  mote alive. `RimWorld.FleckMaker.ThrowMetaIcon(cell, map, fleck, velocitySpeed)` throws a
-  rising icon.
-- `FleckDefOf.HealingCross` is Core. `ThingDefOf.Mote_ResurrectFlash` is `[MayRequireBiotech]`
-  although the def is Core XML; `Mote_ResurrectAbility` and `Mote_ActivatorCountdownGlow` have
-  no `DefOf` field.
+  mote alive.
+- `ThingDefOf.Mote_ResurrectFlash` is `[MayRequireBiotech]` although the def is Core XML;
+  `Mote_ResurrectAbility` and `Mote_ActivatorCountdownGlow` have no `DefOf` field.
 - `TendUtility.SortByTendPriority` sorts by `TendPriority` descending, then severity descending.
 - Medicine tech levels (Core XML): herbal `Neolithic`, industrial `Industrial`, glitterworld
   `Ultra`. `ThingDef.IsMedicine` is "has a `MedicalPotency` stat base".
@@ -442,8 +440,7 @@ suite reference, never this state.
     entry with `Tended(quality, maxQuality, 1)`; batch position 1 suppresses vanilla's
     per-hediff text, and the dressing throws its own in vanilla's words ("{wound} tended",
     "Quality {q}" with the quality that wound rolled), so each wound is announced as it lands.
-    Then `Draw` its cost (3.2), grant its XP (below), and throw one `HealingCross` at the
-    patient.
+    Then `Draw` its cost (3.2) and grant its XP (below).
 
     The **first wound lands one interval after the beam connects**, so a beam over `n` wounds
     runs `n × ticksPerTend`. Each wound is paid for as it is tended: an interrupted beam has
@@ -540,8 +537,6 @@ flash: a completed beam ends with the last wound's text and the warmdown fade.
   the Pascal-case `_DetailScrollSpeed` (2.5), so the healing reads as rising whichever way the
   patient faces or lies. It is attached to the patient at connect and maintained each beam tick,
   and it fades only by lapsing, since its graphic ignores `instanceColor` (2.2).
-- **Healing crosses:** vanilla `FleckDefOf.HealingCross` through `ThrowMetaIcon`, one per
-  tended hediff.
 - **Sound** is placeholder (3.5) until the sound review in `TODOs.md`.
 
 New `MDWC_DefOf` fields: the three motes and the dressing's `AbilityDef` (3.3).
@@ -695,7 +690,7 @@ Open levers, each small:
    patient taking steady fire holds the medic until the player intervenes or the kits run out.
    The alternative is a cap: only what was tendable at connect, plus at most a few new wounds.
 3. **First wound timing.** One interval after the beam connects (3.5). Tending the first wound at
-   connect instead shortens every beam by one interval and puts a cross on the first frame.
+   connect instead shortens every beam by one interval and puts a wound's text on the first frame.
 4. **Medicine change semantics.** Loaded kits carry over (3.1). The alternative is emptying every
    worn suite on a change, with no refund.
 5. **Beam origin.** The glow's offset is fixed for the job. A per-facing offset to a shoulder or
@@ -793,7 +788,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
      1 s the blue beam leaves the glow, its noise flowing toward the patient, and the silhouette
      overlay shows with its cloud layer, clouds and speckles drifting up the screen whichever way
      the patient faces or lies.
-   - A cross rises at 1, 2 and 3 s after connect, each drawing its wound's severity from the
+   - A wound's text rises at 1, 2 and 3 s after connect, each drawing its wound's severity from the
      gauge, which ends 1.35 kits lower.
    - After the third wound's text the glow fades over 1 s while the beam and overlay fade. The
      patient moves again after the beam, not after the warmdown.

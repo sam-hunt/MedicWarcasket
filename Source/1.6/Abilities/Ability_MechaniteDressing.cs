@@ -366,7 +366,6 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
             float lump = patient.RaceProps.Animal ? 175f : 500f;
             pawn.skills.Learn(SkillDefOf.Medicine, lump * medicine.MedicineTendXpGainFactor * cost / severityPerKit);
         }
-        FleckMaker.ThrowMetaIcon(patient.Position, patient.Map, FleckDefOf.HealingCross);
         return "TextMote_Tended".Translate(label).CapitalizeFirst() + "\n" + "Quality".Translate() + " " + rolled.ToStringPercent();
     }
 
