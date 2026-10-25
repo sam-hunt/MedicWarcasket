@@ -2,7 +2,7 @@
 
 ## Mechanite dressing
 
-- enlarge the glow effect that shows in front of caster throughout the ability
+- targeter tooltip with tend quality overlaps with pawn tooltip
 - review gizmo tooltip text
 
 ## Before the first release

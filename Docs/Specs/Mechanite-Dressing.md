@@ -521,8 +521,8 @@ flash: a completed beam ends with the last wound's text and the warmdown fade.
 - **`MDWC_Mote_DressingGlow`** (`Mote_DressingGlow.xml`), the emitter:
   `Mote_ActivatorCountdownGlow`'s graphic (`BrightFlash`, `MoteGlow`) on a `MoteAttached` in
   place of its `MoteThrown`, keeping its huge `solidTime` (2.2), with `needsMaintenance`,
-  `fadeOutUnmaintained`, a short `fadeOutTime` for an interrupted job, the colour at about 0.55
-  alpha, drawSize about 1 and no `drawOffset`. It is attached to the pilot at warmup start with
+  `fadeOutUnmaintained`, a short `fadeOutTime` for an interrupted job, the colour at 0.65
+  alpha, drawSize 1.5 and no `drawOffset`. It is attached to the pilot at warmup start with
   `MakeAttachedOverlay(pilot, def, offset)`, where the offset is about 0.5 cells toward the
   patient: "in front of the caster", fixed for the job since the pilot stands still. It is held
   through the beam and faded by code over the warmdown (3.5).
