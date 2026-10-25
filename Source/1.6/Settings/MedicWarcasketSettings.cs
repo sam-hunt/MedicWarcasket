@@ -262,17 +262,16 @@ public class MedicWarcasketSettings : ModSettings
         }
     }
 
-    // Each section opens on its summary under its header (the work section, which tunes no
-    // ability, closes on it instead), then one row per setting, and a reset button sits below
-    // the list. The section
-    // is headed by whitespace and a medium-font header rather than a rule, which reads as
-    // another slider, and the rows sit indented under it; it closes on the same gap so the list
-    // does not end flush on its last row. The header's icon is the configured medicine's, read
-    // on each draw so it follows the medicine row at once. The list scrolls once it outgrows the
-    // window's height (a small window, a large font), sized from the previous frame's listing
-    // height; the scrollbar only takes its width once it is needed. maxOneColumn keeps the
-    // listing growing downward: past its rect's height it would start a new column off to the
-    // right, outside the window, and never report the height the scroll view needs.
+    // Each section opens on its summary under its header, then one row per setting, and a reset
+    // button sits below the list. The section is headed by whitespace and a medium-font header
+    // rather than a rule, which reads as another slider, and the rows sit indented under it; it
+    // closes on the same gap so the list does not end flush on its last row. The header's icon
+    // is the configured medicine's, read on each draw so it follows the medicine row at once.
+    // The list scrolls once it outgrows the window's height (a small window, a large font),
+    // sized from the previous frame's listing height; the scrollbar only takes its width once
+    // it is needed. maxOneColumn keeps the listing growing downward: past its rect's height it
+    // would start a new column off to the right, outside the window, and never report the
+    // height the scroll view needs.
     // While the defs were not found there is nothing to tune, so the page says so instead of
     // drawing rows around the -1 the defaults never got.
     public void DoWindowContents(Rect inRect)
@@ -310,8 +309,8 @@ public class MedicWarcasketSettings : ModSettings
         if (WorkProfile.Toggleable.Count > 0)
         {
             SectionHeader(listing, "MDWC_SectionWork", workIcon, HeaderTip("MDWC_SectionWork".Translate(), "MDWC_SectionWorkDesc".Translate()));
-            work.DoRows(listing);
             SummaryRow(listing, WorkSummary);
+            work.DoRows(listing);
         }
         listing.Gap(SectionGap);
         contentHeight = listing.CurHeight;

@@ -27,7 +27,7 @@ tuning rationale, render-tree art and the settings/ability idioms this repo copi
 
 **This file holds only cross-cutting rules and rationale.** Per-item values, tuning numbers and
 decompile-verified call paths live in the header comment of the file they describe. When adding
-or changing something, put the *why* there and only add a line here if it constrains work in
+or changing something, put the _why_ there and only add a line here if it constrains work in
 other files. Do not restate def values or call paths here; they drift.
 
 **Comments describe the present, git describes the past.** A header or code comment explains the
@@ -35,6 +35,11 @@ current state where the code does not make it obvious: engine facts it relies on
 balanced against, cross-file coupling. It carries no dates, no previous values, no record of what
 was tried and dropped, and no "seen in game" notes; that history belongs in the commit message
 and diff. Def comments ship in the bundle, so keep them lean.
+
+**Never read a `Docs/Specs/` file whole into the lead model's context.** Each runs to hundreds
+of lines (the largest near 900). Grep for the section or table you need and read only that
+range, or delegate a question spanning a whole spec to a cheaper subagent and keep its answer.
+The code and def headers are the current record; a spec is the design rationale behind them.
 
 ## Build Commands
 
@@ -87,7 +92,7 @@ atomically. The deploy folder name follows the project name (`Mods/MedicWarcaske
 - **One manifest, one place:** the `_ModFiles` ItemGroup in the `StageMod` target of
   `Source/1.6/MedicWarcasket.csproj`; see that target's comments for how it globs and what
   it excludes. It is generic over folders, so a new `1.7/` or `Sounds/` needs no build change; only
-  a brand-new *file type* does. Local deploy and CI release both call it, so they can't drift.
+  a brand-new _file type_ does. Local deploy and CI release both call it, so they can't drift.
 - **Stop hook (`.claude/hooks/sync-mod.sh`):** rebuilds+redeploys after a turn only when
   mod-relevant files changed, logs to `$TMPDIR/MedicWarcasket-build.log`. On failure it
   exits 2 with the errors on stderr, which Claude Code feeds back to the agent and the turn
@@ -171,7 +176,7 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
   analyzer warning fails the build. Severities are pinned in `.editorconfig`: `warning` blocks the
   build, `suggestion` is IDE-only. Fix the code, not the severity, unless the rule is wrong here.
 - **Patch timing is the load-bearing hazard of this mod.** `PatchAll()` runs from a
-  `[StaticConstructorOnStartup]` (`ModInit.cs`), *not* a `Mod` subclass constructor, on purpose:
+  `[StaticConstructorOnStartup]` (`ModInit.cs`), _not_ a `Mod` subclass constructor, on purpose:
   Mod constructors run before defs load, and applying a detour JIT-compiles the target and runs
   its declaring type's static ctor. Our targets will often be VFEP's own methods, and a VFEP type
   whose cctor resolves defs would be permanently broken by an early patch (the BetterTradersGuild
@@ -275,7 +280,7 @@ via the `/translate` skill (`.claude/skills/translate/SKILL.md`: this mod's surf
 domain and per-language glossary; the family-wide process lives in the `l10n/` submodule) and
 are validated deterministically by `python3 Scripts/check-translations.py` (also a CI release
 gate). The DefInjected expected set is the checked-in sidecar `Scripts/expected-injections.json`:
-a dump of every injection point the *live* game sees for this mod, produced by
+a dump of every injection point the _live_ game sees for this mod, produced by
 `Scripts/refresh-translation-expectations.py` driving the L10nProbe dev mod (source at
 `l10n/probe/`; build/deploy it only from the canonical `~/dev/rimworld-l10n` checkout; this mod
 is ticked in the probe's settings) through the game's own walker. The checker refuses to run
@@ -290,7 +295,7 @@ roster lives in CONTRIBUTING.md.
 - **Shared l10n toolkit (`l10n/` submodule):** the checker/refresh/smoke engines, per-language
   mechanics references, cross-language lessons and Workshop conventions come from the
   `rimworld-l10n` repo, consumed as a git submodule pinned to a semver release tag (`git submodule
-  status` names it; if `l10n/` is empty, run `git submodule update --init`). `Scripts/*.py` are
+status` names it; if `l10n/` is empty, run `git submodule update --init`). `Scripts/*.py` are
   thin per-repo config shims over its engines; each shim's comments carry this repo's rationale
   (the VFEP dependency chain, why Odyssey is the only DLC pinned, why SOS2 and VGE1 are on the
   smoke list).
