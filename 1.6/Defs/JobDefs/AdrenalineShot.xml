@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    The adrenaline shot's cast job: the shared walk-and-cast driver
+    (MedicWarcasket.JobDriver_MedicCast, the dressing's without the beam and warmdown) under
+    its own JobDef, since a driver finds its ability as the one whose def names this job.
+    reportString is never shown, the driver reports the ability's jobReportString, but it is a
+    translatable field the walker lists.
+
+    checkOverrideOnDamage Never: damage never interrupts the walk or the jab, as for the
+    dressing (its JobDef's header has the playerForced rationale).
+  -->
+  <JobDef>
+    <defName>MDWC_AdrenalineShot</defName>
+    <driverClass>MedicWarcasket.JobDriver_AdrenalineShot</driverClass>
+    <reportString>giving an adrenaline shot.</reportString>
+    <checkOverrideOnDamage>Never</checkOverrideOnDamage>
+    <carryThingAfterJob>true</carryThingAfterJob>
+  </JobDef>
+</Defs>

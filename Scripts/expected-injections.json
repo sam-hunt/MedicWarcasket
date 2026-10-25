@@ -18,7 +18,40 @@
     ]
   },
   "defInjections": {
+    "HediffDef": {
+      "MDWC_Adrenaline.description": {
+        "english": "A refined shot of go-juice, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its rest faster and faster as the surge fades.",
+        "required": true
+      },
+      "MDWC_Adrenaline.label": {
+        "english": "adrenaline shot",
+        "required": true
+      },
+      "MDWC_Adrenaline.labelNoun": {
+        "english": "an adrenaline shot",
+        "required": true
+      },
+      "MDWC_Adrenaline.stages.fading.label": {
+        "english": "fading",
+        "required": true,
+        "normalized": "MDWC_Adrenaline.stages.1.label"
+      },
+      "MDWC_Adrenaline.stages.rush.label": {
+        "english": "rush",
+        "required": true,
+        "normalized": "MDWC_Adrenaline.stages.2.label"
+      },
+      "MDWC_Adrenaline.stages.wearing_off.label": {
+        "english": "wearing off",
+        "required": true,
+        "normalized": "MDWC_Adrenaline.stages.0.label"
+      }
+    },
     "JobDef": {
+      "MDWC_AdrenalineShot.reportString": {
+        "english": "giving an adrenaline shot.",
+        "required": true
+      },
       "MDWC_MechaniteDressing.reportString": {
         "english": "applying a mechanite dressing.",
         "required": true
@@ -49,8 +82,18 @@
         "english": "Specialized spacer-tech warcasket helmet with standard protection, fitted with a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds.",
         "required": true
       },
+      "MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun": {
+        "english": "shot",
+        "required": true,
+        "normalized": "MDWC_WarcasketShoulders_Medic.comps.2.chargeNoun"
+      },
+      "MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.cooldownGerund": {
+        "english": "on cooldown",
+        "required": true,
+        "normalized": "MDWC_WarcasketShoulders_Medic.comps.2.cooldownGerund"
+      },
       "MDWC_WarcasketShoulders_Medic.description": {
-        "english": "Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.",
+        "english": "Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators and an adrenaline injector.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.",
         "required": true
       },
       "MDWC_WarcasketShoulders_Medic.label": {
@@ -58,7 +101,7 @@
         "required": true
       },
       "MDWC_WarcasketShoulders_Medic.shortDescription": {
-        "english": "Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.",
+        "english": "Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators and an adrenaline injector.",
         "required": true
       },
       "MDWC_Warcasket_Medic.comps.CompDressingSuite.chargeNoun": {
@@ -101,6 +144,22 @@
       }
     },
     "VEF.Abilities.AbilityDef": {
+      "MDWC_AdrenalineShot.description": {
+        "english": "Inject a nearby person or animal, or the pilot, with a refined shot of go-juice. For a few hours they feel almost no pain and move, see and think faster, while their rest falls much faster than usual. The effect fades in levels. On a patient with a heart attack the shot is spent on the heart instead: it stops the attack outright and gives no surge.\n\nThe shoulders hold several shots per vial of go-juice, and reload once the last is spent. With the medic armor worn, right-click to give every patient a shot as their dressing ends.",
+        "required": true
+      },
+      "MDWC_AdrenalineShot.jobReportString": {
+        "english": "Giving an adrenaline shot.",
+        "required": true
+      },
+      "MDWC_AdrenalineShot.label": {
+        "english": "adrenaline shot",
+        "required": true
+      },
+      "MDWC_AdrenalineShot.verbProperties.label": {
+        "english": "adrenaline shot",
+        "required": true
+      },
       "MDWC_MechaniteDressing.description": {
         "english": "Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used. If the medic helmet is worn, the mechanites also treat diseases and infections.\n\nEach wound tended uses up medicine from the suite. The patient is held in place while the stream runs.",
         "required": true

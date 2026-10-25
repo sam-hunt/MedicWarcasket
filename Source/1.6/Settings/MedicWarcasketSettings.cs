@@ -21,8 +21,16 @@ namespace MedicWarcasket;
 // also writes its uiIcon onto the ability's icon while the def names no iconPath of its own, so
 // VEF's gizmo and targeting cursor show it unaided. The tint overrides the rgb of the three
 // dressing motes' graphicData.color, each keeping its own alpha, and the gauge reads its colours
-// off the beam's (Gizmo_DressingSuite). The two picked rows sit above the sliders, and the one
+// off the beam's (Gizmo_DressingSuite). The two picked rows sit above the sliders, and the
 // section ends on a line of what its rows amount to. Its header carries the ability's tooltip.
+//
+// The shot section does the same for the adrenaline shot: on the shoulders'
+// CompProperties_ApparelReloadable entry the shots override maxCharges; on the
+// MDWC_AdrenalineShot AbilityDef the cooldown overrides cooldownTime; on the MDWC_Adrenaline
+// HediffDef the duration overrides its severity-per-day comp's severityPerDay (shown in hours,
+// stored as -24 / hours) and the rest fall writes the top stage's restFallFactor with each
+// lower stage one higher, the XML ladder's step. The injector's ammoDef's uiIcon (go-juice's)
+// goes onto the shot's icon as the medicine's goes onto the dressing's.
 //
 // The work section is one checkbox per Caring work type the trait mirror leaves to the player
 // (WorkSetting over WorkProfile.Toggleable), written onto the medic trait's disabledWorkTypes
@@ -38,11 +46,17 @@ namespace MedicWarcasket;
 // the worn suites at once (TrimWornSuites). A medicine change needs nothing of either: kits are
 // a vanilla charge count with no type of their own, so those loaded count as the new medicine
 // and the next reload fetches it. A tint change reaches every mote spawned after it; one in
-// flight keeps the graphic it was spawned with.
+// flight keeps the graphic it was spawned with. Shots above a lowered maximum are spent off
+// the worn shoulders at once (TrimWornInjectors); a shot already given keeps the duration it
+// was applied with, since vanilla's comp caches the rate per instance, while the rest fall is
+// read off the stages live and reaches it at once.
 public class MedicWarcasketSettings : ModSettings
 {
     private const string DressingDefName = "MDWC_MechaniteDressing";
     private const string ArmorDefName = "MDWC_Warcasket_Medic";
+    private const string ShotDefName = "MDWC_AdrenalineShot";
+    private const string ShouldersDefName = "MDWC_WarcasketShoulders_Medic";
+    private const string AdrenalineDefName = "MDWC_Adrenaline";
 
     // The beam first: its colour stands for the set on the tint row and the gauge.
     private static readonly string[] MoteDefNames =
@@ -74,6 +88,13 @@ public class MedicWarcasketSettings : ModSettings
     public readonly Tunable cooldown = new("Cooldown", 0f, 300f, 5f, Whole);
     public readonly Tunable range = new("Range", 1.9f, 12.9f, 1f, v => v.ToString("0.#"));
 
+    // The shot's: the injector's maxCharges, the hediff's duration in hours, the top stage's
+    // rest fall factor (the lower stages step up from it), and the cooldown in seconds.
+    public readonly Tunable shots = new("Shots", 1f, 10f, 1f, Whole);
+    public readonly Tunable shotDuration = new("ShotDuration", 0.5f, 12f, 0.5f, v => v.ToString("0.#"));
+    public readonly Tunable restFall = new("RestFall", 1f, 5f, 0.5f, v => v.ToString("0.#"));
+    public readonly Tunable shotCooldown = new("ShotCooldown", 0f, 300f, 5f, Whole);
+
     private bool defaultsLoaded;
     private Vector2 scrollPosition;
     private float contentHeight;
@@ -84,9 +105,16 @@ public class MedicWarcasketSettings : ModSettings
     // Each mote's graphicData.color as the XML leaves it, by MoteDefNames order.
     private Color[] moteColors;
 
-    // The tooltip over the section's header: the dressing, its name as VEF titles an ability's
-    // tooltip over the description its command shows in game.
+    // The tooltip over each ability section's header: the ability, its name as VEF titles an
+    // ability's tooltip over the description its command shows in game.
     private string dressingTip;
+    private string shotTip;
+
+    // The shot section's header icon, the injector's ammoDef's (a Core texture, safe to hold).
+    private Texture2D shotIcon;
+
+    // The hediff's stage count, quoted by the shot's summary line.
+    private int shotLevels;
 
     private const string WorkIconPath = "World/WorldObjects/Expanding/Sites/MiningWorkSite";
     private static Texture2D workIcon;
@@ -100,7 +128,7 @@ public class MedicWarcasketSettings : ModSettings
         }
     }
 
-    private IEnumerable<Tunable> All => [kits, castTime, tendInterval, cooldown, range];
+    private IEnumerable<Tunable> All => [kits, castTime, tendInterval, cooldown, range, shots, shotDuration, restFall, shotCooldown];
 
     private static string Whole(float v) => Mathf.RoundToInt(v).ToString();
 
@@ -132,6 +160,13 @@ public class MedicWarcasketSettings : ModSettings
             moteColors[i] = defs.motes[i].graphicData.color;
         tint.DefaultValue = moteColors[0];
         dressingTip = HeaderTip(defs.dressing.LabelCap, defs.dressing.description);
+        shots.DefaultValue = defs.injector.maxCharges;
+        shotDuration.DefaultValue = defs.fade.severityPerDay < 0f ? -24f / defs.fade.severityPerDay : 0f;
+        restFall.DefaultValue = defs.adrenaline.stages[defs.adrenaline.stages.Count - 1].restFallFactor;
+        shotCooldown.DefaultValue = (float)defs.shot.cooldownTime / GenTicks.TicksPerRealSecond;
+        shotLevels = defs.adrenaline.stages.Count;
+        shotIcon = defs.injector.ammoDef?.uiIcon;
+        shotTip = HeaderTip(defs.shot.LabelCap, defs.shot.description);
         defaultsLoaded = true;
     }
 
@@ -160,8 +195,17 @@ public class MedicWarcasketSettings : ModSettings
             defs.motes[i].graphicData.color = new Color(rgb.r, rgb.g, rgb.b, moteColors[i].a);
             RebuildGraphic(defs.motes[i]);
         }
+        defs.injector.maxCharges = Mathf.Max(1, shots.IntValue);
+        if (defs.shot.iconPath.NullOrEmpty())
+            defs.shot.icon = shotIcon != null ? shotIcon : BaseContent.BadTex;
+        defs.shot.cooldownTime = Mathf.RoundToInt(shotCooldown.Value * GenTicks.TicksPerRealSecond);
+        defs.fade.severityPerDay = -24f / Mathf.Max(shotDuration.Value, 0.01f);
+        List<HediffStage> stages = defs.adrenaline.stages;
+        for (int i = 0; i < stages.Count; i++)
+            stages[i].restFallFactor = restFall.Value + (stages.Count - 1 - i);
         Generation++;
         TrimWornSuites();
+        TrimWornInjectors();
     }
 
     // A def's graphic is built once from its graphicData and cached with the colour it was built
@@ -192,6 +236,27 @@ public class MedicWarcasketSettings : ModSettings
                 continue;
             foreach (Apparel apparel in pawn.apparel.WornApparel)
                 apparel.TryGetComp<CompDressingSuite>()?.Trim();
+        }
+    }
+
+    // Shots above a lowered maximum are spent off the worn shoulders, through the comp's own
+    // UsedOnce (remainingCharges is protected, and a subclass for a trim is not worth it): a
+    // stored piece keeps its count, which vanilla's reload accounting reads as full.
+    private static void TrimWornInjectors()
+    {
+        if (Current.ProgramState != ProgramState.Playing)
+            return;
+        foreach (Pawn pawn in PawnsFinder.AllMapsCaravansAndTravellingTransporters_Alive)
+        {
+            if (pawn.apparel == null)
+                continue;
+            foreach (Apparel apparel in pawn.apparel.WornApparel)
+            {
+                if (apparel.def.defName != ShouldersDefName || apparel.TryGetComp<CompApparelReloadable>() is not { } injector)
+                    continue;
+                while (injector.RemainingCharges > injector.MaxCharges)
+                    injector.UsedOnce();
+            }
         }
     }
 
@@ -232,6 +297,12 @@ public class MedicWarcasketSettings : ModSettings
         cooldown.DoRow(listing);
         range.DoRow(listing);
         SummaryRow(listing, DressingSummary);
+        SectionHeader(listing, "MDWC_SectionShot", shotIcon, shotTip);
+        shots.DoRow(listing);
+        shotDuration.DoRow(listing);
+        restFall.DoRow(listing);
+        shotCooldown.DoRow(listing);
+        SummaryRow(listing, ShotSummary);
         if (WorkProfile.Toggleable.Count > 0)
         {
             SectionHeader(listing, "MDWC_SectionWork", WorkIcon, HeaderTip("MDWC_SectionWork".Translate(), "MDWC_SectionWorkDesc".Translate()));
@@ -265,6 +336,18 @@ public class MedicWarcasketSettings : ModSettings
         if (Mathf.RoundToInt(cooldown.Value) == 0)
             return "MDWC_DressingSummaryNoCooldown".Translate(kits.IntValue, medicineLabel, severityPerKit, warmup, perWound);
         return "MDWC_DressingSummary".Translate(kits.IntValue, medicineLabel, severityPerKit, warmup, perWound, Whole(cooldown.Value));
+    }
+
+    // What the shot section's rows amount to: the shots a vial gives, how long one lasts and
+    // in how many levels, the rest fall at its start, and the cooldown, with the same
+    // no-cooldown clause rule as the dressing's.
+    private string ShotSummary()
+    {
+        string hours = shotDuration.Value.ToString("0.#");
+        string fall = restFall.Value.ToString("0.#");
+        if (Mathf.RoundToInt(shotCooldown.Value) == 0)
+            return "MDWC_ShotSummaryNoCooldown".Translate(shots.IntValue, hours, shotLevels, fall);
+        return "MDWC_ShotSummary".Translate(shots.IntValue, hours, shotLevels, fall, Whole(shotCooldown.Value));
     }
 
     // What the work section's boxes amount to: the caring work the pilot may take on, named as
@@ -331,6 +414,10 @@ public class MedicWarcasketSettings : ModSettings
         public CompProperties_DressingSuite suite;
         public DressingExtension extension;
         public ThingDef[] motes;
+        public AbilityDef shot;
+        public CompProperties_ApparelReloadable injector;
+        public HediffDef adrenaline;
+        public HediffCompProperties_SeverityPerDay fade;
     }
 
     // All or nothing: with any target missing (another mod patched it away) the settings leave
@@ -341,12 +428,17 @@ public class MedicWarcasketSettings : ModSettings
     private static bool TryGetDefs(out Defs defs)
     {
         AbilityDef dressing = DefDatabase<AbilityDef>.GetNamedSilentFail(DressingDefName);
+        HediffDef adrenaline = DefDatabase<HediffDef>.GetNamedSilentFail(AdrenalineDefName);
         defs = new Defs
         {
             dressing = dressing,
             suite = DefDatabase<ThingDef>.GetNamedSilentFail(ArmorDefName)?.GetCompProperties<CompProperties_DressingSuite>(),
             extension = dressing?.GetModExtension<DressingExtension>(),
             motes = new ThingDef[MoteDefNames.Length],
+            shot = DefDatabase<AbilityDef>.GetNamedSilentFail(ShotDefName),
+            injector = DefDatabase<ThingDef>.GetNamedSilentFail(ShouldersDefName)?.GetCompProperties<CompProperties_ApparelReloadable>(),
+            adrenaline = adrenaline,
+            fade = adrenaline?.CompProps<HediffCompProperties_SeverityPerDay>(),
         };
         bool motesFound = true;
         for (int i = 0; i < MoteDefNames.Length; i++)
@@ -354,10 +446,11 @@ public class MedicWarcasketSettings : ModSettings
             defs.motes[i] = DefDatabase<ThingDef>.GetNamedSilentFail(MoteDefNames[i]);
             motesFound &= defs.motes[i]?.graphicData != null;
         }
-        if (defs.dressing != null && defs.suite != null && defs.extension != null && motesFound)
+        bool shotFound = defs.shot != null && defs.injector != null && defs.fade != null && !defs.adrenaline.stages.NullOrEmpty();
+        if (defs.dressing != null && defs.suite != null && defs.extension != null && motesFound && shotFound)
             return true;
         if (!warned)
-            Log.Warning("[Medic Warcasket] Settings could not find the mechanite dressing ability, its dressing extension, its motes or the armor's dressing suite; the set keeps its XML values.");
+            Log.Warning("[Medic Warcasket] Settings could not find the mechanite dressing ability, its dressing extension, its motes, the armor's dressing suite, the adrenaline shot ability, the shoulders' injector or the adrenaline hediff's fade and stages; the set keeps its XML values.");
         warned = true;
         return false;
     }

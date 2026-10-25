@@ -13,6 +13,18 @@
     both tend stats through their Manipulation capacity factor. Both reach the mechanite dressing
     through vanilla's tend formula.
 
+    Adrenaline shot: VEF CompAbilitiesApparel grants MDWC_AdrenalineShot (AbilityDefs/
+    AdrenalineShot.xml), fed by the injector beside it, a plain vanilla CompApparelReloadable
+    the ability reads off the apparel that grants it, so both comps sit on this one def (the
+    Aerial shoulders' pairing). ammoCountToRefill 1: one vial of go-juice fills every shot, and
+    colonists fetch a vial only once the last shot is spent (vanilla's refill mode; a forced
+    reload from the float menu pays a whole vial early). maxCharges 3 is the shots a vial
+    refines to, a mod setting defaulting to it; the free first fill is one vial (53 silver), to
+    be priced into the costList in the tuning pass. chargeNoun "shot": the inspect line, the
+    stat sheet and the empty message count in shots. No verbs, so the comp draws no gizmo of
+    its own; the ability's command shows the count. Its DefInjected keys read
+    comps.CompApparelReloadable, the vanilla comp class.
+
     ApparelExtension priority 1, for the reason in the armor def's header: the
     VFEP_WarcasketShoulderPadBase parent carries its own, and only the highest-priority copy
     keeps its fields whole (Merge still ORs the parent's isUnifiedApparel in). Any new
@@ -24,8 +36,8 @@
   <VFEPirates.WarcasketDef ParentName="VFEP_WarcasketShoulderPadBase">
     <defName>MDWC_WarcasketShoulders_Medic</defName>
     <label>medic warcasket shoulders</label>
-    <shortDescription>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.</shortDescription>
-    <description>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
+    <shortDescription>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators and an adrenaline injector.</shortDescription>
+    <description>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators and an adrenaline injector.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
     <graphicData>
       <texPath>Things/Pawn/Warcasketlike/WarcasketMedic/WarcasketMedicShoulders</texPath>
       <shaderType>CutoutComplex</shaderType>
@@ -69,6 +81,21 @@
         <li>WarcasketAll</li>
       </tags>
     </apparel>
+    <comps>
+      <li Class="CompProperties_ApparelReloadable">
+        <maxCharges>3</maxCharges>
+        <ammoDef>GoJuice</ammoDef>
+        <ammoCountToRefill>1</ammoCountToRefill>
+        <baseReloadTicks>60</baseReloadTicks>
+        <soundReload>Standard_Reload</soundReload>
+        <chargeNoun>shot</chargeNoun>
+      </li>
+      <li Class="VEF.Abilities.CompProperties_AbilitiesApparel">
+        <abilities>
+          <li>MDWC_AdrenalineShot</li>
+        </abilities>
+      </li>
+    </comps>
     <modExtensions>
       <li Class="VEF.Apparels.ApparelExtension">
         <priority>1</priority>

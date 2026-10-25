@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    The adrenaline shot's effect, MDWC_Adrenaline since a DefOf field is named by its def and
+    the ability already holds MDWC_AdrenalineShot (Ability_AdrenalineShot applies it; design in
+    Docs/Specs/Adrenaline-Shot.md 3.2): go-juice's high (Core, Drugs/GoJuice.xml) on a short
+    clock, with no tolerance and no addiction, pure XML. Hediff_High is go-juice's class and only
+    shows the severity as a percentage. The shot sets severity 1, and severityPerDay -8 fades it
+    in three hours, the stages' thirds being its levels of an hour each; the duration is a mod
+    setting written onto severityPerDay (a shot already given keeps the rate it was applied
+    with, since vanilla's comp caches it per instance). A second shot refreshes the severity
+    rather than adding to it, so a patient is never above 1.
+
+    Stages are listed ascending by minSeverity as vanilla requires, so the top level is last.
+    The rush is go-juice's stage verbatim; the lower two taper its offsets by thirds. The
+    comedown is each stage's restFallFactor, vanilla's own lever, climbing a step per level so
+    the bill rises as the boost thins: a full shot costs about 0.24 of rest beyond what three
+    waking hours cost anyway, paid continuously while awake and not at all asleep, and read
+    live, so the setting that writes the top stage's factor (each lower stage one higher)
+    reaches shots already running. The pilot's own RestFallRateFactor multiplies on top.
+
+    everCurableByItem false: a healer mech serum must not spend itself on a stimulant. No
+    scenarioCanAdd: it is the shoulders' to give.
+  -->
+  <HediffDef>
+    <defName>MDWC_Adrenaline</defName>
+    <hediffClass>Hediff_High</hediffClass>
+    <label>adrenaline shot</label>
+    <labelNoun>an adrenaline shot</labelNoun>
+    <description>A refined shot of go-juice, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its rest faster and faster as the surge fades.</description>
+    <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <isBad>false</isBad>
+    <everCurableByItem>false</everCurableByItem>
+    <initialSeverity>1</initialSeverity>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-8</severityPerDay>
+        <showHoursToRecover>true</showHoursToRecover>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>wearing off</label>
+        <painFactor>0.7</painFactor>
+        <restFallFactor>4</restFallFactor>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>0.07</offset>
+          </li>
+          <li>
+            <capacity>Sight</capacity>
+            <offset>0.12</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>0.17</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>fading</label>
+        <minSeverity>0.334</minSeverity>
+        <painFactor>0.4</painFactor>
+        <restFallFactor>3</restFallFactor>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>0.13</offset>
+          </li>
+          <li>
+            <capacity>Sight</capacity>
+            <offset>0.23</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>0.33</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>rush</label>
+        <minSeverity>0.667</minSeverity>
+        <painFactor>0.1</painFactor>
+        <restFallFactor>2</restFallFactor>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>0.20</offset>
+          </li>
+          <li>
+            <capacity>Sight</capacity>
+            <offset>0.35</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>0.50</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

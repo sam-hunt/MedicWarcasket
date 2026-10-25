@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
-  <!-- Mechanite dressing (Source/1.6/Abilities/, Source/1.6/Comps/, Source/1.6/Gizmos/) -->
+  <!-- Mechanite dressing (Source/1.6/Abilities/Ability_MechaniteDressing.cs, Source/1.6/Comps/, Source/1.6/Gizmos/) -->
   <MDWC_NoMedicineLoaded>No {0} loaded.</MDWC_NoMedicineLoaded>
   <MDWC_NoWoundsToDress>{0} has no wounds to dress.</MDWC_NoWoundsToDress>
   <MDWC_NothingToTreat>{0} has nothing to treat.</MDWC_NothingToTreat>
@@ -19,6 +19,15 @@
   <MDWC_GaugeReloadTarget>Reload target: {0}</MDWC_GaugeReloadTarget>
   <MDWC_GaugeNeverReload>Never reload.</MDWC_GaugeNeverReload>
   <MDWC_GaugeKitDesc>Each kit treats up to {0} severity of injuries, or one disease, infection or fresh missing part.</MDWC_GaugeKitDesc>
+
+  <!-- Adrenaline shot (Source/1.6/Abilities/Ability_AdrenalineShot.cs) -->
+  <MDWC_NoShotsLoaded>No shots loaded.</MDWC_NoShotsLoaded>
+  <MDWC_ShotHostile>{0} is hostile.</MDWC_ShotHostile>
+  <MDWC_ShotAlreadyRushing>{0} is already running on adrenaline.</MDWC_ShotAlreadyRushing>
+  <MDWC_ShotsLabel>Shots: {0} / {1}</MDWC_ShotsLabel>
+  <MDWC_ShotStopsHeartAttack>Stops the heart attack</MDWC_ShotStopsHeartAttack>
+  <MDWC_HeartAttackStopped>{0}'s heart attack has stopped.</MDWC_HeartAttackStopped>
+  <MDWC_ShotAutocastDesc>Autocast: a shot to each patient as their dressing ends.</MDWC_ShotAutocastDesc>
 
   <!-- Mod settings (Source/1.6/Settings/) -->
   <MDWC_SettingsCategory>Medic Warcasket</MDWC_SettingsCategory>
@@ -52,6 +61,23 @@
 
   <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, with {5} s of cooldown after.</MDWC_DressingSummary>
   <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
+
+  <MDWC_SectionShot>Adrenaline shot</MDWC_SectionShot>
+
+  <MDWC_Shots>Shots per vial</MDWC_Shots>
+  <MDWC_ShotsDesc>The number of shots the shoulders refine from one vial of go-juice. Shoulders already holding more than this lose the excess. Default: {0}.</MDWC_ShotsDesc>
+
+  <MDWC_ShotDuration>Duration (hours)</MDWC_ShotDuration>
+  <MDWC_ShotDurationDesc>How long a shot lasts, fading in levels. A shot already given keeps its own clock. Default: {0}.</MDWC_ShotDurationDesc>
+
+  <MDWC_RestFall>Rest fall at a shot's start (x)</MDWC_RestFall>
+  <MDWC_RestFallDesc>How many times faster a patient's rest falls while a shot is fresh. Each level it fades through adds one. Sleep restores rest as usual. Default: {0}.</MDWC_RestFallDesc>
+
+  <MDWC_ShotCooldown>Cooldown (seconds)</MDWC_ShotCooldown>
+  <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient instead. Default: {0}.</MDWC_ShotCooldownDesc>
+
+  <MDWC_ShotSummary>The shoulders hold {0} shots per vial of go-juice. A shot lasts {1} h, fading in {2} levels, and the patient's rest falls {3} times as fast at first, faster with each level, with {4} s of cooldown between shots.</MDWC_ShotSummary>
+  <MDWC_ShotSummaryNoCooldown>The shoulders hold {0} shots per vial of go-juice. A shot lasts {1} h, fading in {2} levels, and the patient's rest falls {3} times as fast at first, faster with each level, and the next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
 
   <MDWC_SectionWork>Enabled work types</MDWC_SectionWork>
   <MDWC_SectionWorkDesc>The caring work types a pilot of the medic set may take on. Every other work type follows VFE Pirates' warcasket trait as your other mods leave it, so a mod that opens work for every warcasket opens it for the medic too.</MDWC_SectionWorkDesc>

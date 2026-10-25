@@ -12,9 +12,19 @@ public static class MDWC_DefOf
     // the Controller helmet's idiom in VFEP.
     public static ThingDef MDWC_WarcasketHelmet_Medic;
 
-    // The dressing, for the job driver to find the pilot's own instance among the worn armor's
-    // granted abilities when a queued dressing starts (JobDriver_MechaniteDressing).
+    // The two actives, for finding a pilot's own instance among the worn apparel's granted
+    // abilities (JobDriver_MedicCast.FindAbility): the armor's dressing, whose job fires the
+    // shoulders' shot as it ends, and the shot itself.
     public static AbilityDef MDWC_MechaniteDressing;
+    public static AbilityDef MDWC_AdrenalineShot;
+
+    // The shot's effect (HediffDefs/Adrenaline.xml).
+    public static HediffDef MDWC_Adrenaline;
+
+    // Vanilla defs without a DefOf handle of their own: the heart attack the shot stops, and
+    // the injection sound it plays (go-juice's ingestSound).
+    public static HediffDef HeartAttack;
+    public static SoundDef Ingest_Inject;
 
     // The dressing's motes (1.6/Defs/Effects/): the emitter glow in front of the pilot, the
     // beam between the two and the silhouette overlay on the patient. The beam's colour is also

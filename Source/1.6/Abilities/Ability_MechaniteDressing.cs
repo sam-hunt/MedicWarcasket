@@ -17,7 +17,8 @@ namespace MedicWarcasket;
 // the glow fades. With the medic helmet worn the beam also tends diseases and infections. The
 // phases are the job's toils (JobDriver_MechaniteDressing); this class holds the dressing's
 // state and does the work each toil calls into: PreWarmupAction and WarmupToil (the warmup),
-// Cast (the connect), BeamTick, WarmdownTick and EndCastJob (the settling on every job end). The ordering, targeting, walk
+// Cast (the connect), BeamTick, the shot's three (ShotToFollow, ShotTick, GiveShot),
+// WarmdownTick and EndCastJob (the settling on every job end). The ordering, targeting, walk
 // and cursor idioms are the base's (Ability_MedicTargeted). Design in
 // Docs/Specs/Mechanite-Dressing.md.
 //
@@ -26,6 +27,12 @@ namespace MedicWarcasket;
 // dressed before capture, but a conscious enemy would only be walked up to and held still. The
 // cursor shows def.icon, the configured medicine's, written by the settings.
 //
+// The shot that follows (Docs/Specs/Adrenaline-Shot.md 3.4): with the shoulders' adrenaline
+// shot worn, its autocast on and a shot the patient can take now, the driver's shot toil holds
+// the patient a jab longer after the beam and gives it through the shot's own Apply, so the
+// charge, the cooldown and the heart rule are the manual cast's. A bed patient is skipped
+// unless they have a heart attack: a hospital dressing is not a fight.
+//
 // Charging (3.2 of the spec): an injury costs min(severity, severityPerKit), any other tendable
 // hediff a whole kit, and a tendAllAtOnce hediff a kit for the first of its def in a dressing;
 // the suite's Draw spends it, forgiving a shortfall on the last kit. Medicine XP is vanilla's
@@ -33,8 +40,9 @@ namespace MedicWarcasket;
 // medicine's MedicineTendXpGainFactor) pro rata to the kit share each wound drew, so a kit's
 // worth of dressing earns one treatment's XP and chip damage cannot farm it.
 //
-// The stun (the base's RefreshStun) is refreshed every tick of the warmup and the beam, so it
-// lasts the warmup plus one interval per wound and lapses on its own on any exit. A sleeper is not woken, so a bed patient keeps the bed's tend-quality offset.
+// The stun (the base's RefreshStun) is refreshed every tick of the warmup, the beam and the
+// shot, so it lasts the warmup plus one interval per wound, plus the jab, and lapses on its own
+// on any exit. A sleeper is not woken, so a bed patient keeps the bed's tend-quality offset.
 //
 // Motes are not scribed; every tick recreates any that are missing, as VEF's warmupMote code
 // does, so a save mid-dressing resumes with its visuals. The scribed state is the dressing in
@@ -72,6 +80,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
     private List<HediffDef> chargedAllAtOnce = new();
 
     private CompDressingSuite suite;
+    private Ability_AdrenalineShot shotToFollow;
     private Vector3 glowOffset;
     private Mote glow;
     private MoteDualAttached beam;
@@ -204,6 +213,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         connected = false;
         beaming = false;
         chargedAllAtOnce.Clear();
+        shotToFollow = null;
         glowOffset = Vector3.zero;
         if (patient != null)
             MaintainGlow(1f);
@@ -335,6 +345,40 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         return true;
     }
 
+    // The autocast shot to give this patient once the beam is over, decided at the shot toil's
+    // start (see the header); null when there is none. Held for the toil so a toggle flipped
+    // mid-jab changes the next dressing, not this one.
+    public Ability_AdrenalineShot ShotToFollow()
+    {
+        shotToFollow = null;
+        if (patient == null || patient.Dead || !patient.Spawned || !InReach(patient))
+            return null;
+        Ability_AdrenalineShot shot = Ability_AdrenalineShot.WornBy(pawn);
+        if (shot == null || !shot.AutoCast || !shot.IsEnabledForPawn(out _))
+            return null;
+        if (!shot.ValidateTarget(patient, showMessages: false))
+            return null;
+        if (patient.InBed() && !Ability_AdrenalineShot.HasHeartAttack(patient))
+            return null;
+        return shotToFollow = shot;
+    }
+
+    // One tick of the jab: the glow and the hold carry on; the beam and overlay lapse.
+    public void ShotTick()
+    {
+        if (patient == null)
+            return;
+        MaintainGlow(1f);
+        RefreshStun(patient);
+    }
+
+    public void GiveShot()
+    {
+        if (shotToFollow != null && patient != null && InReach(patient))
+            shotToFollow.Apply(patient);
+        shotToFollow = null;
+    }
+
     // One tick of the warmdown: only the glow is kept, its alpha falling with the fraction of
     // the warmdown left, so the fade lasts exactly the warmdown at any setting. The beam and the
     // overlay lapse (fadeOutUnmaintained), and so does the stun.
@@ -382,6 +426,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         connected = false;
         beaming = false;
         chargedAllAtOnce.Clear();
+        shotToFollow = null;
         glowOffset = Vector3.zero;
         glow = null;
         beam = null;
