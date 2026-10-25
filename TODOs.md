@@ -6,9 +6,9 @@
   against Siegebreaker, Guardian, Sarcophagus and Brute at market value (Shipcracker's armor
   header is the format, `VFEP_WARCASKET_STATS.md` the tables). Folds in:
   - the passives (`MedicalTendSpeed` +0.25, `MedicalTendQuality` +0.10 are first guesses)
-  - ~~the dressing's medicine XP (60 per cast, chosen without play testing)~~
   - welding costs, the free first fill of five glitterworld medicine kits included
   - the helmet: does its Sight floor overlap the Sarcophagus helmet? could the floor be lower?
+- **Consider Mechanite dressing autocast**
 - **Adrenaline shot.** The Workshop page already names it on the shoulders, so it ships with
   the release that carries that text. Scope: a shoulder-granted stimulant, pain suppressant or
   anaesthetic shot, perhaps autocast on the target when a mechanite dressing completes.
@@ -21,9 +21,6 @@
 
 ## Later
 
-- **Configurable work profile.** Settings toggles over the Caring work types instead of the
-  fixed "Doctor open, Childcare blocked" (`Medic-Work-Trait.md` section 5); they would feed the
-  mirror through `ApplyToDefs`.
 - **Shock shoulders upstream.** VFEP's Shock shoulders grant VFEP's trait by themselves, so a
   Medic wearing them loses Doctor (same spec, section 5). Propose moving the lists off the
   shoulders upstream; no local patch.

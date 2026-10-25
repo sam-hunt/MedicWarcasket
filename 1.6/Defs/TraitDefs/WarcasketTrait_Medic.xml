@@ -14,9 +14,11 @@
       - disabledWorkTags = VFEP's, with ManualDumb swapped for Cleaning (VFEP's hauling
         exemption is a Harmony postfix keyed on its own def, so a copied ManualDumb would lose
         hauling; ManualDumb covers only Hauling and Cleaning) and Caring removed.
-      - disabledWorkTypes = VFEP's, plus every Caring work type other than Doctor that the tags
-        no longer block (Childcare under Biotech, any modded one), only when VFEP's tags still
-        carried Caring; a patch mod that opened Caring for every warcasket opens it here too.
+      - disabledWorkTypes = VFEP's, minus the Caring work types the tags leave open, plus each
+        of those the mod settings block. The settings default to the old rule: Doctor open, any
+        other Caring type (Childcare under Biotech, a modded one) blocked while VFEP's tags
+        still carry Caring or its list names the type. Written by the settings' ApplyToDefs on
+        every load and settings close.
       - degreeDatas[0]: every public field but the text, degree and commonality copied from
         VFEP's degree, and the TraitExtension's fields copied from VFEP's extension. Both copies are full
         overwrites, nulls included, so the Medic carries exactly what VFEP's trait carries on

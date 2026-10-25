@@ -39,7 +39,7 @@ spacer warcaskets research.
   until it is done. Dressings can be queued, and Shift-click chains patients. With the helmet on,
   it treats diseases and infections too
 - **Mod settings** for the medicine, the VFX color, the kit capacity, the warmup, the time per
-  wound, the cooldown and the range
+  wound, the cooldown, the range and which caring work (doctor, childcare) the pilot may take on
 - **Not yet tuned**: protection, shield, costs and research are still copies of VFE Pirates'
   Siegebreaker set, and the passive and ability numbers are first guesses
 - **Built on VFE Pirates** rather than beside it: the foundry, entombing, customization and

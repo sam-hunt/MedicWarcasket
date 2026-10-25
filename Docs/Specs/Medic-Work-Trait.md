@@ -248,7 +248,10 @@ existing `Startup.Run`, against the current DefDatabase:
    Caring work type. When a patch mod has already removed Caring from VFEP's tags, nothing is
    re-blocked, so the Medic does childcare exactly when every other warcasket does. The check
    is scoped to Caring on purpose: a generic "VFEP blocks it, `tags` does not" diff would also
-   catch Hauling, which step 2's swap opens deliberately.
+   catch Hauling, which step 2's swap opens deliberately. The "other than Doctor" set is the
+   settings' toggles: the mirror records the Caring types the tags leave open as
+   `WorkProfile.Toggleable`, the rule above is `WorkProfile.OpenByDefault`, and
+   `WorkProfile.Apply` writes the player's choice on every `ApplyToDefs`.
 4. **Degree effects.** Copy every public instance field of `vfep.degreeDatas[0]` onto
    `ours.degreeDatas[0]` except the text (`label`, `labelMale`, `labelFemale`,
    `untranslatedLabel`, `description`), the identity (`degree`: the armor grants degree 0 and
@@ -259,9 +262,11 @@ existing `Startup.Run`, against the current DefDatabase:
 5. **Extension.** Copy every public field of VFEP's `VEF.Pawns.TraitExtension` onto ours
    (`painFactor`, `apparelExclusiveTrait` today), for the same reason. On 1.6 this is where the
    pain immunity comes from.
-6. One `Log.Message` with the resulting tags and work types, so a bug report's log shows the
-   profile the player actually got. The whole mirror is wrapped so a failure is a `Log.Error`
-   and the settings behind it in `Startup.Run` still apply.
+6. Two `Log.Message`s: the mirror's with the resulting tags, the toggleable work types and
+   which are open by default, and `Apply`'s with the disabled work types it wrote (again on
+   every settings close), so a bug report's log shows the profile the player actually got. The
+   whole mirror is wrapped so a failure is a `Log.Error` and the settings behind it in
+   `Startup.Run` still apply.
 
 **The copies are full overwrites, nulls included.** A field VFEP leaves at its default replaces
 whatever our XML carried, so a 1.6 game ends with no rest-fall factor on the Medic exactly as it
@@ -272,8 +277,9 @@ the list objects: `StatModifier`s and curves stay shared with VFEP's degree, whi
 
 Why nothing more is needed: `Trait.AllowsWorkType`, `Trait.GetDisabledWorkTypes`, the degree's
 stat and pain fields and VEF's extension are all read live from the def (2.1, 2.4),
-`Pawn.GetDisabledWorkTypes` is cached per pawn and no pawn exists when startup code runs, and
-`CombinedDisabledWorkTags` is uncached.
+`Pawn.GetDisabledWorkTypes` is cached per pawn and no pawn exists when startup code runs (a
+settings write mid-game goes through `Pawn.Notify_DisabledWorkTypesChanged` on each pawn carrying
+the trait), and `CombinedDisabledWorkTags` is uncached.
 
 **Where it runs.** `Startup.Run` already carries the def-derived startup contract: `ModInit`
 calls it once for the first load and the `StaticConstructorOnStartupUtility.CallAll` postfix
@@ -333,10 +339,11 @@ one-key-set rule (its A7).
   description need not mention it.
 - **Cleaning** stays blocked for parity with VFEP's wearers. If a medic should be able to clean
   the hospital, step 2 of the mirror simply does not set Cleaning. One line; a design call.
-- **A configurable profile.** Doctor open and Childcare re-blocked is a fixed choice. A settings
-  section with toggles over the Caring work types (medical, childcare, any other caring work) is
-  ledgered in `TODOs.md`; it would feed step 3's "other than Doctor" set and run through
-  `ApplyToDefs` like every other setting, since the mirror writes def fields.
+- **A configurable profile** is implemented. A settings section ("Pilot's work") has one
+  checkbox per Caring work type the tags leave open, defaulting to the fixed rule (Doctor open,
+  the rest re-blocked). It is written through `ApplyToDefs` and `WorkProfile.Apply` like every
+  other setting, since the mirror writes def fields, and `Apply` also refreshes the cached
+  disabled work types of live pawns with `Pawn.Notify_DisabledWorkTypesChanged`.
 - **Mods that match VFEP's trait by name** do not know ours. MedPod blocks pod use for
   `VFEP_WarcasketTrait` wearers, so a Medic wearer could be treated in a MedPod; Vanilla
   Aspirations Expanded's "get entombed" aspiration will not complete in a Medic set; Altered

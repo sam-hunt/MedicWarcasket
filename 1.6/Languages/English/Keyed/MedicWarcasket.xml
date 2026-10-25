@@ -53,6 +53,14 @@
   <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, with {5} s of cooldown after.</MDWC_DressingSummary>
   <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
 
+  <MDWC_SectionWork>Pilot's work</MDWC_SectionWork>
+  <MDWC_SectionWorkDesc>The caring work a pilot of the medic set may take on. Everything else follows VFE Pirates' warcasket trait as your other mods leave it, so a mod that opens work for every warcasket opens it for the medic too.</MDWC_SectionWorkDesc>
+  <MDWC_WorkDesc>Whether a pilot of the medic set can do this work. A change reaches entombed pilots at once; work newly opened starts unassigned in the Work tab. Default: {0}.</MDWC_WorkDesc>
+  <MDWC_WorkOpen>allowed</MDWC_WorkOpen>
+  <MDWC_WorkBlocked>blocked</MDWC_WorkBlocked>
+  <MDWC_WorkSummary>The pilot can take on {0} work. All other work follows VFE Pirates' warcasket rules.</MDWC_WorkSummary>
+  <MDWC_WorkSummaryNone>The pilot takes on no caring work. All other work follows VFE Pirates' warcasket rules.</MDWC_WorkSummaryNone>
+
   <MDWC_DefaultSuffix> (default)</MDWC_DefaultSuffix>
 
 </LanguageData>

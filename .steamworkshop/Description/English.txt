@@ -18,7 +18,7 @@ Armor, shoulder pads and helmet, welded at the warcasket foundry and unlocked by
 [h2]Mechanite dressing[/h2]
 The armor carries a suite of medicine kits. Point it at a wounded pawn and the pilot streams mechanites over them in a beam of blue light, tending one wound after another, worst first, at the quality the pilot would give it. The patient is held still until the last wound is done, and the pilot earns medicine experience for each one. With the helmet on, the dressing treats diseases and infections too.
 
-Dressings can be queued, and Shift-click chains several patients in a row. Drag the suite's gauge to set how full colonists keep it. The medicine it uses, the number of kits and the timings can be changed in the mod settings.
+Dressings can be queued, and Shift-click chains several patients in a row. Drag the suite's gauge to set how full colonists keep it. The medicine it uses, the number of kits, the timings and which work the pilot may do can be changed in the mod settings.
 
 [hr][/hr]
 [h1]Mod Compatibility[/h1]

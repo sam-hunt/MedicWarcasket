@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Mod settings now choose which caring work the pilot may take on, doctoring and childcare included, with VFE Pirates' warcasket rules as the default for everything else
+
 ### Changed
 
 - The field dressing is now the mechanite dressing: it warms up, tends one wound at a time with a beam, then winds down, and the patient is held still until it ends

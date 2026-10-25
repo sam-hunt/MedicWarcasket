@@ -16,11 +16,18 @@ namespace MedicWarcasket;
 // differ) lands on ours. The trait def's header carries the player-facing contract; the spec
 // (Docs/Specs/Medic-Work-Trait.md) the rationale.
 //
-// Runs first in Startup.Run, i.e. from a static constructor on startup and again after every
-// in-process play-data reload, against defs fresh from XML and with every XML patch, VEF's
-// toggleable ones included, already applied. Nothing it writes is cached anywhere by then:
-// Trait.AllowsWorkType and Trait.GetDisabledWorkTypes read the def live, Pawn.GetDisabledWorkTypes
-// is cached per pawn and no pawn exists yet, and Pawn.CombinedDisabledWorkTags is uncached.
+// The Caring work types the mirror opens are the settings' toggles (WorkSetting): Mirror
+// records which they are (Toggleable) and what the fixed rule makes of each (OpenByDefault:
+// Doctor open, the rest blocked while VFEP blocks Caring), writes that default profile, and
+// Apply writes the profile the settings choose, on every ApplyToDefs. A pawn caches its
+// disabled work types, so Apply refreshes every live pawn carrying the trait; at startup there
+// is none.
+//
+// Mirror runs first in Startup.Run, i.e. from a static constructor on startup and again after
+// every in-process play-data reload, against defs fresh from XML and with every XML patch,
+// VEF's toggleable ones included, already applied. Nothing it writes is cached anywhere by
+// then: Trait.AllowsWorkType and Trait.GetDisabledWorkTypes read the def live, and
+// Pawn.CombinedDisabledWorkTags is uncached.
 public static class WorkProfile
 {
     private const string VfepTraitName = "VFEP_WarcasketTrait";
@@ -40,9 +47,29 @@ public static class WorkProfile
         nameof(TraitDegreeData.commonality),
     ];
 
+    // The mirror's result, replaced on every run and empty until the first or after a failed
+    // one, so Apply then writes nothing and the trait keeps its XML profile.
+    private static TraitDef medic;
+    private static List<WorkTypeDef> baseTypes = [];
+    private static List<WorkTypeDef> toggleable = [];
+    private static HashSet<WorkTypeDef> openByDefault = [];
+
+    // The Caring work types the Medic's tags leave open, in the work tab's order: what the
+    // settings may open or block. Doctor always; Childcare under Biotech; any modded one.
+    public static IReadOnlyList<WorkTypeDef> Toggleable => toggleable;
+
+    // The fixed rule for a toggleable work type: Doctor is open, any other is open only when
+    // VFEP's trait blocks neither Caring nor the type itself (a patch mod that opened Caring for
+    // every warcasket opens it here too).
+    public static bool OpenByDefault(WorkTypeDef work) => openByDefault.Contains(work);
+
     // Never throws out of Startup.Run: a failure here is logged and the settings still apply.
     public static void Mirror()
     {
+        medic = null;
+        baseTypes = [];
+        toggleable = [];
+        openByDefault = [];
         try
         {
             MirrorFromVfep();
@@ -56,8 +83,8 @@ public static class WorkProfile
     private static void MirrorFromVfep()
     {
         TraitDef vfep = DefDatabase<TraitDef>.GetNamedSilentFail(VfepTraitName);
-        TraitDef medic = DefDatabase<TraitDef>.GetNamedSilentFail(MedicTraitName);
-        if (vfep == null || medic == null)
+        TraitDef ours = DefDatabase<TraitDef>.GetNamedSilentFail(MedicTraitName);
+        if (vfep == null || ours == null)
         {
             Log.Error($"[Medic Warcasket] Cannot mirror the medic warcasket trait: {(vfep == null ? VfepTraitName : MedicTraitName)} is missing. VFE Pirates is a hard dependency; this is a broken install.");
             return;
@@ -71,41 +98,78 @@ public static class WorkProfile
             tags = (tags & ~WorkTags.ManualDumb) | WorkTags.Cleaning;
         bool caringBlocked = (tags & WorkTags.Caring) != 0;
         tags &= ~WorkTags.Caring;
-        medic.disabledWorkTags = tags;
+        ours.disabledWorkTags = tags;
 
-        // Work types: VFEP's own list by value, never aliased, plus every Caring work type other
-        // than Doctor that dropping the tag opened. Scoped to Caring on purpose: a generic
-        // "VFEP blocks it, we do not" diff would also re-block the Hauling the swap opened.
-        var types = new List<WorkTypeDef>(vfep.disabledWorkTypes ?? Enumerable.Empty<WorkTypeDef>());
-        if (caringBlocked)
+        // Work types: VFEP's own list by value, never aliased, split into the base the settings
+        // never touch and the toggleables, every Caring work type the tags no longer block.
+        // Scoped to Caring on purpose: a generic "VFEP blocks it, we do not" diff would also
+        // re-block the Hauling the swap opened.
+        var vfepTypes = new List<WorkTypeDef>(vfep.disabledWorkTypes ?? Enumerable.Empty<WorkTypeDef>());
+        foreach (WorkTypeDef work in WorkTypeDefsUtility.WorkTypeDefsInPriorityOrder)
         {
-            foreach (WorkTypeDef work in DefDatabase<WorkTypeDef>.AllDefsListForReading)
-            {
-                if ((work.workTags & WorkTags.Caring) != 0 && (tags & work.workTags) == 0 && !types.Contains(work))
-                    types.Add(work);
-            }
+            if ((work.workTags & WorkTags.Caring) == 0 || (tags & work.workTags) != 0)
+                continue;
+            toggleable.Add(work);
+            if (work == WorkTypeDefOf.Doctor || (!caringBlocked && !vfepTypes.Contains(work)))
+                openByDefault.Add(work);
         }
-        types.Remove(WorkTypeDefOf.Doctor);
-        medic.disabledWorkTypes = types;
+        baseTypes = vfepTypes.Where(work => !toggleable.Contains(work)).ToList();
+        medic = ours;
+        Write(OpenByDefault);
 
         // Effects: full overwrites, nulls included, so a field VFEP leaves at its default
         // replaces whatever our XML carried and the Medic matches VFEP's wearers on the running
         // version (1.7 has the pain factor and rest-fall on the degree; 1.6 has the pain factor
         // on the extension and nothing on the degree).
-        if (vfep.degreeDatas.Count > 0 && medic.degreeDatas.Count > 0)
-            CopyPublicFields(vfep.degreeDatas[0], medic.degreeDatas[0], DegreeOwnFields);
+        if (vfep.degreeDatas.Count > 0 && ours.degreeDatas.Count > 0)
+            CopyPublicFields(vfep.degreeDatas[0], ours.degreeDatas[0], DegreeOwnFields);
         else
             Log.Warning($"[Medic Warcasket] {VfepTraitName} or {MedicTraitName} has no degree; the medic trait keeps its XML effects.");
 
         TraitExtension vfepExtension = vfep.GetModExtension<TraitExtension>();
-        TraitExtension medicExtension = medic.GetModExtension<TraitExtension>();
+        TraitExtension medicExtension = ours.GetModExtension<TraitExtension>();
         if (vfepExtension != null && medicExtension != null)
             CopyPublicFields(vfepExtension, medicExtension, null);
         else
             Log.Warning($"[Medic Warcasket] {VfepTraitName} or {MedicTraitName} has no VEF TraitExtension; the medic trait keeps its XML extension.");
 
-        Log.Message($"[Medic Warcasket] Medic warcasket trait mirrored from {VfepTraitName}: disabled work tags {tags}, disabled work types {(types.Count == 0 ? "none" : types.Select(t => t.defName).ToCommaList())}.");
+        Log.Message($"[Medic Warcasket] Medic warcasket trait mirrored from {VfepTraitName}: disabled work tags {tags}; {Describe(toggleable)} open to settings, {Describe(openByDefault)} open by default.");
     }
+
+    // Writes the profile the settings choose, open deciding each toggleable work type, and
+    // refreshes every live pawn carrying the trait: Pawn.GetDisabledWorkTypes is cached per
+    // pawn, and its Notify_DisabledWorkTypesChanged clears the cache and zeroes the work
+    // priorities the write blocked (a type it opened stays unassigned until the player sets
+    // it). World pawns too, since a pilot away on a quest comes back with the cache it left
+    // with and nothing on its return clears it before the next save.
+    public static void Apply(Func<WorkTypeDef, bool> open)
+    {
+        if (medic == null)
+            return;
+        Write(open);
+        Log.Message($"[Medic Warcasket] Medic warcasket trait disabled work types: {Describe(medic.disabledWorkTypes)}.");
+        if (Current.ProgramState != ProgramState.Playing)
+            return;
+        foreach (Pawn pawn in PawnsFinder.AllMapsWorldAndTemporary_Alive)
+        {
+            if (pawn.story?.traits != null && pawn.story.traits.HasTrait(medic))
+                pawn.Notify_DisabledWorkTypesChanged();
+        }
+    }
+
+    private static void Write(Func<WorkTypeDef, bool> open)
+    {
+        var types = new List<WorkTypeDef>(baseTypes);
+        foreach (WorkTypeDef work in toggleable)
+        {
+            if (!open(work))
+                types.Add(work);
+        }
+        medic.disabledWorkTypes = types;
+    }
+
+    private static string Describe(IEnumerable<WorkTypeDef> works) =>
+        works.Any() ? works.Select(work => work.defName).ToCommaList() : "none";
 
     // Copies every public instance field of T from source onto target by reflection, so a field
     // T gains in a later game or VEF version is carried without a code change. Enumerated on T,

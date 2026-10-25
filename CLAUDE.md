@@ -189,8 +189,10 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
   are overwritten by `WorkProfile.Mirror` (first in `Startup.Run`) from `VFEP_WarcasketTrait`
   as the full mod list leaves it, so editing or patching those fields on our def does not stick
   and VFEP's per-version differences (where the pain immunity and rest-fall factor sit) need no
-  version check here. Only the degree's text is ours. The trait def's header carries the
-  contract; `Docs/Specs/Medic-Work-Trait.md` the rationale.
+  version check here. Only the degree's text is ours. The Caring work types the tags leave open
+  are the settings' toggles (`WorkSetting`), written through `WorkProfile.Apply` on every
+  `ApplyToDefs`. The trait def's header carries the contract; `Docs/Specs/Medic-Work-Trait.md`
+  the rationale.
 - **Vanilla's reload queries are non-virtual.** `CompApparelReloadable.AmmoDef`, `NeedsReload`,
   `ReloadFrom`, `Min/MaxAmmoNeeded` cannot be overridden; a reloadable that bends one does it with
   a Harmony prefix gated on its own comp type so every other reloadable passes through. The

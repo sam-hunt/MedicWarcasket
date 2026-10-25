@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -22,6 +23,14 @@ namespace MedicWarcasket;
 // dressing motes' graphicData.color, each keeping its own alpha, and the gauge reads its colours
 // off the beam's (Gizmo_DressingSuite). The two picked rows sit above the sliders, and the one
 // section ends on a line of what its rows amount to. Its header carries the ability's tooltip.
+//
+// The work section is one checkbox per Caring work type the trait mirror leaves to the player
+// (WorkSetting over WorkProfile.Toggleable), written onto the medic trait's disabledWorkTypes
+// through WorkProfile.Apply, which also refreshes every entombed pilot; the mirror's own rule
+// is each box's default. Its header's icon is vanilla's mining work site, a Core texture, so
+// it survives a play-data reload as a plain static, and its tooltip says what the section
+// covers and what it leaves to VFEP's trait. The section is skipped while the mirror found
+// nothing to toggle (a broken install).
 //
 // What a write leaves on live ability instances (a running cooldown, a tooltip cache) is
 // caught up by each instance on its next gizmo request, keyed on Generation
@@ -47,6 +56,7 @@ public class MedicWarcasketSettings : ModSettings
 
     public readonly MedicineSetting medicine = new();
     public readonly TintSetting tint = new();
+    public readonly WorkSetting work = new();
 
     // The suite's maxCharges. The warmup is banded: quarter seconds at the short end, where they
     // matter, coarser steps as it reaches a slow dressing.
@@ -78,6 +88,18 @@ public class MedicWarcasketSettings : ModSettings
     // tooltip over the description its command shows in game.
     private string dressingTip;
 
+    private const string WorkIconPath = "World/WorldObjects/Expanding/Sites/MiningWorkSite";
+    private static Texture2D workIcon;
+    private static Texture2D WorkIcon
+    {
+        get
+        {
+            if (workIcon == null)
+                workIcon = ContentFinder<Texture2D>.Get(WorkIconPath, reportFailure: false);
+            return workIcon;
+        }
+    }
+
     private IEnumerable<Tunable> All => [kits, castTime, tendInterval, cooldown, range];
 
     private static string Whole(float v) => Mathf.RoundToInt(v).ToString();
@@ -87,6 +109,7 @@ public class MedicWarcasketSettings : ModSettings
         base.ExposeData();
         medicine.ExposeData();
         tint.ExposeData();
+        work.ExposeData();
         foreach (Tunable tunable in All)
             tunable.ExposeData();
     }
@@ -112,8 +135,11 @@ public class MedicWarcasketSettings : ModSettings
         defaultsLoaded = true;
     }
 
+    // The work profile goes first: it needs none of the dressing's defs, so a saved choice
+    // still holds while they are missing, though the page is unavailable to change it.
     public void ApplyToDefs()
     {
+        WorkProfile.Apply(work.IsOpen);
         if (!defaultsLoaded || !TryGetDefs(out Defs defs))
             return;
         ThingDef chosen = medicine.Value;
@@ -206,6 +232,12 @@ public class MedicWarcasketSettings : ModSettings
         cooldown.DoRow(listing);
         range.DoRow(listing);
         SummaryRow(listing, DressingSummary);
+        if (WorkProfile.Toggleable.Count > 0)
+        {
+            SectionHeader(listing, "MDWC_SectionWork", WorkIcon, HeaderTip("MDWC_SectionWork".Translate(), "MDWC_SectionWorkDesc".Translate()));
+            work.DoRows(listing);
+            SummaryRow(listing, WorkSummary);
+        }
         listing.Gap(SectionGap);
         contentHeight = listing.CurHeight;
         listing.End();
@@ -216,6 +248,7 @@ public class MedicWarcasketSettings : ModSettings
         {
             medicine.Reset();
             tint.Reset();
+            work.Reset();
             foreach (Tunable tunable in All)
                 tunable.Reset();
         }
@@ -232,6 +265,16 @@ public class MedicWarcasketSettings : ModSettings
         if (Mathf.RoundToInt(cooldown.Value) == 0)
             return "MDWC_DressingSummaryNoCooldown".Translate(kits.IntValue, medicineLabel, severityPerKit, warmup, perWound);
         return "MDWC_DressingSummary".Translate(kits.IntValue, medicineLabel, severityPerKit, warmup, perWound, Whole(cooldown.Value));
+    }
+
+    // What the work section's boxes amount to: the caring work the pilot may take on, named as
+    // the work tab names it, or that there is none; the rest is VFEP's rule either way.
+    private string WorkSummary()
+    {
+        List<string> open = work.Open.Select(WorkSetting.Name).ToList();
+        if (open.Count == 0)
+            return "MDWC_WorkSummaryNone".Translate();
+        return "MDWC_WorkSummary".Translate(open.ToCommaList(useAnd: true));
     }
 
     // A muted line under a section's rows, indented and padded as they are, as tall as its text.
