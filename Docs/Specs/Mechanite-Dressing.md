@@ -451,10 +451,10 @@ suite reference, never this state.
     the beam. The beam runs as long as anything is tendable and a kit is loaded.
 
   - The beam ends when nothing is left to tend (**complete**), when the suite runs dry with work
-    left (**dry**), or when range or sight is lost (**broken**). All three show their outcome text
-    on the patient at once and go on to the warmdown; when a tend ended the beam, the outcome
-    goes under that wound's text in the same mote, so the two never overlap. A complete beam
-    states its count ("{n} wounds tended") only past one wound, and also spawns the flash.
+    left (**dry**), or when range or sight is lost (**broken**). All three go on to the warmdown.
+    Dry and broken show their outcome text on the patient at once; when a tend ended the beam,
+    the outcome goes under that wound's text in the same mote, so the two never overlap. A
+    complete beam shows no summary, since each wound announced itself, and spawns the flash.
   - The toil's progress bar is tended / (tended + still tendable).
 
 - **Warmdown** (toil 7): the pilot holds still. The beam and overlay are no longer maintained and
@@ -738,9 +738,9 @@ Drafts, no em dashes (player-facing):
   - `MDWC_GaugeTip` "{0} sealed kits and {1} of an open kit. A kit treats up to {2} severity of
     injuries, or one illness. Colonists reload this suite to {3} kits."
 - Keyed, removed: `MDWC_MedicineOption`, `MDWC_LoadedDoses`, `MDWC_LoadedDosesEntry`,
-  `MDWC_LoadedDosesNone`, `MDWC_Doses`, `MDWC_DosesDesc`.
+  `MDWC_LoadedDosesNone`, `MDWC_Doses`, `MDWC_DosesDesc`, `MDWC_WoundsTended`.
 - Keyed, unchanged: `MDWC_NoWoundsToDress`, `MDWC_NoMedicineLoaded`, `MDWC_NothingToTreat`,
-  `MDWC_HostileTarget`, `MDWC_WoundsTended`, `MDWC_TargetQuality`, `MDWC_SettingsCategory`,
+  `MDWC_HostileTarget`, `MDWC_TargetQuality`, `MDWC_SettingsCategory`,
   `MDWC_SettingsUnavailable`, `MDWC_Cooldown`, `MDWC_Range`, `MDWC_DefaultSuffix`. The file's
   header comment gains `Gizmos/`.
 - DefInjected: the motes and the extension carry no translatable text. The handles change with
@@ -775,7 +775,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
      the patient faces or lies.
    - A cross rises at 1, 2 and 3 s after connect, each drawing its wound's severity from the
      gauge, which ends 1.35 kits lower.
-   - The flash and "3 wounds tended" appear, then the glow fades over 1 s while the beam and
+   - The flash appears with the third wound's text, then the glow fades over 1 s while the beam and
      overlay fade. The patient moves again after the beam, not after the warmdown.
    - Medicine XP rises by 675 with glitterworld (500 × 27 / 20) and 472.5 with industrial.
 4. **Interruption.** Draft the pilot 1.5 s into that beam: one wound is tended and paid for, the

@@ -371,7 +371,7 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
     }
 
     // The outcome goes under the last wound's text when a tend ended the beam. A complete beam
-    // of one wound needs no count, its wound's text already says it.
+    // has none: each wound's text already announced it, and the flash marks the end.
     private bool EndBeam(BeamState state, string tendText = null)
     {
         beaming = false;
@@ -382,7 +382,7 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
         int found = tended + remaining;
         string outcome = state switch
         {
-            BeamState.Complete => tended > 1 ? "MDWC_WoundsTended".Translate(tended).Resolve() : null,
+            BeamState.Complete => null,
             BeamState.Dry => "MDWC_WoundsTendedDry".Translate(medicine.label, tended, found),
             _ => "MDWC_BeamBroken".Translate(tended, found),
         };

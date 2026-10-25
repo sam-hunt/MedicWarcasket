@@ -6,7 +6,6 @@
   <MDWC_NoWoundsToDress>{0} has no wounds to dress.</MDWC_NoWoundsToDress>
   <MDWC_NothingToTreat>{0} has nothing to treat.</MDWC_NothingToTreat>
   <MDWC_HostileTarget>{0} is hostile and still up.</MDWC_HostileTarget>
-  <MDWC_WoundsTended>{0} wounds tended</MDWC_WoundsTended>
   <MDWC_WoundsTendedPartial>Interrupted: {0} of {1} wounds tended</MDWC_WoundsTendedPartial>
   <MDWC_WoundsTendedDry>Out of {0}: {1} of {2} wounds tended</MDWC_WoundsTendedDry>
   <MDWC_BeamBroken>Stream broken: {0} of {1} wounds tended</MDWC_BeamBroken>
