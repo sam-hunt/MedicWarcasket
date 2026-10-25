@@ -339,7 +339,7 @@ one-key-set rule (its A7).
   description need not mention it.
 - **Cleaning** stays blocked for parity with VFEP's wearers. If a medic should be able to clean
   the hospital, step 2 of the mirror simply does not set Cleaning. One line; a design call.
-- **A configurable profile** is implemented. A settings section ("Pilot's work") has one
+- **A configurable profile** is implemented. A settings section ("Enabled work types") has one
   checkbox per Caring work type the tags leave open, defaulting to the fixed rule (Doctor open,
   the rest re-blocked). It is written through `ApplyToDefs` and `WorkProfile.Apply` like every
   other setting, since the mirror writes def fields, and `Apply` also refreshes the cached

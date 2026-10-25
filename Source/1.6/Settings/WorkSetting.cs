@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -17,7 +18,11 @@ namespace MedicWarcasket;
 public sealed class WorkSetting
 {
     private const string Key = "Work";
-    private const float DefaultPad = 4f;
+
+    // The default's word in the tooltip, in the colours of the box's states: vanilla's
+    // readable red for the cross, and a green as bright for the tick.
+    private static readonly Color EnabledColor = ColorLibrary.LightGreen;
+    private static readonly Color DisabledColor = ColorLibrary.RedReadable;
 
     private Dictionary<string, bool> overrides = [];
 
@@ -40,10 +45,10 @@ public sealed class WorkSetting
     }
 
     // One checkbox row per toggleable work type, laid out as a Tunable row is: the work tab's
-    // name for it on the left, the box at the row's end and "(default)" beside the box while
-    // unset, on the side a slider row marks its value. A click anywhere on the row flips the
-    // box. The work type's own description over "MDWC_WorkDesc" with the default is the whole
-    // row's tooltip.
+    // name for it on the left and the box at the row's end; a click anywhere on the row flips
+    // it. No "(default)" marker on the row: the whole row's tooltip is the work type's own
+    // description, "MDWC_WorkDesc", then the default as its own paragraph with its state's
+    // word in the box's colour.
     public void DoRows(Listing_Standard listing)
     {
         foreach (WorkTypeDef work in WorkProfile.Toggleable)
@@ -65,20 +70,15 @@ public sealed class WorkSetting
             overrides.Remove(work.defName);
         else
             overrides[work.defName] = open;
-        if (!overrides.ContainsKey(work.defName))
-        {
-            TextAnchor anchor = Text.Anchor;
-            Text.Anchor = TextAnchor.MiddleRight;
-            Widgets.Label(new Rect(row.x, row.y, row.width - Widgets.CheckboxSize - DefaultPad, row.height), "MDWC_DefaultSuffix".Translate());
-            Text.Anchor = anchor;
-        }
         listing.Gap(Tunable.RowGap);
     }
 
     private static string Tooltip(WorkTypeDef work, bool byDefault)
     {
-        string state = (byDefault ? "MDWC_WorkOpen" : "MDWC_WorkBlocked").Translate();
-        string ours = "MDWC_WorkDesc".Translate(state);
+        string state = byDefault
+            ? "MDWC_WorkOpen".Translate().Colorize(EnabledColor)
+            : "MDWC_WorkBlocked".Translate().Colorize(DisabledColor);
+        string ours = "MDWC_WorkDesc".Translate() + "\n\n" + "MDWC_WorkDefault".Translate(state);
         return work.description.NullOrEmpty() ? ours : work.description + "\n\n" + ours;
     }
 }
