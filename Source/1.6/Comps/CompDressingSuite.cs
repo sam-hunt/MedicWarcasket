@@ -71,9 +71,6 @@ public class CompDressingSuite : CompApparelReloadable
 
     public bool HasOpenKit => remainingCharges > 0 && openUsed > 0f;
 
-    // Kits not yet drawn from.
-    public int SealedKits => HasOpenKit ? remainingCharges - 1 : remainingCharges;
-
     // "2.6 / 5", the gauge's bar label and every other fractional readout.
     public string LabelAvailable => $"{Available:0.0} / {MaxCharges}";
 

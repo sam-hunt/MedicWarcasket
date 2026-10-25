@@ -749,8 +749,10 @@ Drafts, no em dashes (player-facing):
   - `MDWC_StatSeverityPerKit` "Severity per kit"; `MDWC_StatSeverityPerKitDesc` "The total
     severity of injuries one kit of medicine treats, as one vanilla treatment does. A disease,
     infection or fresh missing part takes a whole kit."
-  - `MDWC_GaugeTip` "{0} sealed kits and {1} of an open kit. A kit treats up to {2} severity of
-    injuries, or one illness. Colonists reload this suite to {3} kits."
+  - The gauge's tooltip, laid out as vanilla's hemogen gauge under a "Medicine" header
+    (`MDWC_Medicine`): `MDWC_GaugeOpenKit` "Open kit: {0} left"; `MDWC_GaugeReloadTarget`
+    "Reload target: {0}"; `MDWC_GaugeNeverReload` "Never reload."; `MDWC_GaugeKitDesc` "Each kit
+    treats up to {0} severity of injuries, or one disease, infection or fresh missing part."
 - Keyed, removed: `MDWC_MedicineOption`, `MDWC_LoadedDoses`, `MDWC_LoadedDosesEntry`,
   `MDWC_LoadedDosesNone`, `MDWC_Doses`, `MDWC_DosesDesc`, `MDWC_WoundsTended`.
 - Keyed, unchanged: `MDWC_NoWoundsToDress`, `MDWC_NoMedicineLoaded`, `MDWC_NothingToTreat`,

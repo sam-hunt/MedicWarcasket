@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -81,11 +82,29 @@ public class Gizmo_DressingSuite : Gizmo_Slider
             yield return (float)i / max;
     }
 
-    // The open kit's remainder as a percent of a kit; "0%" while every loaded kit is sealed.
+    // Laid out as vanilla's hemogen gauge (GeneGizmo_ResourceHemogen): the count under a tinted
+    // header, the open kit's remainder while one is open, the reload target for the wearers whose
+    // handle sets it (0 never reloads), then what a kit treats. Every count follows a label, so
+    // none needs a plural. The header is the generic "Medicine", not the loaded medicine's
+    // label, which the gizmo's title already shows and which a modded medicine can make long.
     protected override string GetTooltip()
     {
-        float openLeft = suite.HasOpenKit ? 1f - suite.OpenUsed / suite.SeverityPerKit : 0f;
-        return "MDWC_GaugeTip".Translate(suite.SealedKits, openLeft.ToStringPercent(),
-            suite.SeverityPerKit.ToString("0.##"), suite.TargetKits);
+        var tip = new StringBuilder();
+        tip.Append("MDWC_Medicine".Translate().Resolve().Colorize(ColoredText.TipSectionTitleColor));
+        tip.Append(": ").Append(suite.LabelAvailable);
+        if (suite.HasOpenKit)
+        {
+            float openLeft = 1f - suite.OpenUsed / suite.SeverityPerKit;
+            tip.Append('\n').Append("MDWC_GaugeOpenKit".Translate(openLeft.ToStringPercent()).Resolve());
+        }
+        if (IsDraggable)
+        {
+            tip.Append('\n').Append(suite.TargetKits > 0
+                ? "MDWC_GaugeReloadTarget".Translate(suite.TargetKits).Resolve()
+                : "MDWC_GaugeNeverReload".Translate().Resolve());
+        }
+        tip.Append("\n\n").Append(
+            "MDWC_GaugeKitDesc".Translate(suite.SeverityPerKit.ToString("0.##")).Resolve());
+        return tip.ToString();
     }
 }

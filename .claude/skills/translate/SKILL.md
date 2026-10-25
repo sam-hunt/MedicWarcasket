@@ -88,10 +88,12 @@ notes for the shim or flow edit this repo owes before continuing.
     adds `{2}`, the kits loaded, one decimal; `MDWC_KitsLoaded` (the armor's
     inspect line) takes `{0}` the kits loaded, one decimal, and `{1}` the
     maximum; `MDWC_StatSeverityPerKit` and `...Desc` are the stat's label
-    and tooltip, with no placeholders; `MDWC_GaugeTip` (the tank gauge's
-    tooltip) takes `{0}` the sealed kits, `{1}` what is left of the open
-    kit, already a percentage, `{2}` the severity per kit and `{3}` the
-    kits colonists reload to. Medicine labels arrive in the game's own
+    and tooltip, with no placeholders; the tank gauge's tooltip is
+    label lines under a `MDWC_Medicine` header (reused from the settings
+    row): `MDWC_GaugeOpenKit` takes `{0}` what is left of the open kit,
+    already a percentage, `MDWC_GaugeReloadTarget` `{0}` the kits colonists
+    reload to (`MDWC_GaugeNeverReload` when that is 0), and
+    `MDWC_GaugeKitDesc` `{0}` the severity per kit. Medicine labels arrive in the game's own
     translation, capitalised in `MDWC_TargetQuality` (it opens its line)
     and lowercase elsewhere.
   Name the set's things with the same renderings as the DefInjected text

@@ -15,7 +15,10 @@
   <MDWC_KitsLoaded>Kits loaded: {0} / {1}</MDWC_KitsLoaded>
   <MDWC_StatSeverityPerKit>Severity per kit</MDWC_StatSeverityPerKit>
   <MDWC_StatSeverityPerKitDesc>The total severity of injuries one kit of medicine treats, as one vanilla treatment does. A disease, infection or fresh missing part takes a whole kit.</MDWC_StatSeverityPerKitDesc>
-  <MDWC_GaugeTip>{0} sealed kits and {1} of an open kit. A kit treats up to {2} severity of injuries, or one illness. Colonists reload this suite to {3} kits.</MDWC_GaugeTip>
+  <MDWC_GaugeOpenKit>Open kit: {0} left</MDWC_GaugeOpenKit>
+  <MDWC_GaugeReloadTarget>Reload target: {0}</MDWC_GaugeReloadTarget>
+  <MDWC_GaugeNeverReload>Never reload.</MDWC_GaugeNeverReload>
+  <MDWC_GaugeKitDesc>Each kit treats up to {0} severity of injuries, or one disease, infection or fresh missing part.</MDWC_GaugeKitDesc>
 
   <!-- Mod settings (Source/1.6/Settings/) -->
   <MDWC_SettingsCategory>Medic Warcasket</MDWC_SettingsCategory>
