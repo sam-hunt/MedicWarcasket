@@ -322,7 +322,9 @@ and a prerelease flag instead; see the skill-sync paragraph above).
    install root with `UnityStubs.dll` beside it for Unity-facing signatures; on 1.6 it is under
    `RimWorldWin64_Data/Managed/`. The local install's assembly is now the 1.7 one, so a
    decompile-verified call path in a def or code header that was verified on 1.6 should say so if
-   it is re-verified on 1.7 and differs. The `rimworld-logs` skill covers both.
+   it is re-verified on 1.7 and differs. The `rimworld-logs` skill covers both, and its
+   `spirv-dump.py` reads the 1.7 shaders (SPIR-V in `Assets.zip`), which is how a mote's shader
+   math and exact uniform names are checked; the 1.6 Unity shaders are unreadable here.
 5. **In-game test list:** VFE Pirates (Workshop 2723801948) and Vanilla Expanded Framework must
    both be active and load before this mod; the local deploy shows up as `MedicWarcasket`
    in the mod list.

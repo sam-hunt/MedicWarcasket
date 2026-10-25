@@ -44,3 +44,22 @@ The local RimWorld installation is the source of truth for API shapes; prefer it
 
 The install is whichever Steam branch is selected, so a call path verified against it is
 verified on that version only; say which in the def or code header when it matters.
+
+## Reading 1.7 shaders
+
+The 1.6 Unity shaders are locked in asset bundles, but 1.7 ships its compiled Slang shaders as
+SPIR-V in the install's `Assets.zip` (`shaders/<hash>.spv-cache`, zstd entries), and SPIR-V
+keeps the uniform names. `spirv-dump.py` beside this file reads them: `find <uniform>` lists
+every shader declaring a name and saves the matches, `dump <file>` prints the member names of
+the material block and the body, which for a mote shader is a few dozen lines of loads,
+multiplies and samples.
+
+```bash
+python3 -I .claude/skills/rimworld-logs/spirv-dump.py find _DetailScrollSpeed
+python3 -I .claude/skills/rimworld-logs/spirv-dump.py dump "$TMPDIR/rimworld-shaders/<hash>.spv-cache"
+```
+
+Uniform names are matched exactly, so a `shaderParameters` entry whose case differs from the
+shader's declaration binds nothing (Core's `_detailScrollSpeed` against the shader's
+`_DetailScrollSpeed` is the known case). A fact read here holds on 1.7 only; the 1.6 shader
+is checked in game.
