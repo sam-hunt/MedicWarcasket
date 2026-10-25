@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- The shoulders grant an adrenaline shot: a vial of go-juice refines into three shots, and one gives a person, animal or the pilot go-juice's surge for three hours, fading in three levels while their rest falls faster
+- A shot into a heart attack stops it outright instead of stimulating, on anyone, raiders included
+- With the armor worn, right-click the shot to give one to every patient as their dressing ends
+- Mod settings for the shots per vial, how long a shot lasts, its rest cost and its cooldown
 - Mod settings now choose which caring work the pilot may take on, doctoring and childcare included, with VFE Pirates' warcasket rules as the default for everything else
 
 ### Changed

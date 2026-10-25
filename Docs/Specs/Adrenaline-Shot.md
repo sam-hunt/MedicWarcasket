@@ -219,15 +219,15 @@ checks for the armor except the autocast (3.4).
 - `JobDefs/AdrenalineShot.xml`: `MDWC_AdrenalineShot`, `driverClass`
   `MedicWarcasket.JobDriver_AdrenalineShot`, `reportString` "giving an adrenaline shot.",
   `checkOverrideOnDamage` Never, `carryThingAfterJob` true, as the dressing's job.
-- `HediffDefs/AdrenalineShot.xml`: `MDWC_AdrenalineShot`, section 3.2, XML only.
+- `HediffDefs/Adrenaline.xml`: `MDWC_Adrenaline`, section 3.2, XML only (not the ability's
+  name: a `DefOf` field is named by its def, and the class already holds the ability's).
 
-`MDWC_DefOf` gains `MDWC_AdrenalineShot` (AbilityDef and HediffDef, the same name in two
-databases, as the dressing's AbilityDef and JobDef share theirs), `HeartAttack` (HediffDef, by
+`MDWC_DefOf` gains `MDWC_AdrenalineShot` (AbilityDef), `MDWC_Adrenaline` (HediffDef), `HeartAttack` (HediffDef, by
 name since `HediffDefOf` lacks it) and `Ingest_Inject` (SoundDef, likewise).
 
 ### 3.2 The hediff: three levels, burning rest all the way down
 
-`MDWC_AdrenalineShot`, pure XML: `hediffClass` `Hediff_High` (go-juice's, which shows the
+`MDWC_Adrenaline`, pure XML: `hediffClass` `Hediff_High` (go-juice's, which shows the
 severity as a percentage), label "adrenaline shot", `labelNoun` "an adrenaline shot", `isBad`
 false, `everCurableByItem` false (a healer mech serum must not spend itself on a stimulant),
 `scenarioCanAdd` false, `initialSeverity` 1, `maxSeverity` 1, label colour go-juice's
@@ -297,7 +297,7 @@ label reads "Shots: {loaded} / {max}" and, over a patient with a heart attack, a
    (`Messages.Message(text, patient, MessageTypeDefOf.PositiveEvent)`): a life saved rates the
    top-left of the screen, where vanilla announces the attack itself, not a floating label the
    player can miss. No stimulant is applied: the shot was spent on the heart.
-3. **Or** stimulate: if the patient already carries `MDWC_AdrenalineShot`, set its `Severity`
+3. **Or** stimulate: if the patient already carries `MDWC_Adrenaline`, set its `Severity`
    to 1; else make the hediff and `AddHediff` it. The hediff needs no body part. No text: the
    sound and the health tab carry a routine shot, so nothing overlaps the dressing's wound
    texts.
@@ -510,7 +510,7 @@ Drafts, no em dashes (player-facing):
   not exist.
 - DefInjected: `VEF.Abilities.AbilityDef/` gains `MDWC_AdrenalineShot` (`label`, `description`,
   `jobReportString`, `verbProperties.label`); `JobDef/` gains `MDWC_AdrenalineShot.reportString`;
-  `HediffDef/` is a new folder with the hediff's `label`, `labelNoun`, `description` and
+  `HediffDef/` is a new folder with `MDWC_Adrenaline`'s `label`, `labelNoun`, `description` and
   `stages.N.label` (the probe decides whether the three stage labels are dumped); `ThingDef/` gains the shoulders' `comps.CompApparelReloadable.chargeNoun` and
   `cooldownGerund`. Regenerate `Scripts/expected-injections.json`. The translate skill's surface
   list, Keyed list and the glossary's charge-noun section gain "shot" beside "kit"; the

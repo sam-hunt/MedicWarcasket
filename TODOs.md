@@ -8,17 +8,17 @@
   against Siegebreaker, Guardian, Sarcophagus and Brute at market value (Shipcracker's armor
   header is the format, `VFEP_WARCASKET_STATS.md` the tables). Folds in:
   - the passives (`MedicalTendSpeed` +0.25, `MedicalTendQuality` +0.10 are first guesses)
-  - welding costs, the free first fill of five glitterworld medicine kits included
+  - welding costs, the free first fills included: five glitterworld medicine kits in the
+    armor, one vial of go-juice in the shoulders
   - the helmet: does its Sight floor overlap the Sarcophagus helmet? could the floor be lower?
 - **Mechanite dressing autocast** could we implement this (disabled by default, toggleable via
   gizmo as other (VEF?) abilities are) for nearby colonists only? not friendlies/neutrals/animals
 - **Mechanite dressing reloads** How to handle partial remainders so the gauge looks full/reloaded?
 - **Mechanite dressing reload def** mod setting row tooltip overlaps button click dropdown float
   menu making it difficult to read
-- **Adrenaline shot.** The Workshop page already names it on the shoulders, so it ships with
-  the release that carries that text. Spec'd in `Docs/Specs/Adrenaline-Shot.md` (draft, for
-  review): a shoulder reloadable of go-juice shots, a three-level fading hediff that costs rest
-  as each level ends, a heart-attack cure, and an autocast as a mechanite dressing ends.
+- **Adrenaline shot verification.** Implemented per `Docs/Specs/Adrenaline-Shot.md`; run its
+  section 6 in game, the dressing's queue test (`Mechanite-Dressing.md` 6.8) first, since the
+  dressing now sits on the shared ordering and walk base classes.
 - **Descriptions.** The three def descriptions are theme placeholders. Rewrite around the final
   features, shared paragraphs identical across the pieces, each `shortDescription` equal to
   its first paragraph. The ability description and the Keyed strings are first drafts.
@@ -35,7 +35,8 @@
   the serum's `MechSerumUsed` at the warmup, vanilla's `Interact_Tend` loop through the warmup
   and the beam, and `TechMedicineUsed` when the beam connects. Review whether a beam-like
   sustainer, a weapon's if nothing else fits, suits the stream better, and check the layering
-  and volumes. A DLC sound needs a fallback for when the DLC is absent.
+  and volumes. A DLC sound needs a fallback for when the DLC is absent. The shot plays
+  vanilla's injection (`Ingest_Inject`) at the patient; hear it against the dressing's.
 - **Art.** Ability gizmos switch from glitterworld medicine and go-juice once commissioned art lands
 - **Raid presence.** The pieces carry `WarcasketVeteran` and `WarcasketAll` like Siegebreaker;
   decide whether a medic set stays on the raid tables (AI never casts apparel abilities, can we make them?).

@@ -15,7 +15,9 @@ optional and Odyssey-only content must load only when the DLC is active. Require
 **Def prefix:** `MDWC_`. **Current state: mechanics in, tuning not.** The set's doctor
 passives (shoulders, helmet) are implemented per `Docs/Specs/Field-Dressing.md`, the mechanite
 dressing (a medicine suite of kits with a gauge, a VEF ability on the armor, and mod settings) per
-`Docs/Specs/Mechanite-Dressing.md`, and the medic work
+`Docs/Specs/Mechanite-Dressing.md`, the adrenaline shot (a go-juice injector on the shoulders,
+a VEF ability with a fading hediff, a heart-attack cure and an autocast the dressing fires) per
+`Docs/Specs/Adrenaline-Shot.md`, and the medic work
 trait (the wearer can doctor) per `Docs/Specs/Medic-Work-Trait.md`; every protection,
 cost and shield value is still Siegebreaker's. `TODOs.md` holds the ledger, and the sibling
 `../ShipcrackerWarcasket/` repo (same author, same VFEP base) is the worked precedent for
@@ -113,14 +115,16 @@ Textures/        - Art (version-independent, loaded via the "/" root; no Common/
                    VFEP's Things/Pawn/Warcasketlike/WarcasketMedic/ layout
 1.6/             - RimWorld 1.6 specific content
   Assemblies/    - Compiled DLLs (build output, gitignored)
-  Defs/          - XML definitions (the three parts, the ability, its job, the medic trait,
-                   Effects/ with the dressing's four motes)
+  Defs/          - XML definitions (the three parts, the two abilities and their jobs, the
+                   shot's hediff, the medic trait, Effects/ with the dressing's motes)
   Languages/     - English/Keyed/ only: settings and runtime strings (code-printed text)
   Patches/       - XML patches to modify base game/other mods
   Mods/<Name>/   - Optional-mod/DLC compat roots (version-specific), gated in LoadFolders.xml
 Mods/<Name>/     - Optional-mod/DLC compat roots (version-independent art), none yet
-Source/1.6/      - C# source code targeting net472: Abilities/ (the dressing, its extension and
-                   job driver), Comps/ (the medicine suite), Gizmos/ (the suite's gauge),
+Source/1.6/      - C# source code targeting net472: Abilities/ (the shared targeted-ability
+                   and walk-and-cast bases, the dressing with its extension and driver, the
+                   shot with its driver and command), Comps/ (the medicine suite), Gizmos/
+                   (the suite's gauge),
                    Settings/ (the tunables and the medicine row), Patches/,
                    WorkProfile.cs (the medic trait's startup mirror)
 Scripts/         - l10n config shims + the expected-injections.json sidecar (not shipped)
@@ -175,15 +179,26 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
   there. The `Mod` subclass (`Settings/MedicWarcasketMod.cs`) owns settings only; `PatchAll`
   stays in `ModInit`, which then reads the setting defaults off the defs and writes the
   player's values onto them (`MedicWarcasketSettings.LoadDefaultsFromDefs` / `ApplyToDefs`).
-- **Settings override def fields, never code paths.** A tunable is a def field (the ability's
+- **Settings override def fields, never code paths.** A tunable is a def field (the dressing's
   `castTime`, `cooldownTime`, `distanceToTarget`, `icon`; its extension's `ticksPerTend`; the
-  suite's `maxCharges` and `ammoDef`; the three dressing motes' `graphicData.color`) written by
+  suite's `maxCharges` and `ammoDef`; the three dressing motes' `graphicData.color`; the shot's
+  `cooldownTime` and `icon`, the injector's `maxCharges`, the adrenaline hediff's
+  `severityPerDay` and its stages' `restFallFactor`) written by
   `ApplyToDefs` at startup and whenever the window closes, so vanilla, VEF and our code all read
   the setting through the def with nothing of their own; defaults come from the def XML, so the
   def header stays the record. Live state a write leaves behind (a running cooldown, kits above
   a lowered maximum, a mote def's cached graphic) is reconciled by the instance on its next use,
   keyed on `MedicWarcasketSettings.Generation`, as the Shipcracker repo does, or by the write
   itself (`RebuildGraphic`, whose comment has the recolour trap).
+- **The two actives share their ordering and walk.** `Ability_MedicTargeted` (vanilla order
+  semantics through `TryTakeOrderedJob`, Shift-click chaining, the cursor rule, the stun) and
+  `JobDriver_MedicCast` (the walk, the cooldown wait, the check, the start-only binding of
+  VEF's cast state; it finds its ability as the worn one whose def names its JobDef) are the
+  bases; the dressing and the shot add only their own phases. A new targeted ability derives
+  from both and gets its own JobDef. **VEF never fires an apparel ability's autocast** (its one
+  consumer reads learned abilities only) and resets the flag on every wearer re-bind, so an
+  apparel autocast is read and fired by our own code and kept across `Init`, as the shot's is
+  by the dressing's shot toil.
 - **The medic trait is mirrored from VFEP's at startup, on 1.6 and 1.7 alike.**
   `MDWC_WarcasketTrait_Medic`'s work tags, work types, degree effects and VEF `TraitExtension`
   are overwritten by `WorkProfile.Mirror` (first in `Startup.Run`) from `VFEP_WarcasketTrait`
@@ -250,10 +265,11 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
 ## Localization Toolchain
 
 English is the source of truth: the def XML's `label`, `description`, VFEP's
-`shortDescription`, the reload comp's `chargeNoun` ("kit"), the ability and job defs' strings and the
-trait degree's `label` and `description`, plus
+`shortDescription`, the reload comps' `chargeNoun`s ("kit", "shot"), the ability and job defs'
+strings, the adrenaline hediff's labels and stages, and the trait degree's `label` and
+`description`, plus
 the one Keyed file `1.6/Languages/English/Keyed/MedicWarcasket.xml` for everything code prints
-(settings window, the dressing's messages); every new code-printed string goes in that file
+(settings window, the two abilities' messages); every new code-printed string goes in that file
 under the `MDWC_` prefix. Other languages derive from it
 via the `/translate` skill (`.claude/skills/translate/SKILL.md`: this mod's surface, grounding
 domain and per-language glossary; the family-wide process lives in the `l10n/` submodule) and
@@ -265,7 +281,7 @@ a dump of every injection point the *live* game sees for this mod, produced by
 is ticked in the probe's settings) through the game's own walker. The checker refuses to run
 against stale expectations, so new content forces a regen (a new def type adds a DefInjected
 folder: `VEF.Abilities.AbilityDef` and `JobDef` joined `ThingDef` with the dressing, `TraitDef`
-with the medic trait); the release
+with the medic trait, `HediffDef` with the shot); the release
 skill regenerates every release. **Translation passes are deferred until shortly before release**: they are
 token-expensive, run one language at a time on explicit request, and must wait for the English
 text to be final. Regenerating the sidecar is always fine. No language exists yet; the public

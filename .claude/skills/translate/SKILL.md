@@ -62,17 +62,22 @@ notes for the shim or flow edit this repo owes before continuing.
   translated to `1.6/Languages/<Language>/Keyed/MedicWarcasket.xml` with
   the same keys:
   - the mod settings window: `MDWC_SettingsCategory` (its header),
-    `MDWC_SettingsUnavailable`, the section header, and each setting's
+    `MDWC_SettingsUnavailable`, the section headers (`MDWC_SectionDressing`,
+    `MDWC_SectionShot`, `MDWC_SectionWork`), and each setting's
     label and `...Desc` tooltip (medicine, VFX color with its three option
     labels, kit capacity, warmup, time per wound and cooldown in seconds,
-    range in cells). Each tooltip takes one `{0}`, the default value (for
+    range in cells; for the shot: shots per vial, duration in hours, rest
+    fall at a shot's start as a multiplier, cooldown in seconds). Each tooltip takes one `{0}`, the default value (for
     the medicine, its capitalised label; for the color, its option label);
     keep it and the label's unit. `MDWC_DressingSummary` takes `{0}` the
     kit capacity, `{1}` the medicine's label (lowercase, in the game's own
     translation), `{2}` the severity per kit, `{3}` the warmup, `{4}` the
     seconds per wound and `{5}` the cooldown, the times in seconds before
     the unit `s`; `MDWC_DressingSummaryNoCooldown` takes `{0}` to `{4}`
-    only. `MDWC_DefaultSuffix` keeps its leading space.
+    only. `MDWC_ShotSummary` takes `{0}` the shots per vial, `{1}` the
+    hours, `{2}` the level count, `{3}` the rest fall multiplier and `{4}`
+    the cooldown in seconds; `MDWC_ShotSummaryNoCooldown` takes `{0}` to
+    `{3}`. `MDWC_DefaultSuffix` keeps its leading space.
   - the mechanite dressing's runtime strings. `MDWC_NoMedicineLoaded` (the
     disabled reason) takes `{0}`, the medicine's label;
     `MDWC_NoWoundsToDress` and `MDWC_NothingToTreat` (invalid target,
@@ -96,6 +101,14 @@ notes for the shim or flow edit this repo owes before continuing.
     `MDWC_GaugeKitDesc` `{0}` the severity per kit. Medicine labels arrive in the game's own
     translation, capitalised in `MDWC_TargetQuality` (it opens its line)
     and lowercase elsewhere.
+  - the adrenaline shot's runtime strings. `MDWC_NoShotsLoaded` (the
+    disabled reason) has no placeholder; `MDWC_ShotHostile` and
+    `MDWC_ShotAlreadyRushing` (invalid targets) and
+    `MDWC_HeartAttackStopped` (the top-left message when a shot stops a
+    heart attack) take `{0}`, the patient's name; `MDWC_ShotsLabel` (the
+    cursor label) takes `{0}` the shots loaded and `{1}` the maximum;
+    `MDWC_ShotStopsHeartAttack` (its second line) and
+    `MDWC_ShotAutocastDesc` (the gizmo tooltip's last line) have none.
   Name the set's things with the same renderings as the DefInjected text
   (mechanite dressing, kit, medicine suite, warcasket).
 - **Enumerate the key set from `Scripts/expected-injections.json`, never
@@ -123,13 +136,23 @@ notes for the shim or flow edit this repo owes before continuing.
     `MoteBase` label "Mote", never shown in play; render it as Core's own
     mote label in the language (grep the Core tar for a `Mote_` label).
   - `DefInjected/VEF.Abilities.AbilityDef/` (the full type name; it is its
-    own def database, so no alias) for `MDWC_MechaniteDressing`: `label`,
-    `description`, `jobReportString` and `verbProperties.label` (VEF
-    copies the label into the verb it generates for every ability; render
-    it identically to `label`, as Shipcracker's languages do).
-  - `DefInjected/JobDef/` for `MDWC_MechaniteDressing`: `reportString`. The
-    driver never shows it (it reports the ability's `jobReportString`),
-    but the walker lists it; render the two alike.
+    own def database, so no alias) for `MDWC_MechaniteDressing` and
+    `MDWC_AdrenalineShot`: `label`, `description`, `jobReportString` and
+    `verbProperties.label` (VEF copies the label into the verb it generates
+    for every ability; render it identically to `label`, as Shipcracker's
+    languages do).
+  - `DefInjected/JobDef/` for `MDWC_MechaniteDressing` and
+    `MDWC_AdrenalineShot`: `reportString`. The driver never shows it (it
+    reports the ability's `jobReportString`), but the walker lists it;
+    render the two alike.
+  - `DefInjected/HediffDef/` for `MDWC_Adrenaline`, the shot's effect:
+    `label`, `labelNoun`, `description` and the three stage labels, keyed by the English label's slug (`stages.rush.label`, `stages.fading.label`, `stages.wearing_off.label`)
+    (shown in brackets after the label in the health tab, as vanilla's
+    "heart attack (painful)" is; keep them short and lowercase as the
+    language's own stage labels are). The shoulders' injector adds
+    `MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun`
+    ("shot") and its `cooldownGerund` to the `ThingDef/` folder, keyed by
+    vanilla's comp class.
   - `DefInjected/TraitDef/` for `MDWC_WarcasketTrait_Medic`:
     `degreeDatas.0.label` and `degreeDatas.0.description`. The label is
     VFEP's own trait label, `warcasket`, shown in the Bio tab's traits
@@ -139,10 +162,12 @@ notes for the shim or flow edit this repo owes before continuing.
     descriptions (VFEP's own uses only `{PAWN_nameDef}`). Nothing else on
     the trait is text: its work profile and effects are overwritten at
     startup from VFEP's trait, so no language file should carry them.
-- **The charge noun "kit" is shown only through plural and lookup slots.**
-  Vanilla prints the suite's `chargeNoun` through `{CHARGENOUN_plural}` and
-  `{lookup: ...}` in five Keyed strings (charges remaining, max charges,
-  reload cost, cost per charge, none left) and never bare. Every roster
+- **The charge nouns "kit" and "shot" are shown only through plural and
+  lookup slots.** Vanilla prints a `chargeNoun` through `{CHARGENOUN_plural}`
+  and `{lookup: ...}` in five Keyed strings (charges remaining, max charges,
+  reload cost, cost per charge, none left) and never bare; the shot's
+  strings also name it in the mod's own Keyed text ("shots"), so render the
+  two alike. Every roster
   language has a one-word equivalent; render it so the worker survives it.
   A form the language worker's fallback would mangle (German's appended
   `s` on a noun with another plural) gets its forms from
@@ -204,7 +229,11 @@ Terms that MUST be grounded before use:
   strings; keep "mechanite" as vanilla renders "mechanites" in the
   language), kit (the charge noun and the settings' word; vanilla prints it
   as "Kits" and "Reload cost per kit"), medicine suite (the armor's
-  reloadable), diagnostic visor.
+  reloadable), diagnostic visor, adrenaline shot (the ability, its hediff
+  and the charge noun "shot"; keep "adrenaline" as the language's medical
+  term), the injector (the shoulders' reloadable), the three level labels
+  (rush, fading, wearing off), and go-juice and heart attack as vanilla
+  renders them.
 
 Grep the tars for just this handful of terms; never extract or read a
 whole tar. The vanilla-grounded answers for common words live in
