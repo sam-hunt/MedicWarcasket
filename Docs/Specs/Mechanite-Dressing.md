@@ -264,6 +264,16 @@ medicine. `DoTend` itself also rolls a 0.4% bond chance on an animal patient, ca
   multiplies the two cloud textures, so the cloud term goes dark and only the speckle layer
   shows. The shader types `MoteBeam`, `MoteGlow`, `MoteMultiplyAddScroll` and
   `MoteMultiplyAddCircularGrayscale` are in Core's `Misc/ShaderTypeDefs/ShaderTypes.xml`.
+- The 1.7 `MoteMultiplyAddScroll` fragment shader (SPIR-V, read as in `CLAUDE.md`'s debugging
+  notes) samples each layer at `coord * scale + scroll.xy * _AgeSecs`, where `coord` is the
+  pawn-relative world (x, z) over the pawn's draw size from `_pawnCenterWorld` and
+  `_pawnDrawSizeWorld`, and outputs `color * (texA * texB + detail)`. So a layer's pattern moves
+  opposite to its scroll vector, in world space whatever the pawn faces, at `scroll / scale` draw
+  heights per second: `(0, -s)` rises on screen. Its uniforms are `_texAScrollSpeed`,
+  `_texBScrollSpeed` and Pascal-case `_DetailScrollSpeed`; the lowercase `_detailScrollSpeed`
+  that `Mote_ResurrectAbility` writes binds nothing (`ShaderParameter.Apply` passes the XML name
+  verbatim), so vanilla's speckles run at the 1.6 Unity shader's built-in (0.5, 0.5). The
+  Archotech Android Hardware aura found the same direction rule and case bug in game on 1.6.
 - The 1.7 `MoteBeam` fragment shader multiplies its output by `_Color`, and
   `Graphic_MoteWithAgeSecs` feeds it `graphicData.color * instanceColor` with the mote's alpha,
   so a tinted beam takes its tint on 1.7. The 1.6 Unity shader cannot be read here; section 6
@@ -518,9 +528,11 @@ share the overlay's green, (0.45, 0.85, 0.52). No colour follows the medicine.
   backwards, flip the two scroll speeds' signs.
 - **`MDWC_Mote_DressingOverlay`** (`Mote_DressingOverlay.xml`): `Mote_ResurrectAbility`'s fields
   verbatim plus `fadeOutUnmaintained`, with `Cloudy_A` in the `_MultiplyTexB` slot: `Cloudy_C`
-  ships in no archive and a missing slot blanks the cloud layer (2.5). It is attached to the
-  patient at connect and maintained each beam tick, and it fades only by lapsing, since its
-  graphic ignores `instanceColor` (2.2).
+  ships in no archive and a missing slot blanks the cloud layer (2.5), and with every layer
+  scrolling up the screen: `(0, -0.15, 0)` for both clouds, `(0, -0.5, 0)` for the speckles under
+  the Pascal-case `_DetailScrollSpeed` (2.5), so the healing reads as rising whichever way the
+  patient faces or lies. It is attached to the patient at connect and maintained each beam tick,
+  and it fades only by lapsing, since its graphic ignores `instanceColor` (2.2).
 - **`MDWC_Mote_DressingFlash`** (`Mote_DressingFlash.xml`): `Mote_ResurrectFlash`'s fields
   verbatim, attached to the patient once when a beam completes, so the flash means "done".
 - **Healing crosses:** vanilla `FleckDefOf.HealingCross` through `ThrowMetaIcon`, one per
@@ -759,7 +771,8 @@ Dev mode, VFEP chain plus this mod, fresh saves:
      conscious raider, with no message spam.
    - The glow appears in front of the pilot with `MechSerumUsed`, and the patient is held. After
      1 s the green beam leaves the glow, its noise flowing toward the patient, and the silhouette
-     overlay shows with its cloud layer.
+     overlay shows with its cloud layer, clouds and speckles drifting up the screen whichever way
+     the patient faces or lies.
    - A cross rises at 1, 2 and 3 s after connect, each drawing its wound's severity from the
      gauge, which ends 1.35 kits lower.
    - The flash and "3 wounds tended" appear, then the glow fades over 1 s while the beam and

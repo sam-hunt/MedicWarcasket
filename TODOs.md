@@ -3,7 +3,6 @@
 ## Mechanite dressing
 
 - review gizmo tooltip text
-- scrolling clouds on target float up instead of random direction (implied metaphorical healing "up")
 - larger glow in front of caster
 - move end-flash to adrenaline shot?
 

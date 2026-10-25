@@ -2,10 +2,20 @@
 <Defs>
   <!--
     The green shimmer over the patient while the stream runs: Core's Mote_ResurrectAbility with
-    fadeOutUnmaintained, so it fades once the beam stops maintaining it. A copy rather than a
-    child because the vanilla def has no DefOf handle and needs the changes. _MultiplyTexB names
-    Cloudy_A where vanilla names Cloudy_C: Cloudy_C ships in no archive, and a missing slot
+    fadeOutUnmaintained, so it fades once the beam stops maintaining it, and with every layer
+    drifting up the screen (vanilla's clouds cross and its speckles run diagonally). A copy rather
+    than a child because the vanilla def has no DefOf handle and needs the changes. _MultiplyTexB
+    names Cloudy_A where vanilla names Cloudy_C: Cloudy_C ships in no archive, and a missing slot
     blanks the cloud layer.
+
+    Scroll vectors, from the 1.7 MoteMultiplyAddScroll shader's SPIR-V: each layer samples at
+    coord * scale + scroll.xy * ageSecs, where coord is the pawn-relative world (x, z) over the
+    draw size, so a pattern moves opposite to its scroll vector, in world space whatever the pawn
+    faces, at scroll / scale draw heights per second; (0, -s) rises, and the two cloud layers keep
+    sliding over each other because their scales differ. The detail uniform is _DetailScrollSpeed;
+    the lowercase name vanilla writes binds nothing, so vanilla's speckles run at the 1.6 shader's
+    built-in (0.5, 0.5), and 0.5 keeps that pace. Both facts match what the Archotech Android
+    Hardware aura found in game on 1.6.
   -->
   <ThingDef ParentName="MoteBase">
     <defName>MDWC_Mote_DressingOverlay</defName>
@@ -31,9 +41,9 @@
         <_texAScale>0.4</_texAScale>
         <_texBScale>0.3</_texBScale>
         <_DetailScale>1.25</_DetailScale>
-        <_texAScrollSpeed>(0, 0.15, 0)</_texAScrollSpeed>
-        <_texBScrollSpeed>(0.12, 0, 0)</_texBScrollSpeed>
-        <_detailScrollSpeed>(0.15, 0.15, 0)</_detailScrollSpeed>
+        <_texAScrollSpeed>(0, -0.15, 0)</_texAScrollSpeed>
+        <_texBScrollSpeed>(0, -0.15, 0)</_texBScrollSpeed>
+        <_DetailScrollSpeed>(0, -0.5, 0)</_DetailScrollSpeed>
       </shaderParameters>
     </graphicData>
   </ThingDef>
