@@ -73,12 +73,14 @@ public sealed class WorkSetting
         listing.Gap(Tunable.RowGap);
     }
 
+    // Resolved by hand: a TaggedString handed over as a string loses its tags (the implicit
+    // conversion strips them), colour tags included.
     private static string Tooltip(WorkTypeDef work, bool byDefault)
     {
         string state = byDefault
             ? "MDWC_WorkOpen".Translate().Colorize(EnabledColor)
             : "MDWC_WorkBlocked".Translate().Colorize(DisabledColor);
-        string ours = "MDWC_WorkDesc".Translate() + "\n\n" + "MDWC_WorkDefault".Translate(state);
+        string ours = "MDWC_WorkDesc".Translate().Resolve() + "\n\n" + "MDWC_WorkDefault".Translate(state).Resolve();
         return work.description.NullOrEmpty() ? ours : work.description + "\n\n" + ours;
     }
 }
