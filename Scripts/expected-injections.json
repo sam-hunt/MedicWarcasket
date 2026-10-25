@@ -106,7 +106,7 @@
     },
     "VEF.Abilities.AbilityDef": {
       "MDWC_MechaniteDressing.description": {
-        "english": "Seed the suite's medicine into a batch of carrier mechanites and stream them onto a person or animal nearby. The carriers dress the patient's wounds one at a time, most urgent first, at the quality the pilot's medical skill and the medicine allow. With the medic helmet worn, they treat diseases and infections as well. A kit of medicine is drawn on as each wound is dressed, about one gunshot or one illness per kit, and the patient is held still while the stream runs.",
+        "english": "Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used. If the medic helmet is worn, the mechanites also treat diseases and infections.\n\nEach wound tended uses up medicine from the suite. The patient is held in place while the stream runs.",
         "required": true
       },
       "MDWC_MechaniteDressing.jobReportString": {

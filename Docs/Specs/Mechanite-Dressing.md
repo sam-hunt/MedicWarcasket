@@ -674,12 +674,11 @@ Open levers, each small:
 
 Drafts, no em dashes (player-facing):
 
-- Ability `label` "mechanite dressing". `description`: "Seed the suite's medicine into a batch
-  of carrier mechanites and stream them onto a person or animal nearby. The carriers dress the
-  patient's wounds one at a time, most urgent first, at the quality the pilot's medical skill
-  and the medicine allow. With the medic helmet worn, they treat diseases and infections as
-  well. A kit of medicine is drawn on as each wound is dressed, about one gunshot or one illness
-  per kit, and the patient is held still while the stream runs." `jobReportString` "Applying a
+- Ability `label` "mechanite dressing". `description`: "Stream medicine-laden
+  mechanites onto a nearby person or animal to tend their wounds, most urgent first. Tend quality
+  depends on the pilot's medical skill and the medicine used. If the medic helmet is worn, the
+  mechanites also treat diseases and infections.\n\nEach wound tended uses up medicine from the
+  suite. The patient is held in place while the stream runs." `jobReportString` "Applying a
   mechanite dressing."; the JobDef's `reportString` "applying a mechanite dressing."
 - **The charge noun changes: suite `chargeNoun` "kit", was "dose".** Vanilla prints it as "Kits"
   and "Reload cost per kit". The plural-worker concerns in `Field-Dressing.md` section 5 now
