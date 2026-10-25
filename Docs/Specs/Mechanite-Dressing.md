@@ -582,7 +582,9 @@ New `MDWC_DefOf` fields: the three motes and the dressing's `AbilityDef` (3.3).
   (2.1).
 - **Cursor label:** `ExtraLabelMouseAttachment` reads "{medicine}, quality {q}" and, on a second
   line, "Wounds: {n}, kits: {k}", adding "({a} loaded)" when the cost is more than the suite
-  holds. The cost is 3.2's rule summed over the current tendable set.
+  holds. The cost is 3.2's rule summed over the current tendable set. `HidePawnTooltips` is
+  on while targeting, as on Ideology's Convert: the hovered pawn's tooltip opens at the cursor
+  over the label, and both flip with the screen edges, so no fixed offset separates them.
 
 ### 3.9 Settings
 

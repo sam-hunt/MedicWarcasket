@@ -40,6 +40,9 @@ namespace MedicWarcasket;
 // MouseAttachment applies vanilla's cursor rule, the no-shoot cross over an invalid target and
 // def.icon (the configured medicine's, written by the settings) over a valid one; ValidateTarget
 // is asked quietly there, since VEF's default would repeat the rejection message every frame.
+// HidePawnTooltips is on, as on Ideology's Convert and Counsel: the hovered pawn's tooltip
+// (TooltipGiverList) opens at the cursor where the cursor label already sits, and both reflow
+// with the cursor's distance to the screen edge, so no offset keeps them apart.
 //
 // Charging (3.2 of the spec): an injury costs min(severity, severityPerKit), any other tendable
 // hediff a whole kit, and a tendAllAtOnce hediff a kit for the first of its def in a dressing;
@@ -127,6 +130,8 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
     public override bool AutoCast => false;
 
     bool ITargetingSource.MultiSelect => true;
+
+    public override bool HidePawnTooltips => true;
 
     public override void Init()
     {

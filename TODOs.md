@@ -2,7 +2,6 @@
 
 ## Mechanite dressing
 
-- targeter tooltip with tend quality overlaps with pawn tooltip
 - review gizmo tooltip text
 
 ## Before the first release
