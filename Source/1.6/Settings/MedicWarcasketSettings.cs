@@ -18,19 +18,26 @@ namespace MedicWarcasket;
 // castTime, cooldownTime (shown in seconds, stored in ticks on the def) and distanceToTarget,
 // and the time per wound overrides its DressingExtension's ticksPerTend (likewise). The medicine
 // also writes its uiIcon onto the ability's icon while the def names no iconPath of its own, so
-// VEF's gizmo and targeting cursor show it unaided. The one section ends on a line of what its
-// rows amount to.
+// VEF's gizmo and targeting cursor show it unaided. The tint overrides the rgb of the three
+// dressing motes' graphicData.color, each keeping its own alpha, and the gauge reads its colours
+// off the beam's (Gizmo_DressingSuite). The one section ends on a line of what its rows amount
+// to.
 //
 // What a write leaves on live ability instances (a running cooldown, a tooltip cache) is
 // caught up by each instance on its next gizmo request, keyed on Generation
 // (Ability_MechaniteDressing.ReconcileSettings); kits above a lowered maximum are trimmed off
 // the worn suites at once (TrimWornSuites). A medicine change needs nothing of either: kits are
 // a vanilla charge count with no type of their own, so those loaded count as the new medicine
-// and the next reload fetches it.
+// and the next reload fetches it. A tint change reaches every mote spawned after it; one in
+// flight keeps the graphic it was spawned with.
 public class MedicWarcasketSettings : ModSettings
 {
     private const string DressingDefName = "MDWC_MechaniteDressing";
     private const string ArmorDefName = "MDWC_Warcasket_Medic";
+
+    // The beam first: its colour stands for the set on the tint row and the gauge.
+    private static readonly string[] MoteDefNames =
+        ["MDWC_Mote_DressingBeam", "MDWC_Mote_DressingGlow", "MDWC_Mote_DressingOverlay"];
 
     // The whitespace above every section header but the first, and below the last row.
     private const float SectionGap = 28f;
@@ -39,6 +46,7 @@ public class MedicWarcasketSettings : ModSettings
     public static int Generation { get; private set; }
 
     public readonly MedicineSetting medicine = new();
+    public readonly TintSetting tint = new();
 
     // The suite's maxCharges. The warmup is banded: quarter seconds at the short end, where they
     // matter, coarser steps as it reaches a slow dressing.
@@ -63,6 +71,9 @@ public class MedicWarcasketSettings : ModSettings
     // The severity one kit treats, quoted by the summary line; a def field with no setting.
     private int severityPerKit;
 
+    // Each mote's graphicData.color as the XML leaves it, by MoteDefNames order.
+    private Color[] moteColors;
+
     private IEnumerable<Tunable> All => [kits, castTime, tendInterval, cooldown, range];
 
     private static string Whole(float v) => Mathf.RoundToInt(v).ToString();
@@ -71,6 +82,7 @@ public class MedicWarcasketSettings : ModSettings
     {
         base.ExposeData();
         medicine.ExposeData();
+        tint.ExposeData();
         foreach (Tunable tunable in All)
             tunable.ExposeData();
     }
@@ -88,6 +100,10 @@ public class MedicWarcasketSettings : ModSettings
         cooldown.DefaultValue = (float)defs.dressing.cooldownTime / GenTicks.TicksPerRealSecond;
         range.DefaultValue = defs.dressing.distanceToTarget;
         severityPerKit = Mathf.RoundToInt(defs.suite.severityPerKit);
+        moteColors = new Color[defs.motes.Length];
+        for (int i = 0; i < defs.motes.Length; i++)
+            moteColors[i] = defs.motes[i].graphicData.color;
+        tint.DefaultValue = moteColors[0];
         defaultsLoaded = true;
     }
 
@@ -107,8 +123,28 @@ public class MedicWarcasketSettings : ModSettings
         defs.dressing.cooldownTime = Mathf.RoundToInt(cooldown.Value * GenTicks.TicksPerRealSecond);
         defs.dressing.distanceToTarget = range.Value;
         defs.extension.ticksPerTend = Mathf.Max(1, Mathf.RoundToInt(tendInterval.Value * GenTicks.TicksPerRealSecond));
+        for (int i = 0; i < defs.motes.Length; i++)
+        {
+            Color rgb = tint.Override ?? moteColors[i];
+            defs.motes[i].graphicData.color = new Color(rgb.r, rgb.g, rgb.b, moteColors[i].a);
+            RebuildGraphic(defs.motes[i]);
+        }
         Generation++;
         TrimWornSuites();
+    }
+
+    // A def's graphic is built once from its graphicData and cached with the colour it was built
+    // in, and a mote reaches it through GraphicColoredFor, which answers a colour the cache does
+    // not match with Graphic.GetColoredVersion: for a Graphic_Single that is a plain
+    // Graphic_Single without the def's graphicClass or shaderParameters, which would strip the
+    // beam's age-driven noise and the overlay's silhouette. So after a colour write the cache is
+    // cleared, through CopyFrom onto itself (every field assigned to itself, cachedGraphic nulled;
+    // the one public way), and the def's handle rebuilt from it, so the next mote finds a cache
+    // in its own colour and takes it as is.
+    private static void RebuildGraphic(ThingDef mote)
+    {
+        mote.graphicData.CopyFrom(mote.graphicData);
+        mote.graphic = mote.graphicData.Graphic;
     }
 
     // A lowered kit count leaves worn suites above it, which vanilla's reload accounting
@@ -163,6 +199,7 @@ public class MedicWarcasketSettings : ModSettings
         tendInterval.DoRow(listing);
         cooldown.DoRow(listing);
         range.DoRow(listing);
+        tint.DoRow(listing);
         SummaryRow(listing, DressingSummary);
         listing.Gap(SectionGap);
         contentHeight = listing.CurHeight;
@@ -173,6 +210,7 @@ public class MedicWarcasketSettings : ModSettings
                 "RestoreToDefaultSettings".Translate()))
         {
             medicine.Reset();
+            tint.Reset();
             foreach (Tunable tunable in All)
                 tunable.Reset();
         }
@@ -235,6 +273,7 @@ public class MedicWarcasketSettings : ModSettings
         public AbilityDef dressing;
         public CompProperties_DressingSuite suite;
         public DressingExtension extension;
+        public ThingDef[] motes;
     }
 
     // All or nothing: with any target missing (another mod patched it away) the settings leave
@@ -250,11 +289,18 @@ public class MedicWarcasketSettings : ModSettings
             dressing = dressing,
             suite = DefDatabase<ThingDef>.GetNamedSilentFail(ArmorDefName)?.GetCompProperties<CompProperties_DressingSuite>(),
             extension = dressing?.GetModExtension<DressingExtension>(),
+            motes = new ThingDef[MoteDefNames.Length],
         };
-        if (defs.dressing != null && defs.suite != null && defs.extension != null)
+        bool motesFound = true;
+        for (int i = 0; i < MoteDefNames.Length; i++)
+        {
+            defs.motes[i] = DefDatabase<ThingDef>.GetNamedSilentFail(MoteDefNames[i]);
+            motesFound &= defs.motes[i]?.graphicData != null;
+        }
+        if (defs.dressing != null && defs.suite != null && defs.extension != null && motesFound)
             return true;
         if (!warned)
-            Log.Warning("[Medic Warcasket] Settings could not find the mechanite dressing ability, its dressing extension or the armor's dressing suite; the set keeps its XML values.");
+            Log.Warning("[Medic Warcasket] Settings could not find the mechanite dressing ability, its dressing extension, its motes or the armor's dressing suite; the set keeps its XML values.");
         warned = true;
         return false;
     }

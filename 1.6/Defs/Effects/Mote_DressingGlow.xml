@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!--
-    The mechanite dressing's emitter: a soft green glow in front of the pilot from the warmup
-    through the beam. The graphic (BrightFlash under MoteGlow) is Core's Mote_ActivatorCountdownGlow
-    on a MoteAttached in place of its MoteThrown, so it follows the pilot; a copy rather than a
-    child because the class, tint, size and offset all differ. Attached with
-    MakeAttachedOverlay and maintained every tick; fadeOutUnmaintained gives an interrupted job a
-    short fade, and code fades it over the warmdown through instanceColor's alpha. The huge
-    solidTime keeps a maintained mote from timing out.
+    The mechanite dressing's emitter: a soft glow in the dressing's colour (the beam's header) in
+    front of the pilot from the warmup through the beam. The graphic (BrightFlash under MoteGlow)
+    is Core's Mote_ActivatorCountdownGlow on a MoteAttached in place of its MoteThrown, so it
+    follows the pilot; a copy rather than a child because the class, tint, size and offset all
+    differ. Attached with MakeAttachedOverlay and maintained every tick; fadeOutUnmaintained
+    gives an interrupted job a short fade, and code fades it over the warmdown through
+    instanceColor's alpha. The huge solidTime keeps a maintained mote from timing out.
   -->
   <ThingDef ParentName="MoteBase">
     <defName>MDWC_Mote_DressingGlow</defName>
@@ -22,7 +22,7 @@
     </mote>
     <graphicData>
       <drawSize>1</drawSize>
-      <color>(0.45, 0.85, 0.52, 0.55)</color>
+      <color>(0.388, 0.624, 0.886, 0.55)</color>
       <texPath>Things/Mote/BrightFlash</texPath>
       <shaderType>MoteGlow</shaderType>
     </graphicData>

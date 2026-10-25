@@ -20,7 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The field dressing is now the mechanite dressing: it warms up, tends one wound at a time with a green beam, then winds down, and the patient is held still until it ends
+- The field dressing is now the mechanite dressing: it warms up, tends one wound at a time with a beam, then winds down, and the patient is held still until it ends
+- The dressing's beam, glow, overlay and gauge are medical blue, with green and pink as mod settings options
 - Each medicine kit is charged by the severity of the wounds tended, and the pilot earns medicine experience for every wound, as with a vanilla treatment
 - The medicine is chosen in the mod settings (glitterworld by default, no herbal), replacing the right-click medicine menu, and the armor shows a tank gauge whose handle sets how full colonists keep the suite
 - Dressings can be queued, and Shift-click chains several patients in a row

@@ -2,9 +2,8 @@
 
 ## Mechanite dressing
 
+- enlarge the glow effect that shows in front of caster throughout the ability
 - review gizmo tooltip text
-- larger glow in front of caster
-- move end-flash to adrenaline shot?
 
 ## Before the first release
 

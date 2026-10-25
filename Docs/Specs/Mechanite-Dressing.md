@@ -454,7 +454,7 @@ suite reference, never this state.
     left (**dry**), or when range or sight is lost (**broken**). All three go on to the warmdown.
     Dry and broken show their outcome text on the patient at once; when a tend ended the beam,
     the outcome goes under that wound's text in the same mote, so the two never overlap. A
-    complete beam shows no summary, since each wound announced itself, and spawns the flash.
+    complete beam shows no summary, since each wound announced itself.
   - The toil's progress bar is tended / (tended + still tendable).
 
 - **Warmdown** (toil 7): the pilot holds still. The beam and overlay are no longer maintained and
@@ -506,15 +506,22 @@ the dressing tends costs medicine.
 
 ### 3.7 Visuals
 
-Four own mote defs, one per file, under `1.6/Defs/Effects/`. They are copies, not
-`ParentName`s: `Mote_GraserBeamBase` is a Biotech def, and the resurrect motes are not all
-reachable through vanilla `DefOf`s (2.2). They depend only on Core textures and shaders, and all
-share the overlay's green, (0.45, 0.85, 0.52). No colour follows the medicine.
+Three own mote defs, one per file, under `1.6/Defs/Effects/`. They are copies, not
+`ParentName`s: `Mote_GraserBeamBase` is a Biotech def, and the resurrect overlay is not
+reachable through a vanilla `DefOf` (2.2). They depend only on Core textures and shaders, and all
+share one colour, the dressing's: by default vanilla's medical bed sheet,
+`Building_Bed.SheetColorMedical` (0.388, 0.624, 0.886), a code constant whose value matches the
+green it replaced (0.886 against 0.85, so the additive motes keep their brightness) while its
+lower luminance (0.33 against 0.55) gives the gauge's white label more contrast. The tint is a
+mod setting (3.9) written onto the three defs' `graphicData.color`, each keeping its own alpha,
+with the old green (0.45, 0.85, 0.52) and a pink (vanilla's `ColorLibrary.Pink` at the blue's
+value, (0.886, 0.448, 0.667)) as the alternatives. No colour follows the medicine. No finishing
+flash: a completed beam ends with the last wound's text and the warmdown fade.
 
 - **`MDWC_Mote_DressingGlow`** (`Mote_DressingGlow.xml`), the emitter:
   `Mote_ActivatorCountdownGlow`'s graphic (`BrightFlash`, `MoteGlow`) on a `MoteAttached` in
   place of its `MoteThrown`, keeping its huge `solidTime` (2.2), with `needsMaintenance`,
-  `fadeOutUnmaintained`, a short `fadeOutTime` for an interrupted job, the green at about 0.55
+  `fadeOutUnmaintained`, a short `fadeOutTime` for an interrupted job, the colour at about 0.55
   alpha, drawSize about 1 and no `drawOffset`. It is attached to the pilot at warmup start with
   `MakeAttachedOverlay(pilot, def, offset)`, where the offset is about 0.5 cells toward the
   patient: "in front of the caster", fixed for the job since the pilot stands still. It is held
@@ -524,7 +531,7 @@ share the overlay's green, (0.45, 0.85, 0.52). No colour follows the medicine.
   pilot, patient, glowOffset, zero)`, so the beam leaves from the glow, and maintained each beam
   tick. The tint is verified on 1.7 from the shader (2.5); two in-game checks remain: the tint on
   1.6, and that the noise flows from pilot to patient. If the 1.6 tint does not take, ship a
-  green copy of the texture under `Textures/Things/Mote/MedicWarcasket/`. If the flow runs
+  tinted copy of the texture under `Textures/Things/Mote/MedicWarcasket/`. If the flow runs
   backwards, flip the two scroll speeds' signs.
 - **`MDWC_Mote_DressingOverlay`** (`Mote_DressingOverlay.xml`): `Mote_ResurrectAbility`'s fields
   verbatim plus `fadeOutUnmaintained`, with `Cloudy_A` in the `_MultiplyTexB` slot: `Cloudy_C`
@@ -533,13 +540,11 @@ share the overlay's green, (0.45, 0.85, 0.52). No colour follows the medicine.
   the Pascal-case `_DetailScrollSpeed` (2.5), so the healing reads as rising whichever way the
   patient faces or lies. It is attached to the patient at connect and maintained each beam tick,
   and it fades only by lapsing, since its graphic ignores `instanceColor` (2.2).
-- **`MDWC_Mote_DressingFlash`** (`Mote_DressingFlash.xml`): `Mote_ResurrectFlash`'s fields
-  verbatim, attached to the patient once when a beam completes, so the flash means "done".
 - **Healing crosses:** vanilla `FleckDefOf.HealingCross` through `ThrowMetaIcon`, one per
   tended hediff.
 - **Sound** is placeholder (3.5) until the sound review in `TODOs.md`.
 
-New `MDWC_DefOf` fields: the four motes and the dressing's `AbilityDef` (3.3).
+New `MDWC_DefOf` fields: the three motes and the dressing's `AbilityDef` (3.3).
 
 ### 3.8 Gauge, gizmo and cursor
 
@@ -554,9 +559,10 @@ New `MDWC_DefOf` fields: the four motes and the dressing's `AbilityDef` (3.3).
   - The comp caches one instance, keyed on `MaxCharges` and `MedicWarcasketSettings.Generation`,
     and builds a new one when either changes, since a `Gizmo_Slider` reads `Target` once (2.3)
     and would otherwise keep a stale target after a kits-held change or a clamp.
-  - Colours are the dressing green: fill (0.45, 0.85, 0.52), highlight about (0.70, 0.95, 0.74),
-    drag marker about (0.28, 0.58, 0.34), as starting values. Toxin's reason for a dark marker
-    applies: vanilla's pale one is lost against a light fill.
+  - Colours are derived from the dressing's tint, read off the beam mote's def when the gauge is
+    built: fill the tint, highlight the fill lerped 0.45 toward white, drag marker the fill at
+    0.65 (for the default blue: (0.39, 0.62, 0.89), (0.66, 0.79, 0.94), (0.25, 0.41, 0.58)).
+    Toxin's reason for a dark marker applies: vanilla's pale one is lost against a light fill.
   - Tooltip (Keyed): the sealed kits, the open kit's remainder, the severity a kit treats, and the
     reload target.
 - **Ability gizmo** (`Command_MechaniteDressing`): the right-click menu goes, along with the
@@ -595,6 +601,7 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 | Time per wound (s) | `DressingExtension.ticksPerTend` (ticks ÷ 60) | 1            | 0.25..5, step 0.25    |
 | Cooldown (s)       | ability `cooldownTime` (ticks ÷ 60)           | 0            | 0..300, step 5        |
 | Range (cells)      | ability `distanceToTarget`                    | 2.9          | **1.9..12.9**, step 1 |
+| Color              | the three motes' `graphicData.color` (rgb)    | medical blue | blue, green, pink     |
 
 `warmdownTicks` (60) and `severityPerKit` (20) are def fields without settings (section 4).
 
@@ -616,6 +623,15 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
   - It is saved by defName; a name that no longer resolves to an eligible medicine reads as the
     default. "Restore default settings" resets it too.
   - `TryGetDefs` finds the suite by `compClass` and the extension by type.
+- **The color row** (`Settings/TintSetting.cs`) is a row of three radio buttons, each with a
+  swatch, saved by name; an unknown name reads as the default. "Default" means each mote's own
+  XML colour, so a patch that recolours a mote moves the default. `ApplyToDefs` writes the rgb
+  over each mote's `graphicData.color`, keeping that mote's alpha, then rebuilds the def's cached
+  graphic: a mote reaches its graphic through `GraphicColoredFor`, which answers a colour the
+  cache does not match with `Graphic_Single.GetColoredVersion`, a plain `Graphic_Single` without
+  the def's `graphicClass` or `shaderParameters` (the beam's age-driven noise, the overlay's
+  silhouette would be lost). `GraphicData.CopyFrom` onto itself is the one public way to clear
+  the cache. Motes spawned after the write take the new colour; one in flight keeps its graphic.
 - **The section header icon** is the configured medicine's `uiIcon`, the same texture
   `ApplyToDefs` wrote onto `def.icon`, read on each draw.
 - **Summary line:** "The suite holds up to {0} kits of {1}, each treating {2} severity of injuries
@@ -759,7 +775,10 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    the section header icon and the stat sheet's reload line; the loaded kits carry over, and the
    next reload fetches the new medicine. The range slider steps 1.9, 2.9, 3.9 and on to 12.9,
    every step choosable. The defaults are warmup 1 s, 1 s per wound, cooldown 0, range 2.9 and 5
-   kits. Reset restores all six.
+   kits. The color row shows blue (default), green and pink with their swatches; picking green
+   and closing the window turns the gauge green at once and the next dressing's glow, beam and
+   overlay with it, a dressing already running keeping its colour, and the beam keeps its
+   flowing noise and the overlay its silhouette in every colour. Reset restores all seven.
 2. **Gauge.** It shows "5.0 / 5" with four kit ticks. Drag the target to 3: the suite is not
    reloaded past 3. Spend 0.6 of a kit: no reload yet. Spend the rest of it: one kit is fetched.
    Lower kits held to 4 in the settings: the gauge redraws at 4 with its target clamped. For a
@@ -770,13 +789,13 @@ Dev mode, VFEP chain plus this mod, fresh saves:
      and read "Wounds: 3, kits: 1.4" before the click, and the cross over the pilot and over a
      conscious raider, with no message spam.
    - The glow appears in front of the pilot with `MechSerumUsed`, and the patient is held. After
-     1 s the green beam leaves the glow, its noise flowing toward the patient, and the silhouette
+     1 s the blue beam leaves the glow, its noise flowing toward the patient, and the silhouette
      overlay shows with its cloud layer, clouds and speckles drifting up the screen whichever way
      the patient faces or lies.
    - A cross rises at 1, 2 and 3 s after connect, each drawing its wound's severity from the
      gauge, which ends 1.35 kits lower.
-   - The flash appears with the third wound's text, then the glow fades over 1 s while the beam and
-     overlay fade. The patient moves again after the beam, not after the warmdown.
+   - After the third wound's text the glow fades over 1 s while the beam and overlay fade. The
+     patient moves again after the beam, not after the warmdown.
    - Medicine XP rises by 675 with glitterworld (500 × 27 / 20) and 472.5 with industrial.
 4. **Interruption.** Draft the pilot 1.5 s into that beam: one wound is tended and paid for, the
    others are untouched and unpaid, "Interrupted: 1 of 3" shows and only that wound's XP was

@@ -34,7 +34,7 @@ spacer warcaskets research.
 
 - **Doctor passives**: the shoulders speed up tending and hold the pilot's Manipulation at full;
   the helmet raises tend quality and holds Sight at full
-- **Mechanite dressing**: a green beam tends every wound on a person or animal, one at a time and
+- **Mechanite dressing**: a beam tends every wound on a person or animal, one at a time and
   worst first, using the medicine kits loaded in the armor's suite; the patient is held still
   until it is done. Dressings can be queued, and Shift-click chains patients. With the helmet on,
   it treats diseases and infections too

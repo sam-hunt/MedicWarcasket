@@ -371,7 +371,7 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
     }
 
     // The outcome goes under the last wound's text when a tend ended the beam. A complete beam
-    // has none: each wound's text already announced it, and the flash marks the end.
+    // has none: each wound's text already announced it.
     private bool EndBeam(BeamState state, string tendText = null)
     {
         beaming = false;
@@ -389,8 +389,6 @@ public class Ability_MechaniteDressing : Ability, ITargetingSource
         string text = tendText == null ? outcome : outcome == null ? tendText : tendText + "\n" + outcome;
         if (text != null)
             ThrowText(text);
-        if (state == BeamState.Complete)
-            MoteMaker.MakeAttachedOverlay(patient, MDWC_DefOf.MDWC_Mote_DressingFlash, Vector3.zero);
         return true;
     }
 

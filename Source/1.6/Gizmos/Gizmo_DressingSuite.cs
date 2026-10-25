@@ -15,21 +15,29 @@ namespace MedicWarcasket;
 // in place, which follows a raised capacity. The comp rebuilds this instance when the capacity or
 // the settings generation changes, so the first-draw read never goes stale.
 //
-// The colours are the dressing green the motes use: fill, a lighter highlight on hover, and a
-// dark target marker, since vanilla's pale one is lost against a light fill.
+// The colours follow the dressing's tint, read off the beam mote's def as the settings leave it
+// when the gauge is built (the comp rebuilds it on every settings change): the fill is the tint,
+// the hover highlight the tint part way to white, and the target marker the tint darkened, since
+// vanilla's pale marker is lost against a light fill.
 public class Gizmo_DressingSuite : Gizmo_Slider
 {
-    private static readonly Color Fill = new(0.45f, 0.85f, 0.52f);
-    private static readonly Color Highlight = new(0.70f, 0.95f, 0.74f);
-    private static readonly Color Marker = new(0.28f, 0.58f, 0.34f);
+    private const float HighlightBlend = 0.45f;
+    private const float MarkerShade = 0.65f;
 
     private static bool draggingBar;
 
     private readonly CompDressingSuite suite;
+    private readonly Color fill;
+    private readonly Color highlight;
+    private readonly Color marker;
 
     public Gizmo_DressingSuite(CompDressingSuite suite)
     {
         this.suite = suite;
+        Color tint = MDWC_DefOf.MDWC_Mote_DressingBeam.graphicData.color;
+        fill = new Color(tint.r, tint.g, tint.b);
+        highlight = Color.Lerp(fill, Color.white, HighlightBlend);
+        marker = new Color(fill.r * MarkerShade, fill.g * MarkerShade, fill.b * MarkerShade);
     }
 
     protected override float Target
@@ -54,11 +62,11 @@ public class Gizmo_DressingSuite : Gizmo_Slider
 
     protected override int Increments => suite.MaxCharges;
 
-    protected override Color BarColor => Fill;
+    protected override Color BarColor => fill;
 
-    protected override Color BarHighlightColor => Highlight;
+    protected override Color BarHighlightColor => highlight;
 
-    protected override Color BarDragColor => Marker;
+    protected override Color BarDragColor => marker;
 
     protected override bool DraggingBar
     {

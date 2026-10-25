@@ -41,6 +41,12 @@
   <MDWC_Range>Range (cells)</MDWC_Range>
   <MDWC_RangeDesc>How close the pilot walks to the patient before starting the stream, which also needs a clear line of sight. Default: {0}.</MDWC_RangeDesc>
 
+  <MDWC_Tint>Color</MDWC_Tint>
+  <MDWC_TintDesc>The color of the dressing's glow, stream and overlay, and of the suite's gauge. A dressing already running keeps its color until it ends. Default: {0}.</MDWC_TintDesc>
+  <MDWC_TintDefault>Medical blue</MDWC_TintDefault>
+  <MDWC_TintGreen>Green</MDWC_TintGreen>
+  <MDWC_TintPink>Pink</MDWC_TintPink>
+
   <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, with {5} s of cooldown after.</MDWC_DressingSummary>
   <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
 

@@ -177,12 +177,13 @@ TODOs.md         - Scoping notes for the feature work that has not landed yet
   player's values onto them (`MedicWarcasketSettings.LoadDefaultsFromDefs` / `ApplyToDefs`).
 - **Settings override def fields, never code paths.** A tunable is a def field (the ability's
   `castTime`, `cooldownTime`, `distanceToTarget`, `icon`; its extension's `ticksPerTend`; the
-  suite's `maxCharges` and `ammoDef`) written by
+  suite's `maxCharges` and `ammoDef`; the three dressing motes' `graphicData.color`) written by
   `ApplyToDefs` at startup and whenever the window closes, so vanilla, VEF and our code all read
   the setting through the def with nothing of their own; defaults come from the def XML, so the
   def header stays the record. Live state a write leaves behind (a running cooldown, kits above
-  a lowered maximum) is reconciled by the instance on its next use, keyed on
-  `MedicWarcasketSettings.Generation`, as the Shipcracker repo does.
+  a lowered maximum, a mote def's cached graphic) is reconciled by the instance on its next use,
+  keyed on `MedicWarcasketSettings.Generation`, as the Shipcracker repo does, or by the write
+  itself (`RebuildGraphic`, whose comment has the recolour trap).
 - **The medic trait is mirrored from VFEP's at startup, on 1.6 and 1.7 alike.**
   `MDWC_WarcasketTrait_Medic`'s work tags, work types, degree effects and VEF `TraitExtension`
   are overwritten by `WorkProfile.Mirror` (first in `Startup.Run`) from `VFEP_WarcasketTrait`

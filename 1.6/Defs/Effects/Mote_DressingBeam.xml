@@ -2,10 +2,16 @@
 <Defs>
   <!--
     The mechanite dressing's stream from pilot to patient: Biotech's Mote_GraserBeamBase with a
-    green graphicData.color, which the MoteBeam shader multiplies into its output. A copy rather
-    than a child because the base is a Biotech def and the mod does not require Biotech. Spawned
-    with MakeInteractionOverlay and maintained each beam tick; fadeOutUnmaintained lets it fade
-    on its own when the beam ends.
+    graphicData.color, which the MoteBeam shader multiplies into its output. A copy rather than a
+    child because the base is a Biotech def and the mod does not require Biotech. Spawned with
+    MakeInteractionOverlay and maintained each beam tick; fadeOutUnmaintained lets it fade on
+    its own when the beam ends.
+
+    The colour is the dressing's, shared by the glow and the overlay and the gauge: vanilla's
+    medical bed sheet (Building_Bed.SheetColorMedical), a code constant whose value, 0.886,
+    keeps the additive motes as bright as the green they replaced while its lower luminance
+    gives the gauge's white label more contrast. The mod settings' tint row overrides the rgb on
+    all three motes, so this is the default; each mote keeps its own alpha.
   -->
   <ThingDef ParentName="MoteBase">
     <defName>MDWC_Mote_DressingBeam</defName>
@@ -26,7 +32,7 @@
       <borderMipMaps>true</borderMipMaps>
       <graphicClass>Graphic_MoteWithAgeSecs</graphicClass>
       <shaderType>MoteBeam</shaderType>
-      <color>(0.45, 0.85, 0.52)</color>
+      <color>(0.388, 0.624, 0.886)</color>
       <shaderParameters>
         <_ExtraTexA>/Things/Mote/BeamSecondaryNoise_A</_ExtraTexA>
         <_ExtraTexB>/Things/Mote/BeamSecondaryNoise_B</_ExtraTexB>

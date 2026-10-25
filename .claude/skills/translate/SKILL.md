@@ -115,8 +115,8 @@ notes for the shim or flow edit this repo owes before continuing.
     class. The game rolls a def type without its own database into its
     base and the checker maps the element tag via `DEF_TYPE_ALIASES` in
     `Scripts/check-translations.py`; a `WarcasketDef` folder would never
-    load. The same folder lists the dressing's four motes
-    (`MDWC_Mote_DressingGlow/Beam/Overlay/Flash.label`): they inherit Core's
+    load. The same folder lists the dressing's three motes
+    (`MDWC_Mote_DressingGlow/Beam/Overlay.label`): they inherit Core's
     `MoteBase` label "Mote", never shown in play; render it as Core's own
     mote label in the language (grep the Core tar for a `Mote_` label).
   - `DefInjected/VEF.Abilities.AbilityDef/` (the full type name; it is its

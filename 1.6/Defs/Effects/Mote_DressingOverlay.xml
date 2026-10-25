@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!--
-    The green shimmer over the patient while the stream runs: Core's Mote_ResurrectAbility with
-    fadeOutUnmaintained, so it fades once the beam stops maintaining it, and with every layer
-    drifting up the screen (vanilla's clouds cross and its speckles run diagonally). A copy rather
-    than a child because the vanilla def has no DefOf handle and needs the changes. _MultiplyTexB
-    names Cloudy_A where vanilla names Cloudy_C: Cloudy_C ships in no archive, and a missing slot
-    blanks the cloud layer.
+    The shimmer over the patient while the stream runs, in the dressing's colour (the beam's
+    header): Core's Mote_ResurrectAbility with fadeOutUnmaintained, so it fades once the beam
+    stops maintaining it, and with every layer drifting up the screen (vanilla's clouds cross and
+    its speckles run diagonally). A copy rather than a child because the vanilla def has no DefOf
+    handle and needs the changes. _MultiplyTexB names Cloudy_A where vanilla names Cloudy_C:
+    Cloudy_C ships in no archive, and a missing slot blanks the cloud layer.
 
     Scroll vectors, from the 1.7 MoteMultiplyAddScroll shader's SPIR-V: each layer samples at
     coord * scale + scroll.xy * ageSecs, where coord is the pawn-relative world (x, z) over the
@@ -30,7 +30,7 @@
     </mote>
     <graphicData>
       <graphicClass>Graphic_PawnBodySilhouette</graphicClass>
-      <color>(0.45, 0.85, 0.52, 1.0)</color>
+      <color>(0.388, 0.624, 0.886, 1.0)</color>
       <shaderType>MoteMultiplyAddScroll</shaderType>
       <texPath>Things/Mote/Transparent</texPath>
       <shaderParameters>

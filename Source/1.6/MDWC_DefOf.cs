@@ -17,12 +17,11 @@ public static class MDWC_DefOf
     public static AbilityDef MDWC_MechaniteDressing;
 
     // The dressing's motes (1.6/Defs/Effects/): the emitter glow in front of the pilot, the
-    // beam between the two, the silhouette overlay on the patient and the flash when a beam
-    // completes.
+    // beam between the two and the silhouette overlay on the patient. The beam's colour is also
+    // the gauge's (Gizmo_DressingSuite).
     public static ThingDef MDWC_Mote_DressingGlow;
     public static ThingDef MDWC_Mote_DressingBeam;
     public static ThingDef MDWC_Mote_DressingOverlay;
-    public static ThingDef MDWC_Mote_DressingFlash;
 
     static MDWC_DefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(MDWC_DefOf));
 }
