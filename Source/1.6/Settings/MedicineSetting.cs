@@ -53,7 +53,8 @@ public sealed class MedicineSetting
     // Laid out as a Tunable row: "MDWC_Medicine" on the left, then a button across the slider
     // and value columns showing the medicine's icon and label, with "(default)" while unset,
     // that opens the menu of eligible medicines. "MDWC_MedicineDesc" with the default's label is
-    // the whole row's tooltip.
+    // the tooltip of the row up to the button, not over it: a float menu opens with its corner
+    // at the cursor, which leaves the cursor on the row and a row-wide tip drawn over the menu.
     public void DoRow(Listing_Standard listing)
     {
         Rect row = listing.GetRect(Tunable.RowHeight);
@@ -64,7 +65,7 @@ public sealed class MedicineSetting
 
         Widgets.DrawHighlightIfMouseover(row);
         if (DefaultValue != null)
-            TooltipHandler.TipRegion(row, "MDWC_MedicineDesc".Translate(DefaultValue.LabelCap));
+            TooltipHandler.TipRegion(new Rect(row.x, row.y, buttonRect.xMin - row.x, row.height), "MDWC_MedicineDesc".Translate(DefaultValue.LabelCap));
 
         TextAnchor anchor = Text.Anchor;
         Text.Anchor = TextAnchor.MiddleLeft;

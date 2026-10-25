@@ -14,8 +14,6 @@
 - **Mechanite dressing autocast** could we implement this (disabled by default, toggleable via
   gizmo as other (VEF?) abilities are) for nearby colonists only? not friendlies/neutrals/animals
 - **Mechanite dressing reloads** How to handle partial remainders so the gauge looks full/reloaded?
-- **Mechanite dressing reload def** mod setting row tooltip overlaps button click dropdown float
-  menu making it difficult to read
 - **Adrenaline shot verification.** Implemented per `Docs/Specs/Adrenaline-Shot.md`; run its
   section 6 in game, the dressing's queue test (`Mechanite-Dressing.md` 6.8) first, since the
   dressing now sits on the shared ordering and walk base classes.
