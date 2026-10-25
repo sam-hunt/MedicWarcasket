@@ -53,13 +53,13 @@
   <MDWC_TendInterval>Time per wound (seconds)</MDWC_TendInterval>
   <MDWC_TendIntervalDesc>How long the stream spends on each wound or illness. A patient with more to treat keeps the stream, and the hold, going longer. Default: {0}.</MDWC_TendIntervalDesc>
 
-  <MDWC_Cooldown>Cooldown (seconds)</MDWC_Cooldown>
+  <MDWC_Cooldown>Cooldown (hours)</MDWC_Cooldown>
   <MDWC_CooldownDesc>The time the pilot must wait after a dressing before starting another. Queued dressings wait it out. Default: {0}.</MDWC_CooldownDesc>
 
   <MDWC_Range>Range (cells)</MDWC_Range>
   <MDWC_RangeDesc>How close the pilot walks to the patient before starting the stream, which also needs a clear line of sight. Default: {0}.</MDWC_RangeDesc>
 
-  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, with {5} s of cooldown after.</MDWC_DressingSummary>
+  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, with {5} h of cooldown after.</MDWC_DressingSummary>
   <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
 
   <MDWC_SectionShot>Adrenaline shot</MDWC_SectionShot>
@@ -73,10 +73,10 @@
   <MDWC_RestFall>Rest fall at a shot's start (x)</MDWC_RestFall>
   <MDWC_RestFallDesc>How many times faster a patient's rest falls while a shot is fresh. Each level it fades through adds one. Sleep restores rest as usual. Default: {0}.</MDWC_RestFallDesc>
 
-  <MDWC_ShotCooldown>Cooldown (seconds)</MDWC_ShotCooldown>
+  <MDWC_ShotCooldown>Cooldown (hours)</MDWC_ShotCooldown>
   <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient instead. Default: {0}.</MDWC_ShotCooldownDesc>
 
-  <MDWC_ShotSummary>The shoulders hold {0} shots per vial of go-juice. A shot lasts {1} h, fading in {2} levels, and the patient's rest falls {3} times as fast at first, faster with each level, with {4} s of cooldown between shots.</MDWC_ShotSummary>
+  <MDWC_ShotSummary>The shoulders hold {0} shots per vial of go-juice. A shot lasts {1} h, fading in {2} levels, and the patient's rest falls {3} times as fast at first, faster with each level, with {4} h of cooldown between shots.</MDWC_ShotSummary>
   <MDWC_ShotSummaryNoCooldown>The shoulders hold {0} shots per vial of go-juice. A shot lasts {1} h, fading in {2} levels, and the patient's rest falls {3} times as fast at first, faster with each level, and the next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
 
   <MDWC_SectionWork>Enabled work types</MDWC_SectionWork>

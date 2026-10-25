@@ -15,9 +15,9 @@
     whose props class sets the compClass, so none is declared here; its DefInjected keys read
     comps.CompDressingSuite, since the handle is the comp class. It holds kits of ONE medicine,
     ammoDef: one kit is one medicine item (ammoCountPerCharge 1) and one vanilla charge, and
-    maxCharges 5 is the kits held when full. Each kit treats severityPerKit (20) severity, one
+    maxCharges 10 is the kits held when full. Each kit treats severityPerKit (20) severity, one
     vanilla treatment's cap. chargeNoun "kit": the stats pane and the reload text count the
-    suite in kits. The free first fill (vanilla's full charge on creation) is five kits of
+    suite in kits. The free first fill (vanilla's full charge on creation) is ten kits of
     ammoDef, to be priced into the costList in the tuning pass. ammoDef and maxCharges are mod
     settings defaulting to these values. baseReloadTicks 60 and Standard_Reload are the
     family's reloadable defaults. displayGizmoWhileUndrafted true alongside the ability's
@@ -105,7 +105,7 @@
     </apparel>
     <comps>
       <li Class="MedicWarcasket.CompProperties_DressingSuite">
-        <maxCharges>5</maxCharges>
+        <maxCharges>10</maxCharges>
         <ammoDef>MedicineUltratech</ammoDef>
         <ammoCountPerCharge>1</ammoCountPerCharge>
         <baseReloadTicks>60</baseReloadTicks>
