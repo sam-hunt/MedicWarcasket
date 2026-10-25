@@ -1,5 +1,12 @@
 # TODOs
 
+## Mechanite dressing
+
+- review gizmo tooltip text
+- scrolling clouds on target float up instead of random direction (implied metaphorical healing "up")
+- larger glow in front of caster
+- move end-flash to adrenaline shot?
+
 ## Before the first release
 
 - **Tune the set.** Decide what a medic suit gives up and gains, then price the three pieces
@@ -21,7 +28,8 @@
     under each patch mod, the Bio tab's "Incapable of", the slave case.
   - On 1.6 as well as 1.7: the mechanite dressing was specced against the 1.7 install alone,
     on Ludeon's word that 1.6 behaves the same. Rerun its visuals and assets checks there.
-- Mod settings section title/icon tooltip ability descriptions, similar to Toxin
+- **Mod settings section title/icon tooltip ability descriptions**, similar to Toxin
+- **Trait label should drop "medic" from "medic warcasket"** and tighten tooltip prose
 - **First Workshop publish.** Commit `About/PublishedFileId.txt`, add the Workshop link and the
   Steam badges to the README, paste the description.
 
