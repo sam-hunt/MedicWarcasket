@@ -1,30 +1,12 @@
 # TODOs
 
-## Before the first release
+## Before v1.0.0
 
-- **Tune the set.** Decide what a medic suit gives up and gains, then price the three pieces
-  against Siegebreaker, Guardian, Sarcophagus and Brute at market value (Shipcracker's armor
-  header is the format, `VFEP_WARCASKET_STATS.md` the tables). Folds in:
-  - the passives (`MedicalTendSpeed` +0.25, `MedicalTendQuality` +0.10 are first guesses)
-  - welding costs, the free first fills included: five glitterworld medicine kits in the
-    armor, two industrial medicine kits in the shoulders
-  - the helmet: does its Sight floor overlap the Sarcophagus helmet? could the floor be lower?
-  - with adrenaline shot switched gojuice->medicine, should the high be nerfed a bit/should we
-    add a final crash stage?
 - **Descriptions.** The three def descriptions are theme placeholders. Rewrite around the final
-  features, shared paragraphs identical across the pieces, each `shortDescription` equal to
-  its first paragraph. The ability description and the Keyed strings are first drafts.
-- CE Patch similar to Shipcracker/Toxin once they're tested/released
-- **Smoke test on 1.6**
-- **Full review of player-facing copy**
-- **First Workshop publish.** Commit `About/PublishedFileId.txt`, add the Workshop link and the
-  Steam badges to the README, paste the description.
-
-## Later
-
-- **Shock shoulders upstream.** VFEP's Shock shoulders grant VFEP's trait by themselves, so a
-  Medic wearing them loses Doctor (same spec, section 5). Propose moving the lists off the
-  shoulders upstream; no local patch.
+  features (the helmet's surgery assist is not yet named), shared paragraphs identical across
+  the pieces, each `shortDescription` equal to its first paragraph. The ability description and
+  the Keyed strings are first drafts.
+- **CE Patch** similar to Shipcracker/Toxin once they're tested/released
 - **Dressing sounds.** The spec's sounds are placeholders (`Mechanite-Dressing.md` 3.5):
   the serum's `MechSerumUsed` at the warmup, vanilla's `Interact_Tend` loop through the warmup
   and the beam, and `TechMedicineUsed` when the beam connects. Review whether a beam-like
@@ -32,11 +14,22 @@
   and volumes. A DLC sound needs a fallback for when the DLC is absent. The shot plays
   vanilla's injection (`Ingest_Inject`) at the patient; hear it against the dressing's.
 - **Art.** Ability gizmos switch from their reload items' icons once commissioned art lands
-- **Raid presence.** The pieces carry `WarcasketVeteran` and `WarcasketAll` like Siegebreaker;
-  decide whether a medic set stays on the raid tables (AI never casts apparel abilities, can we make them?).
 - **Unit tests.** Siblings carry a headless xUnit net472 suite (`Tests/1.6/<Mod>.Tests.csproj`);
   `Tunable.Stops` and `Nearest` are worth covering (Shipcracker's `TunableSnapTests` covers its
   banded `Snap`).
+- **Smoke test on 1.6**
+- **Full review of player-facing copy**
+- **First Workshop publish.** Commit `About/PublishedFileId.txt`, add the Workshop link and the
+  Steam badges to the README, paste the description.
+
+## Later
+
+- **Raider medics.** The set is on the raid tables as a Siegebreaker with the baseline shield;
+  AI pawns never cast apparel abilities. Toxin's raider auto-vent is the family precedent for
+  giving raiders an ability, so a raider medic dressing their downed is possible later.
+- **Shock shoulders upstream.** VFEP's Shock shoulders grant VFEP's trait by themselves, so a
+  Medic wearing them loses Doctor (same spec, section 5). Propose moving the lists off the
+  shoulders upstream; no local patch.
 - **Stop slider in the family.** `Tunable.cs` has diverged from Shipcracker's and Toxin's copies:
   banded rows slide over their stops here and snap within a band there. Port it or let the
   copies part.

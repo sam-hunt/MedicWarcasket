@@ -13,11 +13,12 @@ pads, helmet) for Vanilla Factions Expanded - Pirates (VFEP): a combat medic on 
 Odyssey and other optional content load only when present. C# (.NET Framework 4.7.2), Harmony,
 XML defs. Def prefix `MDWC_`.
 
-**State: mechanics in, tuning not.** The doctor passives, the mechanite dressing, the adrenaline
-shot and the medic work trait are implemented; every protection, cost and shield value is still
-Siegebreaker's. `TODOs.md` is the ledger. Each feature's design rationale is a `Docs/Specs/`
-file; the sibling `../ShipcrackerWarcasket/` repo (same author, same VFEP base) is the worked
-precedent for tuning rationale, render-tree art and the settings/ability idioms copied here.
+**State: mechanics and tuning in, not yet released.** The doctor passives, the mechanite
+dressing, the adrenaline shot and the medic work trait are implemented, and the set's plating,
+shield and costs are priced against VFEP's spacer sets (`Docs/Specs/Set-Tuning.md`). `TODOs.md`
+is the ledger. Each feature's design rationale is a `Docs/Specs/` file; the sibling
+`../ShipcrackerWarcasket/` repo (same author, same VFEP base) is the worked precedent for
+render-tree art and the settings/ability idioms copied here.
 
 ## Documentation rules
 

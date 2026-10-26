@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!--
-    Untuned placeholder: the protection, insulation, mass and cost are a copy of VFEP's
-    VFEP_WarcasketShoulders_Siegebreaker (VFEP v3.09, 1.6/Defs/ThingDefs_Misc/Apparel_Various.xml)
-    until the set's own tuning lands; see the armor def's header for the reference tables and
-    the art and tint-mask note. Siegebreaker's EnergyShieldRechargeRate offset is not copied: it
-    is a thing-level stat, so an offset on a pawn's apparel never reaches the armor's shield.
+    Templated from VFEP's VFEP_WarcasketShoulders_Siegebreaker (VFEP v3.09,
+    1.6/Defs/ThingDefs_Misc/Apparel_Various.xml); fields not discussed here are Siegebreaker's.
+    Plating, tags and the market-value references follow the armor's header, as do the art and
+    tint-mask notes. Siegebreaker's EnergyShieldRechargeRate offset is not copied: it is a
+    thing-level stat, so an offset on a pawn's apparel never reaches the armor's shield.
 
-    The medic offsets are this set's own, and first guesses for the tuning pass. MedicalTendSpeed
-    +0.25 is about four Medicine levels on vanilla's skill curve for that stat. The Manipulation
-    floor of 1.0 only matters to an impaired pilot (a floor never lowers a capacity) and feeds
-    both tend stats through their Manipulation capacity factor. Both reach the mechanite dressing
-    through vanilla's tend formula.
+    Tuning: ComponentSpacer 2 / Plasteel 60 / MedicineIndustrial 2 (Siegebreaker 0 / 60). The
+    plasteel is the 10th-gen shoulder-to-armor ratio, roughly 0.4 (Siegebreaker 60/145,
+    Guardian 80/200, Controller 60/150, Sarcophagus 60/145, Brute 60/160), of the armor's 145.
+    The components are the Controller shoulders' price for a verb, here the injector. The
+    medicine is the injector's full first fill, two shots, on the armor's terms. 976 silver at
+    market value.
+
+    The medic offsets:
+    - MedicalTendSpeed +0.25, about four Medicine levels on vanilla's skill curve for that stat;
+      reaches the mechanite dressing through vanilla's tend formula and a normal tend alike.
+    - Manipulation floor 0.7 through the ApparelExtension, the tier's standard floor, which
+      every VFEP armor carries as well, so the pads only name the region they cover. A floor
+      never lowers a capacity, and it feeds both tend stats through their Manipulation factor.
+      The 1.0 floor is Sarcophagus's identity, left to that set's pieces for a mix-and-match
+      pilot who wants it.
 
     Adrenaline shot: VEF CompAbilitiesApparel grants MDWC_AdrenalineShot (AbilityDefs/
     AdrenalineShot.xml), fed by the injector beside it, a plain vanilla CompApparelReloadable
@@ -29,7 +39,7 @@
     heart-attack rule, and an industrial kit is 18 silver at market value. ammoDef and
     maxCharges are mod settings defaulting to these values; the ammo setting also writes the
     item's uiIcon onto the ability as its placeholder art. The free first fill is two
-    industrial kits (36 silver), to be priced into the costList in the tuning pass.
+    industrial kits, the costList's MedicineIndustrial 2.
     chargeNoun "shot": the inspect line, the stat sheet and the empty message count in shots.
     No verbs, so the comp draws no gizmo of its own; the ability's command shows the count.
     Its DefInjected keys read comps.CompApparelReloadable, the vanilla comp class.
@@ -66,7 +76,9 @@
       <VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">0.1</VacuumResistance>
     </equippedStatOffsets>
     <costList>
+      <ComponentSpacer>2</ComponentSpacer>
       <Plasteel>60</Plasteel>
+      <MedicineIndustrial>2</MedicineIndustrial>
     </costList>
     <researchPrerequisites>
       <li>VFEP_SpacerWarcaskets</li>
@@ -111,7 +123,7 @@
         <pawnCapacityMinLevels>
           <li>
             <capacity>Manipulation</capacity>
-            <minLevel>1.0</minLevel>
+            <minLevel>0.7</minLevel>
           </li>
         </pawnCapacityMinLevels>
       </li>

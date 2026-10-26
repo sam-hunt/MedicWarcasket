@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!--
-    Untuned placeholder: a copy of VFEP's VFEP_Warcasket_Siegebreaker (VFEP v3.09,
-    1.6/Defs/ThingDefs_Misc/Apparel_Various.xml), VFEP_SpacerWarcaskets research prereq
-    included. Every stat and cost is Siegebreaker's until the set's own tuning lands;
-    Docs/Research/VFEP_WARCASKET_STATS.md tabulates the 10th-generation sets it will be
-    balanced against. The set's own additions are the two medic comps below, the
-    ApparelExtension priority and the label/description text.
+    Templated from VFEP's VFEP_Warcasket_Siegebreaker (VFEP v3.09,
+    1.6/Defs/ThingDefs_Misc/Apparel_Various.xml); fields not discussed here are Siegebreaker's,
+    VFEP_SpacerWarcaskets research prereq included. Docs/Specs/Set-Tuning.md is the tuning's
+    design record, Docs/Research/VFEP_WARCASKET_STATS.md tabulates the sets it is priced against.
+
+    Tuning. Reference numbers are VFEP's 10th-generation sets (Siegebreaker, Guardian,
+    Controller, Sarcophagus, Brute). A squad-support suit on the tier's shared chassis, its
+    budget spent on the medic kit and its fills rather than on the pilot's own protection:
+    - Sharp 2 / Blunt 1 / Heat 1 on all three pieces, the tier's shared values. Blunt 1.5 is
+      Guardian's and Brute's, paid for in plasteel; this set has no claim to it.
+    - EnergyShieldEnergyMax 1.5 at EnergyShieldRechargeRate 0.01, the tier's baseline
+      (Guardian, Controller, Sarcophagus); Siegebreaker's 2.5 and Brute's 5.0 are their
+      specialties. The bubble blocks ranged fire only, what a medic needs to reach a patient
+      under fire.
+    - costList ComponentSpacer 6 / Plasteel 145 / Uranium 50 / MedicineUltratech 10. The
+      components are VFEP's tech-complexity dial (the utility sets 6, Controller 12, Brute 4),
+      the plasteel the utility sets' 145 to 150. The medicine is the suite's full first fill:
+      vanilla prices a pack's whole fill, VFEP none (Aerial, Shock), and Sarcophagus already
+      demands ten glitterworld kits per set for flavour alone, so the suite ships full and
+      paid. At market value (plasteel 9, component 200, uranium 6, glitterworld medicine 50)
+      the full set is 5621 silver, 5085 before the fills: Siegebreaker 4195, Sarcophagus 4785,
+      Guardian 5164, Brute 5220, Controller about 6330. Parts are untradeable and destroyed on
+      drop, so market value is colony wealth and raid points only. The shoulders and helmet
+      scale at the 10th-gen piece ratios; see their headers.
+
+    apparel tags: WarcasketVeteran (VFEP's 10th-gen tag) puts the set on the veteran raid
+    pawnkinds of both VFEP factions and Odyssey's VFEP_Salvager_Warcasket; WarcasketAll is
+    VFEP_General. Threat and flavor only: AI pawns never cast apparel abilities, so a raider
+    in the set is a Siegebreaker with the baseline shield.
 
     Mechanite dressing: VEF CompAbilitiesApparel grants MDWC_MechaniteDressing (AbilityDefs/
     MechaniteDressing.xml), fed by the medicine suite beside it. The ability reads the suite off
@@ -18,7 +41,7 @@
     maxCharges 10 is the kits held when full. Each kit treats severityPerKit (20) severity, one
     vanilla treatment's cap. chargeNoun "kit": the stats pane and the reload text count the
     suite in kits. The free first fill (vanilla's full charge on creation) is ten kits of
-    ammoDef, to be priced into the costList in the tuning pass. ammoDef and maxCharges are mod
+    ammoDef, the costList's MedicineUltratech 10. ammoDef and maxCharges are mod
     settings defaulting to these values. baseReloadTicks 60 and Standard_Reload are the
     family's reloadable defaults. displayGizmoWhileUndrafted true alongside the ability's
     showUndrafted: a medic dresses wounds in the hospital too.
@@ -69,7 +92,7 @@
       <Insulation_Heat>80</Insulation_Heat>
       <EquipDelay>1</EquipDelay>
       <EnergyShieldRechargeRate>0.01</EnergyShieldRechargeRate>
-      <EnergyShieldEnergyMax>2.5</EnergyShieldEnergyMax>
+      <EnergyShieldEnergyMax>1.5</EnergyShieldEnergyMax>
     </statBases>
     <equippedStatOffsets>
       <PsychicSensitivity>-0.5</PsychicSensitivity>
@@ -81,6 +104,7 @@
       <ComponentSpacer>6</ComponentSpacer>
       <Plasteel>145</Plasteel>
       <Uranium>50</Uranium>
+      <MedicineUltratech>10</MedicineUltratech>
     </costList>
     <researchPrerequisites>
       <li>VFEP_SpacerWarcaskets</li>

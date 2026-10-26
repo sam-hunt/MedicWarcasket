@@ -293,9 +293,9 @@ no in-game switching.
   their own, so the kits already loaded count as the new medicine, and the next reload fetches
   it. The setting's tooltip says so.
 - **Stock drain:** colonists reload the suite to its gauge's target (3.8) whenever the medicine
-  is reachable, by default five glitterworld kits per medic. The gauge's target, or the
-  industrial setting, conserves glitterworld stock. The free first fill on creation is five
-  glitterworld kits (250 silver at market value), for the tuning pass to price in.
+  is reachable, by default ten glitterworld kits per medic. The gauge's target, or the
+  industrial setting, conserves glitterworld stock. The free first fill on creation is ten
+  glitterworld kits, the armor's costList MedicineUltratech 10.
 
 ### 3.2 The suite: kits and a severity budget
 
@@ -603,7 +603,7 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 | ------------------ | --------------------------------------------- | ------------ | --------------------- |
 | Reload item        | suite `ammoDef`, and ability `icon` (3.8)     | glitterworld | eligible list (3.1)   |
 | Effect color       | the three motes' `graphicData.color` (rgb)    | medical blue | blue, green, pink     |
-| Kit capacity       | suite `maxCharges`                            | 5            | 1..20, step 1         |
+| Kit capacity       | suite `maxCharges`                            | 10           | 1..20, step 1         |
 | Casting time (s)   | ability `castTime` (ticks ÷ 60)               | 1            | 0..10, current bands  |
 | Time per wound (s) | `DressingExtension.ticksPerTend` (ticks ÷ 60) | 1            | 0.25..5, step 0.25    |
 | Cooldown (s)       | ability `cooldownTime` (ticks ÷ 60)           | 0            | 0..300, step 5        |

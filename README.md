@@ -20,8 +20,9 @@ customized part by part at the foundry, with a range of sets that carries a colo
 industrial era into the late game. This mod adds one more set to that range: the Medic, a
 10th-generation spacer-tier warcasket built to keep its pilot patching up squadmates under fire.
 
-The mod is in early development: the doctor passives, the mechanite dressing and the adrenaline
-shot are in, but the stats and costs are still untuned placeholders.
+The mod is in development: the doctor passives, the mechanite dressing and the adrenaline shot
+are in and the set is tuned and priced against VFE Pirates' spacer sets; the descriptions,
+sounds and art are still to come.
 
 Odyssey is optional.
 
@@ -45,8 +46,9 @@ spacer warcaskets research.
 - **Mod settings** for the medicine, the effect color, the kit capacity, the casting time, the time per
   wound, the cooldown, the range, the shot capacity, what reloads them, their duration, sleep cost
   and cooldown, and which caring work (doctor, childcare) the pilot may take on
-- **Not yet tuned**: protection, shield, costs and research are still copies of VFE Pirates'
-  Siegebreaker set, and the passive and ability numbers are first guesses
+- **Priced like its peers**: spacer-tier plating and shield, costs in the tier's band with the
+  medicine the suite and injector ship loaded with, and the set's unlock is VFE Pirates' spacer
+  warcaskets research
 - **Built on VFE Pirates** rather than beside it: the foundry, entombing, customization and
   removal surgery all apply unchanged, and the pieces mix and match with VFE Pirates' own sets
 

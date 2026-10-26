@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!--
-    Untuned placeholder: the protection, insulation, mass, cost and the psychic and toxic offsets
-    are a copy of VFEP's VFEP_WarcasketHelmet_Siegebreaker (VFEP v3.09,
-    1.6/Defs/ThingDefs_Misc/Apparel_Headgear.xml), uiIconScale included, until the set's own
-    tuning lands; see the armor def's header for the reference tables and the art note.
+    Templated from VFEP's VFEP_WarcasketHelmet_Siegebreaker (VFEP v3.09,
+    1.6/Defs/ThingDefs_Misc/Apparel_Headgear.xml); fields not discussed here, uiIconScale and
+    the psychic and toxic offsets included, are Siegebreaker's. Plating, tags and the
+    market-value references follow the armor's header, as does the art note.
 
-    The medic offsets are this set's own, and first guesses for the tuning pass.
-    MedicalTendQuality +0.10 is one Medicine level, equal to a hospital bed's offset. The Sight
-    floor of 1.0 only matters to an impaired pilot (a floor never lowers a capacity); it feeds
-    both tend stats through their Sight capacity factor and also steadies an impaired pilot's
-    aim, in character for a visor. Both reach the mechanite dressing through vanilla's tend formula.
+    Tuning: ComponentSpacer 4 / Plasteel 60 (Siegebreaker 2 / 50, Sarcophagus 2 / 60, Controller
+    and Brute 4 / 60): the components are the tier's price for a helmet with a function of its
+    own, the plasteel the utility sets'. 1340 silver at market value.
 
-    The mechanite dressing (armor) treats diseases and infections, not just wounds, only while this
-    helmet is worn by the pilot; the check is a def comparison in Ability_MechaniteDressing (the
-    Controller helmet idiom). The description's first paragraph says so.
+    The medic offsets, the diagnostic visor:
+    - MedicalTendQuality +0.10, one Medicine level, a hospital bed's offset; reaches the
+      mechanite dressing through vanilla's tend formula and a normal tend alike.
+    - MedicalSurgerySuccessChance +0.05, the hospital hook: small because any spacer armor can
+      take this helmet and vanilla's own precedent is the hospital bed's x1.1 factor.
+    - Sight floor 0.7 through the ApparelExtension, the tier's floor for the region the visor
+      covers (no VFEP armor floors Sight, so this one counts). A floor never lowers a capacity;
+      it feeds both tend stats through their Sight factor and steadies an impaired pilot's aim.
+      The 1.0 floor is Sarcophagus's identity, left to that set's helmet for a mix-and-match
+      pilot who wants it.
+    - The mechanite dressing (armor) treats diseases and infections, not just wounds, only
+      while this helmet is worn by the pilot; the check is a def comparison in
+      Ability_MechaniteDressing (the Controller helmet idiom). The description's first
+      paragraph says so.
 
     ApparelExtension priority 1, for the reason in the armor def's header: the
     VFEP_WarcasketHelmetBase parent carries its own, and only the highest-priority copy keeps
@@ -47,12 +56,13 @@
       <PsychicSensitivity>-0.5</PsychicSensitivity>
       <ToxicResistance>0.5</ToxicResistance>
       <MedicalTendQuality>0.10</MedicalTendQuality>
+      <MedicalSurgerySuccessChance>0.05</MedicalSurgerySuccessChance>
       <SlaveSuppressionOffset MayRequire="Ludeon.RimWorld.Ideology">0.1</SlaveSuppressionOffset>
       <VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">0.7</VacuumResistance>
     </equippedStatOffsets>
     <costList>
-      <ComponentSpacer>2</ComponentSpacer>
-      <Plasteel>50</Plasteel>
+      <ComponentSpacer>4</ComponentSpacer>
+      <Plasteel>60</Plasteel>
     </costList>
     <researchPrerequisites>
       <li>VFEP_SpacerWarcaskets</li>
@@ -77,7 +87,7 @@
         <pawnCapacityMinLevels>
           <li>
             <capacity>Sight</capacity>
-            <minLevel>1.0</minLevel>
+            <minLevel>0.7</minLevel>
           </li>
         </pawnCapacityMinLevels>
       </li>

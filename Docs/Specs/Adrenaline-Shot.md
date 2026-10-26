@@ -195,11 +195,11 @@ scale.
 **Shoulders** (`ThingDefs_Misc/WarcasketShoulders_Medic.xml`) gain two comps, the Aerial
 shoulders' pairing:
 
-- a plain vanilla `CompProperties_ApparelReloadable`: `maxCharges` 3, `ammoDef`
+- a plain vanilla `CompProperties_ApparelReloadable`: `maxCharges` 2, `ammoDef`
   `MedicineIndustrial`, `ammoCountPerCharge` 1, `baseReloadTicks` 60, `soundReload` `Standard_Reload`, `chargeNoun`
   "shot". No comp subclass: the ability spends through `UsedOnce()` and vanilla does the rest
-  (2.6). The free first fill is two shots, two industrial kits (36 silver), to be priced
-  into the shoulders' cost in the tuning pass. `ammoDef` and `maxCharges` are mod settings (3.7).
+  (2.6). The free first fill is two shots, two industrial kits, the shoulders' costList
+  MedicineIndustrial 2. `ammoDef` and `maxCharges` are mod settings (3.7).
 - `VEF.Abilities.CompProperties_AbilitiesApparel` granting `MDWC_AdrenalineShot`.
 
 The ability reads the reloadable off `holder`, so both comps sit on the shoulders, as the
