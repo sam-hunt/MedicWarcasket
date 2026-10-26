@@ -30,7 +30,7 @@ readings this draft takes of the brief, for the review to confirm or move.
 | Review: a pawn with a heart attack can always be targeted                             | 3.3      |
 | Review: on a heart attack the shot cures instead of stimulating                       | 3.3      |
 | Review: a top-left message naming the pawn, not a floating text                       | 3.3      |
-| An autocast toggle, offered while the armor is worn, firing as a dressing ends        | 3.4      |
+| An autocast toggle, on by default while the armor is worn, firing as a dressing ends  | 3.4      |
 
 ## 1. Fiction
 
@@ -198,7 +198,7 @@ shoulders' pairing:
 - a plain vanilla `CompProperties_ApparelReloadable`: `maxCharges` 3, `ammoDef`
   `MedicineIndustrial`, `ammoCountPerCharge` 1, `baseReloadTicks` 60, `soundReload` `Standard_Reload`, `chargeNoun`
   "shot". No comp subclass: the ability spends through `UsedOnce()` and vanilla does the rest
-  (2.6). The free first fill is three shots, three industrial kits (54 silver), to be priced
+  (2.6). The free first fill is two shots, two industrial kits (36 silver), to be priced
   into the shoulders' cost in the tuning pass. `ammoDef` and `maxCharges` are mod settings (3.7).
 - `VEF.Abilities.CompProperties_AbilitiesApparel` granting `MDWC_AdrenalineShot`.
 
@@ -213,7 +213,7 @@ checks for the armor except the autocast (3.4).
   `targetMode` Pawn with an explicit `targetingParametersList` entry (humans and animals, no
   mechs, **self allowed**, no buildings or locations), `distanceToTarget` 1.9, `requireLineOfSight`
   false (the walk enforces both, as the dressing's does), `castTime` 30 (0.5 s), `cooldownTime` 0,
-  `showUndrafted` true, `autocastPlayerDefault` false, `castSound` unset (3.3 plays the sound at
+  `showUndrafted` true, `autocastPlayerDefault` true, `castSound` unset (3.3 plays the sound at
   the patient). No `iconPath` until the ability art lands: the settings write the reload item's
   `uiIcon` onto `def.icon`, as the dressing's medicine icon is written, so the shot's placeholder
   is the configured item's icon (3.7). No `AbilityExtension_Hediff`: the shot applies its hediff itself
@@ -316,15 +316,19 @@ is one `fleckOnTarget` line away once the art pass picks one (section 4).
 
 ### 3.4 Autocast: a shot as the dressing ends
 
-The toggle is VEF's own flag on the shoulders' ability, read by our code, Toxin's way (2.5):
+The toggle is on by default and read by our code, not VEF's (2.5):
 
 - `CanAutoCast` is true while the pilot wears the Medic armor, found as the dressing's own
   ability on the worn apparel (`JobDriver_MechaniteDressing.FindDressing`, hoisted in 3.5);
   false otherwise, and false while `pawn` is null. So the right-click line and the toggle appear
-  only with the armor, and come back the moment it is worn again. `AutoCast` is the base's,
-  guarded for a null pawn.
-- `Init()` saves the flag across the base call, as Toxin's does, so a load or a wearer re-bind
-  does not clear the player's choice; VEF scribes the flag itself.
+  only with the armor, and come back the moment it is worn again.
+- `autocastPlayerDefault` is true: with the armor on, a shot follows every dressing until the
+  pilot's gizmo is right-clicked off. `AutoCast` is the def's default XOR a scribed
+  `autoCastFlipped` of our own, since VEF's `autoCast` field is reset by every `Init` and could
+  never carry a default of on across the re-bind; the def's default, patched or not, reads
+  through to every pilot who has not flipped it. `DoAction` flips the bit on a right-click
+  while `CanAutoCast` and ignores one otherwise, where VEF's would clear its flag. No mod
+  setting duplicates the default: the right-click is saved per pilot and is the manual control.
 - `GetDescriptionForPawn` adds, after VEF's lines, one line of our own under the right-click
   hint: "Autocast: a shot to each patient as their dressing ends." (3.6 caches the description
   on the autocast state and the settings generation, as Toxin does.)
@@ -401,7 +405,7 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 | Setting             | Def field                                                        | Default | Range           |
 | ------------------- | ---------------------------------------------------------------- | ------- | --------------- |
 | Reload item         | shoulders' reloadable `ammoDef` (any medicine, then go-juice, then wake-up) | industrial medicine | float menu |
-| Shot capacity       | shoulders' reloadable `maxCharges`                               | 3       | 1..10, step 1   |
+| Shot capacity       | shoulders' reloadable `maxCharges`                               | 2       | 1..10, step 1   |
 | Duration (hours)    | hediff `HediffCompProperties_SeverityPerDay.severityPerDay`      | 3       | 0.5..12, step 0.5 |
 | Initial sleep fall rate (×) | the hediff's stage `restFallFactor`s, the top stage's value; each lower stage one higher | 2 | 1..5, step 0.5 |
 | Cooldown (seconds)  | ability `cooldownTime` (ticks ÷ 60)                              | 0       | 0..300, step 5  |
@@ -452,8 +456,9 @@ Readings of the brief for the review to confirm:
 2. **Charge noun "shot".** It reads as vanilla's own nouns do ("Shots remaining: 2 / 3", "No
    shots left"), has a one-word equivalent in every roster language, and is the word the
    Workshop page already uses. "Charge" would be VFEP's generic and says less.
-3. **Three shots held.** Vanilla's packs hold three (smokepop); three keeps the first fill at
-   three kits, the per-fight budget meaningful and the corner count legible.
+3. **Two shots held.** A drafted pilot cannot reload, so two makes each shot a decision in
+   the fight: hold it or spend it, loot a downed raider's medicine to recharge or do without.
+   Vanilla's packs hold three (smokepop); three left the budget too comfortable.
 4. **The hostile rule is stricter than the dressing's** (3.3): the dressing may tend a downed
    raider for capture, the shot may not stand one up. **A heart attack overrides it** (review):
    such a pawn is always a target, and the shot spent on them is cure only, so nothing stands
@@ -528,7 +533,7 @@ Drafts, no em dashes (player-facing):
 Dev mode, VFEP chain plus this mod, fresh saves:
 
 1. **Settings.** The new section shows industrial medicine's icon and the shot's tooltip, five
-   rows, and a summary reading "3 shots, one medicine each", "3 h", "2 times as fast at first", "and the next shot can follow at
+   rows, and a summary reading "2 shots, one medicine each", "3 h", "2 times as fast at first", "and the next shot can follow at
    once". Set the
    cooldown to 20: the summary's last clause changes. Reset restores all four. Lower the shots
    to 2 on worn shoulders holding 3: the corner count reads "2 / 2".
@@ -560,9 +565,10 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    shots stay, the gizmo icon and the "Reloads with" line change, and the next reload fetches
    herbal medicine.
 7. **Autocast.** Without the armor the right-click line is absent and right-click does nothing.
-   With the armor, right-click shows the check in the gizmo's **top-left** with the count still
-   in the top-right, and the tooltip gains the autocast line. Dress a wounded, standing colonist:
-   after the last wound's text the patient is held another 0.5 s, the shot lands, then the glow
+   With the armor the check shows in the gizmo's **top-left** at once, the count still in the
+   top-right, and the tooltip gains the autocast line; a right-click clears the check, another
+   restores it, and the choice survives the armor coming off and on. Dress a wounded, standing
+   colonist: after the last wound's text the patient is held another 0.5 s, the shot lands, then the glow
    fades. Dress a bed patient: no shot; give them a heart attack first: the shot cures it and
    nothing else. Dress a downed raider: no shot; give them a heart attack: cured. Dress a patient at "rush": no shot. Empty the shoulders: no shot and
    no message. Save and reload: the check is still on and the shot still fires.

@@ -20,9 +20,11 @@
     and the pilot too (canTargetSelf): a medic can inject themself, and the job skips the walk.
     Hostility and the heart are decided in ValidateTarget, not here.
 
-    autocastPlayerDefault false: the toggle is VEF's own flag, read by the mechanite dressing's
-    job rather than by VEF (which never fires an apparel ability's autocast), and offered only
-    while the armor is worn. No castSound: the ability plays the injection at the patient.
+    autocastPlayerDefault true: with the armor worn, a shot follows every dressing until the
+    pilot's gizmo is right-clicked off. The ability keeps that right-click as a flip of this
+    default, so a patch of it moves every pilot; the mechanite dressing's job reads the toggle,
+    never VEF, which fires no apparel ability's autocast. Without the armor the toggle is not
+    offered. No castSound: the ability plays the injection at the patient.
 
     No iconPath: the mod settings write the configured reload item's uiIcon (the injector's
     ammoDef) onto def.icon at startup and on window close, so the gizmo, the cursor and the
@@ -56,6 +58,6 @@
     <castTime>30</castTime>
     <cooldownTime>0</cooldownTime>
     <showUndrafted>true</showUndrafted>
-    <autocastPlayerDefault>false</autocastPlayerDefault>
+    <autocastPlayerDefault>true</autocastPlayerDefault>
   </VEF.Abilities.AbilityDef>
 </Defs>

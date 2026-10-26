@@ -30,8 +30,9 @@ comments cover install-path detection, the compile-only VFEP/VEF references (`VF
   the worn one whose def names its JobDef). A new targeted ability derives from both and gets its
   own JobDef.
 - **VEF never fires an apparel ability's autocast** (its one consumer reads learned abilities
-  only) and resets the flag on every re-bind. An apparel autocast is read, fired and kept across
-  `Init` by our own code, as the shot's is by the dressing's shot toil.
+  only) and resets its flag on every re-bind. An apparel autocast is read and fired by our own
+  code, as the shot's is by the dressing's shot toil, and the pilot's right-click is kept as a
+  scribed flip of the def's `autocastPlayerDefault`, never in VEF's flag.
 - **The medic trait is mirrored from VFEP's at startup** by `WorkProfile.Mirror`, first in
   `Startup.Run`, so editing or patching its work tags, work types, degree effects or VEF
   extension on our def does not stick, and VFEP's 1.6/1.7 differences need no version check.

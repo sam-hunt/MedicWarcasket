@@ -1,7 +1,5 @@
 # TODOs
 
-- Mod setting for Adrenaline shot autocast beginning on/off? tied to whether the torso is equipped?
-
 ## Before the first release
 
 - **Tune the set.** Decide what a medic suit gives up and gains, then price the three pieces
@@ -9,7 +7,7 @@
   header is the format, `VFEP_WARCASKET_STATS.md` the tables). Folds in:
   - the passives (`MedicalTendSpeed` +0.25, `MedicalTendQuality` +0.10 are first guesses)
   - welding costs, the free first fills included: five glitterworld medicine kits in the
-    armor, three industrial medicine kits in the shoulders
+    armor, two industrial medicine kits in the shoulders
   - the helmet: does its Sight floor overlap the Sarcophagus helmet? could the floor be lower?
   - with adrenaline shot switched gojuice->medicine, should the high be nerfed a bit/should we
     add a final crash stage?

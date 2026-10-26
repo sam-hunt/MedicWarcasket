@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using RimWorld.Planet;
+using UnityEngine;
 using Verse;
 using Verse.AI;
 using Verse.Sound;
@@ -27,11 +28,14 @@ namespace MedicWarcasket;
 // dressing's rule, on purpose); otherwise no patient already at the top level, so a double
 // click cannot waste a shot, while a patient further down may be refreshed.
 //
-// Autocast is VEF's own scribed flag on this instance, toggled by VEF's right-click, offered
-// (CanAutoCast) only while the pilot wears the armor whose dressing fires it
-// (Ability_MechaniteDressing.ShotToFollow); VEF itself never fires an apparel ability. Init
-// keeps the flag across the re-bind VEF runs on every wearer change and first gizmo draw,
-// which would otherwise reset it (Toxin's idiom).
+// Autocast is offered (CanAutoCast) only while the pilot wears the armor whose dressing fires
+// it (Ability_MechaniteDressing.ShotToFollow); VEF itself never fires an apparel ability. It
+// is on by the def's autocastPlayerDefault, and the pilot's right-click is kept as a flip of
+// that default (autoCastFlipped, scribed here) rather than in VEF's autoCast field, which
+// every Init resets and so could never carry a default of on across the re-bind VEF runs on
+// each wearer change and first gizmo draw; the def's default, patched or not, reads through to
+// every pilot who has not flipped it. DoAction ignores a right-click without the armor, where
+// VEF's would clear its flag.
 //
 // Gizmo: one cached Command_AdrenalineShot (VEF builds a new command, tooltip and all, on every
 // request), with the enable state refreshed every call and the description from a cache keyed
@@ -46,6 +50,7 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
     private string description;
     private int descriptionGeneration = -1;
     private bool descriptionAutoCast;
+    private bool autoCastFlipped;
 
     // Raised by the command while VEF draws the button (see the header).
     public bool Drawing { get; set; }
@@ -72,15 +77,34 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
         pawn != null && JobDriver_MedicCast.FindAbility(pawn, MDWC_DefOf.MDWC_MechaniteDressing) != null;
 
     public override bool AutoCast => !Drawing && pawn != null && CanAutoCast
-        && (pawn.IsColonistPlayerControlled ? autoCast : pawn.Spawned);
+        && (pawn.IsColonistPlayerControlled ? def.autocastPlayerDefault != autoCastFlipped : pawn.Spawned);
+
+    // A right-click flips the toggle while the armor offers it and does nothing otherwise; a
+    // left-click targets as VEF's does.
+    public override void DoAction()
+    {
+        if (Event.current.button != 1)
+        {
+            base.DoAction();
+            return;
+        }
+        if (!CanAutoCast)
+            return;
+        SoundDefOf.Tick_Tiny.PlayOneShotOnCamera();
+        autoCastFlipped = !autoCastFlipped;
+    }
 
     public override void Init()
     {
-        bool wasAutoCast = autoCast;
         base.Init();
-        autoCast = wasAutoCast;
         gizmo = null;
         description = null;
+    }
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_Values.Look(ref autoCastFlipped, "autoCastFlipped");
     }
 
     public override bool IsEnabledForPawn(out string reason)
