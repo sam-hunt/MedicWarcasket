@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  The adrenaline shot under Combat Extended's suppression. CE scales the suppression a pawn
+  takes by its Suppressability stat (CompSuppressable; the warcasket frames carry -100 and
+  cannot be suppressed at all) and its own go-juice patch (Patches/Core/Drugs/Drugs.xml) puts
+  Suppressability -0.5 on the high's stage, so a go-juice'd pawn hunkers half as readily. The
+  shot is go-juice's high on a short clock (HediffDefs/Adrenaline.xml), and a squadmate given
+  one should hold the line the same way: -0.5 on the rush, tapered by thirds through the next
+  two levels as the hediff tapers every other offset, and nothing on the crash. Stages are
+  matched by label, so the index of a stage does not matter. The stat only exists under CE,
+  which is why this lives in the gated root rather than on the def.
+-->
+<Patch>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffDef[defName="MDWC_Adrenaline"]/stages/li[label="rush"]</xpath>
+    <value>
+      <statOffsets>
+        <Suppressability>-0.5</Suppressability>
+      </statOffsets>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffDef[defName="MDWC_Adrenaline"]/stages/li[label="fading"]</xpath>
+    <value>
+      <statOffsets>
+        <Suppressability>-0.33</Suppressability>
+      </statOffsets>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffDef[defName="MDWC_Adrenaline"]/stages/li[label="wearing off"]</xpath>
+    <value>
+      <statOffsets>
+        <Suppressability>-0.17</Suppressability>
+      </statOffsets>
+    </value>
+  </Operation>
+</Patch>

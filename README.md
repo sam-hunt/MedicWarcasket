@@ -83,7 +83,9 @@ Coming with the first release.
 - **Save Our Ship 2 / Universum**: EVA rated under exactly the same rules as VFE Pirates' own sets.
 - **Vanilla Gravship Expanded**: follows its vacuum-resistance rules for warcaskets; there is no
   other VGE integration.
-- Not tested with Combat Extended.
+- **Combat Extended**: built-in patch. CE armor values, bulk and carry capacity in line with VFE
+  Pirates' spacer sets, a helmet sealed against CE smoke, and an adrenaline shot that resists
+  suppression as go-juice does. Tending and the medicine kits need no CE patch.
 
 ## Contributing
 

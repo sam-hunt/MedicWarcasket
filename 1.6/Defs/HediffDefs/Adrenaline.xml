@@ -25,7 +25,9 @@
     reaches shots already running. The pilot's own RestFallRateFactor multiplies on top.
 
     everCurableByItem false: a healer mech serum must not spend itself on a stimulant. No
-    scenarioCanAdd: it is the shoulders' to give.
+    scenarioCanAdd: it is the shoulders' to give. Under Combat Extended the boost levels also
+    carry go-juice's suppression resistance (1.6/Mods/CombatExtended/Patches/
+    AdrenalineSuppression.xml, by stage label).
   -->
   <HediffDef>
     <defName>MDWC_Adrenaline</defName>

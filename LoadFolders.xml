@@ -4,6 +4,9 @@
     <li>/</li>
     <li>1.6</li>
     <li IfModActive="vanillaexpanded.gravship">1.6/Mods/VanillaGravshipExpanded</li>
+    <!-- Combat Extended: the set's plating, bulk, carry and shield on CE's scale and the
+         helmet sealed against CE's smoke. Patches only, so it needs no art root. -->
+    <li IfModActive="CETeam.CombatExtended">1.6/Mods/CombatExtended</li>
   </v1.6>
   <v1.7>
     <!-- 1.7 runs the 1.6 tree unchanged: the Waylith CLR maps every UnityEngine
@@ -12,5 +15,6 @@
     <li>/</li>
     <li>1.6</li>
     <li IfModActive="vanillaexpanded.gravship">1.6/Mods/VanillaGravshipExpanded</li>
+    <li IfModActive="CETeam.CombatExtended">1.6/Mods/CombatExtended</li>
   </v1.7>
 </loadFolders>

@@ -33,7 +33,10 @@ engine.PACKAGE_ID = "shunter.medicwarcasket"
 # installed locally, and the patch is the same either way. Vanilla Gravship
 # Expanded (chapter 1) is the other: LoadFolders.xml opens the
 # 1.6/Mods/VanillaGravshipExpanded root on its package id, and that root's
-# vacuum-resistance patch only ever runs with it active. It sits before our
+# vacuum-resistance patch only ever runs with it active. Combat Extended is
+# the third: it opens the 1.6/Mods/CombatExtended root, whose patch rescales
+# the set's stats and would fail silently against a renamed node. It loads
+# after VFEP and SOS2, where its own About.xml puts it. Each sits before our
 # mod, as the mod a compat root complements should. Probe last (auto-quit).
 # Plain ids on purpose; see the refresh shim's "_steam" note.
 engine.SMOKE_ACTIVE_MODS = [
@@ -45,6 +48,7 @@ engine.SMOKE_ACTIVE_MODS = [
     "vanillaexpanded.gravship",
     "smashphil.vehicleframework",
     "kentington.saveourship2",
+    "ceteam.combatextended",
     "shunter.medicwarcasket",
     "shunter.l10nprobe",
 ]
@@ -56,15 +60,17 @@ engine.OWN_PATTERNS = ["MedicWarcasket", "[Medic Warcasket]", "MDWC_"]
 # The seams: VFEP's warcasket code (foundry, entombing, Apparel_Warcasket)
 # walks our WarcasketDefs, VEF's ApparelExtension and CompShieldBubble run
 # on them, SOS2 reads the EVA tag our patch adds, and VGE1's vacuum rules
-# read the resistance our patch lowers. An error mentioning any of these
-# gates the test even when the exception fires inside their code. Vehicle
-# Framework is deliberately absent: it is only SOS2's dep and its own noise
-# is third-party.
+# read the resistance our patch lowers, and CE's armor and inventory code
+# reads the stats the CombatExtended root sets. An error mentioning any of
+# these gates the test even when the exception fires inside their code.
+# Vehicle Framework is deliberately absent: it is only SOS2's dep and its
+# own noise is third-party.
 engine.INTEGRATION_PATTERNS = {
     "VFEP": ["VFEPirates"],
     "VEF": ["VEF."],
     "SOS2": ["SaveOurShip2", "SaveOurShip"],
     "VGE": ["VanillaGravshipExpanded"],
+    "CE": ["CombatExtended"],
 }
 
 raise SystemExit(engine.main())

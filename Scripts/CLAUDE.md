@@ -19,9 +19,10 @@ on the smoke list); the engines live in the `l10n/` submodule. Nothing here ship
   fine; the release skill does it every release.
 - **`integration-smoke-test.py`** (game closed, pre-release) boots the deployed mod on a pinned
   list (the VFEP chain, Odyssey, Save Our Ship 2 with Vehicle Framework so `SOS2Patch.xml` runs,
-  Vanilla Gravship Expanded so its compat root opens), then fails on any logged error attributed
-  to this mod or a VFEP/VEF/SOS2/VGE seam. Sibling-mod "dump WILL fail" warnings at launch are
-  expected: the probe is ticked for every family mod but each boot loads only its own list.
+  Vanilla Gravship Expanded and Combat Extended so their compat roots open), then fails on any
+  logged error attributed to this mod or a VFEP/VEF/SOS2/VGE/CE seam. Sibling-mod "dump WILL
+  fail" warnings at launch are expected: the probe is ticked for every family mod but each boot
+  loads only its own list.
 - **Translation passes are deferred until shortly before release**, one language at a time on
   explicit request, through the `/translate` skill, once the English text is final. No language
   exists yet; the public roster is in `CONTRIBUTING.md`.

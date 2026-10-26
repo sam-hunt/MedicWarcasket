@@ -48,7 +48,8 @@
     ApparelExtension field for this piece goes on this entry.
 
     Compat: SOS2Patch.xml and the VGE vacuum patch leave shoulder pads alone, as VFEP's and
-    VGE1's own patches do for VFEP's.
+    VGE1's own patches do for VFEP's. The 1.6/Mods/CombatExtended/Patches/ root rescales the
+    plating and adds bulk, as CE's does for VFEP's.
   -->
   <VFEPirates.WarcasketDef ParentName="VFEP_WarcasketShoulderPadBase">
     <defName>MDWC_WarcasketShoulders_Medic</defName>

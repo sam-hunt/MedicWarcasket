@@ -71,8 +71,10 @@
     would win. At priority 1 every field of ours, from any load root, is kept. Any new
     ApparelExtension field for this piece goes on this entry.
 
-    Compat patches reach this def from 1.6/Patches/SOS2Patch.xml (EVA tag, cold insulation)
-    and 1.6/Mods/VanillaGravshipExpanded/Patches/VacuumResistance.xml; see their headers.
+    Compat patches reach this def from 1.6/Patches/SOS2Patch.xml (EVA tag, cold insulation),
+    1.6/Mods/VanillaGravshipExpanded/Patches/VacuumResistance.xml and the
+    1.6/Mods/CombatExtended/Patches/ root (plating on CE's scale, bulk, carry capacity,
+    shield, costs); see their headers.
   -->
   <VFEPirates.WarcasketDef ParentName="VFEP_WarcasketArmorBase">
     <defName>MDWC_Warcasket_Medic</defName>

@@ -2,7 +2,6 @@
 
 ## Before v1.0.0
 
-- **CE Patch** similar to Shipcracker/Toxin once they're tested/released
 - **Dressing sounds.** The spec's sounds are placeholders (`Mechanite-Dressing.md` 3.5):
   the serum's `MechSerumUsed` at the warmup, vanilla's `Interact_Tend` loop through the warmup
   and the beam, and `TechMedicineUsed` when the beam connects. Review whether a beam-like
@@ -10,9 +9,8 @@
   and volumes. A DLC sound needs a fallback for when the DLC is absent. The shot plays
   vanilla's injection (`Ingest_Inject`) at the patient; hear it against the dressing's.
 - **Art.** Ability gizmos switch from their reload items' icons once commissioned art lands
-- **Unit tests.** Siblings carry a headless xUnit net472 suite (`Tests/1.6/<Mod>.Tests.csproj`);
-  `Tunable.Stops` and `Nearest` are worth covering (Shipcracker's `TunableSnapTests` covers its
-  banded `Snap`).
+- **Unit tests.** `Tests/1.6/` holds the compat xpath test only; `Tunable.Stops` and `Nearest`
+  are worth covering (Shipcracker's `TunableSnapTests` covers its banded `Snap`).
 - **Smoke test on 1.6**
 - **Full review of player-facing copy**
 - **Review comment length in shipped xml files for bundle bloat risks**

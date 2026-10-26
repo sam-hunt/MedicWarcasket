@@ -31,7 +31,9 @@
     ApparelExtension field for this piece goes on this entry.
 
     Compat: SOS2Patch.xml gives it the EVA tag and Insulation_Cold 100 alongside the armor;
-    the VGE vacuum patch lowers its VacuumResistance to VGE1's warcasket-helmet value.
+    the VGE vacuum patch lowers its VacuumResistance to VGE1's warcasket-helmet value; the
+    1.6/Mods/CombatExtended/Patches/ root rescales its plating and seals it against CE's
+    smoke, which reads no tox immunity.
   -->
   <VFEPirates.WarcasketDef ParentName="VFEP_WarcasketHelmetBase">
     <defName>MDWC_WarcasketHelmet_Medic</defName>
