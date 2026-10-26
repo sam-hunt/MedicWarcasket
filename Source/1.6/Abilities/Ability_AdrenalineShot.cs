@@ -11,8 +11,9 @@ using Command_Ability = VEF.Abilities.Command_Ability;
 namespace MedicWarcasket;
 
 // The Medic shoulders' active: the pilot walks to a patient (or is one), holds them for the
-// jab, then gives a shot out of the shoulders' injector (vanilla's CompApparelReloadable of
-// go-juice, read off holder, which is why the two comps share the shoulders def). A shot is
+// jab, then gives a shot out of the shoulders' injector (vanilla's per-charge
+// CompApparelReloadable, one reload item a shot, read off holder, which is why the two comps
+// share the shoulders def). A shot is
 // spent on one of two things: a patient with a heart attack has every one removed and nothing
 // else, announced top-left as a positive event naming them; any other patient gets the
 // MDWC_Adrenaline hediff at full severity, a fresh one or an existing one refreshed (set, not
@@ -34,7 +35,9 @@ namespace MedicWarcasket;
 //
 // Gizmo: one cached Command_AdrenalineShot (VEF builds a new command, tooltip and all, on every
 // request), with the enable state refreshed every call and the description from a cache keyed
-// on the settings generation and the autocast state, the two things in it that change.
+// on the settings generation and the autocast state, the two things in it that change. The
+// description is the def's, then a "Reloads with" paragraph naming the injector's AmmoDef
+// (the reload item is a mod setting, so the def's text cannot name it), then the autocast line.
 // Drawing is a flag the command raises around VEF's draw so AutoCast reads false there and
 // VEF's top-right check, where the count sits, is not drawn; the command draws it top-left.
 public class Ability_AdrenalineShot : Ability_MedicTargeted
@@ -203,6 +206,8 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
         descriptionGeneration = generation;
         descriptionAutoCast = auto;
         description = base.GetDescriptionForPawn();
+        if (Injector?.AmmoDef is { } item)
+            description += "\n\n" + "MDWC_ShotReloadsWith".Translate(item.label);
         if (CanAutoCast)
             description += "\n" + "MDWC_ShotAutocastDesc".Translate();
         return description;

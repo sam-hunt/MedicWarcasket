@@ -38,13 +38,13 @@ spacer warcaskets research.
   worst first, using the medicine kits loaded in the armor's suite; the patient is held still
   until it is done. Dressings can be queued, and Shift-click chains patients. With the helmet on,
   it treats diseases and infections too
-- **Adrenaline shot**: the shoulders refine a vial of go-juice into a few shots; one gives a
-  person or animal, or the pilot, go-juice's surge for a few hours, fading in levels while their
-  rest falls faster. A shot into a heart attack stops it instead. With the armor worn, the shot
-  can follow every dressing automatically
+- **Adrenaline shot**: the shoulders hold a few shots, one medical kit each; one gives a
+  person or animal, or the pilot, an adrenaline surge for a few hours, fading in levels while their rest
+  falls faster. A shot into a heart attack stops it instead. With the armor worn, the shot can
+  follow every dressing automatically
 - **Mod settings** for the medicine, the VFX color, the kit capacity, the warmup, the time per
-  wound, the cooldown, the range, the shots per vial, their duration, rest cost and cooldown,
-  and which caring work (doctor, childcare) the pilot may take on
+  wound, the cooldown, the range, the shots held, what reloads them, their duration, rest cost
+  and cooldown, and which caring work (doctor, childcare) the pilot may take on
 - **Not yet tuned**: protection, shield, costs and research are still copies of VFE Pirates'
   Siegebreaker set, and the passive and ability numbers are first guesses
 - **Built on VFE Pirates** rather than beside it: the foundry, entombing, customization and

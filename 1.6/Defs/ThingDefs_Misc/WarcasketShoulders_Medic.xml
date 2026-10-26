@@ -16,14 +16,22 @@
     Adrenaline shot: VEF CompAbilitiesApparel grants MDWC_AdrenalineShot (AbilityDefs/
     AdrenalineShot.xml), fed by the injector beside it, a plain vanilla CompApparelReloadable
     the ability reads off the apparel that grants it, so both comps sit on this one def (the
-    Aerial shoulders' pairing). ammoCountToRefill 1: one vial of go-juice fills every shot, and
-    colonists fetch a vial only once the last shot is spent (vanilla's refill mode; a forced
-    reload from the float menu pays a whole vial early). maxCharges 3 is the shots a vial
-    refines to, a mod setting defaulting to it; the free first fill is one vial (53 silver), to
-    be priced into the costList in the tuning pass. chargeNoun "shot": the inspect line, the
-    stat sheet and the empty message count in shots. No verbs, so the comp draws no gizmo of
-    its own; the ability's command shows the count. Its DefInjected keys read
-    comps.CompApparelReloadable, the vanilla comp class.
+    Aerial shoulders' pairing). ammoCountPerCharge 1: one item loads one shot. With it set,
+    vanilla's NeedsReload is remaining != max on both the idle and the forced path, so
+    colonists fetch an item for every empty slot, and ReloadFrom adds min(stack / perCharge,
+    max - remaining), so a forced reload never discards anything. Refill mode
+    (ammoCountToRefill) is not used: a multi-shot refill item leaves the pilot on its last
+    shot until empty or throws the remainder away on an early reload, while a per-item charge
+    has no remainder. The per-fight budget is the loaded count, since a drafted pilot cannot
+    reload. ammoDef MedicineIndustrial: adrenaline is epinephrine, a cardiac drug drawn from a
+    medical kit, which fits the heart-attack rule, and an industrial kit is 18 silver at market
+    value. ammoDef and maxCharges 3 are mod settings defaulting to these values; the ammo
+    setting also writes the item's uiIcon onto the ability as its placeholder art. The free
+    first fill is three industrial kits (54 silver), to be priced into the costList in the
+    tuning pass. chargeNoun "shot": the inspect line, the stat sheet and the empty message
+    count in shots. No verbs, so the comp draws no gizmo of its own; the ability's command
+    shows the count. Its DefInjected keys read comps.CompApparelReloadable, the vanilla comp
+    class.
 
     ApparelExtension priority 1, for the reason in the armor def's header: the
     VFEP_WarcasketShoulderPadBase parent carries its own, and only the highest-priority copy
@@ -84,8 +92,8 @@
     <comps>
       <li Class="CompProperties_ApparelReloadable">
         <maxCharges>3</maxCharges>
-        <ammoDef>GoJuice</ammoDef>
-        <ammoCountToRefill>1</ammoCountToRefill>
+        <ammoDef>MedicineIndustrial</ammoDef>
+        <ammoCountPerCharge>1</ammoCountPerCharge>
         <baseReloadTicks>60</baseReloadTicks>
         <soundReload>Standard_Reload</soundReload>
         <chargeNoun>shot</chargeNoun>

@@ -27,12 +27,15 @@ namespace MedicWarcasket;
 // ability's tooltip.
 //
 // The shot section does the same for the adrenaline shot: on the shoulders'
-// CompProperties_ApparelReloadable entry the shots override maxCharges; on the
+// CompProperties_ApparelReloadable entry the reload item overrides ammoDef and the shots
+// maxCharges; on the
 // MDWC_AdrenalineShot AbilityDef the cooldown overrides cooldownTime, in game hours as the
 // dressing's; on the MDWC_Adrenaline HediffDef the duration overrides its severity-per-day
 // comp's severityPerDay (shown in hours, stored as -24 / hours) and the rest fall writes the
-// top stage's restFallFactor with each lower stage one higher, the XML ladder's step. The injector's ammoDef's uiIcon (go-juice's)
-// goes onto the shot's icon as the medicine's goes onto the dressing's.
+// top stage's restFallFactor with each lower stage one higher, the XML ladder's step. The
+// reload item's uiIcon goes onto the shot's icon as the medicine's goes onto the dressing's,
+// and heads the section. The item is any medicine, herbal included (a stimulant dose does not
+// depend on medical potency), or vanilla's go-juice or wake-up, listed in that order.
 //
 // The work section is one checkbox per Caring work type the trait mirror leaves to the player
 // (WorkSetting over WorkProfile.Toggleable), written onto the medic trait's disabledWorkTypes
@@ -47,8 +50,9 @@ namespace MedicWarcasket;
 // (Ability_MechaniteDressing.ReconcileSettings); kits above a lowered maximum are trimmed off
 // the worn suites at once (TrimWornSuites). A medicine change needs nothing of either: kits are
 // a vanilla charge count with no type of their own, so those loaded count as the new medicine
-// and the next reload fetches it. A tint change reaches every mote spawned after it; one in
-// flight keeps the graphic it was spawned with. Shots above a lowered maximum are spent off
+// and the next reload fetches it; a reload item change is the same for the shots loaded. A
+// tint change reaches every mote spawned after it; one in flight keeps the graphic it was
+// spawned with. Shots above a lowered maximum are spent off
 // the worn shoulders at once (TrimWornInjectors); a shot already given keeps the duration it
 // was applied with, since vanilla's comp caches the rate per instance, while the rest fall is
 // read off the stages live and reaches it at once.
@@ -70,7 +74,16 @@ public class MedicWarcasketSettings : ModSettings
     // Bumped by every ApplyToDefs, including the one at startup.
     public static int Generation { get; private set; }
 
-    public readonly MedicineSetting medicine = new();
+    // The suite's medicine: herbal is too crude for the carriers, so industrial and above
+    // qualify, modded medicines by their own tech level; the most potent first.
+    public readonly ItemSetting medicine = new("Medicine",
+        d => d.IsMedicine && d.techLevel >= TechLevel.Industrial,
+        d => d.GetStatValueAbstract(StatDefOf.MedicalPotency));
+
+    // The injector's reload item: any medicine, by potency, then go-juice, then wake-up.
+    public readonly ItemSetting shotAmmo = new("ShotAmmo",
+        d => d.IsMedicine || d == MDWC_DefOf.GoJuice || d == MDWC_DefOf.WakeUp,
+        d => d.IsMedicine ? d.GetStatValueAbstract(StatDefOf.MedicalPotency) : d == MDWC_DefOf.GoJuice ? -1f : -2f);
     public readonly TintSetting tint = new();
     public readonly WorkSetting work = new();
 
@@ -117,9 +130,6 @@ public class MedicWarcasketSettings : ModSettings
     private string dressingTip;
     private string shotTip;
 
-    // The shot section's header icon, the injector's ammoDef's (a Core texture, safe to hold).
-    private Texture2D shotIcon;
-
     // The hediff's stage count, quoted by the shot's summary line.
     private int shotLevels;
 
@@ -137,6 +147,7 @@ public class MedicWarcasketSettings : ModSettings
     {
         base.ExposeData();
         medicine.ExposeData();
+        shotAmmo.ExposeData();
         tint.ExposeData();
         work.ExposeData();
         foreach (Tunable tunable in All)
@@ -161,12 +172,12 @@ public class MedicWarcasketSettings : ModSettings
             moteColors[i] = defs.motes[i].graphicData.color;
         tint.DefaultValue = moteColors[0];
         dressingTip = HeaderTip(defs.dressing.LabelCap, defs.dressing.description);
+        shotAmmo.DefaultValue = defs.injector.ammoDef;
         shots.DefaultValue = defs.injector.maxCharges;
         shotDuration.DefaultValue = defs.fade.severityPerDay < 0f ? -24f / defs.fade.severityPerDay : 0f;
         restFall.DefaultValue = defs.adrenaline.stages[defs.adrenaline.stages.Count - 1].restFallFactor;
         shotCooldown.DefaultValue = (float)defs.shot.cooldownTime / GenDate.TicksPerHour;
         shotLevels = defs.adrenaline.stages.Count;
-        shotIcon = defs.injector.ammoDef?.uiIcon;
         shotTip = HeaderTip(defs.shot.LabelCap, defs.shot.description);
         workIcon = ContentFinder<Texture2D>.Get("World/WorldObjects/Expanding/Sites/MiningWorkSite");
         defaultsLoaded = true;
@@ -197,9 +208,14 @@ public class MedicWarcasketSettings : ModSettings
             defs.motes[i].graphicData.color = new Color(rgb.r, rgb.g, rgb.b, moteColors[i].a);
             RebuildGraphic(defs.motes[i]);
         }
+        ThingDef shotItem = shotAmmo.Value;
+        if (shotItem != null)
+        {
+            defs.injector.ammoDef = shotItem;
+            if (defs.shot.iconPath.NullOrEmpty())
+                defs.shot.icon = shotItem.uiIcon != null ? shotItem.uiIcon : BaseContent.BadTex;
+        }
         defs.injector.maxCharges = Mathf.Max(1, shots.IntValue);
-        if (defs.shot.iconPath.NullOrEmpty())
-            defs.shot.icon = shotIcon != null ? shotIcon : BaseContent.BadTex;
         defs.shot.cooldownTime = Mathf.RoundToInt(shotCooldown.Value * GenDate.TicksPerHour);
         defs.fade.severityPerDay = -24f / Mathf.Max(shotDuration.Value, 0.01f);
         List<HediffStage> stages = defs.adrenaline.stages;
@@ -266,7 +282,7 @@ public class MedicWarcasketSettings : ModSettings
     // button sits below the list. The section is headed by whitespace and a medium-font header
     // rather than a rule, which reads as another slider, and the rows sit indented under it; it
     // closes on the same gap so the list does not end flush on its last row. The header's icon
-    // is the configured medicine's, read on each draw so it follows the medicine row at once.
+    // is the configured item's, read on each draw so it follows the item row at once.
     // The list scrolls once it outgrows the window's height (a small window, a large font),
     // sized from the previous frame's listing height; the scrollbar only takes its width once
     // it is needed. maxOneColumn keeps the listing growing downward: past its rect's height it
@@ -300,9 +316,10 @@ public class MedicWarcasketSettings : ModSettings
         tendInterval.DoRow(listing);
         cooldown.DoRow(listing);
         range.DoRow(listing);
-        SectionHeader(listing, "MDWC_SectionShot", shotIcon, shotTip);
+        SectionHeader(listing, "MDWC_SectionShot", shotAmmo.Value?.uiIcon, shotTip);
         SummaryRow(listing, ShotSummary);
         shots.DoRow(listing);
+        shotAmmo.DoRow(listing);
         shotDuration.DoRow(listing);
         restFall.DoRow(listing);
         shotCooldown.DoRow(listing);
@@ -321,6 +338,7 @@ public class MedicWarcasketSettings : ModSettings
                 "RestoreToDefaultSettings".Translate()))
         {
             medicine.Reset();
+            shotAmmo.Reset();
             tint.Reset();
             work.Reset();
             foreach (Tunable tunable in All)
@@ -341,16 +359,17 @@ public class MedicWarcasketSettings : ModSettings
         return "MDWC_DressingSummary".Translate(kits.IntValue, medicineLabel, severityPerKit, warmup, perWound, Hours(cooldown.Value));
     }
 
-    // What the shot section's rows amount to: the shots a vial gives, how long one lasts and
-    // in how many levels, the rest fall at its start, and the cooldown, with the same
-    // no-cooldown clause rule as the dressing's.
+    // What the shot section's rows amount to: the shots held and the item each costs, how long
+    // one lasts and in how many levels, the rest fall at its start, and the cooldown, with the
+    // same no-cooldown clause rule as the dressing's.
     private string ShotSummary()
     {
+        string item = shotAmmo.Value?.label ?? string.Empty;
         string hours = shotDuration.Value.ToString("0.#");
         string fall = restFall.Value.ToString("0.#");
         if (shotCooldown.Value <= 0f)
-            return "MDWC_ShotSummaryNoCooldown".Translate(shots.IntValue, hours, shotLevels, fall);
-        return "MDWC_ShotSummary".Translate(shots.IntValue, hours, shotLevels, fall, Hours(shotCooldown.Value));
+            return "MDWC_ShotSummaryNoCooldown".Translate(shots.IntValue, item, hours, shotLevels, fall);
+        return "MDWC_ShotSummary".Translate(shots.IntValue, item, hours, shotLevels, fall, Hours(shotCooldown.Value));
     }
 
     // What the work section's boxes amount to: the caring work the pilot may take on, named as

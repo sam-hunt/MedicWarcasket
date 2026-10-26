@@ -27,6 +27,7 @@
   <MDWC_ShotsLabel>Shots: {0} / {1}</MDWC_ShotsLabel>
   <MDWC_ShotStopsHeartAttack>Stops the heart attack</MDWC_ShotStopsHeartAttack>
   <MDWC_HeartAttackStopped>{0}'s heart attack has stopped.</MDWC_HeartAttackStopped>
+  <MDWC_ShotReloadsWith>Reloads with {0}.</MDWC_ShotReloadsWith>
   <MDWC_ShotAutocastDesc>Autocast: a shot to each patient as their dressing ends.</MDWC_ShotAutocastDesc>
 
   <!-- Mod settings (Source/1.6/Settings/) -->
@@ -64,20 +65,23 @@
 
   <MDWC_SectionShot>Adrenaline shot</MDWC_SectionShot>
 
-  <MDWC_Shots>Shots per vial</MDWC_Shots>
-  <MDWC_ShotsDesc>The number of shots the shoulders refine from one vial of go-juice. Shoulders already holding more than this lose the excess. Default: {0}.</MDWC_ShotsDesc>
+  <MDWC_Shots>Shots held</MDWC_Shots>
+  <MDWC_ShotsDesc>The number of shots the shoulders' injector holds when full. Shoulders already holding more than this lose the excess. Default: {0}.</MDWC_ShotsDesc>
+
+  <MDWC_ShotAmmo>Reload item</MDWC_ShotAmmo>
+  <MDWC_ShotAmmoDesc>The item the shoulders' injector is loaded with, one per shot: any medicine, go-juice or wake-up. Shots already loaded count as the new item. Default: {0}.</MDWC_ShotAmmoDesc>
 
   <MDWC_ShotDuration>Duration (hours)</MDWC_ShotDuration>
   <MDWC_ShotDurationDesc>How long a shot lasts, fading in levels. A shot already given keeps its own clock. Default: {0}.</MDWC_ShotDurationDesc>
 
-  <MDWC_RestFall>Rest fall at a shot's start (x)</MDWC_RestFall>
+  <MDWC_RestFall>Initial rest fall multiplier</MDWC_RestFall>
   <MDWC_RestFallDesc>How many times faster a patient's rest falls while a shot is fresh. Each level it fades through adds one. Sleep restores rest as usual. Default: {0}.</MDWC_RestFallDesc>
 
   <MDWC_ShotCooldown>Cooldown (hours)</MDWC_ShotCooldown>
   <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient instead. Default: {0}.</MDWC_ShotCooldownDesc>
 
-  <MDWC_ShotSummary>The shoulders hold {0} shots per vial of go-juice. A shot lasts {1} h, fading in {2} levels, and the patient's rest falls {3} times as fast at first, faster with each level, with {4} h of cooldown between shots.</MDWC_ShotSummary>
-  <MDWC_ShotSummaryNoCooldown>The shoulders hold {0} shots per vial of go-juice. A shot lasts {1} h, fading in {2} levels, and the patient's rest falls {3} times as fast at first, faster with each level, and the next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
+  <MDWC_ShotSummary>The injector holds {0} shots, one {1} each. A shot lasts {2} h, fading in {3} levels, and the patient's rest falls {4} times as fast at first, faster with each level, with {5} h of cooldown between shots.</MDWC_ShotSummary>
+  <MDWC_ShotSummaryNoCooldown>The injector holds {0} shots, one {1} each. A shot lasts {2} h, fading in {3} levels, and the patient's rest falls {4} times as fast at first, faster with each level, and the next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
 
   <MDWC_SectionWork>Enabled work types</MDWC_SectionWork>
   <MDWC_SectionWorkDesc>The caring work types a pilot of the medic set may take on. Every other work type follows VFE Pirates' warcasket trait as your other mods leave it, so a mod that opens work for every warcasket opens it for the medic too.</MDWC_SectionWorkDesc>

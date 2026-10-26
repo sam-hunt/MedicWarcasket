@@ -25,7 +25,7 @@ readings this draft takes of the brief, for the review to confirm or move.
 | A rest cost as the shot fades: a rest fall factor on the hediff (review: not a stage hook) | 3.2, 4   |
 | Review: the factor climbs a level at a time, x2, x3, x4                                | 3.2, 3.7 |
 | Charge noun "shot", "charge" or whatever fits and translates                          | 3.1, 4   |
-| Reloaded with go-juice, one go-juice loading several shots                            | 3.1, 3.6 |
+| Reloaded one item per shot, industrial medicine by default (a setting)               | 3.1, 3.8 |
 | Stops a heart attack outright, at any severity                                        | 3.3      |
 | Review: a pawn with a heart attack can always be targeted                             | 3.3      |
 | Review: on a heart attack the shot cures instead of stimulating                       | 3.3      |
@@ -34,9 +34,9 @@ readings this draft takes of the brief, for the review to confirm or move.
 
 ## 1. Fiction
 
-The shoulders' field-medicine manipulators carry an injector fed from a vial of go-juice. The
-suit does not inject the drug raw: it refines the vial into a few measured shots of a short,
-sharp stimulant and delivers one into whoever the pilot reaches for, the pilot included. For a
+The shoulders' field-medicine manipulators carry an injector loaded from medical kits, one
+kit's drugs to a shot: a measured dose of adrenaline, a short, sharp stimulant, delivered into
+whoever the pilot reaches for, the pilot included. For a
 few hours the patient feels almost no pain and moves, sees and thinks faster, the surge fading
 in steps, and all the while the body burns through its reserves: the patient will need sleep
 sooner. A shot into a failing heart is spent on the heart alone: it jolts it back into rhythm,
@@ -45,8 +45,9 @@ over to stimulate.
 
 This fiction explains each mechanic:
 
-- **A refined go-juice** is why the shot is go-juice's effect on a shorter clock, with no
-  addiction and no tolerance: the carrier chemicals never reach the bloodstream.
+- **A measured dose of adrenaline**, the body's own hormone, is why the shot borrows go-juice's
+  effect on a shorter clock with no addiction and no tolerance. Adrenaline is also a cardiac
+  drug, which is why the dose fits the heart rule below.
 - **The fade in steps** is the hediff's stages; **the reserves burning** is the faster rest fall
   under every stage.
 - **The heart** is why the shot cures a heart attack and nothing else, and why a shot spent on
@@ -165,22 +166,23 @@ scale.
 - `JobDriver_CastAbilityOnce` and the ordering, binding, stun and cursor facts are in
   `Mechanite-Dressing.md` 2.1 and 2.2 and are reused unchanged (3.3).
 
-### 2.6 The vanilla reloadable with a refill cost
+### 2.6 The vanilla per-charge reloadable
 
 `CompApparelReloadable` (bodies read on 1.7; every member present on 1.6):
 
 - `ammoCountToRefill` and `ammoCountPerCharge` are exclusive (`ConfigErrors`). With
-  `ammoCountToRefill` set, `ReloadFrom` destroys exactly that many items and sets
-  `remainingCharges = MaxCharges`; `NeedsReload(allowForcedReload: false)`, the idle
-  `JobGiver_Reload` path, is `remainingCharges == 0`, while the forced path (the float menu, the
-  dev button) is `remaining != max`. So colonists fetch a vial only once the last shot is spent,
-  and a forced early reload pays a whole vial. VFEP's Controller set uses the same shape
-  (`ammoCountToRefill` 1 of `ComponentSpacer`), as do Core's smokepop and firefoam packs.
+  `ammoCountPerCharge` set, `NeedsReload` is `remaining != max` on both the idle
+  `JobGiver_Reload` path and the forced one (the float menu, the dev button), and `ReloadFrom`
+  adds `min(stack / perCharge, max - remaining)` charges, destroying only the items it used. So
+  colonists fetch an item for every empty slot and a forced reload never discards anything. A
+  refill-mode reloadable whose capacity is one indivisible vial could only reload at empty or
+  early with the remainder thrown away; the per-item charge has no remainder.
 - `PostPostMake` fills the charges on creation. `CompApparelVerbOwner.CompGetWornGizmosExtra`
   yields one command **per verb**, so a reloadable on a def with no `<verbs>` shows no gizmo of
   its own (only the dev "Reload to full"); its count reaches the player through
   `CompInspectStringExtra` ("Shots remaining: 2 / 3"), `CompTipStringExtra` and the stat sheet,
-  and the props print the refill line (`Stat_Thing_ReloadRefill`, "1 go-juice") on both cards.
+  and with `ammoCountPerCharge` set the props print "Reload cost per shot: 1 medicine" on both
+  cards, as the suite's "Reload cost per kit" (`Mechanite-Dressing.md` 2.3).
   `UsedOnce()` (virtual) decrements. `displayGizmoWhileUndrafted` gates only those verb commands.
 - Vanilla's own charge nouns: `charge` (default), `smokepop`, `firefoam pop`, `jump`, `shield`,
   `grenade`, `incendiary`, `flare`, `shell`, `tox pack`. The noun is printed through
@@ -193,11 +195,11 @@ scale.
 **Shoulders** (`ThingDefs_Misc/WarcasketShoulders_Medic.xml`) gain two comps, the Aerial
 shoulders' pairing:
 
-- a plain vanilla `CompProperties_ApparelReloadable`: `maxCharges` 3, `ammoDef` `GoJuice`,
-  `ammoCountToRefill` 1, `baseReloadTicks` 60, `soundReload` `Standard_Reload`, `chargeNoun`
+- a plain vanilla `CompProperties_ApparelReloadable`: `maxCharges` 3, `ammoDef`
+  `MedicineIndustrial`, `ammoCountPerCharge` 1, `baseReloadTicks` 60, `soundReload` `Standard_Reload`, `chargeNoun`
   "shot". No comp subclass: the ability spends through `UsedOnce()` and vanilla does the rest
-  (2.6). The free first fill is three shots, one vial (53 silver), to be priced into the
-  shoulders' cost in the tuning pass. `maxCharges` is a mod setting (3.7).
+  (2.6). The free first fill is three shots, three industrial kits (54 silver), to be priced
+  into the shoulders' cost in the tuning pass. `ammoDef` and `maxCharges` are mod settings (3.7).
 - `VEF.Abilities.CompProperties_AbilitiesApparel` granting `MDWC_AdrenalineShot`.
 
 The ability reads the reloadable off `holder`, so both comps sit on the shoulders, as the
@@ -212,9 +214,9 @@ checks for the armor except the autocast (3.4).
   mechs, **self allowed**, no buildings or locations), `distanceToTarget` 2.9, `requireLineOfSight`
   false (the walk enforces both, as the dressing's does), `castTime` 30 (0.5 s), `cooldownTime` 0,
   `showUndrafted` true, `autocastPlayerDefault` false, `castSound` unset (3.3 plays the sound at
-  the patient). No `iconPath` until the ability art lands: the settings write go-juice's `uiIcon`
-  onto `def.icon`, as the dressing's medicine icon is written (`TODOs.md` already names go-juice
-  as the shot's placeholder). No `AbilityExtension_Hediff`: the shot applies its hediff itself
+  the patient). No `iconPath` until the ability art lands: the settings write the reload item's
+  `uiIcon` onto `def.icon`, as the dressing's medicine icon is written, so the shot's placeholder
+  is the configured item's icon (3.7). No `AbilityExtension_Hediff`: the shot applies its hediff itself
   (3.3), since VEF's path would merge severities (2.3) and cannot refresh.
 - `JobDefs/AdrenalineShot.xml`: `MDWC_AdrenalineShot`, `driverClass`
   `MedicWarcasket.JobDriver_AdrenalineShot`, `reportString` "giving an adrenaline shot.",
@@ -387,17 +389,18 @@ description), with:
   top-left is free.
 
 The shoulders' inspect line, tooltip and stat sheet are vanilla's ("Shots remaining: 2 / 3",
-the refill line "1 go-juice"), untouched. No gauge: three whole shots need no bar.
+"Reload cost per shot: 1 medicine"), untouched. No gauge: three whole shots need no bar.
 
 ### 3.7 Settings
 
 A second section, **Adrenaline shot**, between the dressing's and the work section, its header
-carrying the shot's tooltip over go-juice's icon as the dressing's carries its medicine's.
+carrying the shot's tooltip over the reload item's icon as the dressing's carries its medicine's.
 Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `ApplyToDefs`:
 
 | Setting             | Def field                                                        | Default | Range           |
 | ------------------- | ---------------------------------------------------------------- | ------- | --------------- |
-| Shots per vial      | shoulders' reloadable `maxCharges`                               | 3       | 1..10, step 1   |
+| Shots held          | shoulders' reloadable `maxCharges`                               | 3       | 1..10, step 1   |
+| Reload item         | shoulders' reloadable `ammoDef` (any medicine, then go-juice, then wake-up) | industrial medicine | float menu |
 | Duration (hours)    | hediff `HediffCompProperties_SeverityPerDay.severityPerDay`      | 3       | 0.5..12, step 0.5 |
 | Rest fall at a shot's start (×) | the hediff's stage `restFallFactor`s, the top stage's value; each lower stage one higher | 2 | 1..5, step 0.5 |
 | Cooldown (seconds)  | ability `cooldownTime` (ticks ÷ 60)                              | 0       | 0..300, step 5  |
@@ -408,29 +411,30 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
   rest fall row writes the top stage's `restFallFactor` and, for each stage below it, one more
   (the XML ladder's step), read live, so it reaches every shot at once; its default is the top
   stage's XML value.
-- `ApplyToDefs` also writes go-juice's `uiIcon` onto the shot def's `icon` while it has no
-  `iconPath`, and trims worn shoulders above a lowered `maxCharges` (`remainingCharges` is
+- `ApplyToDefs` also writes the reload item's `uiIcon` onto the shot def's `icon` while it has
+  no `iconPath`, and trims worn shoulders above a lowered `maxCharges` (`remainingCharges` is
   protected; a tiny `CompApparelReloadable` subclass is **not** worth it: the dev "reload to
   full" and `ReloadFrom` both write `MaxCharges`, so the trim is a `UsedOnce()` loop down to the
   new maximum, which spends nothing real).
 - The warmup (30 ticks) and the range (2.9) are def fields without settings; the level count is
   the stage list. Section 4 lists them as levers.
-- Summary line: "The shoulders hold {0} shots per vial of go-juice. A shot lasts {1} h, fading
-  in three levels, and the patient's rest falls {2} times as fast at first, faster with each level, with {3} s
-  of cooldown between shots." A second key ends "..., and the next shot can follow at once." when
+- Summary line: "The injector holds {0} shots, one {1} each. A shot lasts {2} h, fading in {3}
+  levels, and the patient's rest falls {4} times as fast at first, faster with each level, with
+  {5} h of cooldown between shots." A second key ends "..., and the next shot can follow at once." when
   the cooldown is 0.
 - `TryGetDefs` grows by the shot's three defs; all-or-nothing as now, with the warning naming
   what is missing.
 
 ### 3.8 Charging, from the player's side
 
-One vial of go-juice loads three shots, each about 18 silver of a 53-silver vial, for 3 hours of
-go-juice's full effect tapering to a third, with no addiction and no tolerance, against rest
-falling three times as fast until it ends. Go-juice itself gives 16 hours and +0.4 rest for 53 silver
-and an addiction roll, so the shot is the costlier way to use the drug, bought for its safety,
-its reach from the shoulders, the heart, and the fact that it is the pilot who carries it into
-a fight. A shot spent on a heart attack buys the cure alone, at the same price. Colonists fetch a new vial only once the last shot is spent; a forced early reload
-pays a whole vial.
+One industrial medicine kit loads one shot, 18 silver at market value, the same as a third of a
+53-silver go-juice vial, for 3 hours of go-juice-grade effect tapering to a third, with no
+addiction and no tolerance, against rest falling faster until it ends. A drafted pilot cannot
+reload, so the per-fight budget is the shots loaded; between fights colonists reload every
+empty slot, one kit each, with nothing discarded. A shot spent on a heart attack buys the cure
+alone, at the same price; adrenaline is a cardiac drug, which is why a dose from a medical kit
+fits that rule better than a combat stimulant would. The item is a setting: any of vanilla's
+three medicines, go-juice or wake-up, industrial medicine by default.
 
 ## 4. Readings taken, and open levers
 
@@ -446,8 +450,8 @@ Readings of the brief for the review to confirm:
 2. **Charge noun "shot".** It reads as vanilla's own nouns do ("Shots remaining: 2 / 3", "No
    shots left"), has a one-word equivalent in every roster language, and is the word the
    Workshop page already uses. "Charge" would be VFEP's generic and says less.
-3. **Three shots per vial.** Vanilla's refill packs hold three (smokepop) at a chemfuel cost;
-   three keeps the first fill at one vial and the corner count legible.
+3. **Three shots held.** Vanilla's packs hold three (smokepop); three keeps the first fill at
+   three kits, the per-fight budget meaningful and the corner count legible.
 4. **The hostile rule is stricter than the dressing's** (3.3): the dressing may tend a downed
    raider for capture, the shot may not stand one up. **A heart attack overrides it** (review):
    such a pawn is always a target, and the shot spent on them is cure only, so nothing stands
@@ -457,7 +461,7 @@ Readings of the brief for the review to confirm:
 6. **The autocast toil sits before the warmdown** (3.4), inside the stun, so the shot lands on
    a patient still held and the fade stays last.
 7. **Autocast skips bed patients without a heart attack** (3.4). A toggle that jabbed every
-   hospital patient would drain vials and sleep for nothing.
+   hospital patient would drain medicine and sleep for nothing.
 
 Open levers, each small:
 
@@ -474,34 +478,33 @@ Open levers, each small:
 
 Drafts, no em dashes (player-facing):
 
-- Ability `label` "adrenaline shot". `description`: "Inject a nearby person or animal, or the
-  pilot, with a refined shot of go-juice. For a few hours they feel almost no pain and move, see
-  and think faster, while their rest falls much faster than usual. The effect fades in levels.
-  On a patient with a heart attack the shot is spent on the heart instead: it stops the attack
-  outright and gives no surge.\n\nThe shoulders hold several
-  shots per vial of go-juice, and reload once the last is spent. With the medic armor worn,
-  right-click to give every patient a shot as their dressing ends." `jobReportString` "Giving
+- Ability `label` "adrenaline shot". `description`: "Inject a nearby person or animal with a
+  dose of adrenaline drawn from a medical kit. For a few hours they feel almost no pain
+  and move, see and think faster, while their rest falls much faster than usual. On a patient
+  with a heart attack the shot is spent on the heart instead." The code appends "Reloads with
+  {item}." (`MDWC_ShotReloadsWith`, the item being a setting) and, with the armor worn, the
+  autocast line. `jobReportString` "Giving
   an adrenaline shot."; the JobDef's `reportString` "giving an adrenaline shot.".
-- Hediff `label` "adrenaline shot", `labelNoun` "an adrenaline shot", `description` "A refined
-  shot of go-juice, fading in levels. Pain is dulled and movement, sight and thought are
+- Hediff `label` "adrenaline shot", `labelNoun` "an adrenaline shot", `description` "A shot of
+  adrenaline, fading in levels. Pain is dulled and movement, sight and thought are
   quickened, while the body burns through its rest faster and faster as the surge fades." Stage
   labels "rush",
   "fading", "wearing off".
-- Shoulders: `chargeNoun` "shot" (vanilla prints "Shots remaining", "No shots left" and the refill
-  line "1 go-juice"); vanilla's `cooldownGerund` default joins the DefInjected set as the armor's did.
+- Shoulders: `chargeNoun` "shot" (vanilla prints "Shots remaining", "No shots left" and "Reload
+  cost per shot: 1 medicine"); vanilla's `cooldownGerund` default joins the DefInjected set as the armor's did.
   The `shortDescription` and first paragraph gain the injector: "fitted with field-medicine
   manipulators and an adrenaline injector." The shared paragraphs stay with the descriptions
   item in `TODOs.md`.
-- Keyed, new: `MDWC_SectionShot` "Adrenaline shot"; `MDWC_Shots` "Shots per vial",
-  `MDWC_ShotsDesc` "The number of shots the shoulders refine from one vial of go-juice. Shoulders
-  already holding more than this lose the excess. Default: {0}."; `MDWC_ShotDuration` "Duration
+- Keyed, new: `MDWC_SectionShot` "Adrenaline shot"; `MDWC_Shots` "Shots held",
+  `MDWC_ShotsDesc` "The number of shots the shoulders' injector holds when full. Shoulders already holding more than this lose the excess. Default: {0}."; `MDWC_ShotAmmo` "Reload item", `MDWC_ShotAmmoDesc` "The item the shoulders' injector is loaded with, one per shot: any medicine, go-juice or wake-up. Shots already loaded count as the new item. Default: {0}."; `MDWC_ShotReloadsWith`
+  "Reloads with {0}." (appended to the ability's description, `{0}` the item's label); `MDWC_ShotDuration` "Duration
   (hours)", `MDWC_ShotDurationDesc` "How long a shot lasts, fading in three levels. A shot
   already given keeps its own clock. Default: {0}."; `MDWC_RestFall` "Rest fall at a shot's start (x)",
   `MDWC_RestFallDesc` "How many times faster a patient's rest falls while a shot is fresh. Each
   level it fades through adds one. Sleep restores rest as usual. Default: {0}."; `MDWC_ShotCooldown` "Cooldown (seconds)", `MDWC_ShotCooldownDesc` "The time
   the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient
-  instead. Default: {0}."; `MDWC_ShotSummary` (four arguments, 3.7) and
-  `MDWC_ShotSummaryNoCooldown` (three); `MDWC_NoShotsLoaded` "No shots loaded.";
+  instead. Default: {0}."; `MDWC_ShotSummary` (six arguments, 3.7) and
+  `MDWC_ShotSummaryNoCooldown` (five); `MDWC_NoShotsLoaded` "No shots loaded.";
   `MDWC_ShotHostile` "{0} is hostile."; `MDWC_ShotAlreadyRushing` "{0} is already running on
   adrenaline."; `MDWC_ShotsLabel` "Shots: {0} / {1}" (the cursor); `MDWC_ShotStopsHeartAttack`
   "Stops the heart attack" (the cursor's second line); `MDWC_HeartAttackStopped` "{0}'s heart attack
@@ -522,12 +525,12 @@ Drafts, no em dashes (player-facing):
 
 Dev mode, VFEP chain plus this mod, fresh saves:
 
-1. **Settings.** The new section shows go-juice's icon and the shot's tooltip, four rows, and a
-   summary reading "3 shots", "3 h", "2 times as fast at first", "and the next shot can follow at
+1. **Settings.** The new section shows industrial medicine's icon and the shot's tooltip, five
+   rows, and a summary reading "3 shots, one medicine each", "3 h", "2 times as fast at first", "and the next shot can follow at
    once". Set the
    cooldown to 20: the summary's last clause changes. Reset restores all four. Lower the shots
    to 2 on worn shoulders holding 3: the corner count reads "2 / 2".
-2. **A shot.** Click the gizmo: the cursor shows go-juice's icon and "Shots: 3 / 3" over a
+2. **A shot.** Click the gizmo: the cursor shows the reload item's icon and "Shots: 3 / 3" over a
    colonist, the cross over a raider (downed or not) and over a pawn already at "rush", and
    "Stops the heart attack" as a second line over a dev-given heart attack, on a raider and on a
    "rush" patient too. Click the colonist:
@@ -548,23 +551,26 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    appears top-left and jumps to the pawn, a shot is spent, and **no** adrenaline hediff is
    applied (the "rush" patient's existing one is left as it was). The pilot's own heart attack
    is stopped the same way with no walk.
-5. **Reload.** Spend all three: a colonist fetches one go-juice and the count returns to
-   "3 / 3". At "1 / 3" nobody reloads; the float menu on a vial offers a reload that spends the
-   vial and returns "3 / 3". The dev "Reload to full" button works.
-6. **Autocast.** Without the armor the right-click line is absent and right-click does nothing.
+5. **Reload.** Spend one: a colonist fetches one industrial kit and the count returns to
+   "3 / 3". The float menu on a kit offers a reload only while a slot is empty, and loads one
+   kit per empty slot. The dev "Reload to full" button works.
+6. **Reload item.** With "2 / 3" loaded, switch the reload item to herbal medicine: the loaded
+   shots stay, the gizmo icon and the "Reloads with" line change, and the next reload fetches
+   herbal medicine.
+7. **Autocast.** Without the armor the right-click line is absent and right-click does nothing.
    With the armor, right-click shows the check in the gizmo's **top-left** with the count still
    in the top-right, and the tooltip gains the autocast line. Dress a wounded, standing colonist:
    after the last wound's text the patient is held another 0.5 s, the shot lands, then the glow
    fades. Dress a bed patient: no shot; give them a heart attack first: the shot cures it and
    nothing else. Dress a downed raider: no shot; give them a heart attack: cured. Dress a patient at "rush": no shot. Empty the shoulders: no shot and
    no message. Save and reload: the check is still on and the shot still fires.
-7. **Queue.** The dressing's queue test (`Mechanite-Dressing.md` 6.8) passes unchanged, and the
+8. **Queue.** The dressing's queue test (`Mechanite-Dressing.md` 6.8) passes unchanged, and the
    same test on the shot: Shift-click three colonists, a waypoint between two of them, a plain
    click replacing the queue, a queued shot that starts with the shoulders empty failing at its
    check with nothing spent.
-8. **Interruption.** Draft the pilot during a shot's warmup: nothing is spent and no hediff
+9. **Interruption.** Draft the pilot during a shot's warmup: nothing is spent and no hediff
    appears. Damage mid-warmup does not interrupt.
-9. **Gates.** `python3 Scripts/integration-smoke-test.py` and
+10. **Gates.** `python3 Scripts/integration-smoke-test.py` and
    `python3 Scripts/check-translations.py` are clean after the sidecar regen, and a Release build
    passes with warnings as errors.
 
@@ -583,6 +589,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
 7. Supporting documentation, as a side effect of the landed code: `CLAUDE.md` (the overview's
    feature line and spec pointer, the project structure gaining `HediffDefs/`, the settings
    bullet gaining the shot's fields and the stage factors, the `Abilities/` line), `TODOs.md` (close the adrenaline
-   item; add the first fill of one vial to the tuning item; the art item already names go-juice),
+   item; add the first fill of three industrial kits to the tuning item; the art item names the
+   placeholder icons),
    `CHANGELOG.md` `[Unreleased]`, the Workshop description, `README.md`, the translate skill and
    its glossary.

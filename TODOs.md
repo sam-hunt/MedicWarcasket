@@ -1,6 +1,11 @@
 # TODOs
 
-- Test mechanite dressing cooldown/queuing
+- Review in-flight description edits
+- Test mechanite dressing cooldown settings
+- Mod setting for Adrenaline shot autocast beginning on/off? tied to whether the torso is equipped?
+- reduce mechanite dressing range by 1 cell?
+- **Verify in game** the dressing's pace scaling and whole-kit gauge fill, and the shot's
+  per-item reload and reload item setting (`Adrenaline-Shot.md` section 6, steps 5 and 6)
 
 ## Before the first release
 
@@ -9,18 +14,16 @@
   header is the format, `VFEP_WARCASKET_STATS.md` the tables). Folds in:
   - the passives (`MedicalTendSpeed` +0.25, `MedicalTendQuality` +0.10 are first guesses)
   - welding costs, the free first fills included: five glitterworld medicine kits in the
-    armor, one vial of go-juice in the shoulders
+    armor, three industrial medicine kits in the shoulders
   - the helmet: does its Sight floor overlap the Sarcophagus helmet? could the floor be lower?
-- **Mechanite dressing autocast** could we implement this (disabled by default, toggleable via
-  gizmo as other (VEF?) abilities are) for nearby colonists only? not friendlies/neutrals/animals
-- **Mechanite dressing reloads** How to handle partial remainders so the gauge looks full/reloaded?
-- **Adrenaline shot verification.** Implemented per `Docs/Specs/Adrenaline-Shot.md`; run its
-  section 6 in game, the dressing's queue test (`Mechanite-Dressing.md` 6.8) first, since the
-  dressing now sits on the shared ordering and walk base classes.
+  - with adrenaline shot switched gojuice->medicine, should the high be nerfed a bit/should we
+    add a final crash stage?
 - **Descriptions.** The three def descriptions are theme placeholders. Rewrite around the final
   features, shared paragraphs identical across the pieces, each `shortDescription` equal to
   its first paragraph. The ability description and the Keyed strings are first drafts.
+- CE Patch similar to Shipcracker/Toxin once they're tested/released
 - **Smoke test on 1.6**
+- **Full review of player-facing copy**
 - **First Workshop publish.** Commit `About/PublishedFileId.txt`, add the Workshop link and the
   Steam badges to the README, paste the description.
 
@@ -35,7 +38,7 @@
   sustainer, a weapon's if nothing else fits, suits the stream better, and check the layering
   and volumes. A DLC sound needs a fallback for when the DLC is absent. The shot plays
   vanilla's injection (`Ingest_Inject`) at the patient; hear it against the dressing's.
-- **Art.** Ability gizmos switch from glitterworld medicine and go-juice once commissioned art lands
+- **Art.** Ability gizmos switch from their reload items' icons once commissioned art lands
 - **Raid presence.** The pieces carry `WarcasketVeteran` and `WarcasketAll` like Siegebreaker;
   decide whether a medic set stays on the raid tables (AI never casts apparel abilities, can we make them?).
 - **Unit tests.** Siblings carry a headless xUnit net472 suite (`Tests/1.6/<Mod>.Tests.csproj`);

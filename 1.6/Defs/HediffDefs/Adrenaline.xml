@@ -27,7 +27,7 @@
     <hediffClass>Hediff_High</hediffClass>
     <label>adrenaline shot</label>
     <labelNoun>an adrenaline shot</labelNoun>
-    <description>A refined shot of go-juice, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its rest faster and faster as the surge fades.</description>
+    <description>A shot of adrenaline, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its rest faster and faster as the surge fades.</description>
     <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
     <isBad>false</isBad>
     <everCurableByItem>false</everCurableByItem>

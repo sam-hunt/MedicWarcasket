@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!--
     The Medic shoulders' active, granted by the shoulders' CompProperties_AbilitiesApparel and
@@ -22,14 +22,17 @@
     job rather than by VEF (which never fires an apparel ability's autocast), and offered only
     while the armor is worn. No castSound: the ability plays the injection at the patient.
 
-    No iconPath: the mod settings write the injector's ammoDef's uiIcon (go-juice's) onto
-    def.icon at startup, so the gizmo, the cursor and the settings header show the vial until
-    custom ability art lands.
+    No iconPath: the mod settings write the configured reload item's uiIcon (the injector's
+    ammoDef) onto def.icon at startup and on window close, so the gizmo, the cursor and the
+    settings header show that item until custom ability art lands.
+
+    The description names no reload item: the item is a mod setting, so
+    Ability_AdrenalineShot appends the "Reloads with" line at runtime.
   -->
   <VEF.Abilities.AbilityDef>
     <defName>MDWC_AdrenalineShot</defName>
     <label>adrenaline shot</label>
-    <description>Inject a nearby person or animal, or the pilot, with a refined shot of go-juice. For a few hours they feel almost no pain and move, see and think faster, while their rest falls much faster than usual. The effect fades in levels. On a patient with a heart attack the shot is spent on the heart instead: it stops the attack outright and gives no surge.\n\nThe shoulders hold several shots per vial of go-juice, and reload once the last is spent. With the medic armor worn, right-click to give every patient a shot as their dressing ends.</description>
+    <description>Inject a nearby person or animal with a dose of adrenaline drawn from a medical kit. For a few hours they feel almost no pain and move, see and think faster, while their rest falls much faster than usual. On a patient with a heart attack the shot is spent on the heart instead.</description>
     <abilityClass>MedicWarcasket.Ability_AdrenalineShot</abilityClass>
     <gizmoClass>MedicWarcasket.Command_AdrenalineShot</gizmoClass>
     <jobDef>MDWC_AdrenalineShot</jobDef>

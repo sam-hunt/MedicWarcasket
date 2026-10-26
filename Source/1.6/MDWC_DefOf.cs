@@ -26,6 +26,11 @@ public static class MDWC_DefOf
     public static HediffDef HeartAttack;
     public static SoundDef Ingest_Inject;
 
+    // The two drugs the shot's reload item may be besides a medicine (MedicWarcasketSettings'
+    // shotAmmo), listed after the medicines in that order.
+    public static ThingDef GoJuice;
+    public static ThingDef WakeUp;
+
     // The dressing's motes (1.6/Defs/Effects/): the emitter glow in front of the pilot, the
     // beam between the two and the silhouette overlay on the patient. The beam's colour is also
     // the gauge's (Gizmo_DressingSuite).

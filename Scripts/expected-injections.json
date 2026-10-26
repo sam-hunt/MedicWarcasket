@@ -20,7 +20,7 @@
   "defInjections": {
     "HediffDef": {
       "MDWC_Adrenaline.description": {
-        "english": "A refined shot of go-juice, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its rest faster and faster as the surge fades.",
+        "english": "A shot of adrenaline, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its rest faster and faster as the surge fades.",
         "required": true
       },
       "MDWC_Adrenaline.label": {
@@ -145,7 +145,7 @@
     },
     "VEF.Abilities.AbilityDef": {
       "MDWC_AdrenalineShot.description": {
-        "english": "Inject a nearby person or animal, or the pilot, with a refined shot of go-juice. For a few hours they feel almost no pain and move, see and think faster, while their rest falls much faster than usual. The effect fades in levels. On a patient with a heart attack the shot is spent on the heart instead: it stops the attack outright and gives no surge.\n\nThe shoulders hold several shots per vial of go-juice, and reload once the last is spent. With the medic armor worn, right-click to give every patient a shot as their dressing ends.",
+        "english": "Inject a nearby person or animal with a dose of adrenaline drawn from a medical kit. For a few hours they feel almost no pain and move, see and think faster, while their rest falls much faster than usual. On a patient with a heart attack the shot is spent on the heart instead.",
         "required": true
       },
       "MDWC_AdrenalineShot.jobReportString": {
