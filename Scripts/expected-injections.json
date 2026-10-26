@@ -1,6 +1,6 @@
 {
   "meta": {
-    "gameBuild": "1.7.4985 rev1269",
+    "gameBuild": "1.7.4990 rev1069",
     "activeDlcs": [
       "Core",
       "Odyssey"
@@ -20,7 +20,7 @@
   "defInjections": {
     "HediffDef": {
       "MDWC_Adrenaline.description": {
-        "english": "A shot of adrenaline, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its rest faster and faster as the surge fades.",
+        "english": "A shot of adrenaline, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its sleep faster and faster as the surge fades, and a short crash follows.",
         "required": true
       },
       "MDWC_Adrenaline.label": {
@@ -31,20 +31,25 @@
         "english": "an adrenaline shot",
         "required": true
       },
+      "MDWC_Adrenaline.stages.crash.label": {
+        "english": "crash",
+        "required": true,
+        "normalized": "MDWC_Adrenaline.stages.0.label"
+      },
       "MDWC_Adrenaline.stages.fading.label": {
         "english": "fading",
         "required": true,
-        "normalized": "MDWC_Adrenaline.stages.1.label"
+        "normalized": "MDWC_Adrenaline.stages.2.label"
       },
       "MDWC_Adrenaline.stages.rush.label": {
         "english": "rush",
         "required": true,
-        "normalized": "MDWC_Adrenaline.stages.2.label"
+        "normalized": "MDWC_Adrenaline.stages.3.label"
       },
       "MDWC_Adrenaline.stages.wearing_off.label": {
         "english": "wearing off",
         "required": true,
-        "normalized": "MDWC_Adrenaline.stages.0.label"
+        "normalized": "MDWC_Adrenaline.stages.1.label"
       }
     },
     "JobDef": {
@@ -145,7 +150,7 @@
     },
     "VEF.Abilities.AbilityDef": {
       "MDWC_AdrenalineShot.description": {
-        "english": "Inject a nearby person or animal with a dose of adrenaline drawn from a medical kit. For a few hours they feel almost no pain and move, see and think faster, while their rest falls much faster than usual. On a patient with a heart attack the shot is spent on the heart instead.",
+        "english": "Inject a nearby person or animal with a dose of adrenaline drawn from a medical kit. For a few hours they feel almost no pain and move, see and think faster, while their sleep falls much faster than usual, and a short crash follows. On a patient with a heart attack the shot is spent on the heart instead.",
         "required": true
       },
       "MDWC_AdrenalineShot.jobReportString": {

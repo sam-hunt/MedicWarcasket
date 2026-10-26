@@ -6,15 +6,20 @@
     Docs/Specs/Adrenaline-Shot.md 3.2): go-juice's high (Core, Drugs/GoJuice.xml) on a short
     clock, with no tolerance and no addiction, pure XML. Hediff_High is go-juice's class and only
     shows the severity as a percentage. The shot sets severity 1, and severityPerDay -8 fades it
-    in three hours, the stages' thirds being its levels of an hour each; the duration is a mod
-    setting written onto severityPerDay (a shot already given keeps the rate it was applied
-    with, since vanilla's comp caches it per instance). A second shot refreshes the severity
-    rather than adding to it, so a patient is never above 1.
+    in three hours: the top three stages' thirds are its boost levels of an hour each, and the
+    bottom twelfth (wearing off's minSeverity 0.084) is the crash, the last quarter hour. The
+    duration is a mod setting written onto severityPerDay, which scales every level with it (a
+    shot already given keeps the rate it was applied with, since vanilla's comp caches it per
+    instance). A second shot refreshes the severity rather than adding to it, so a patient is
+    never above 1, and a crashing patient can be shot straight back to the rush.
 
     Stages are listed ascending by minSeverity as vanilla requires, so the top level is last.
-    The rush is go-juice's stage verbatim; the lower two taper its offsets by thirds. The
-    comedown is each stage's restFallFactor, vanilla's own lever, climbing a step per level so
-    the bill rises as the boost thins: a full shot costs about 0.24 of rest beyond what three
+    The rush is go-juice's stage verbatim; the next two taper its offsets by thirds. The crash
+    is the one cost the player feels, since rest is paid invisibly: small negative
+    Consciousness and Moving offsets and no pain relief, landing long after most fights end, so
+    it taxes the afternoon rather than the fight. The comedown is each stage's
+    restFallFactor, vanilla's own lever, climbing a step per level so the bill rises as the
+    boost thins, the crash the top rung: a full shot costs about 0.25 of rest beyond what three
     waking hours cost anyway, paid continuously while awake and not at all asleep, and read
     live, so the setting that writes the top stage's factor (each lower stage one higher)
     reaches shots already running. The pilot's own RestFallRateFactor multiplies on top.
@@ -27,7 +32,7 @@
     <hediffClass>Hediff_High</hediffClass>
     <label>adrenaline shot</label>
     <labelNoun>an adrenaline shot</labelNoun>
-    <description>A shot of adrenaline, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its sleep faster and faster as the surge fades.</description>
+    <description>A shot of adrenaline, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its sleep faster and faster as the surge fades, and a short crash follows.</description>
     <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
     <isBad>false</isBad>
     <everCurableByItem>false</everCurableByItem>
@@ -41,7 +46,22 @@
     </comps>
     <stages>
       <li>
+        <label>crash</label>
+        <restFallFactor>5</restFallFactor>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.10</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.10</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
         <label>wearing off</label>
+        <minSeverity>0.084</minSeverity>
         <painFactor>0.7</painFactor>
         <restFallFactor>4</restFallFactor>
         <capMods>
