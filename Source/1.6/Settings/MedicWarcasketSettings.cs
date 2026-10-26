@@ -15,10 +15,11 @@ namespace MedicWarcasket;
 // with any settings, and with none.
 //
 // On the armor's CompProperties_DressingSuite entry, the medicine overrides ammoDef and the kits
-// maxCharges. On the MDWC_MechaniteDressing AbilityDef, the warmup, cooldown and range override
-// castTime (shown in seconds, stored in ticks on the def), cooldownTime (shown in game hours,
-// likewise in ticks) and distanceToTarget, and the time per wound overrides its
-// DressingExtension's ticksPerTend (in seconds, like the warmup). The medicine
+// maxCharges. On the MDWC_MechaniteDressing AbilityDef, the casting time, cooldown and range override
+// castTime (in seconds, ticks on the def), cooldownTime (stored in game hours, shown in
+// seconds, hours or days by its size; ticks on the def) and distanceToTarget, and the time per
+// wound overrides its
+// DressingExtension's ticksPerTend (in seconds, like the casting time). The medicine
 // also writes its uiIcon onto the ability's icon while the def names no iconPath of its own, so
 // VEF's gizmo and targeting cursor show it unaided. The tint overrides the rgb of the three
 // dressing motes' graphicData.color, each keeping its own alpha, and the gauge reads its colours
@@ -29,9 +30,9 @@ namespace MedicWarcasket;
 // The shot section does the same for the adrenaline shot: on the shoulders'
 // CompProperties_ApparelReloadable entry the reload item overrides ammoDef and the shots
 // maxCharges; on the
-// MDWC_AdrenalineShot AbilityDef the cooldown overrides cooldownTime, in game hours as the
+// MDWC_AdrenalineShot AbilityDef the cooldown overrides cooldownTime, stored and shown as the
 // dressing's; on the MDWC_Adrenaline HediffDef the duration overrides its severity-per-day
-// comp's severityPerDay (shown in hours, stored as -24 / hours) and the rest fall writes the
+// comp's severityPerDay (stored in hours, written as -24 / hours) and the rest fall writes the
 // top stage's restFallFactor with each lower stage one higher, the XML ladder's step. The
 // reload item's uiIcon goes onto the shot's icon as the medicine's goes onto the dressing's,
 // and heads the section. The item is any medicine, herbal included (a stimulant dose does not
@@ -88,12 +89,18 @@ public class MedicWarcasketSettings : ModSettings
     public readonly TintSetting tint = new();
     public readonly WorkSetting work = new();
 
-    // Both cooldowns are game hours up to three days, banded: quarter hours (about ten seconds
-    // at normal speed) where a cooldown between fights sits, whole hours up to a day, then
-    // eighths of a day.
-    private static readonly (float upTo, float step)[] CooldownBands = [(6f, 0.25f), (24f, 1f), (72f, 3f)];
+    // Both cooldowns are game hours up to ten days, banded so one slider spans a gap between
+    // casts in a fight and one between raids: real seconds at normal speed up to ten (quarter,
+    // then half, then whole seconds), then half hours to 3 h, hours to 12 h, quarter days to a
+    // day, half days to three, and whole days. The slider gives every stop the same width.
+    private const float CooldownMax = 10f * GenDate.HoursPerDay;
+    private static readonly (float upTo, float step)[] CooldownBands =
+    [
+        (Seconds(3f), Seconds(0.25f)), (Seconds(5f), Seconds(0.5f)), (Seconds(10f), Seconds(1f)),
+        (3f, 0.5f), (12f, 1f), (24f, 6f), (72f, 12f), (CooldownMax, GenDate.HoursPerDay),
+    ];
 
-    // The suite's maxCharges. The warmup is banded: quarter seconds at the short end, where they
+    // The suite's maxCharges. The casting time is banded: quarter seconds at the short end, where they
     // matter, coarser steps as it reaches a slow dressing.
     // The range sits on RimWorld's x.9 radii, which put the 2.9 default on the grid (the Tunable
     // clears a value within half a step of the default, so an off-grid default could never be
@@ -101,20 +108,20 @@ public class MedicWarcasketSettings : ModSettings
     // diagonals included; the dressing's own walk always paths to touch, so no VEF pathing
     // threshold constrains it.
     public readonly Tunable kits = new("Kits", 1f, 20f, 1f, Whole);
-    public readonly Tunable castTime = new("CastTime", 0f, 10f, 0.25f, v => v.ToString("0.##"))
+    public readonly Tunable castTime = new("CastTime", 0f, 10f, 0.25f, RealSeconds)
     {
         StepBands = [(3f, 0.25f), (6f, 0.5f), (10f, 1f)],
     };
-    public readonly Tunable tendInterval = new("TendInterval", 0.25f, 5f, 0.25f, v => v.ToString("0.##"));
-    public readonly Tunable cooldown = new("Cooldown", 0f, 72f, 0.25f, Hours) { StepBands = CooldownBands };
+    public readonly Tunable tendInterval = new("TendInterval", 0.25f, 5f, 0.25f, RealSeconds);
+    public readonly Tunable cooldown = new("Cooldown", 0f, CooldownMax, 0.25f, Period) { StepBands = CooldownBands };
     public readonly Tunable range = new("Range", 1.9f, 12.9f, 1f, v => v.ToString("0.#"));
 
     // The shot's: the injector's maxCharges, the hediff's duration in hours, the top stage's
     // rest fall factor (the lower stages step up from it), and the cooldown in game hours.
     public readonly Tunable shots = new("Shots", 1f, 10f, 1f, Whole);
-    public readonly Tunable shotDuration = new("ShotDuration", 0.5f, 12f, 0.5f, v => v.ToString("0.#"));
-    public readonly Tunable restFall = new("RestFall", 1f, 5f, 0.5f, v => v.ToString("0.#"));
-    public readonly Tunable shotCooldown = new("ShotCooldown", 0f, 72f, 0.25f, Hours) { StepBands = CooldownBands };
+    public readonly Tunable shotDuration = new("ShotDuration", 0.5f, 12f, 0.5f, Period);
+    public readonly Tunable restFall = new("RestFall", 1f, 5f, 0.5f, Factor);
+    public readonly Tunable shotCooldown = new("ShotCooldown", 0f, CooldownMax, 0.25f, Period) { StepBands = CooldownBands };
 
     private bool defaultsLoaded;
     private Vector2 scrollPosition;
@@ -142,7 +149,26 @@ public class MedicWarcasketSettings : ModSettings
 
     private static string Whole(float v) => Mathf.RoundToInt(v).ToString();
 
-    private static string Hours(float v) => v.ToString("0.##");
+    // Game hours from real seconds at normal speed.
+    private static float Seconds(float s) => s * GenTicks.TicksPerRealSecond / GenDate.TicksPerHour;
+
+    // Every time a row or summary shows carries its unit as vanilla's short period form does
+    // (GenDate.ToStringTicksToPeriod with shortForm): the number, then the unit letter, no space.
+    private static string RealSeconds(float s) => s.ToString("0.##") + "LetterSecond".Translate();
+
+    // A period in game hours, in the unit of the cooldown band it falls in: seconds below the
+    // half hour, hours below a day, days from there.
+    private static string Period(float hours)
+    {
+        if (hours < 0.5f)
+            return RealSeconds(hours * GenDate.TicksPerHour / GenTicks.TicksPerRealSecond);
+        if (hours < GenDate.HoursPerDay)
+            return hours.ToString("0.##") + "LetterHour".Translate();
+        return (hours / GenDate.HoursPerDay).ToString("0.##") + "LetterDay".Translate();
+    }
+
+    // A multiplier as vanilla's Factor number sense prints one: "x2".
+    private static string Factor(float v) => "x" + v.ToString("0.#");
 
     public override void ExposeData()
     {
@@ -349,15 +375,15 @@ public class MedicWarcasketSettings : ModSettings
 
     // What the section's rows amount to: the suite's capacity and medicine, what a kit treats,
     // and the dressing's timings, in the formats their rows show; a cooldown of 0 ends the line
-    // on its own clause rather than "0 h of cooldown".
+    // on its own clause rather than "0s of cooldown".
     private string DressingSummary()
     {
         string medicineLabel = medicine.Value?.label ?? string.Empty;
-        string warmup = castTime.Value.ToString("0.##");
-        string perWound = tendInterval.Value.ToString("0.##");
+        string casting = RealSeconds(castTime.Value);
+        string perWound = RealSeconds(tendInterval.Value);
         if (cooldown.Value <= 0f)
-            return "MDWC_DressingSummaryNoCooldown".Translate(kits.IntValue, medicineLabel, severityPerKit, warmup, perWound);
-        return "MDWC_DressingSummary".Translate(kits.IntValue, medicineLabel, severityPerKit, warmup, perWound, Hours(cooldown.Value));
+            return "MDWC_DressingSummaryNoCooldown".Translate(kits.IntValue, medicineLabel, severityPerKit, casting, perWound);
+        return "MDWC_DressingSummary".Translate(kits.IntValue, medicineLabel, severityPerKit, casting, perWound, Period(cooldown.Value));
     }
 
     // What the shot section's rows amount to: the shots held and the item each costs, how long
@@ -366,11 +392,11 @@ public class MedicWarcasketSettings : ModSettings
     private string ShotSummary()
     {
         string item = shotAmmo.Value?.label ?? string.Empty;
-        string hours = shotDuration.Value.ToString("0.#");
+        string hours = Period(shotDuration.Value);
         string fall = restFall.Value.ToString("0.#");
         if (shotCooldown.Value <= 0f)
             return "MDWC_ShotSummaryNoCooldown".Translate(shots.IntValue, item, hours, shotLevels, fall);
-        return "MDWC_ShotSummary".Translate(shots.IntValue, item, hours, shotLevels, fall, Hours(shotCooldown.Value));
+        return "MDWC_ShotSummary".Translate(shots.IntValue, item, hours, shotLevels, fall, Period(shotCooldown.Value));
     }
 
     // What the work section's boxes amount to: the caring work the pilot may take on, named as

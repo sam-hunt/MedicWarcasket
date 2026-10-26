@@ -64,20 +64,24 @@ notes for the shim or flow edit this repo owes before continuing.
   - the mod settings window: `MDWC_SettingsCategory` (its header),
     `MDWC_SettingsUnavailable`, the section headers (`MDWC_SectionDressing`,
     `MDWC_SectionShot`, `MDWC_SectionWork`), and each setting's
-    label and `...Desc` tooltip (medicine, VFX color with its three option
-    labels, kit capacity, warmup and time per wound in seconds, cooldown
-    in hours, range in cells; for the shot: shots per vial, duration in
-    hours, rest fall at a shot's start as a multiplier, cooldown in hours). Each tooltip takes one `{0}`, the default value (for
-    the medicine, its capitalised label; for the color, its option label);
-    keep it and the label's unit. `MDWC_DressingSummary` takes `{0}` the
-    kit capacity, `{1}` the medicine's label (lowercase, in the game's own
-    translation), `{2}` the severity per kit, `{3}` the warmup, `{4}` the
-    seconds per wound, both before the unit `s`, and `{5}` the cooldown in
-    hours before the unit `h`; `MDWC_DressingSummaryNoCooldown` takes `{0}` to `{4}`
-    only. `MDWC_ShotSummary` takes `{0}` the shots per vial, `{1}` the
-    hours, `{2}` the level count, `{3}` the rest fall multiplier and `{4}`
-    the cooldown in hours; `MDWC_ShotSummaryNoCooldown` takes `{0}` to
-    `{3}`. `MDWC_DefaultSuffix` keeps its leading space.
+    label and `...Desc` tooltip (reload item, effect color with its three
+    option labels, kit capacity, casting time (Core's `AbilityCastingTime`),
+    time per wound, cooldown, range; for the shot: reload item, shot
+    capacity, duration, initial sleep fall rate (Core's need label "sleep"),
+    cooldown). Labels carry no unit: the row's value shows it, as Core's
+    short period form does (`LetterSecond`, `LetterHour`, `LetterDay`; a
+    multiplier as "x2"). Each tooltip takes one `{0}`, the default value as
+    the row shows it (for an item, its capitalised label; for the color,
+    its option label); keep it. `MDWC_DressingSummary` takes `{0}` the kit
+    capacity, `{1}` the medicine's label (lowercase, in the game's own
+    translation), `{2}` the severity per kit, then `{3}` the casting time,
+    `{4}` the time per wound and `{5}` the cooldown, each already carrying
+    its unit letter; `MDWC_DressingSummaryNoCooldown` takes `{0}` to `{4}`
+    only. `MDWC_ShotSummary` takes `{0}` the shot capacity, `{1}` the reload
+    item's label (lowercase), `{2}` the duration with its unit letter, `{3}`
+    the level count, `{4}` the sleep fall multiplier as a bare number and
+    `{5}` the cooldown with its unit letter; `MDWC_ShotSummaryNoCooldown`
+    takes `{0}` to `{4}`. `MDWC_DefaultSuffix` keeps its leading space.
   - the mechanite dressing's runtime strings. `MDWC_NoMedicineLoaded` (the
     disabled reason) takes `{0}`, the medicine's label;
     `MDWC_NoWoundsToDress` and `MDWC_NothingToTreat` (invalid target,

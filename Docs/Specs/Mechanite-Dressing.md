@@ -607,7 +607,7 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 | Warmup (s)         | ability `castTime` (ticks ÷ 60)               | 1            | 0..10, current bands  |
 | Time per wound (s) | `DressingExtension.ticksPerTend` (ticks ÷ 60) | 1            | 0.25..5, step 0.25    |
 | Cooldown (s)       | ability `cooldownTime` (ticks ÷ 60)           | 0            | 0..300, step 5        |
-| Range (cells)      | ability `distanceToTarget`                    | 2.9          | **1.9..12.9**, step 1 |
+| Range              | ability `distanceToTarget`                    | 2.9          | **1.9..12.9**, step 1 |
 
 `warmdownTicks` (60) and `severityPerKit` (20) are def fields without settings (section 4).
 

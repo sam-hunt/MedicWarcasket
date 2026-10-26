@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -9,10 +10,13 @@ namespace MedicWarcasket;
 // player moves its slider it is DefaultValue, read from the def field it overrides when defs
 // load (the settings' LoadDefaultsFromDefs), so the def and its header stay the record of the
 // shipped tuning and another mod's XML patch moves the default too. Only an override is saved;
-// a slider landing within half a step of the default clears it, and a saved override outside
+// a slider landing within half a step of the default (on a banded row, on the stop nearest it)
+// clears it, and a saved override outside
 // the slider's range (saved before the range moved) reads as its nearest end.
-// The file is shared across the warcasket family and must stay byte-identical between the mods
-// but for the namespace and the key prefix; change it in one and copy it to the others.
+// The file is shared across the warcasket family (ShipcrackerWarcasket, ToxinWarcasket), byte-
+// identical between the mods but for the namespace and the key prefix, except that this copy's
+// banded rows slide over their stops (Stops, Nearest) where the others snap within a band;
+// porting that, or parting the copies, is a TODOs.md item.
 public sealed class Tunable
 {
     private const float Unset = -1f;
@@ -22,7 +26,8 @@ public sealed class Tunable
     // section header (Listing.Indent only moves the cursor and would push the row off the right)
     // and padded on the right so it does not run up against the scrollbar.
     // The value column is sized to the widest value a row can show, so the slider runs out to
-    // it and the row ends near the window's edge; every format here is at most four characters,
+    // it and the row ends near the window's edge; every format here is at most four digits and
+    // a point, or fewer digits and a unit letter or "x" narrower than a digit ("2.75s", "x2.5"),
     // so "00.00" with the default suffix (as translated) bounds it.
     // The settings' summary and checkbox rows lay out with these constants too.
     internal const float RowHeight = 30f;
@@ -39,6 +44,8 @@ public sealed class Tunable
     private readonly float step;
     private readonly Func<float, string> format;
     private float value = Unset;
+    private (float upTo, float step)[] stepBands;
+    private float[] stops;
 
     public Tunable(string key, float min, float max, float step, Func<float, string> format)
     {
@@ -67,13 +74,22 @@ public sealed class Tunable
     public string[] DescArgs { get; set; }
 
     // Piecewise steps, for a row that wants a finer grid at the low end: each band covers the
-    // values from the previous band's upTo (the minimum, for the first) up to its own, in
-    // ascending order, the last ending at the maximum. A value snaps to the grid of the band it
-    // falls in, anchored at that band's start; with each band's width a whole number of its
-    // steps, every boundary lies on both neighbouring grids. Null means the single step applies
-    // over the whole range. Bands are in stored units and bypass StoredStep's whole-shown-unit
-    // rounding, so a banded row keeps DisplayScale at 1.
-    public (float upTo, float step)[] StepBands { get; set; }
+    // values above the previous band's upTo (the minimum, for the first) up to its own, in
+    // ascending order, the last ending at the maximum. A band's stops are the multiples of its
+    // step within it, and the minimum is the first stop, so a band may start off its own grid
+    // (ten seconds, then the half hours). The slider moves through the stops evenly, each one
+    // as wide as the next, so a fine low band gets as much of the track as its stops count.
+    // Null means the single step applies over the whole range. Bands are in stored units and
+    // bypass StoredStep's whole-shown-unit rounding, so a banded row keeps DisplayScale at 1.
+    public (float upTo, float step)[] StepBands
+    {
+        get => stepBands;
+        set
+        {
+            stepBands = value;
+            stops = value == null || value.Length == 0 ? null : Stops(min, max, value);
+        }
+    }
 
     public float Value => value < 0f ? DefaultValue : Mathf.Clamp(value, min, max);
 
@@ -97,39 +113,37 @@ public sealed class Tunable
     public static float StoredStep(float step, float scale) =>
         scale == 1f ? step : Mathf.Max(1f, Mathf.Round(step / scale)) * scale;
 
-    // The banded Snap: the nearest step of the band the clamped value falls in, counted from
-    // that band's start and kept within it. A value on a boundary belongs to the band below.
-    // Pure, for the tests.
-    public static float Snap(float stored, float min, float max, (float upTo, float step)[] bands)
+    // The stops of a banded row, ascending, by StepBands' rule. A tolerance of a thousandth of
+    // a step keeps float error from dropping a stop on a band's end or doubling one on its
+    // start. Pure, for the tests.
+    public static float[] Stops(float min, float max, (float upTo, float step)[] bands)
     {
-        float clamped = Mathf.Clamp(stored, min, max);
-        if (bands == null || bands.Length == 0)
-            return clamped;
+        var stops = new List<float> { min };
         float start = min;
-        for (int i = 0; i < bands.Length; i++)
+        for (int i = 0; i < bands.Length && start < max; i++)
         {
-            bool last = i == bands.Length - 1;
-            float end = last ? max : Mathf.Min(bands[i].upTo, max);
-            if (clamped <= end || last)
-                return Mathf.Clamp(start + Mathf.Round((clamped - start) / bands[i].step) * bands[i].step, start, end);
+            float end = i == bands.Length - 1 ? max : Mathf.Min(bands[i].upTo, max);
+            float step = bands[i].step;
+            for (int k = Mathf.FloorToInt(start / step + 1e-3f) + 1; k * step <= end + step * 1e-3f; k++)
+                stops.Add(k * step);
             start = end;
         }
-        return clamped;
+        return stops.ToArray();
     }
 
-    // The step of the band a stored value falls in, by the same boundary rule as the banded
-    // Snap. Pure, for the tests.
-    public static float BandStep(float stored, float max, (float upTo, float step)[] bands)
+    // The index of the stop nearest a stored value, the lower on a tie. Pure, for the tests.
+    public static int Nearest(float[] stops, float stored)
     {
-        for (int i = 0; i < bands.Length - 1; i++)
-            if (stored <= Mathf.Min(bands[i].upTo, max))
-                return bands[i].step;
-        return bands[bands.Length - 1].step;
+        int best = 0;
+        for (int i = 1; i < stops.Length; i++)
+            if (Mathf.Abs(stops[i] - stored) < Mathf.Abs(stops[best] - stored))
+                best = i;
+        return best;
     }
 
-    // Label "MDWC_<key>" (the unit is part of it, or LabelArg) on the left, the slider in the
-    // middle, the current value on the right with "(default)" while unset, and "MDWC_<key>Desc"
-    // with the default and any DescArgs as the whole row's tooltip.
+    // Label "MDWC_<key>" (with any unit, unless the format shows it; or LabelArg) on the left,
+    // the slider in the middle, the current value on the right with "(default)" while unset,
+    // and "MDWC_<key>Desc" with the default and any DescArgs as the whole row's tooltip.
     public void DoRow(Listing_Standard listing)
     {
         Rect row = listing.GetRect(RowHeight);
@@ -153,24 +167,31 @@ public sealed class Tunable
         Widgets.Label(valueRect, shown);
         Text.Anchor = anchor;
 
-        float current = Value / DisplayScale;
-        float raw = Widgets.HorizontalSlider(sliderRect, current, min / DisplayScale, max / DisplayScale, middleAlignment: true);
-        listing.Gap(RowGap);
-        if (raw == current)
-            return;
         float snapped;
-        float defaultStep;
-        if (StepBands == null)
+        bool isDefault;
+        if (stops == null)
         {
+            float current = Value / DisplayScale;
+            float raw = Widgets.HorizontalSlider(sliderRect, current, min / DisplayScale, max / DisplayScale, middleAlignment: true);
+            listing.Gap(RowGap);
+            if (raw == current)
+                return;
             snapped = Snap(raw, min, max, step, DisplayScale);
-            defaultStep = StoredStep(step, DisplayScale);
+            isDefault = Mathf.Abs(snapped - DefaultValue) < StoredStep(step, DisplayScale) * 0.5f;
         }
         else
         {
-            snapped = Snap(raw * DisplayScale, min, max, StepBands);
-            defaultStep = BandStep(DefaultValue, max, StepBands);
+            // The slider runs over stop indices; a value off the stops (an off-grid default or
+            // an old save) sits at its nearest one until moved.
+            int current = Nearest(stops, Value);
+            int index = Mathf.RoundToInt(Widgets.HorizontalSlider(sliderRect, current, 0f, stops.Length - 1, middleAlignment: true));
+            listing.Gap(RowGap);
+            if (index == current)
+                return;
+            snapped = stops[index];
+            isDefault = index == Nearest(stops, DefaultValue);
         }
-        value = Mathf.Abs(snapped - DefaultValue) < defaultStep * 0.5f ? Unset : snapped;
+        value = isDefault ? Unset : snapped;
     }
 
     private string Format(float stored) => format(stored / DisplayScale);

@@ -48,20 +48,20 @@
   <MDWC_Kits>Kit capacity</MDWC_Kits>
   <MDWC_KitsDesc>The number of medicine kits the armor's suite holds when full. A suite already holding more than this loses the excess. Default: {0}.</MDWC_KitsDesc>
 
-  <MDWC_CastTime>Warmup (seconds)</MDWC_CastTime>
+  <MDWC_CastTime>Warmup</MDWC_CastTime>
   <MDWC_CastTimeDesc>How long the suite primes before the stream reaches the patient. The patient is held still from the start. Default: {0}.</MDWC_CastTimeDesc>
 
-  <MDWC_TendInterval>Time per wound (seconds)</MDWC_TendInterval>
+  <MDWC_TendInterval>Time per wound</MDWC_TendInterval>
   <MDWC_TendIntervalDesc>How long the stream spends on each wound or illness at normal tend speed. Medical skill and the medic shoulders shorten it, and an unskilled pilot takes up to twice as long. A patient with more to treat keeps the stream, and the hold, going longer. Default: {0}.</MDWC_TendIntervalDesc>
 
-  <MDWC_Cooldown>Cooldown (hours)</MDWC_Cooldown>
+  <MDWC_Cooldown>Cooldown</MDWC_Cooldown>
   <MDWC_CooldownDesc>The time the pilot must wait after a dressing before starting another. Queued dressings wait it out. Default: {0}.</MDWC_CooldownDesc>
 
-  <MDWC_Range>Range (cells)</MDWC_Range>
-  <MDWC_RangeDesc>How close the pilot walks to the patient before starting the stream, which also needs a clear line of sight. Default: {0}.</MDWC_RangeDesc>
+  <MDWC_Range>Range</MDWC_Range>
+  <MDWC_RangeDesc>How close, in cells, the pilot walks to the patient before starting the stream, which also needs a clear line of sight. Default: {0}.</MDWC_RangeDesc>
 
-  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s at normal tend speed, with {5} h of cooldown after.</MDWC_DressingSummary>
-  <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s at normal tend speed, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
+  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3}, then tends a wound every {4} at normal tend speed, with {5} of cooldown after.</MDWC_DressingSummary>
+  <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3}, then tends a wound every {4} at normal tend speed, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
 
   <MDWC_SectionShot>Adrenaline shot</MDWC_SectionShot>
 
@@ -71,17 +71,17 @@
   <MDWC_ShotAmmo>Reload item</MDWC_ShotAmmo>
   <MDWC_ShotAmmoDesc>The item the shoulders' injector is loaded with, one per shot: any medicine, go-juice or wake-up. Shots already loaded count as the new item. Default: {0}.</MDWC_ShotAmmoDesc>
 
-  <MDWC_ShotDuration>Duration (hours)</MDWC_ShotDuration>
+  <MDWC_ShotDuration>Duration</MDWC_ShotDuration>
   <MDWC_ShotDurationDesc>How long a shot lasts, fading in levels. A shot already given keeps its own clock. Default: {0}.</MDWC_ShotDurationDesc>
 
   <MDWC_RestFall>Initial rest fall multiplier</MDWC_RestFall>
   <MDWC_RestFallDesc>How many times faster a patient's rest falls while a shot is fresh. Each level it fades through adds one. Sleep restores rest as usual. Default: {0}.</MDWC_RestFallDesc>
 
-  <MDWC_ShotCooldown>Cooldown (hours)</MDWC_ShotCooldown>
+  <MDWC_ShotCooldown>Cooldown</MDWC_ShotCooldown>
   <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient instead. Default: {0}.</MDWC_ShotCooldownDesc>
 
-  <MDWC_ShotSummary>The injector holds {0} shots, one {1} each. A shot lasts {2} h, fading in {3} levels, and the patient's rest falls {4} times as fast at first, faster with each level, with {5} h of cooldown between shots.</MDWC_ShotSummary>
-  <MDWC_ShotSummaryNoCooldown>The injector holds {0} shots, one {1} each. A shot lasts {2} h, fading in {3} levels, and the patient's rest falls {4} times as fast at first, faster with each level, and the next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
+  <MDWC_ShotSummary>The injector holds {0} shots, one {1} each. A shot lasts {2}, fading in {3} levels, and the patient's rest falls {4} times as fast at first, faster with each level, with {5} of cooldown between shots.</MDWC_ShotSummary>
+  <MDWC_ShotSummaryNoCooldown>The injector holds {0} shots, one {1} each. A shot lasts {2}, fading in {3} levels, and the patient's rest falls {4} times as fast at first, faster with each level, and the next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
 
   <MDWC_SectionWork>Enabled work types</MDWC_SectionWork>
   <MDWC_SectionWorkDesc>The caring work types a pilot of the medic set may take on. Every other work type follows VFE Pirates' warcasket trait as your other mods leave it, so a mod that opens work for every warcasket opens it for the medic too.</MDWC_SectionWorkDesc>

@@ -1,9 +1,10 @@
 # TODOs
 
 - Review in-flight description edits
-- Test mechanite dressing cooldown settings
 - Mod setting for Adrenaline shot autocast beginning on/off? tied to whether the torso is equipped?
-- what value for mechanite dressing cast range (cells) would allow 2 cells directly along x/z, but only 1 cell diagonally
+- reduce mechanite dressing range by 1 cell?
+- **Verify in game** the dressing's pace scaling and whole-kit gauge fill, and the shot's
+  per-item reload and reload item setting (`Adrenaline-Shot.md` section 6, steps 5 and 6)
 
 ## Before the first release
 
@@ -40,6 +41,10 @@
 - **Raid presence.** The pieces carry `WarcasketVeteran` and `WarcasketAll` like Siegebreaker;
   decide whether a medic set stays on the raid tables (AI never casts apparel abilities, can we make them?).
 - **Unit tests.** Siblings carry a headless xUnit net472 suite (`Tests/1.6/<Mod>.Tests.csproj`);
-  `Tunable.Snap` with step bands is worth covering (Shipcracker's `TunableSnapTests`).
+  `Tunable.Stops` and `Nearest` are worth covering (Shipcracker's `TunableSnapTests` covers its
+  banded `Snap`).
+- **Stop slider in the family.** `Tunable.cs` has diverged from Shipcracker's and Toxin's copies:
+  banded rows slide over their stops here and snap within a band there. Port it or let the
+  copies part.
 - **VFEP vocabulary upstream.** It is seeded in three family glossaries; move it into
   `rimworld-l10n` before a fourth copies it.
