@@ -3,9 +3,7 @@
 - Review in-flight description edits
 - Test mechanite dressing cooldown settings
 - Mod setting for Adrenaline shot autocast beginning on/off? tied to whether the torso is equipped?
-- reduce mechanite dressing range by 1 cell?
-- **Verify in game** the dressing's pace scaling and whole-kit gauge fill, and the shot's
-  per-item reload and reload item setting (`Adrenaline-Shot.md` section 6, steps 5 and 6)
+- what value for mechanite dressing cast range (cells) would allow 2 cells directly along x/z, but only 1 cell diagonally
 
 ## Before the first release
 

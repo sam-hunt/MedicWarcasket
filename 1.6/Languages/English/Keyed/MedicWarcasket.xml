@@ -36,8 +36,8 @@
 
   <MDWC_SectionDressing>Mechanite dressing</MDWC_SectionDressing>
 
-  <MDWC_Medicine>Medicine</MDWC_Medicine>
-  <MDWC_MedicineDesc>The medicine the armor's suite is loaded with. Herbal medicine is too crude for the carriers. Kits already loaded count as the new medicine. Default: {0}.</MDWC_MedicineDesc>
+  <MDWC_Medicine>Reload item</MDWC_Medicine>
+  <MDWC_MedicineDesc>The medicine the armor's suite is loaded with, one per kit. Tend quality depends on its medical potency and tend quality maximum. Kits already loaded count as the new medicine. Default: {0}.</MDWC_MedicineDesc>
 
   <MDWC_Tint>VFX color</MDWC_Tint>
   <MDWC_TintDesc>The color of the dressing's glow, stream and overlay, and of the suite's gauge. A dressing already running keeps its color until it ends. Default: {0}.</MDWC_TintDesc>

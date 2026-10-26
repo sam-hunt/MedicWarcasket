@@ -27,7 +27,7 @@ mind as well as in its mechanics. Section 3.10 has the identifier rename.
 | Variable beam: one wound per second by default, so more wounds mean a longer beam and stun       | 3.5           |
 | A 1 s warmdown after the beam, separate from the cooldown                                        | 3.5           |
 | Default range 2.9                                                                                | 3.9           |
-| Medicine chosen in mod settings only, default glitterworld, no herbal                            | 3.1           |
+| Medicine chosen in mod settings only, default glitterworld, herbal included                    | 3.1           |
 | The targeting cursor's medicine icon removed                                                     | 3.8, 4        |
 | No medicine-based tint                                                                           | 3.7           |
 | Charging by vanilla's tend economy, spent per wound tended (severity budget)                     | 2.4, 3.2, 3.6 |
@@ -53,7 +53,8 @@ This fiction explains each mechanic:
 - **The pilot's Medicine skill** matters because the pilot directs the mechanites.
 - **The helmet's diagnostic visor** provides additional diagnostic assistance for all conditions, including diseases and infections.
 - **The beam** needs range and a line of sight.
-- **Herbal medicine** is too crude to seed. Industrial medicine is offered as a balance lever only, the fiction remains ultratech
+- **Industrial and herbal medicine** are offered as balance levers only, the fiction remains ultratech;
+  vanilla's tend quality formula already makes them the weaker seeds
 - **The carriers dress, they do not heal.** They cannot rebuild tissue, so the ability stays
   below the mech serums and does not compete with them. The name says so: a dressing is what a
   medic lays on a wound, a serum is what rebuilds it. Biotech's Coagulate, a mechanite-flavoured
@@ -285,9 +286,9 @@ The suite holds **one** medicine type: the armor's `ammoDef`, written by a mod s
 def XML's `ammoDef` becomes `MedicineUltratech` (glitterworld), and that is the default. There is
 no in-game switching.
 
-- **Choices:** every `ThingDef.IsMedicine` with `techLevel >= TechLevel.Industrial`, ordered by
-  `MedicalPotency` descending. In vanilla that is industrial and glitterworld; modded medicines
-  qualify by their own tech level.
+- **Choices:** every `ThingDef.IsMedicine`, ordered by `MedicalPotency` descending: in vanilla
+  glitterworld, industrial and herbal. A weak medicine needs no rule of its own, since the
+  dressing's quality is vanilla's formula (herbal's 0.6 potency and 0.7 quality cap).
 - **A changed setting keeps the loaded count.** Kits are a vanilla charge count with no type of
   their own, so the kits already loaded count as the new medicine, and the next reload fetches
   it. The setting's tooltip says so.
@@ -504,8 +505,8 @@ suite reference, never this state.
 A kit is spent as it is used, wound by wound, never in advance. One kit covers about one gunshot,
 two or three smaller wounds, or one illness, as in vanilla. A glitterworld kit treats no more
 than an industrial one, only better. The cursor shows a patient's cost before the click (3.8),
-and the gauge shows what is left. With no herbal option and no doctor-only tending, every wound
-the dressing tends costs medicine.
+and the gauge shows what is left. With no doctor-only tending, every wound the dressing tends
+costs medicine.
 
 ### 3.7 Visuals
 
@@ -677,8 +678,8 @@ Readings of the brief:
    the medicine's until the ability art lands, and VEF's default cursor and gizmo draw it. Hiding
    the cursor icon outright would have meant working around VEF's unchecked texture draw for a
    cosmetic difference.
-2. **"No herbal option"** is a rule: industrial tech level and up (3.1). The alternative was
-   `MedicalPotency` at or above industrial's.
+2. **Herbal is an option** (3.1): any `IsMedicine` def qualifies, the row labelled "Reload
+   item" as the shot's is.
 3. **"Warmdown (not ability cooldown?)"** is a 1 s phase of this job, with the pilot held still
    while the glow fades and the queue paused. The cooldown, default 0, starts after it.
 4. **The stun covers the warmup as well as the beam** on a conscious patient, so the beam can
@@ -739,9 +740,9 @@ Drafts, no em dashes (player-facing):
     {5} s of cooldown after." Six arguments where there were three; the translate skill's note
     on its shape changes.
 - Keyed, new:
-  - `MDWC_Medicine` "Medicine"; `MDWC_MedicineDesc` "The medicine the armor's suite is loaded
-    with. Herbal medicine is too crude for the carriers. Kits already loaded count as the new
-    medicine. Default: {0}."
+  - `MDWC_Medicine` "Reload item"; `MDWC_MedicineDesc` "The medicine the armor's suite is loaded
+    with, one per kit. Tend quality depends on its medical potency and tend quality maximum. Kits
+    already loaded count as the new medicine. Default: {0}."
   - `MDWC_Kits` "Kit capacity"; `MDWC_KitsDesc` "The number of medicine kits the armor's suite holds
     when full. A suite already holding more than this loses the excess. Default: {0}."
   - `MDWC_TendInterval` "Time per wound (seconds)"; `MDWC_TendIntervalDesc` "How long the stream
@@ -778,7 +779,7 @@ Drafts, no em dashes (player-facing):
 
 Dev mode, VFEP chain plus this mod, fresh saves:
 
-1. **Settings.** The medicine row lists industrial and glitterworld and no herbal; glitterworld
+1. **Settings.** The reload item row lists glitterworld, industrial and herbal; glitterworld
    is the default. Switching changes the gauge title, the gizmo icon, the cursor icon and label,
    the section header icon and the stat sheet's reload line; the loaded kits carry over, and the
    next reload fetches the new medicine. The range slider steps 1.9, 2.9, 3.9 and on to 12.9,

@@ -74,10 +74,11 @@ public class MedicWarcasketSettings : ModSettings
     // Bumped by every ApplyToDefs, including the one at startup.
     public static int Generation { get; private set; }
 
-    // The suite's medicine: herbal is too crude for the carriers, so industrial and above
-    // qualify, modded medicines by their own tech level; the most potent first.
+    // The suite's medicine: any medicine, the most potent first. A weak one needs no rule of
+    // its own: the dressing's quality is vanilla's, so herbal's potency and 70% quality cap
+    // tend as a doctor's herbal kit would.
     public readonly ItemSetting medicine = new("Medicine",
-        d => d.IsMedicine && d.techLevel >= TechLevel.Industrial,
+        d => d.IsMedicine,
         d => d.GetStatValueAbstract(StatDefOf.MedicalPotency));
 
     // The injector's reload item: any medicine, by potency, then go-juice, then wake-up.
