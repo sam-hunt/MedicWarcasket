@@ -7,7 +7,14 @@ namespace MedicWarcasket;
 // AbilityExtension_AbilityMod type, so this one is invisible to it and read only by the
 // dressing (Ability_MechaniteDressing, JobDriver_MechaniteDressing). Values live in the def
 // XML, rationale in its header; ticksPerTend is a mod setting defaulting to it, minTendSpeed
-// has no setting.
+// and maxPotency have no setting.
+//
+// Tend quality is vanilla's formula (TendUtility.CalculateBaseTendQuality: the pilot's
+// MedicalTendQuality times the medicine's potency, plus the bed's offset, clamped to the
+// medicine's MedicalQualityMax, verified on 1.7) with the potency clipped at maxPotency: the
+// carriers deliver only so much of a kit per wound, so a kit above the ceiling saturates the
+// clamp later up the Medicine skill than it would in a doctor's hands (the def header has the
+// levels). A kit under the ceiling is tended exactly as vanilla would.
 //
 // The beam's time per wound mirrors vanilla's tend duration, JobDriver_TendPatient's
 // (int)(1f / pawn.GetStatValue(StatDefOf.MedicalTendSpeed) * 600f) (BaseTendDuration 600,
@@ -24,6 +31,10 @@ public class DressingExtension : DefModExtension
 
     // The MedicalTendSpeed below which the pilot's stat stops lengthening the interval.
     public float minTendSpeed = 0.5f;
+
+    // The most of a kit's MedicalPotency the carriers deliver; a kit's potency above it is
+    // clipped before vanilla's quality formula.
+    public float maxPotency = 1.3f;
 
     // Ticks the pilot holds still after the beam while the glow fades, before the job ends.
     public int warmdownTicks = 60;

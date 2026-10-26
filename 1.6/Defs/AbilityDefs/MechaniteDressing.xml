@@ -20,9 +20,15 @@
     divides its tend duration (the class header has the call path). Vanilla's curve is 0.4 plus
     0.06 per Medicine level: Medicine 10 is 1.0 (the setting), Medicine 20 with the shoulders'
     +0.25 is 1.85, and an unskilled pilot's 0.4 floors at 0.5, twice the setting, so a weak medic
-    cannot hold a patient under fire for long. warmdownTicks is the pilot's hold after the beam
-    ends, over which the glow fades. VEF ignores the extension. minTendSpeed and warmdownTicks
-    have no setting.
+    cannot hold a patient under fire for long. maxPotency clips the medicine's potency before
+    vanilla's quality formula (the pilot's MedicalTendQuality times the potency, clamped to the
+    medicine's quality cap): at glitterworld's 1.6 the 1.3 cap is reached at Medicine 6 (5 with
+    the helmet's +0.10) and skill stops counting there; clipped to 1.3, the cap's own value,
+    it is reached at Medicine 8 (7 with the helmet), so skill counts for longer without
+    costing an unskilled pilot much: four fifths of a doctor's quality with the same kit below
+    the cap. Industrial's 1.0 is under the ceiling and tended as vanilla would. warmdownTicks is
+    the pilot's hold after the beam ends, over which the glow fades. VEF ignores the extension.
+    minTendSpeed, maxPotency and warmdownTicks have no setting.
 
     Sounds: warmupStartSound plays once as the warmup begins and warmupSound loops through it,
     both VEF fields; both are placeholders for the sound pass.
@@ -67,6 +73,7 @@ Reloads with medicine.</description>
       <li Class="MedicWarcasket.DressingExtension">
         <ticksPerTend>60</ticksPerTend>
         <minTendSpeed>0.5</minTendSpeed>
+        <maxPotency>1.3</maxPotency>
         <warmdownTicks>60</warmdownTicks>
       </li>
     </modExtensions>

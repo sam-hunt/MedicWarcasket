@@ -40,6 +40,9 @@ namespace MedicWarcasket;
 // medicine's MedicineTendXpGainFactor) pro rata to the kit share each wound drew, so a kit's
 // worth of dressing earns one treatment's XP and chip damage cannot farm it.
 //
+// Quality is vanilla's base formula with the medicine's potency clipped at the extension's
+// maxPotency (BaseQuality), computed once at the connect and shown at the cursor the same way.
+//
 // The interval per wound is the extension's ticksPerTend divided by the pilot's MedicalTendSpeed,
 // floored at its minTendSpeed (DressingExtension's header), read once at the connect as the
 // quality is, and scribed as ticksPerWound so a save mid-beam keeps its pace.
@@ -265,7 +268,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         remaining = tendableScratch.Count;
         if (remaining == 0 || !Suite.HasKit)
             return;
-        quality = TendUtility.CalculateBaseTendQuality(pawn, patient, medicine);
+        quality = BaseQuality(patient, medicine);
         maxQuality = medicine.GetStatValueAbstract(StatDefOf.MedicalQualityMax);
         DressingExtension extension = Extension;
         float tendSpeed = Mathf.Max(pawn.GetStatValue(StatDefOf.MedicalTendSpeed), extension.minTendSpeed);
@@ -512,6 +515,13 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
             tendSound.Maintain();
     }
 
+    // Vanilla's base quality with the medicine's potency clipped at the extension's maxPotency
+    // (DressingExtension's header); the cap stays the medicine's own.
+    private float BaseQuality(Pawn patient, ThingDef medicine) =>
+        TendUtility.CalculateBaseTendQuality(pawn, patient,
+            Mathf.Min(medicine.GetStatValueAbstract(StatDefOf.MedicalPotency), Extension.maxPotency),
+            medicine.GetStatValueAbstract(StatDefOf.MedicalQualityMax));
+
     // The label beside the cursor: the medicine and, over a valid patient, the base quality
     // the formula would give them (bed offset included), then the wounds and the kits they
     // cost, with what is loaded when that is less.
@@ -523,7 +533,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
             return null;
         if (target.Thing is not Pawn patient || !ValidateTarget(patient, showMessages: false))
             return medicine.LabelCap;
-        string first = "MDWC_TargetQuality".Translate(medicine.LabelCap, TendUtility.CalculateBaseTendQuality(pawn, patient, medicine).ToStringPercent());
+        string first = "MDWC_TargetQuality".Translate(medicine.LabelCap, BaseQuality(patient, medicine).ToStringPercent());
         FillTendable(patient, tendableScratch);
         float kits = TotalCost(tendableScratch, suite.SeverityPerKit) / suite.SeverityPerKit;
         string kitsText = kits.ToString("0.0");

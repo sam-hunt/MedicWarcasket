@@ -47,7 +47,7 @@ dressing of carriers that deliver what the kit contained, then burn out.
 
 This fiction explains each mechanic:
 
-- **The kit's potency** is what the carriers can deliver. Vanilla's glitterworld kit already
+- **The kit's potency** is what the carriers can deliver, up to a ceiling of their own. Vanilla's glitterworld kit already
   contains "nanite diagnostic and healing assisters".
 - **A kit covers a fixed amount of injury**, as one vanilla treatment does.
 - **The pilot's Medicine skill** matters because the pilot directs the mechanites.
@@ -422,7 +422,9 @@ suite reference, never this state.
     with nothing spent and no cooldown.
 - **Connect** (`Cast`, no `base.Cast`): recheck that something is tendable. If nothing is, skip
   straight to the warmdown, as someone else finished the patient during the warmup. Otherwise:
-  - compute the quality once with `CalculateBaseTendQuality(pilot, patient, medicine)`, so the bed
+  - compute the quality once with `CalculateBaseTendQuality(pilot, patient, potency, qualityMax)`,
+    the medicine's potency clipped at the extension's `maxPotency` (1.3, no setting) so
+    glitterworld saturates its quality cap at Medicine 8 rather than 6, so the bed
     offset and self-tend factor come with it;
   - spawn the beam and the overlay (3.7);
   - play `TechMedicineUsed` once when the medicine beats industrial potency, as vanilla's
