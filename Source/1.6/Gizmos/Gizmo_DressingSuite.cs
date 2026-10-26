@@ -7,9 +7,14 @@ using Verse;
 namespace MedicWarcasket;
 
 // The medicine suite's gauge, Toxin's Gizmo_ToxTank pattern over CompDressingSuite: the bar is
-// the kits loaded (the open kit by what is left of it), ticked at each kit boundary, and for the
-// player's wearers the drag handle sets TargetKits, the level colonists reload to
-// (Patches/CompApparelReloadable_Reload). Increments of MaxCharges snap the handle to whole kits.
+// the kits loaded, ticked at each kit boundary, and for the player's wearers the drag handle sets
+// TargetKits, the level colonists reload to (Patches/CompApparelReloadable_Reload). Increments of
+// MaxCharges snap the handle to whole kits.
+//
+// The fill is whole kits, the open one included (RemainingCharges, the ceiling of Available),
+// because that is what the target compares against: the suite reloads only once a whole kit is
+// used up, so a fractional fill would sit just under its own target marker and read as "below
+// target, nobody reloading". The bar label and the tooltip's open-kit line carry the fraction.
 //
 // Gizmo_Slider reads Target once, on first draw, and writes it back every frame while draggable,
 // so the setter writes only a changed kit count: an untouched gauge leaves the saved "full" (-1)
@@ -52,7 +57,7 @@ public class Gizmo_DressingSuite : Gizmo_Slider
         }
     }
 
-    protected override float ValuePercent => Mathf.Clamp01(suite.Available / suite.MaxCharges);
+    protected override float ValuePercent => Mathf.Clamp01((float)suite.RemainingCharges / suite.MaxCharges);
 
     protected override string Title =>
         suite.AmmoDef != null ? suite.AmmoDef.LabelCap.ToString() : suite.parent.LabelCap;

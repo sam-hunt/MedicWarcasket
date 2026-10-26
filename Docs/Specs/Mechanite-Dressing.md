@@ -443,7 +443,11 @@ suite reference, never this state.
     Then `Draw` its cost (3.2) and grant its XP (below).
 
     The **first wound lands one interval after the beam connects**, so a beam over `n` wounds
-    runs `n × ticksPerTend`. Each wound is paid for as it is tended: an interrupted beam has
+    runs `n × ticksPerTend`. `ticksPerTend` is the interval at a `MedicalTendSpeed` of 1.0: as
+    vanilla's `JobDriver_TendPatient` divides its 600-tick base by the stat, the connect divides
+    it by the pilot's `MedicalTendSpeed` floored at the extension's `minTendSpeed` (0.5, no
+    setting), so skill and the shoulders speed the beam and an unskilled pilot runs at most twice
+    the setting. Each wound is paid for as it is tended: an interrupted beam has
     spent exactly what it tended. A wound taken mid-beam joins the queue by priority and lengthens
     the beam. The beam runs as long as anything is tendable and a kit is loaded.
 
@@ -546,7 +550,9 @@ New `MDWC_DefOf` fields: the three motes and the dressing's `AbilityDef` (3.3).
 - **Gauge** (`Source/1.6/Gizmos/Gizmo_DressingSuite.cs : Gizmo_Slider`), returned from the
   suite's `CompGetWornGizmosExtra`, Toxin's pattern (2.3):
   - `Title`: the loaded medicine's `LabelCap`.
-  - `ValuePercent`: `Available / MaxCharges`. `BarLabel`: "2.6 / 5", kits to one decimal.
+  - `ValuePercent`: `RemainingCharges / MaxCharges`, whole kits with the open one counted, since
+    the reload target compares whole kits and a fractional fill would sit just under its own
+    marker. `BarLabel`: "2.6 / 5", kits to one decimal, carries the fraction.
   - `GetBarThresholds()`: a tick at each kit boundary.
   - `IsDraggable` for the player's wearers. `Target` is `targetKits / MaxCharges`, with
     `Increments` = `MaxCharges`, so the handle snaps to whole kits. The setter maps the fraction

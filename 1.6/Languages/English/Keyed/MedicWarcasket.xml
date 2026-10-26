@@ -51,7 +51,7 @@
   <MDWC_CastTimeDesc>How long the suite primes before the stream reaches the patient. The patient is held still from the start. Default: {0}.</MDWC_CastTimeDesc>
 
   <MDWC_TendInterval>Time per wound (seconds)</MDWC_TendInterval>
-  <MDWC_TendIntervalDesc>How long the stream spends on each wound or illness. A patient with more to treat keeps the stream, and the hold, going longer. Default: {0}.</MDWC_TendIntervalDesc>
+  <MDWC_TendIntervalDesc>How long the stream spends on each wound or illness at normal tend speed. Medical skill and the medic shoulders shorten it, and an unskilled pilot takes up to twice as long. A patient with more to treat keeps the stream, and the hold, going longer. Default: {0}.</MDWC_TendIntervalDesc>
 
   <MDWC_Cooldown>Cooldown (hours)</MDWC_Cooldown>
   <MDWC_CooldownDesc>The time the pilot must wait after a dressing before starting another. Queued dressings wait it out. Default: {0}.</MDWC_CooldownDesc>
@@ -59,8 +59,8 @@
   <MDWC_Range>Range (cells)</MDWC_Range>
   <MDWC_RangeDesc>How close the pilot walks to the patient before starting the stream, which also needs a clear line of sight. Default: {0}.</MDWC_RangeDesc>
 
-  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, with {5} h of cooldown after.</MDWC_DressingSummary>
-  <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
+  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s at normal tend speed, with {5} h of cooldown after.</MDWC_DressingSummary>
+  <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s at normal tend speed, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
 
   <MDWC_SectionShot>Adrenaline shot</MDWC_SectionShot>
 

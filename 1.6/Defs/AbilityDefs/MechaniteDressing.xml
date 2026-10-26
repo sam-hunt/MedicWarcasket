@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!--
     The Medic armor's active, granted by the armor's CompProperties_AbilitiesApparel and fed
@@ -15,9 +15,14 @@
     distanceToTarget and the extension's ticksPerTend are mod settings defaulting to these
     values.
 
-    DressingExtension: ticksPerTend is the time the beam spends on each wound; warmdownTicks is
-    the pilot's hold after the beam ends, over which the glow fades. VEF ignores the extension.
-    warmdownTicks has no setting.
+    DressingExtension: ticksPerTend is the time the beam spends on each wound at a
+    MedicalTendSpeed of 1.0, divided by the pilot's stat floored at minTendSpeed, as vanilla
+    divides its tend duration (the class header has the call path). Vanilla's curve is 0.4 plus
+    0.06 per Medicine level: Medicine 10 is 1.0 (the setting), Medicine 20 with the shoulders'
+    +0.25 is 1.85, and an unskilled pilot's 0.4 floors at 0.5, twice the setting, so a weak medic
+    cannot hold a patient under fire for long. warmdownTicks is the pilot's hold after the beam
+    ends, over which the glow fades. VEF ignores the extension. minTendSpeed and warmdownTicks
+    have no setting.
 
     Sounds: warmupStartSound plays once as the warmup begins and warmupSound loops through it,
     both VEF fields; both are placeholders for the sound pass.
@@ -33,7 +38,9 @@
   <VEF.Abilities.AbilityDef>
     <defName>MDWC_MechaniteDressing</defName>
     <label>mechanite dressing</label>
-    <description>Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used. If the medic helmet is worn, the mechanites also treat diseases and infections.\n\nEach wound tended uses up medicine from the suite. The patient is held in place while the stream runs.</description>
+    <description>Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds where they stand, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used, and the skill sets the pace.
+
+Reloads with medicine.</description>
     <abilityClass>MedicWarcasket.Ability_MechaniteDressing</abilityClass>
     <jobDef>MDWC_MechaniteDressing</jobDef>
     <jobReportString>Applying a mechanite dressing.</jobReportString>
@@ -59,6 +66,7 @@
     <modExtensions>
       <li Class="MedicWarcasket.DressingExtension">
         <ticksPerTend>60</ticksPerTend>
+        <minTendSpeed>0.5</minTendSpeed>
         <warmdownTicks>60</warmdownTicks>
       </li>
     </modExtensions>

@@ -161,7 +161,7 @@
         "required": true
       },
       "MDWC_MechaniteDressing.description": {
-        "english": "Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used. If the medic helmet is worn, the mechanites also treat diseases and infections.\n\nEach wound tended uses up medicine from the suite. The patient is held in place while the stream runs.",
+        "english": "Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds where they stand, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used, and the skill sets the pace.\n\nReloads with medicine.",
         "required": true
       },
       "MDWC_MechaniteDressing.jobReportString": {

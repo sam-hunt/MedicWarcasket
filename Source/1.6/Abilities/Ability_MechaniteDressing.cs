@@ -40,6 +40,10 @@ namespace MedicWarcasket;
 // medicine's MedicineTendXpGainFactor) pro rata to the kit share each wound drew, so a kit's
 // worth of dressing earns one treatment's XP and chip damage cannot farm it.
 //
+// The interval per wound is the extension's ticksPerTend divided by the pilot's MedicalTendSpeed,
+// floored at its minTendSpeed (DressingExtension's header), read once at the connect as the
+// quality is, and scribed as ticksPerWound so a save mid-beam keeps its pace.
+//
 // The stun (the base's RefreshStun) is refreshed every tick of the warmup, the beam and the
 // shot, so it lasts the warmup plus one interval per wound, plus the jab, and lapses on its own
 // on any exit. A sleeper is not woken, so a bed patient keeps the bed's tend-quality offset.
@@ -51,7 +55,8 @@ namespace MedicWarcasket;
 //
 // The mod settings write onto the def (castTime, cooldownTime, distanceToTarget, the extension's
 // ticksPerTend) and the suite's props (ammoDef, maxCharges); the dressing reads them live, bar
-// the warmup length, which VEF's wait toil fixes at job start.
+// the warmup length, which VEF's wait toil fixes at job start, and the interval per wound, fixed
+// at the connect.
 public class Ability_MechaniteDressing : Ability_MedicTargeted
 {
     // The emitter glow, and the beam's origin, sit this far in front of the pilot, lifted this
@@ -80,6 +85,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
     private string medicineName;
     private float quality;
     private float maxQuality;
+    private int ticksPerWound;
     private int tended;
     private int remaining;
     private int ticksIntoWound;
@@ -261,6 +267,9 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
             return;
         quality = TendUtility.CalculateBaseTendQuality(pawn, patient, medicine);
         maxQuality = medicine.GetStatValueAbstract(StatDefOf.MedicalQualityMax);
+        DressingExtension extension = Extension;
+        float tendSpeed = Mathf.Max(pawn.GetStatValue(StatDefOf.MedicalTendSpeed), extension.minTendSpeed);
+        ticksPerWound = Mathf.Max(1, Mathf.RoundToInt(extension.ticksPerTend / tendSpeed));
         connected = true;
         beaming = true;
         ticksIntoWound = 0;
@@ -288,7 +297,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         MaintainTendSound();
 
         ticksIntoWound++;
-        if (ticksIntoWound < Mathf.Max(1, Extension.ticksPerTend))
+        if (ticksIntoWound < Mathf.Max(1, ticksPerWound))
             return false;
         ticksIntoWound = 0;
 
@@ -533,6 +542,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         Scribe_Values.Look(ref medicineName, "medicine");
         Scribe_Values.Look(ref quality, "quality");
         Scribe_Values.Look(ref maxQuality, "maxQuality");
+        Scribe_Values.Look(ref ticksPerWound, "ticksPerWound");
         Scribe_Values.Look(ref tended, "tended");
         Scribe_Values.Look(ref remaining, "remaining");
         Scribe_Values.Look(ref ticksIntoWound, "ticksIntoWound");

@@ -23,10 +23,11 @@ namespace MedicWarcasket;
 // them for this comp only. The open kit counts toward the target, so the suite reloads only once
 // a whole kit is used up.
 //
-// Readouts: the gauge (Gizmo_DressingSuite), the inspect line, the tooltip line and the stat
-// sheet's remaining-charges entry show the fractional count, Available. Gizmo_Slider reads its
-// target once, on first draw, so the one cached gauge is rebuilt whenever the capacity or the
-// settings generation moves under it.
+// Readouts: the gauge's bar label (Gizmo_DressingSuite), the inspect line, the tooltip line and
+// the stat sheet's remaining-charges entry show the fractional count, Available. The gauge's fill
+// alone shows whole kits, the open one included, since that is what TargetKits compares against.
+// Gizmo_Slider reads its target once, on first draw, so the one cached gauge is rebuilt whenever
+// the capacity or the settings generation moves under it.
 //
 // Trim restores the invariants after anything that can break them: a lowered maxCharges setting
 // (vanilla's reload accounting breaks on an overfill), a severityPerKit lowered under a saved
