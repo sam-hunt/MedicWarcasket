@@ -21,7 +21,7 @@ The armor carries a suite of medicine kits. Point it at a wounded pawn and the p
 Dressings can be queued, and Shift-click chains several patients in a row. Drag the suite's gauge to set how full colonists keep it. The medicine it uses, the number of kits, the timings and which work the pilot may do can be changed in the mod settings.
 
 [h2]Adrenaline shot[/h2]
-The shoulders hold a few shots of adrenaline, drawn from medical kits. Jab a squadmate, a pet or the pilot and they feel almost no pain and move, see and think faster for a few hours, the surge fading in levels while their rest runs down faster than usual. No addiction, no tolerance. A shot into a heart attack is spent on the heart instead and stops it outright. With the armor worn, right-click the shot to give one to every patient as their dressing ends. The shots held, what reloads them, how long one lasts, its rest cost and its cooldown are mod settings.
+The shoulders hold a few shots of adrenaline, drawn from medical kits. Jab a squadmate, a pet or the pilot and they feel almost no pain and move, see and think faster for a few hours, the surge fading in levels while their sleep runs down faster than usual. No addiction, no tolerance. A shot into a heart attack is spent on the heart instead and stops it outright. With the armor worn, right-click the shot to give one to every patient as their dressing ends. The shot capacity, what reloads them, how long one lasts, its sleep cost and its cooldown are mod settings.
 
 [hr][/hr]
 [h1]Mod Compatibility[/h1]

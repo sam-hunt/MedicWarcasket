@@ -1,6 +1,5 @@
 # TODOs
 
-- Review in-flight description edits
 - Mod setting for Adrenaline shot autocast beginning on/off? tied to whether the torso is equipped?
 - reduce mechanite dressing range by 1 cell?
 - **Verify in game** the dressing's pace scaling and whole-kit gauge fill, and the shot's

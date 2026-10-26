@@ -33,7 +33,7 @@ mind as well as in its mechanics. Section 3.10 has the identifier rename.
 | Charging by vanilla's tend economy, spent per wound tended (severity budget)                     | 2.4, 3.2, 3.6 |
 | Medicine XP at vanilla parity, granted as each wound is tended                                   | 2.4, 3.5      |
 | A tank gauge like Toxin's instead of the gizmo's corner count                                    | 3.8           |
-| Default cooldown 0 s, so dressings can be queued and waypointed                                  | 3.3, 3.9      |
+| Default cooldown 0 s; queueing and waypoints work at any cooldown                                | 3.3, 3.9, 4   |
 | Sounds reviewed in a later session                                                               | `TODOs.md`    |
 
 The readings the review settled are in section 4.
@@ -601,10 +601,10 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 
 | Setting            | Def field                                     | Default      | Range                 |
 | ------------------ | --------------------------------------------- | ------------ | --------------------- |
-| Medicine           | suite `ammoDef`, and ability `icon` (3.8)     | glitterworld | eligible list (3.1)   |
-| VFX color          | the three motes' `graphicData.color` (rgb)    | medical blue | blue, green, pink     |
+| Reload item        | suite `ammoDef`, and ability `icon` (3.8)     | glitterworld | eligible list (3.1)   |
+| Effect color       | the three motes' `graphicData.color` (rgb)    | medical blue | blue, green, pink     |
 | Kit capacity       | suite `maxCharges`                            | 5            | 1..20, step 1         |
-| Warmup (s)         | ability `castTime` (ticks ÷ 60)               | 1            | 0..10, current bands  |
+| Casting time (s)   | ability `castTime` (ticks ÷ 60)               | 1            | 0..10, current bands  |
 | Time per wound (s) | `DressingExtension.ticksPerTend` (ticks ÷ 60) | 1            | 0.25..5, step 0.25    |
 | Cooldown (s)       | ability `cooldownTime` (ticks ÷ 60)           | 0            | 0..300, step 5        |
 | Range              | ability `distanceToTarget`                    | 2.9          | **1.9..12.9**, step 1 |
@@ -629,7 +629,7 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
   - It is saved by defName; a name that no longer resolves to an eligible medicine reads as the
     default. "Restore default settings" resets it too.
   - `TryGetDefs` finds the suite by `compClass` and the extension by type.
-- **The VFX color row** (`Settings/TintSetting.cs`), under the medicine's so the picked rows
+- **The effect color row** (`Settings/TintSetting.cs`), under the medicine's so the picked rows
   sit above the sliders, is a row of three radio buttons, each with a swatch, the default first
   and unmarked, saved by name; an unknown name reads as the default. "Default" means each mote's own
   XML colour, so a patch that recolours a mote moves the default. `ApplyToDefs` writes the rgb
@@ -642,7 +642,7 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 - **The section header icon** is the configured medicine's `uiIcon`, the same texture
   `ApplyToDefs` wrote onto `def.icon`, read on each draw.
 - **Summary line:** "The suite holds up to {0} kits of {1}, each treating {2} severity of injuries
-  or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, with {5} s of
+  or one illness. A dressing takes {3} s to cast, then tends a wound every {4} s, with {5} s of
   cooldown after." A second key replaces the last clause when the cooldown is 0.
 - `TrimWornSuites` and the `Generation` cooldown cap are unchanged. A medicine change needs no
   reconciliation (3.1). A setting change mid-dressing is read on the next tick, except the
@@ -729,14 +729,14 @@ Drafts, no em dashes (player-facing):
   are otherwise left to the descriptions item in `TODOs.md`.
 - Keyed, changed:
   - `MDWC_SectionDressing` "Mechanite dressing".
-  - `MDWC_CastTime` "Warmup (seconds)"; `MDWC_CastTimeDesc` "How long the suite primes before the
+  - `MDWC_CastTime` "Casting time"; `MDWC_CastTimeDesc` "How long the suite primes before the
     stream reaches the patient. The patient is held still from the start. Default: {0}."
   - `MDWC_CooldownDesc` "The time the pilot must wait after a dressing before starting another.
     Queued dressings wait it out. Default: {0}."
   - `MDWC_RangeDesc` "How close the pilot walks to the patient before starting the stream, which
     also needs a clear line of sight. Default: {0}."
   - `MDWC_DressingSummary` "The suite holds up to {0} kits of {1}, each treating {2} severity of
-    injuries or one illness. A dressing warms up for {3} s, then tends a wound every {4} s, with
+    injuries or one illness. A dressing takes {3} s to cast, then tends a wound every {4} s, with
     {5} s of cooldown after." Six arguments where there were three; the translate skill's note
     on its shape changes.
 - Keyed, new:
@@ -745,7 +745,7 @@ Drafts, no em dashes (player-facing):
     already loaded count as the new medicine. Default: {0}."
   - `MDWC_Kits` "Kit capacity"; `MDWC_KitsDesc` "The number of medicine kits the armor's suite holds
     when full. A suite already holding more than this loses the excess. Default: {0}."
-  - `MDWC_TendInterval` "Time per wound (seconds)"; `MDWC_TendIntervalDesc` "How long the stream
+  - `MDWC_TendInterval` "Time per wound"; `MDWC_TendIntervalDesc` "How long the stream
     spends on each wound or illness. A patient with more to treat keeps the stream, and the hold,
     going longer. Default: {0}."
   - `MDWC_DressingSummaryNoCooldown`: the summary ending "..., and the next can start at once."
@@ -784,7 +784,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    the section header icon and the stat sheet's reload line; the loaded kits carry over, and the
    next reload fetches the new medicine. The range slider steps 1.9, 2.9, 3.9 and on to 12.9,
    every step choosable. The defaults are warmup 1 s, 1 s per wound, cooldown 0, range 2.9 and 5
-   kits. The VFX color row shows blue, green and pink with their swatches; picking green
+   kits. The effect color row shows blue, green and pink with their swatches; picking green
    and closing the window turns the gauge green at once and the next dressing's glow, beam and
    overlay with it, a dressing already running keeping its colour, and the beam keeps its
    flowing noise and the overlay its silhouette in every colour. Reset restores all seven.

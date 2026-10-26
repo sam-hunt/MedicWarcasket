@@ -32,11 +32,12 @@ namespace MedicWarcasket;
 // maxCharges; on the
 // MDWC_AdrenalineShot AbilityDef the cooldown overrides cooldownTime, stored and shown as the
 // dressing's; on the MDWC_Adrenaline HediffDef the duration overrides its severity-per-day
-// comp's severityPerDay (stored in hours, written as -24 / hours) and the rest fall writes the
+// comp's severityPerDay (stored in hours, written as -24 / hours) and the sleep fall writes the
 // top stage's restFallFactor with each lower stage one higher, the XML ladder's step. The
 // reload item's uiIcon goes onto the shot's icon as the medicine's goes onto the dressing's,
-// and heads the section. The item is any medicine, herbal included (a stimulant dose does not
-// depend on medical potency), or vanilla's go-juice or wake-up, listed in that order.
+// and heads the section, and its row sits above the sliders as the medicine's does. The item
+// is any medicine, herbal included (a stimulant dose does not depend on medical potency), or
+// vanilla's go-juice or wake-up, listed in that order.
 //
 // The work section is one checkbox per Caring work type the trait mirror leaves to the player
 // (WorkSetting over WorkProfile.Toggleable), written onto the medic trait's disabledWorkTypes
@@ -55,7 +56,7 @@ namespace MedicWarcasket;
 // tint change reaches every mote spawned after it; one in flight keeps the graphic it was
 // spawned with. Shots above a lowered maximum are spent off
 // the worn shoulders at once (TrimWornInjectors); a shot already given keeps the duration it
-// was applied with, since vanilla's comp caches the rate per instance, while the rest fall is
+// was applied with, since vanilla's comp caches the rate per instance, while the sleep fall is
 // read off the stages live and reaches it at once.
 public class MedicWarcasketSettings : ModSettings
 {
@@ -345,8 +346,8 @@ public class MedicWarcasketSettings : ModSettings
         range.DoRow(listing);
         SectionHeader(listing, "MDWC_SectionShot", shotAmmo.Value?.uiIcon, shotTip);
         SummaryRow(listing, ShotSummary);
-        shots.DoRow(listing);
         shotAmmo.DoRow(listing);
+        shots.DoRow(listing);
         shotDuration.DoRow(listing);
         restFall.DoRow(listing);
         shotCooldown.DoRow(listing);
@@ -387,7 +388,7 @@ public class MedicWarcasketSettings : ModSettings
     }
 
     // What the shot section's rows amount to: the shots held and the item each costs, how long
-    // one lasts and in how many levels, the rest fall at its start, and the cooldown, with the
+    // one lasts and in how many levels, the sleep fall at its start, and the cooldown, with the
     // same no-cooldown clause rule as the dressing's.
     private string ShotSummary()
     {

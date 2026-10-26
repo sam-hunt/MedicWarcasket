@@ -399,10 +399,10 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 
 | Setting             | Def field                                                        | Default | Range           |
 | ------------------- | ---------------------------------------------------------------- | ------- | --------------- |
-| Shots held          | shoulders' reloadable `maxCharges`                               | 3       | 1..10, step 1   |
 | Reload item         | shoulders' reloadable `ammoDef` (any medicine, then go-juice, then wake-up) | industrial medicine | float menu |
+| Shot capacity       | shoulders' reloadable `maxCharges`                               | 3       | 1..10, step 1   |
 | Duration (hours)    | hediff `HediffCompProperties_SeverityPerDay.severityPerDay`      | 3       | 0.5..12, step 0.5 |
-| Rest fall at a shot's start (×) | the hediff's stage `restFallFactor`s, the top stage's value; each lower stage one higher | 2 | 1..5, step 0.5 |
+| Initial sleep fall rate (×) | the hediff's stage `restFallFactor`s, the top stage's value; each lower stage one higher | 2 | 1..5, step 0.5 |
 | Cooldown (seconds)  | ability `cooldownTime` (ticks ÷ 60)                              | 0       | 0..300, step 5  |
 
 - The duration is stored as hours and written as `severityPerDay = -24 / hours`; the default is
@@ -495,13 +495,13 @@ Drafts, no em dashes (player-facing):
   The `shortDescription` and first paragraph gain the injector: "fitted with field-medicine
   manipulators and an adrenaline injector." The shared paragraphs stay with the descriptions
   item in `TODOs.md`.
-- Keyed, new: `MDWC_SectionShot` "Adrenaline shot"; `MDWC_Shots` "Shots held",
+- Keyed, new: `MDWC_SectionShot` "Adrenaline shot"; `MDWC_Shots` "Shot capacity",
   `MDWC_ShotsDesc` "The number of shots the shoulders' injector holds when full. Shoulders already holding more than this lose the excess. Default: {0}."; `MDWC_ShotAmmo` "Reload item", `MDWC_ShotAmmoDesc` "The item the shoulders' injector is loaded with, one per shot: any medicine, go-juice or wake-up. Shots already loaded count as the new item. Default: {0}."; `MDWC_ShotReloadsWith`
   "Reloads with {0}." (appended to the ability's description, `{0}` the item's label); `MDWC_ShotDuration` "Duration
   (hours)", `MDWC_ShotDurationDesc` "How long a shot lasts, fading in three levels. A shot
-  already given keeps its own clock. Default: {0}."; `MDWC_RestFall` "Rest fall at a shot's start (x)",
-  `MDWC_RestFallDesc` "How many times faster a patient's rest falls while a shot is fresh. Each
-  level it fades through adds one. Sleep restores rest as usual. Default: {0}."; `MDWC_ShotCooldown` "Cooldown (seconds)", `MDWC_ShotCooldownDesc` "The time
+  already given keeps its own clock. Default: {0}."; `MDWC_RestFall` "Initial sleep fall rate",
+  `MDWC_RestFallDesc` "How many times faster a patient's sleep need falls while a shot is fresh. Each
+  level it fades through adds one. Sleeping restores it as usual. Default: {0}."; `MDWC_ShotCooldown` "Cooldown (seconds)", `MDWC_ShotCooldownDesc` "The time
   the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient
   instead. Default: {0}."; `MDWC_ShotSummary` (six arguments, 3.7) and
   `MDWC_ShotSummaryNoCooldown` (five); `MDWC_NoShotsLoaded` "No shots loaded.";

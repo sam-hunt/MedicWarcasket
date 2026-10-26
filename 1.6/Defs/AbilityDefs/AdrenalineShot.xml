@@ -32,7 +32,7 @@
   <VEF.Abilities.AbilityDef>
     <defName>MDWC_AdrenalineShot</defName>
     <label>adrenaline shot</label>
-    <description>Inject a nearby person or animal with a dose of adrenaline drawn from a medical kit. For a few hours they feel almost no pain and move, see and think faster, while their rest falls much faster than usual. On a patient with a heart attack the shot is spent on the heart instead.</description>
+    <description>Inject a nearby person or animal with a dose of adrenaline drawn from a medical kit. For a few hours they feel almost no pain and move, see and think faster, while their sleep falls much faster than usual. On a patient with a heart attack the shot is spent on the heart instead.</description>
     <abilityClass>MedicWarcasket.Ability_AdrenalineShot</abilityClass>
     <gizmoClass>MedicWarcasket.Command_AdrenalineShot</gizmoClass>
     <jobDef>MDWC_AdrenalineShot</jobDef>
