@@ -50,6 +50,14 @@ after any turn that changed mod files and feeds a failing build back to the agen
 **Warnings are build errors** (`TreatWarningsAsErrors`, severities pinned in `.editorconfig`):
 fix the code, not the severity.
 
+`Tests/1.6/` is a headless xUnit (net472) suite, never shipped: `dotnet test
+Tests/1.6/MedicWarcasket.Tests.csproj` (vstest hosts it through mono on Linux/WSL). Its csproj
+documents where the game's real 1.6 runtime DLLs come from (`RIMWORLD_MANAGED_1_6`, a 1.6
+install, or the frozen copy at `~/.local/share/RimWorld-1.6/Managed`); without them the build
+stays green but every test touching game types fails. `CompatPatchTests` resolves every xpath in
+`1.6/Mods/*/Patches/` against the main-tree defs, the only check a gated root gets short of a
+boot with that mod active.
+
 ## Layout
 
 ```
@@ -57,6 +65,7 @@ About/            Mod metadata
 1.6/              Defs, Patches, Languages/English/Keyed, Mods/<compat roots>; serves 1.6 and 1.7
 Source/1.6/       C# (net472)
 Textures/         Art, version-independent, under VFEP's Warcasketlike/ layout
+Tests/1.6/        xUnit net472 suite                        (not shipped)
 Scripts/          l10n shims and the smoke test             (not shipped)
 l10n/             rimworld-l10n toolkit, pinned submodule   (not shipped)
 Docs/Research/    VFEP warcasket stat tables and ability mechanics

@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{8D6EE7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicWarcasket", "Source\1.6\MedicWarcasket.csproj", "{2423CB3D-B706-4D7C-8492-C30C033F3AA0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A6C1D7E2-3B5F-4C8A-9D21-6F0E4B7C2A91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicWarcasket.Tests", "Tests\1.6\MedicWarcasket.Tests.csproj", "{5E2B9C44-7D1A-4F63-8B0C-2A9D6E1F3C57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +24,13 @@ Global
 		{2423CB3D-B706-4D7C-8492-C30C033F3AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2423CB3D-B706-4D7C-8492-C30C033F3AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2423CB3D-B706-4D7C-8492-C30C033F3AA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E2B9C44-7D1A-4F63-8B0C-2A9D6E1F3C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E2B9C44-7D1A-4F63-8B0C-2A9D6E1F3C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E2B9C44-7D1A-4F63-8B0C-2A9D6E1F3C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E2B9C44-7D1A-4F63-8B0C-2A9D6E1F3C57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2423CB3D-B706-4D7C-8492-C30C033F3AA0} = {8D6EE741-5CA8-48A3-B121-634BADDDE626}
+		{5E2B9C44-7D1A-4F63-8B0C-2A9D6E1F3C57} = {A6C1D7E2-3B5F-4C8A-9D21-6F0E4B7C2A91}
 	EndGlobalSection
 EndGlobal
