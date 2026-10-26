@@ -161,7 +161,7 @@
         "required": true
       },
       "MDWC_MechaniteDressing.description": {
-        "english": "Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds where they stand, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used, and the skill sets the pace.\n\nReloads with medicine.",
+        "english": "Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds where they stand, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used, and the skill sets the pace.",
         "required": true
       },
       "MDWC_MechaniteDressing.jobReportString": {

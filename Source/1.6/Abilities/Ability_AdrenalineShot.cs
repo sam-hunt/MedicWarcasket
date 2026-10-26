@@ -231,7 +231,7 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
         descriptionAutoCast = auto;
         description = base.GetDescriptionForPawn();
         if (Injector?.AmmoDef is { } item)
-            description += "\n\n" + "MDWC_ShotReloadsWith".Translate(item.label);
+            description += "\n\n" + "MDWC_ReloadsWith".Translate(item.label);
         if (CanAutoCast)
             description += "\n" + "MDWC_ShotAutocastDesc".Translate();
         return description;

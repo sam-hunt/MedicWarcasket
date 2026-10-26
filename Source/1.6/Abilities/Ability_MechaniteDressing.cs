@@ -60,6 +60,11 @@ namespace MedicWarcasket;
 // ticksPerTend) and the suite's props (ammoDef, maxCharges); the dressing reads them live, bar
 // the warmup length, which VEF's wait toil fixes at job start, and the interval per wound, fixed
 // at the connect.
+//
+// The gizmo's description is the def's, then a "Reloads with" paragraph naming the suite's
+// AmmoDef (the medicine is a mod setting, so the def's text cannot name it), cached on the
+// settings generation, the one thing in it that changes; the shot's description is built the
+// same way.
 public class Ability_MechaniteDressing : Ability_MedicTargeted
 {
     // The emitter glow, and the beam's origin, sit this far in front of the pilot, lifted this
@@ -107,7 +112,22 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
     private readonly List<Hediff> tendableScratch = new();
     private readonly HashSet<HediffDef> costScratch = new();
 
+    private string description;
+    private int descriptionGeneration = -1;
+
     public CompDressingSuite Suite => suite ??= holder?.TryGetComp<CompDressingSuite>();
+
+    public override string GetDescriptionForPawn()
+    {
+        int generation = MedicWarcasketSettings.Generation;
+        if (description != null && descriptionGeneration == generation)
+            return description;
+        descriptionGeneration = generation;
+        description = base.GetDescriptionForPawn();
+        if (Suite?.AmmoDef is { } item)
+            description += "\n\n" + "MDWC_ReloadsWith".Translate(item.label);
+        return description;
+    }
 
     private DressingExtension Extension => def.GetModExtension<DressingExtension>();
 

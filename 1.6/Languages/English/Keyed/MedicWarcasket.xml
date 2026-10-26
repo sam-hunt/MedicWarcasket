@@ -27,8 +27,10 @@
   <MDWC_ShotsLabel>Shots: {0} / {1}</MDWC_ShotsLabel>
   <MDWC_ShotStopsHeartAttack>Stops the heart attack</MDWC_ShotStopsHeartAttack>
   <MDWC_HeartAttackStopped>{0}'s heart attack has stopped.</MDWC_HeartAttackStopped>
-  <MDWC_ShotReloadsWith>Reloads with {0}.</MDWC_ShotReloadsWith>
   <MDWC_ShotAutocastDesc>Autocast: a shot to each patient as their dressing ends.</MDWC_ShotAutocastDesc>
+
+  <!-- Both abilities' tooltips: the reload item is a mod setting, so the def text cannot name it -->
+  <MDWC_ReloadsWith>Reloads with {0}.</MDWC_ReloadsWith>
 
   <!-- Mod settings (Source/1.6/Settings/) -->
   <MDWC_SettingsCategory>Medic Warcasket</MDWC_SettingsCategory>

@@ -489,7 +489,7 @@ Drafts, no em dashes (player-facing):
   dose of adrenaline drawn from a medical kit. For a few hours they feel almost no pain
   and move, see and think faster, while their rest falls much faster than usual. On a patient
   with a heart attack the shot is spent on the heart instead." The code appends "Reloads with
-  {item}." (`MDWC_ShotReloadsWith`, the item being a setting) and, with the armor worn, the
+  {item}." (`MDWC_ReloadsWith`, the item being a setting) and, with the armor worn, the
   autocast line. `jobReportString` "Giving
   an adrenaline shot."; the JobDef's `reportString` "giving an adrenaline shot.".
 - Hediff `label` "adrenaline shot", `labelNoun` "an adrenaline shot", `description` "A shot of
@@ -503,8 +503,9 @@ Drafts, no em dashes (player-facing):
   manipulators and an adrenaline injector." The shared paragraphs stay with the descriptions
   item in `TODOs.md`.
 - Keyed, new: `MDWC_SectionShot` "Adrenaline shot"; `MDWC_Shots` "Shot capacity",
-  `MDWC_ShotsDesc` "The number of shots the shoulders' injector holds when full. Shoulders already holding more than this lose the excess. Default: {0}."; `MDWC_ShotAmmo` "Reload item", `MDWC_ShotAmmoDesc` "The item the shoulders' injector is loaded with, one per shot: any medicine, go-juice or wake-up. Shots already loaded count as the new item. Default: {0}."; `MDWC_ShotReloadsWith`
-  "Reloads with {0}." (appended to the ability's description, `{0}` the item's label); `MDWC_ShotDuration` "Duration
+  `MDWC_ShotsDesc` "The number of shots the shoulders' injector holds when full. Shoulders already holding more than this lose the excess. Default: {0}."; `MDWC_ShotAmmo` "Reload item", `MDWC_ShotAmmoDesc` "The item the shoulders' injector is loaded with, one per shot: any medicine, go-juice or wake-up. Shots already loaded count as the new item. Default: {0}."; `MDWC_ReloadsWith`
+  "Reloads with {0}." (appended to the ability's description, `{0}` the item's label; the
+  dressing appends the same key for its medicine); `MDWC_ShotDuration` "Duration
   (hours)", `MDWC_ShotDurationDesc` "How long a shot lasts, fading in three levels. A shot
   already given keeps its own clock. Default: {0}."; `MDWC_RestFall` "Initial sleep fall rate",
   `MDWC_RestFallDesc` "How many times faster a patient's sleep need falls while a shot is fresh. Each

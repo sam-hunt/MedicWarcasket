@@ -41,13 +41,14 @@
     No iconPath: the mod settings write the configured medicine's uiIcon onto def.icon at
     startup, so the gizmo, the cursor and the settings header show that item's icon until
     custom ability art lands.
+
+    The description names no reload item: the medicine is a mod setting, so
+    Ability_MechaniteDressing appends the "Reloads with" line at runtime, as the shot does.
   -->
   <VEF.Abilities.AbilityDef>
     <defName>MDWC_MechaniteDressing</defName>
     <label>mechanite dressing</label>
-    <description>Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds where they stand, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used, and the skill sets the pace.
-
-Reloads with medicine.</description>
+    <description>Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds where they stand, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used, and the skill sets the pace.</description>
     <abilityClass>MedicWarcasket.Ability_MechaniteDressing</abilityClass>
     <jobDef>MDWC_MechaniteDressing</jobDef>
     <jobReportString>Applying a mechanite dressing.</jobReportString>
