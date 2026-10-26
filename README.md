@@ -33,8 +33,8 @@ Odyssey is optional.
 Armor, shoulder pads and helmet, welded on at VFE Pirates' warcasket foundry and unlocked by its
 spacer warcaskets research.
 
-- **Doctor passives**: the shoulders speed up tending and hold the pilot's Manipulation at full;
-  the helmet raises tend quality and holds Sight at full
+- **Doctor passives**: the shoulders speed up tending; the helmet raises tend quality and
+  surgery success and keeps an impaired pilot's Sight from falling too far
 - **Mechanite dressing**: a beam tends every wound on a person or animal, one at a time and
   worst first, using the medicine kits loaded in the armor's suite; the patient is held still
   until it is done. Dressings can be queued, and Shift-click chains patients. With the helmet on,

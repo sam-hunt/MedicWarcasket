@@ -149,10 +149,11 @@ Quality, a Sight floor and the disease gate already exceed Controller's helmet (
 and Siegebreaker's and Guardian's (inert). The review proposed keeping the Sight floor at 1.0
 and offered a small MedicalSurgerySuccessChance offset as optional.
 
-**Decision:** the floors drop to the tier's 0.7 on both the helmet (Sight) and the shoulders
-(Manipulation). Full capacity floors are Sarcophagus's identity, and a pilot who wants them
-can mix that set's pieces in at the foundry. The surgery offset (+0.05) is added as the
-helmet's hospital hook.
+**Decision:** the helmet's Sight floor drops to the tier's 0.7, and the shoulders lose their
+Manipulation floor altogether: every VFEP armor already floors Manipulation at 0.7, so a
+second 0.7 did nothing, and the speed offset and the injector are function enough. Full
+capacity floors are Sarcophagus's identity, and a pilot who wants them can mix that set's
+pieces in at the foundry. The surgery offset (+0.05) is added as the helmet's hospital hook.
 
 ### 2.6 Passives stay
 
@@ -173,7 +174,7 @@ configured kit at runtime, as the shot's does, so players know what to stock.
 ## 3. What landed
 
 1. Armor: shield 1.5; costList adds MedicineUltratech 10.
-2. Shoulders: costList ComponentSpacer 2, MedicineIndustrial 2; Manipulation floor 0.7.
+2. Shoulders: costList ComponentSpacer 2, MedicineIndustrial 2; no capacity floor.
 3. Helmet: costList ComponentSpacer 4, Plasteel 60; Sight floor 0.7;
    MedicalSurgerySuccessChance +0.05.
 4. Hediff: the crash stage.

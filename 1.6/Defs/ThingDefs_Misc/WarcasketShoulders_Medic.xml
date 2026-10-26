@@ -17,11 +17,9 @@
     The medic offsets:
     - MedicalTendSpeed +0.25, about four Medicine levels on vanilla's skill curve for that stat;
       reaches the mechanite dressing through vanilla's tend formula and a normal tend alike.
-    - Manipulation floor 0.7 through the ApparelExtension, the tier's standard floor, which
-      every VFEP armor carries as well, so the pads only name the region they cover. A floor
-      never lowers a capacity, and it feeds both tend stats through their Manipulation factor.
-      The 1.0 floor is Sarcophagus's identity, left to that set's pieces for a mix-and-match
-      pilot who wants it.
+    - No capacity floor: the tier's 0.7 Manipulation floor is on every VFEP armor already, and
+      a 1.0 floor is Sarcophagus's identity, left to that set's pieces for a mix-and-match
+      pilot who wants it. The speed offset and the injector are the pads' whole function.
 
     Adrenaline shot: VEF CompAbilitiesApparel grants MDWC_AdrenalineShot (AbilityDefs/
     AdrenalineShot.xml), fed by the injector beside it, a plain vanilla CompApparelReloadable
@@ -120,12 +118,6 @@
     <modExtensions>
       <li Class="VEF.Apparels.ApparelExtension">
         <priority>1</priority>
-        <pawnCapacityMinLevels>
-          <li>
-            <capacity>Manipulation</capacity>
-            <minLevel>0.7</minLevel>
-          </li>
-        </pawnCapacityMinLevels>
       </li>
     </modExtensions>
   </VFEPirates.WarcasketDef>
