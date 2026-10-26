@@ -9,7 +9,9 @@
 
     range is unset and requireLineOfSight off on purpose, as on the dressing: the click is not
     range-limited, the pilot walks to the patient and the job enforces distance and sight at
-    distanceToTarget, the manipulators' reach. castTime 30 (0.5 s) is the jab, during which a
+    distanceToTarget, 1.9: touching, diagonals included, a needle's reach. The dressing's
+    autocast gives the shot at the dressing's own reach instead, where its beam just ended
+    (Ability_MechaniteDressing.ShotToFollow). castTime 30 (0.5 s) is the jab, during which a
     conscious patient is held; cooldownTime 0 lets shots follow one another, the shots loaded
     being the limit. cooldownTime is a mod setting defaulting to this value; castTime and
     distanceToTarget are not.
@@ -49,7 +51,7 @@
         <canTargetLocations>false</canTargetLocations>
       </li>
     </targetingParametersList>
-    <distanceToTarget>2.9</distanceToTarget>
+    <distanceToTarget>1.9</distanceToTarget>
     <requireLineOfSight>false</requireLineOfSight>
     <castTime>30</castTime>
     <cooldownTime>0</cooldownTime>

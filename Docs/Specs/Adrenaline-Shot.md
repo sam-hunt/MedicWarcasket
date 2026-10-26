@@ -211,7 +211,7 @@ checks for the armor except the autocast (3.4).
 - `AbilityDefs/AdrenalineShot.xml`: `VEF.Abilities.AbilityDef` `MDWC_AdrenalineShot`,
   `abilityClass` `MedicWarcasket.Ability_AdrenalineShot`, `jobDef` `MDWC_AdrenalineShot`,
   `targetMode` Pawn with an explicit `targetingParametersList` entry (humans and animals, no
-  mechs, **self allowed**, no buildings or locations), `distanceToTarget` 2.9, `requireLineOfSight`
+  mechs, **self allowed**, no buildings or locations), `distanceToTarget` 1.9, `requireLineOfSight`
   false (the walk enforces both, as the dressing's does), `castTime` 30 (0.5 s), `cooldownTime` 0,
   `showUndrafted` true, `autocastPlayerDefault` false, `castSound` unset (3.3 plays the sound at
   the patient). No `iconPath` until the ability art lands: the settings write the reload item's
@@ -347,7 +347,8 @@ The beam's outcome does not matter: a complete or a dry beam both go on to the s
 beam fails the reach check and skips it. A dressing whose connect found nothing to tend still
 reaches the toil, since the pilot was ordered to that patient. `Apply` is the same method as the
 manual cast, so the shot's cooldown, charge and texts are identical either way; the shot's own
-`distanceToTarget` is a walking rule for manual orders only.
+`distanceToTarget` is a walking rule for manual orders only, and the autocast reaches as far as
+the dressing does.
 
 ### 3.5 Shared idioms, hoisted (no behaviour change for the dressing)
 
@@ -416,8 +417,9 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
   protected; a tiny `CompApparelReloadable` subclass is **not** worth it: the dev "reload to
   full" and `ReloadFrom` both write `MaxCharges`, so the trim is a `UsedOnce()` loop down to the
   new maximum, which spends nothing real).
-- The warmup (30 ticks) and the range (2.9) are def fields without settings; the level count is
-  the stage list. Section 4 lists them as levers.
+- The warmup (30 ticks) and the range (1.9: touching, diagonals included, a needle's reach; the
+  autocast uses the dressing's) are def fields without settings; the level count is the stage
+  list. Section 4 lists them as levers.
 - Summary line: "The injector holds {0} shots, one {1} each. A shot lasts {2} h, fading in {3}
   levels, and the patient's rest falls {4} times as fast at first, faster with each level, with
   {5} h of cooldown between shots." A second key ends "..., and the next shot can follow at once." when
@@ -534,7 +536,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    colonist, the cross over a raider (downed or not) and over a pawn already at "rush", and
    "Stops the heart attack" as a second line over a dev-given heart attack, on a raider and on a
    "rush" patient too. Click the colonist:
-   the pilot walks within 2.9 cells, holds them for 0.5 s, `Ingest_Inject` plays at the patient,
+   the pilot walks to touch, holds them for 0.5 s, `Ingest_Inject` plays at the patient,
    the health tab shows "adrenaline shot (rush, 3h)" with pain ×0.1 and the three offsets, the
    corner count reads "2 / 3", the shoulders' inspect line "Shots remaining: 2 / 3", and no
    text mote appears. Click the pilot: no walk, the same result on the pilot, whose pain stays
