@@ -2,10 +2,6 @@
 
 ## Before v1.0.0
 
-- **Descriptions.** The three def descriptions are theme placeholders. Rewrite around the final
-  features (the helmet's surgery assist is not yet named), shared paragraphs identical across
-  the pieces, each `shortDescription` equal to its first paragraph. The ability description and
-  the Keyed strings are first drafts.
 - **CE Patch** similar to Shipcracker/Toxin once they're tested/released
 - **Dressing sounds.** The spec's sounds are placeholders (`Mechanite-Dressing.md` 3.5):
   the serum's `MechSerumUsed` at the warmup, vanilla's `Interact_Tend` loop through the warmup
@@ -19,6 +15,7 @@
   banded `Snap`).
 - **Smoke test on 1.6**
 - **Full review of player-facing copy**
+- **Review comment length in shipped xml files for bundle bloat risks**
 - **First Workshop publish.** Commit `About/PublishedFileId.txt`, add the Workshop link and the
   Steam badges to the README, paste the description.
 

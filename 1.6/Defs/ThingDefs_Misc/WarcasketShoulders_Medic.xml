@@ -53,8 +53,8 @@
   <VFEPirates.WarcasketDef ParentName="VFEP_WarcasketShoulderPadBase">
     <defName>MDWC_WarcasketShoulders_Medic</defName>
     <label>medic warcasket shoulders</label>
-    <shortDescription>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators and an adrenaline injector.</shortDescription>
-    <description>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators and an adrenaline injector.\n\nA 10th-generation spacer chassis refitted for the medic's role: the pilot is welded in for good, like any warcasket wearer, but this one is built to keep the rest of the squad alive rather than to break the line.\n\nThe medic series trades firepower for the tools to treat wounds under fire, so a squad that fields one can stay in the fight long after its stims and bandages have run out.</description>
+    <shortDescription>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators that quicken the pilot's tending and an adrenaline injector.</shortDescription>
+    <description>Specialized spacer-tech warcasket pauldrons with standard protection, fitted with field-medicine manipulators that quicken the pilot's tending and an adrenaline injector.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and gave them to veterans who could no longer serve any other way. The Medic was its rig for the surgeons who had served beside them.\n\nThe shell's dressing suite tends a squadmate's wounds where they fall, the pauldrons' injector keeps them on their feet for a few hours more, and the helmet's visor diagnoses what no bandage treats. Plating and shield are the generation's standard, so a Medic fights a step behind the line, and a squad that fields one holds out long after its bandages would have run out.</description>
     <graphicData>
       <texPath>Things/Pawn/Warcasketlike/WarcasketMedic/WarcasketMedicShoulders</texPath>
       <shaderType>CutoutComplex</shaderType>
