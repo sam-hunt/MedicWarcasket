@@ -58,7 +58,7 @@
   <MDWC_CooldownDesc>The time the pilot must wait after a dressing before starting another. Queued dressings wait it out. Default: {0}.</MDWC_CooldownDesc>
 
   <MDWC_Range>Range</MDWC_Range>
-  <MDWC_RangeDesc>How close, in cells, the pilot walks to the patient before starting the stream, which also needs a clear line of sight. Default: {0}.</MDWC_RangeDesc>
+  <MDWC_RangeDesc>How close the pilot walks to the patient before starting the stream, as the straight-line distance in cells; the stream also needs a clear line of sight. 1.9 is touching, diagonals included, and 2 reaches one cell further along a row or column. Default: {0}.</MDWC_RangeDesc>
 
   <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed, with {5} of cooldown after.</MDWC_DressingSummary>
   <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed, and the next can start at once.</MDWC_DressingSummaryNoCooldown>

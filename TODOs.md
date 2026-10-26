@@ -1,9 +1,6 @@
 # TODOs
 
 - Mod setting for Adrenaline shot autocast beginning on/off? tied to whether the torso is equipped?
-- reduce mechanite dressing range by 1 cell?
-- **Verify in game** the dressing's pace scaling and whole-kit gauge fill, and the shot's
-  per-item reload and reload item setting (`Adrenaline-Shot.md` section 6, steps 5 and 6)
 
 ## Before the first release
 

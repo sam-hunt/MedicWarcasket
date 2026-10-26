@@ -26,7 +26,7 @@ mind as well as in its mechanics. Section 3.10 has the identifier rename.
 | Warmup (cast time) default 1 s                                                                   | 3.5, 3.9      |
 | Variable beam: one wound per second by default, so more wounds mean a longer beam and stun       | 3.5           |
 | A 1 s warmdown after the beam, separate from the cooldown                                        | 3.5           |
-| Default range 2.9                                                                                | 3.9           |
+| Default range 2                                                                                  | 3.9           |
 | Medicine chosen in mod settings only, default glitterworld, herbal included                    | 3.1           |
 | The targeting cursor's medicine icon removed                                                     | 3.8, 4        |
 | No medicine-based tint                                                                           | 3.7           |
@@ -607,19 +607,22 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 | Casting time (s)   | ability `castTime` (ticks ÷ 60)               | 1            | 0..10, current bands  |
 | Time per wound (s) | `DressingExtension.ticksPerTend` (ticks ÷ 60) | 1            | 0.25..5, step 0.25    |
 | Cooldown (s)       | ability `cooldownTime` (ticks ÷ 60)           | 0            | 0..300, step 5        |
-| Range              | ability `distanceToTarget`                    | 2.9          | **1.9..12.9**, step 1 |
+| Range              | ability `distanceToTarget`                    | 2            | 1.9, then 2..12 whole |
 
 `warmdownTicks` (60) and `severityPerKit` (20) are def fields without settings (section 4).
 
-- **The range grid moves from 1.5..12.5 to 1.9..12.9.** On the old grid 2.9 sits between steps.
-  The Tunable clears any value within half a step of the default, so 2.5 would snap back to 2.9
-  and could never be chosen. RimWorld's x.9 radii put 2.9 on the grid. 1.9 reaches exactly the
-  cells 1.5 does, adjacent ones including diagonals, so the touch option survives. The old
-  minimum's rationale, VEF pathing with `PathEndMode.Touch` at 1.5 or less, no longer applies:
-  our own walk always paths to touch. A saved override on the old x.5 grid (2.5, 3.5, ...) is
-  kept as saved and applied as is until the slider is next touched, which is the Tunable's rule
-  for every range move and harmless here; one below 1.9 cannot exist, since 1.5 was the default
-  and cleared itself.
+- **The range grid is the touch stop, then whole cells: 1.9, 2, 3 and on to 12,** one band so
+  the minimum sits off the grid. The walk and `InReach` compare `IntVec3.DistanceTo`, the
+  straight-line cell distance (`GenMath.Sqrt` of the squared offsets), with `<=`, so a
+  whole-number radius reaches the cells the game's own ring of that radius would, and the square
+  root of a square is exact in float. 2 reaches two cells along a row or column and the diagonal
+  neighbours (1.41), not the knight's cell (2.24) nor the corner two out (2.83); RimWorld's x.9
+  radii would add those, 2.9 being the whole 5x5 block. The Tunable clears a value within half a
+  step of the default, so the default must be a stop. 1.9 is touching, diagonals included; a
+  minimum below 1.42 would refuse a diagonal neighbour, where a path to touch may already stand,
+  and the walk would never pass its check. A saved override on an older grid (2.9, 3.9, ...) is
+  kept as saved and applied as is until the slider is next touched, the Tunable's rule for every
+  range move; 12.9 reads as the new end.
 - **The medicine row** is its own small control in `Settings/`, not part of `Tunable.cs`, which
   must stay byte-identical across the family:
   - It shows the label, then a button with the medicine's icon and label that opens a float menu
@@ -782,8 +785,8 @@ Dev mode, VFEP chain plus this mod, fresh saves:
 1. **Settings.** The reload item row lists glitterworld, industrial and herbal; glitterworld
    is the default. Switching changes the gauge title, the gizmo icon, the cursor icon and label,
    the section header icon and the stat sheet's reload line; the loaded kits carry over, and the
-   next reload fetches the new medicine. The range slider steps 1.9, 2.9, 3.9 and on to 12.9,
-   every step choosable. The defaults are warmup 1 s, 1 s per wound, cooldown 0, range 2.9 and 5
+   next reload fetches the new medicine. The range slider steps 1.9, 2, 3 and on to 12, every
+   step choosable. The defaults are warmup 1 s, 1 s per wound, cooldown 0, range 2 and 5
    kits. The effect color row shows blue, green and pink with their swatches; picking green
    and closing the window turns the gauge green at once and the next dressing's glow, beam and
    overlay with it, a dressing already running keeping its colour, and the beam keeps its
@@ -794,7 +797,8 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    non-player wearer the gauge is not draggable.
 3. **A full dressing.** Dev-wound a colonist with rifle hits of 12 and 11 and a 4-severity
    scratch:
-   - The pilot stops within 2.9 cells with a line of sight. The cursor showed the medicine icon
+   - The pilot stops within 2 cells with a line of sight: two along a row or column, or
+     diagonally adjacent, never the knight's cell. The cursor showed the medicine icon
      and read "Wounds: 3, kits: 1.4" before the click, and the cross over the pilot and over a
      conscious raider, with no message spam.
    - The glow appears in front of the pilot with `MechSerumUsed`, and the patient is held. After
@@ -839,7 +843,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
 ## 7. Implementation checklist
 
 1. Mote defs (3.7); the ability def's `DressingExtension`, sounds, `castTime` 60,
-   `cooldownTime` 0 and `distanceToTarget` 2.9; the JobDef's `checkOverrideOnDamage` `Never`;
+   `cooldownTime` 0 and `distanceToTarget` 2; the JobDef's `checkOverrideOnDamage` `Never`;
    `MDWC_DefOf` fields.
 2. Suite (3.2): `CompProperties_DressingSuite` with `severityPerKit` as the armor comp entry's
    `Class`, `ammoDef` `MedicineUltratech`, `chargeNoun` "kit", `openUsed`, `Draw`, `targetKits`,

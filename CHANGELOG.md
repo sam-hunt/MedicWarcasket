@@ -34,5 +34,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The medicine is chosen in the mod settings (glitterworld by default, no herbal), replacing the right-click medicine menu, and the armor shows a tank gauge whose handle sets how full colonists keep the suite
 - Dressings can be queued, and Shift-click chains several patients in a row
 - Each wound shows its own tend quality as the beam tends it, instead of one summary at the end
-- New defaults: 1 second warmup, 1 second per wound, no cooldown, range 2.9, a ten-kit capacity
+- New defaults: 1 second warmup, 1 second per wound, no cooldown, range 2 cells, a ten-kit capacity
 - Internal names changed from field dressing to mechanite dressing, which breaks saves made with unreleased builds only

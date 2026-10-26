@@ -8,8 +8,9 @@
 
     range is unset and requireLineOfSight off on purpose: the click is not range-limited, the
     pilot walks to the patient and the job driver enforces distance and sight at
-    distanceToTarget. 2.9 is how close the pilot gets before the dressing starts (RimWorld's
-    x.9 radii put it on the settings grid); the range setting moves it.
+    distanceToTarget, the straight-line cell distance compared with <=. 2 is how close the
+    pilot gets before the dressing starts: two cells along a row or column, or the diagonal
+    neighbour (1.41), not the knight's cell (2.24); the range setting moves it.
     castTime 60 (1 s) is the warmup before the stream connects, and cooldownTime 0 lets
     dressings follow one another: the kits a dressing draws are the limit, not a timer. Both,
     distanceToTarget and the extension's ticksPerTend are mod settings defaulting to these
@@ -62,7 +63,7 @@ Reloads with medicine.</description>
         <canTargetLocations>false</canTargetLocations>
       </li>
     </targetingParametersList>
-    <distanceToTarget>2.9</distanceToTarget>
+    <distanceToTarget>2</distanceToTarget>
     <requireLineOfSight>false</requireLineOfSight>
     <castTime>60</castTime>
     <cooldownTime>0</cooldownTime>

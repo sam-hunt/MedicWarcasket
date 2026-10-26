@@ -103,11 +103,12 @@ public class MedicWarcasketSettings : ModSettings
 
     // The suite's maxCharges. The casting time is banded: quarter seconds at the short end, where they
     // matter, coarser steps as it reaches a slow dressing.
-    // The range sits on RimWorld's x.9 radii, which put the 2.9 default on the grid (the Tunable
-    // clears a value within half a step of the default, so an off-grid default could never be
-    // left by one step). Its 1.9 minimum reaches the same cells as 1.5, the adjacent ones
-    // diagonals included; the dressing's own walk always paths to touch, so no VEF pathing
-    // threshold constrains it.
+    // The range is the touch stop, 1.9, then whole cells 2..12, one band so the minimum sits off
+    // the grid. A whole-number radius reaches the cells the game's own ring of that radius would
+    // (DistanceTo is the straight-line distance compared with <=, and the square root of a
+    // square is exact in float), and the 2 default must be a stop since the Tunable clears a
+    // value within half a step of it. 1.9 is touching, diagonals included; a minimum below 1.42
+    // would refuse a diagonal neighbour, where the walk's path to touch may already stand.
     public readonly Tunable kits = new("Kits", 1f, 20f, 1f, Whole);
     public readonly Tunable castTime = new("CastTime", 0f, 10f, 0.25f, RealSeconds)
     {
@@ -115,7 +116,10 @@ public class MedicWarcasketSettings : ModSettings
     };
     public readonly Tunable tendInterval = new("TendInterval", 0.25f, 5f, 0.25f, RealSeconds);
     public readonly Tunable cooldown = new("Cooldown", 0f, CooldownMax, 0.25f, Period) { StepBands = CooldownBands };
-    public readonly Tunable range = new("Range", 1.9f, 12.9f, 1f, v => v.ToString("0.#"));
+    public readonly Tunable range = new("Range", 1.9f, 12f, 1f, v => v.ToString("0.#"))
+    {
+        StepBands = [(12f, 1f)],
+    };
 
     // The shot's: the injector's maxCharges, the hediff's duration in hours, the top stage's
     // rest fall factor (the lower stages step up from it), and the cooldown in game hours.
