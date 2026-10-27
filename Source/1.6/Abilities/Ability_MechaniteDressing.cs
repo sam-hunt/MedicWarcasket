@@ -25,7 +25,7 @@ namespace MedicWarcasket;
 // Targeting: the pilot is excluded by the targeting parameters' canTargetSelf and once more in
 // ValidateTarget. A hostile that is up and about is excluded too: a downed raider can be
 // dressed before capture, but a conscious enemy would only be walked up to and held still. The
-// cursor shows def.icon, the configured medicine's, written by the settings.
+// cursor shows def.icon, the ability's art.
 //
 // The shot that follows (Docs/Specs/Adrenaline-Shot.md 3.4): with the shoulders' adrenaline
 // shot worn, its autocast on and a shot the patient can take now, the driver's shot toil holds

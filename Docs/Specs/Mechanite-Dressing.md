@@ -123,7 +123,7 @@ ITargetingSource.MultiSelect => true`), the rest mapping to the inherited member
   `LocalTargetInfo`, else `def.icon`, or `TexCommand.Attack` for `BadTex`; it never consults
   `ValidateTarget`, whose `showMessages` defaults to true. `AbilityDef.icon` defaults to
   `BaseContent.BadTex` without an `iconPath` (`Defs/AbilityDef.cs:80`); the field is `[Unsaved]`
-  and loaded from `iconPath` during def loading, so startup code may overwrite it.
+  and VEF resolves it from `iconPath` in `ExecuteWhenFinished` in `AbilityDef.PostLoad`.
 - `AbilityModExtensions` (35) filters `def.modExtensions` to `AbilityExtension_AbilityMod`, so a
   plain `DefModExtension` on the ability def is ignored by VEF.
 - `CompAbilitiesApparel.GivenAbilities` is a public `List<Ability>` scribed deep, each entry
@@ -578,13 +578,11 @@ New `MDWC_DefOf` fields: the three motes and the dressing's `AbilityDef` (3.3).
   with it.
 - **Icon and cursor follow VEF's idiom.** VEF and vanilla draw the ability's own icon at the
   cursor over a valid target and the no-shoot cross over an invalid one, and the gizmo shows the
-  same icon (2.1). The medicine item icon at the cursor today is not a choice but the def's
-  missing icon showing through a placeholder override, so the brief's "cursor icon removed" is
-  met by giving the def an icon, which is the ability-art item in `TODOs.md`. Until that art
-  lands, `ApplyToDefs` writes the configured medicine's `uiIcon` onto `def.icon` beside
-  `ammoDef` (3.9), so the gizmo, the cursor and the settings header all show the medicine
-  through VEF's default code with no override of their own, and the art replaces it by adding
-  `iconPath`. The one override kept is `MouseAttachment`: `TexCommand.CannotShoot` when
+  same icon (2.1). `iconPath` names the ability's art under
+  `Textures/UI/Abilities/WarcasketMedic/`, so the brief's "cursor icon removed" is met by the
+  def having an icon of its own: the gizmo, the cursor and the settings header all draw
+  `def.icon` through VEF's default code with no override of their own, and the settings write
+  no icon (3.9). The one override kept is `MouseAttachment`: `TexCommand.CannotShoot` when
   `ValidateTarget(target, showMessages: false)` fails, else the base. That is vanilla's own
   cursor rule, and `showMessages` must be passed, since VEF's default would spam the rejection
   message every frame. Returning null there is not an option: VEF draws the texture unchecked
@@ -601,7 +599,7 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 
 | Setting            | Def field                                     | Default      | Range                 |
 | ------------------ | --------------------------------------------- | ------------ | --------------------- |
-| Reload item        | suite `ammoDef`, and ability `icon` (3.8)     | glitterworld | eligible list (3.1)   |
+| Reload item        | suite `ammoDef`                               | glitterworld | eligible list (3.1)   |
 | Effect color       | the three motes' `graphicData.color` (rgb)    | medical blue | blue, green, pink     |
 | Kit capacity       | suite `maxCharges`                            | 10           | 1..20, step 1         |
 | Casting time (s)   | ability `castTime` (ticks ÷ 60)               | 1            | 0..10, current bands  |
@@ -642,8 +640,7 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
   the def's `graphicClass` or `shaderParameters` (the beam's age-driven noise, the overlay's
   silhouette would be lost). `GraphicData.CopyFrom` onto itself is the one public way to clear
   the cache. Motes spawned after the write take the new colour; one in flight keeps its graphic.
-- **The section header icon** is the configured medicine's `uiIcon`, the same texture
-  `ApplyToDefs` wrote onto `def.icon`, read on each draw.
+- **The section header icon** is the ability's `def.icon`, read on each draw.
 - **Summary line:** "The suite holds up to {0} kits of {1}, each treating {2} severity of injuries
   or one illness. A dressing takes {3} s to cast, then tends a wound every {4} s, with {5} s of
   cooldown after." A second key replaces the last clause when the cooldown is 0.
@@ -677,8 +674,8 @@ survive. `Field-Dressing.md` keeps its name as the record of what it specified.
 
 Readings of the brief:
 
-1. **"Targeting cursor def icon removed"** is met the idiomatic way (3.8): the def gets an icon,
-   the medicine's until the ability art lands, and VEF's default cursor and gizmo draw it. Hiding
+1. **"Targeting cursor def icon removed"** is met the idiomatic way (3.8): the def gets an icon
+   through `iconPath`, and VEF's default cursor and gizmo draw it. Hiding
    the cursor icon outright would have meant working around VEF's unchecked texture draw for a
    cosmetic difference.
 2. **Herbal is an option** (3.1): any `IsMedicine` def qualifies, the row labelled "Reload
@@ -783,9 +780,9 @@ Drafts, no em dashes (player-facing):
 Dev mode, VFEP chain plus this mod, fresh saves:
 
 1. **Settings.** The reload item row lists glitterworld, industrial and herbal; glitterworld
-   is the default. Switching changes the gauge title, the gizmo icon, the cursor icon and label,
-   the section header icon and the stat sheet's reload line; the loaded kits carry over, and the
-   next reload fetches the new medicine. The range slider steps 1.9, 2, 3 and on to 12, every
+   is the default. Switching changes the gauge title, the cursor label and the stat sheet's
+   reload line, while the icons stay the ability's own; the loaded kits carry
+   over, and the next reload fetches the new medicine. The range slider steps 1.9, 2, 3 and on to 12, every
    step choosable. The defaults are warmup 1 s, 1 s per wound, cooldown 0, range 2 and 5
    kits. The effect color row shows blue, green and pink with their swatches; picking green
    and closing the window turns the gauge green at once and the next dressing's glow, beam and
@@ -798,7 +795,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
 3. **A full dressing.** Dev-wound a colonist with rifle hits of 12 and 11 and a 4-severity
    scratch:
    - The pilot stops within 2 cells with a line of sight: two along a row or column, or
-     diagonally adjacent, never the knight's cell. The cursor showed the medicine icon
+     diagonally adjacent, never the knight's cell. The cursor showed the ability icon
      and read "Wounds: 3, kits: 1.4" before the click, and the cross over the pilot and over a
      conscious raider, with no message spam.
    - The glow appears in front of the pilot with `MechSerumUsed`, and the patient is held. After
@@ -857,7 +854,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    header comment to the new present: the dressing's call paths go in the ability's and
    driver's headers, the queue binding and its order-time trap in the driver's, and the three
    piece defs' and both def files' headers lose the per-type suite and the old timings.
-5. Settings (3.9): the medicine row writing `ammoDef` and `def.icon`, the kits and time-per-wound
+5. Settings (3.9): the medicine row writing `ammoDef`, the kits and time-per-wound
    rows, the range grid, the summary keys.
 6. Player-facing text (section 5).
 7. Build, deploy, run section 6.
@@ -872,7 +869,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    particular:
    - `CLAUDE.md`: the overview's spec pointer and feature line, the project structure (Defs
      gaining `Effects/`, Abilities, Comps and the new Gizmos folder), the settings bullet
-     (gaining `ammoDef`, `icon` and the extension's `ticksPerTend`), the reload-queries bullet
+     (gaining `ammoDef` and the extension's `ticksPerTend`), the reload-queries bullet
      (its patch is now the reload target), and the localization lines naming the dressing.
    - `.steamworkshop/Description/English.txt` (the "Field dressing" section, its right-click
      instruction and the "Grants field-dressing" bullet) and `.steamworkshop/CLAUDE.md`'s

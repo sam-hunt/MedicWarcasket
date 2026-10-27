@@ -8,7 +8,6 @@
   sustainer, a weapon's if nothing else fits, suits the stream better, and check the layering
   and volumes. A DLC sound needs a fallback for when the DLC is absent. The shot plays
   vanilla's injection (`Ingest_Inject`) at the patient; hear it against the dressing's.
-- **Art.** Ability gizmos switch from their reload items' icons once commissioned art lands
 - **Unit tests.** `Tests/1.6/` holds the compat xpath test only; `Tunable.Stops` and `Nearest`
   are worth covering (Shipcracker's `TunableSnapTests` covers its banded `Snap`).
 - **Smoke test on 1.6**

@@ -18,14 +18,11 @@ namespace MedicWarcasket;
 // maxCharges. On the MDWC_MechaniteDressing AbilityDef, the casting time, cooldown and range override
 // castTime (in seconds, ticks on the def), cooldownTime (stored in game hours, shown in
 // seconds, hours or days by its size; ticks on the def) and distanceToTarget, and the time per
-// wound overrides its
-// DressingExtension's ticksPerTend (in seconds, like the casting time). The medicine
-// also writes its uiIcon onto the ability's icon while the def names no iconPath of its own, so
-// VEF's gizmo and targeting cursor show it unaided. The tint overrides the rgb of the three
-// dressing motes' graphicData.color, each keeping its own alpha, and the gauge reads its colours
-// off the beam's (Gizmo_DressingSuite). A line of what its rows amount to opens the section,
-// under its header, and the two picked rows sit above the sliders. Its header carries the
-// ability's tooltip.
+// wound overrides its DressingExtension's ticksPerTend (in seconds, like the casting time).
+// The tint overrides the rgb of the three dressing motes' graphicData.color, each keeping its
+// own alpha, and the gauge reads its colours off the beam's (Gizmo_DressingSuite). A line of
+// what its rows amount to opens the section, under its header, and the two picked rows sit
+// above the sliders. Its header carries the ability's tooltip.
 //
 // The shot section does the same for the adrenaline shot: on the shoulders'
 // CompProperties_ApparelReloadable entry the reload item overrides ammoDef and the shots
@@ -34,10 +31,14 @@ namespace MedicWarcasket;
 // dressing's; on the MDWC_Adrenaline HediffDef the duration overrides its severity-per-day
 // comp's severityPerDay (stored in hours, written as -24 / hours) and the sleep fall writes the
 // top stage's restFallFactor with each lower stage one higher, the XML ladder's step. The
-// reload item's uiIcon goes onto the shot's icon as the medicine's goes onto the dressing's,
-// and heads the section, and its row sits above the sliders as the medicine's does. The item
-// is any medicine, herbal included (a stimulant dose does not depend on medical potency), or
-// vanilla's go-juice or wake-up, listed in that order.
+// reload item's row sits above the sliders as the medicine's does. The item is any medicine,
+// herbal included (a stimulant dose does not depend on medical potency), or vanilla's go-juice
+// or wake-up, listed in that order.
+//
+// Each ability section's header carries the ability's own icon, read off the def at draw
+// time rather than cached: VEF resolves def.icon from iconPath in a deferred step at the end of
+// loading, and a play-data reload replaces the def and its texture together, so the def
+// handles LoadDefaultsFromDefs keeps (re-run on that reload) are the only state held.
 //
 // The work section is one checkbox per Caring work type the trait mirror leaves to the player
 // (WorkSetting over WorkProfile.Toggleable), written onto the medic trait's disabledWorkTypes
@@ -146,6 +147,10 @@ public class MedicWarcasketSettings : ModSettings
     // The hediff's stage count, quoted by the shot's summary line.
     private int shotLevels;
 
+    // The two ability defs, for their header icons; see the class header.
+    private AbilityDef dressingDef;
+    private AbilityDef shotDef;
+
     // The work section's header icon, vanilla's mining work site. Its art is in the base game's
     // Resources, not Ideology's, so it loads whatever DLCs are active and survives a reload.
     private Texture2D workIcon;
@@ -204,6 +209,7 @@ public class MedicWarcasketSettings : ModSettings
             moteColors[i] = defs.motes[i].graphicData.color;
         tint.DefaultValue = moteColors[0];
         dressingTip = HeaderTip(defs.dressing.LabelCap, defs.dressing.description);
+        dressingDef = defs.dressing;
         shotAmmo.DefaultValue = defs.injector.ammoDef;
         shots.DefaultValue = defs.injector.maxCharges;
         shotDuration.DefaultValue = defs.fade.severityPerDay < 0f ? -24f / defs.fade.severityPerDay : 0f;
@@ -211,6 +217,7 @@ public class MedicWarcasketSettings : ModSettings
         shotCooldown.DefaultValue = (float)defs.shot.cooldownTime / GenDate.TicksPerHour;
         shotLevels = defs.adrenaline.stages.Count;
         shotTip = HeaderTip(defs.shot.LabelCap, defs.shot.description);
+        shotDef = defs.shot;
         workIcon = ContentFinder<Texture2D>.Get("World/WorldObjects/Expanding/Sites/MiningWorkSite");
         defaultsLoaded = true;
     }
@@ -224,11 +231,7 @@ public class MedicWarcasketSettings : ModSettings
             return;
         ThingDef chosen = medicine.Value;
         if (chosen != null)
-        {
             defs.suite.ammoDef = chosen;
-            if (defs.dressing.iconPath.NullOrEmpty())
-                defs.dressing.icon = chosen.uiIcon != null ? chosen.uiIcon : BaseContent.BadTex;
-        }
         defs.suite.maxCharges = Mathf.Max(1, kits.IntValue);
         defs.dressing.castTime = Mathf.RoundToInt(castTime.Value * GenTicks.TicksPerRealSecond);
         defs.dressing.cooldownTime = Mathf.RoundToInt(cooldown.Value * GenDate.TicksPerHour);
@@ -242,11 +245,7 @@ public class MedicWarcasketSettings : ModSettings
         }
         ThingDef shotItem = shotAmmo.Value;
         if (shotItem != null)
-        {
             defs.injector.ammoDef = shotItem;
-            if (defs.shot.iconPath.NullOrEmpty())
-                defs.shot.icon = shotItem.uiIcon != null ? shotItem.uiIcon : BaseContent.BadTex;
-        }
         defs.injector.maxCharges = Mathf.Max(1, shots.IntValue);
         defs.shot.cooldownTime = Mathf.RoundToInt(shotCooldown.Value * GenDate.TicksPerHour);
         defs.fade.severityPerDay = -24f / Mathf.Max(shotDuration.Value, 0.01f);
@@ -339,7 +338,7 @@ public class MedicWarcasketSettings : ModSettings
         Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
         var listing = new Listing_Standard { maxOneColumn = true };
         listing.Begin(viewRect);
-        SectionHeader(listing, "MDWC_SectionDressing", medicine.Value?.uiIcon, dressingTip, first: true);
+        SectionHeader(listing, "MDWC_SectionDressing", dressingDef.icon, dressingTip, first: true);
         SummaryRow(listing, DressingSummary);
         medicine.DoRow(listing);
         tint.DoRow(listing);
@@ -348,7 +347,7 @@ public class MedicWarcasketSettings : ModSettings
         tendInterval.DoRow(listing);
         cooldown.DoRow(listing);
         range.DoRow(listing);
-        SectionHeader(listing, "MDWC_SectionShot", shotAmmo.Value?.uiIcon, shotTip);
+        SectionHeader(listing, "MDWC_SectionShot", shotDef.icon, shotTip);
         SummaryRow(listing, ShotSummary);
         shotAmmo.DoRow(listing);
         shots.DoRow(listing);

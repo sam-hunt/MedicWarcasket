@@ -26,9 +26,8 @@
     never VEF, which fires no apparel ability's autocast. Without the armor the toggle is not
     offered. No castSound: the ability plays the injection at the patient.
 
-    No iconPath: the mod settings write the configured reload item's uiIcon (the injector's
-    ammoDef) onto def.icon at startup and on window close, so the gizmo, the cursor and the
-    settings header show that item until custom ability art lands.
+    iconPath is the set's art under Textures/UI/Abilities/WarcasketMedic/, resolved onto
+    def.icon by VEF; the gizmo, the cursor and the settings header draw it.
 
     The description names no reload item: the item is a mod setting, so
     Ability_AdrenalineShot appends the "Reloads with" line at runtime.
@@ -39,6 +38,7 @@
     <description>Inject a nearby person or animal with a dose of adrenaline drawn from a medical kit. For a few hours they feel almost no pain and move, see and think faster, while their sleep falls much faster than usual, and a short crash follows. On a patient with a heart attack the shot is spent on the heart instead.</description>
     <abilityClass>MedicWarcasket.Ability_AdrenalineShot</abilityClass>
     <gizmoClass>MedicWarcasket.Command_AdrenalineShot</gizmoClass>
+    <iconPath>UI/Abilities/WarcasketMedic/AdrenalineShot</iconPath>
     <jobDef>MDWC_AdrenalineShot</jobDef>
     <jobReportString>Giving an adrenaline shot.</jobReportString>
     <targetMode>Pawn</targetMode>

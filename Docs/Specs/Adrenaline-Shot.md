@@ -214,9 +214,9 @@ checks for the armor except the autocast (3.4).
   mechs, **self allowed**, no buildings or locations), `distanceToTarget` 1.9, `requireLineOfSight`
   false (the walk enforces both, as the dressing's does), `castTime` 30 (0.5 s), `cooldownTime` 0,
   `showUndrafted` true, `autocastPlayerDefault` true, `castSound` unset (3.3 plays the sound at
-  the patient). No `iconPath` until the ability art lands: the settings write the reload item's
-  `uiIcon` onto `def.icon`, as the dressing's medicine icon is written, so the shot's placeholder
-  is the configured item's icon (3.7). No `AbilityExtension_Hediff`: the shot applies its hediff itself
+  the patient). `iconPath` names the ability's art under
+  `Textures/UI/Abilities/WarcasketMedic/`; VEF loads it into `def.icon`, which the gizmo, the
+  cursor and the settings header draw (3.7). No `AbilityExtension_Hediff`: the shot applies its hediff itself
   (3.3), since VEF's path would merge severities (2.3) and cannot refresh.
 - `JobDefs/AdrenalineShot.xml`: `MDWC_AdrenalineShot`, `driverClass`
   `MedicWarcasket.JobDriver_AdrenalineShot`, `reportString` "giving an adrenaline shot.",
@@ -407,7 +407,7 @@ The shoulders' inspect line, tooltip and stat sheet are vanilla's ("Shots remain
 ### 3.7 Settings
 
 A second section, **Adrenaline shot**, between the dressing's and the work section, its header
-carrying the shot's tooltip over the reload item's icon as the dressing's carries its medicine's.
+carrying the shot's tooltip over the ability's `def.icon`, as the dressing's does.
 Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `ApplyToDefs`:
 
 | Setting             | Def field                                                        | Default | Range           |
@@ -424,8 +424,7 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
   rest fall row writes the top stage's `restFallFactor` and, for each stage below it, one more
   (the XML ladder's step), read live, so it reaches every shot at once; its default is the top
   stage's XML value.
-- `ApplyToDefs` also writes the reload item's `uiIcon` onto the shot def's `icon` while it has
-  no `iconPath`, and trims worn shoulders above a lowered `maxCharges` (`remainingCharges` is
+- `ApplyToDefs` also trims worn shoulders above a lowered `maxCharges` (`remainingCharges` is
   protected; a tiny `CompApparelReloadable` subclass is **not** worth it: the dev "reload to
   full" and `ReloadFrom` both write `MaxCharges`, so the trim is a `UsedOnce()` loop down to the
   new maximum, which spends nothing real).
@@ -541,12 +540,12 @@ Drafts, no em dashes (player-facing):
 
 Dev mode, VFEP chain plus this mod, fresh saves:
 
-1. **Settings.** The new section shows industrial medicine's icon and the shot's tooltip, five
+1. **Settings.** The new section shows the shot's icon and tooltip, five
    rows, and a summary reading "2 shots, one medicine each", "3 h", "2 times as fast at first", "and the next shot can follow at
    once". Set the
    cooldown to 20: the summary's last clause changes. Reset restores all four. Lower the shots
    to 2 on worn shoulders holding 3: the corner count reads "2 / 2".
-2. **A shot.** Click the gizmo: the cursor shows the reload item's icon and "Shots: 3 / 3" over a
+2. **A shot.** Click the gizmo: the cursor shows the shot's icon and "Shots: 3 / 3" over a
    colonist, the cross over a raider (downed or not) and over a pawn already at "rush", and
    "Stops the heart attack" as a second line over a dev-given heart attack, on a raider and on a
    "rush" patient too. Click the colonist:
@@ -571,7 +570,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    "3 / 3". The float menu on a kit offers a reload only while a slot is empty, and loads one
    kit per empty slot. The dev "Reload to full" button works.
 6. **Reload item.** With "2 / 3" loaded, switch the reload item to herbal medicine: the loaded
-   shots stay, the gizmo icon and the "Reloads with" line change, and the next reload fetches
+   shots stay, the "Reloads with" line changes, and the next reload fetches
    herbal medicine.
 7. **Autocast.** Without the armor the right-click line is absent and right-click does nothing.
    With the armor the check shows in the gizmo's **top-left** at once, the count still in the
@@ -600,7 +599,7 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    is added.
 3. `Ability_AdrenalineShot` (3.3, 3.4), `JobDriver_AdrenalineShot` (3.5),
    `Command_AdrenalineShot` (3.6); the dressing driver's shot toil (3.4).
-4. Settings (3.7): the section, four rows, the summary keys, the icon write, the trim.
+4. Settings (3.7): the section, four rows, the summary keys, the trim.
 5. Player-facing text (section 5); regenerate the sidecar.
 6. Build, deploy, run section 6.
 7. Supporting documentation, as a side effect of the landed code: `CLAUDE.md` (the overview's

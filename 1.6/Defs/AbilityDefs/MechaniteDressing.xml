@@ -38,9 +38,8 @@
     one, to keep mechanoids and the pilot out (canTargetSelf is honoured by the vanilla
     Targeter). Faction is not checked, so a downed raider can be dressed before capture.
 
-    No iconPath: the mod settings write the configured medicine's uiIcon onto def.icon at
-    startup, so the gizmo, the cursor and the settings header show that item's icon until
-    custom ability art lands.
+    iconPath is the set's art under Textures/UI/Abilities/WarcasketMedic/, resolved onto
+    def.icon by VEF; the gizmo, the cursor and the settings header draw it.
 
     The description names no reload item: the medicine is a mod setting, so
     Ability_MechaniteDressing appends the "Reloads with" line at runtime, as the shot does.
@@ -50,6 +49,7 @@
     <label>mechanite dressing</label>
     <description>Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds where they stand, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used, and the skill sets the pace. With the medic helmet worn, it treats diseases and infections too.</description>
     <abilityClass>MedicWarcasket.Ability_MechaniteDressing</abilityClass>
+    <iconPath>UI/Abilities/WarcasketMedic/MechaniteDressing</iconPath>
     <jobDef>MDWC_MechaniteDressing</jobDef>
     <jobReportString>Applying a mechanite dressing.</jobReportString>
     <targetMode>Pawn</targetMode>

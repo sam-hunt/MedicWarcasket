@@ -64,7 +64,7 @@ boot with that mod active.
 About/            Mod metadata
 1.6/              Defs, Patches, Languages/English/Keyed, Mods/<compat roots>; serves 1.6 and 1.7
 Source/1.6/       C# (net472)
-Textures/         Art, version-independent, under VFEP's Warcasketlike/ layout
+Textures/         Art, version-independent: pawn art under VFEP's Warcasketlike/ layout, ability icons under UI/Abilities/
 Tests/1.6/        xUnit net472 suite                        (not shipped)
 Scripts/          l10n shims and the smoke test             (not shipped)
 l10n/             rimworld-l10n toolkit, pinned submodule   (not shipped)

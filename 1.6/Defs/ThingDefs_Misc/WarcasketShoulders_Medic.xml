@@ -35,8 +35,7 @@
     medicine the only way to recharge it before the fight ends. ammoDef MedicineIndustrial:
     adrenaline is epinephrine, a cardiac drug drawn from a medical kit, which fits the
     heart-attack rule, and an industrial kit is 18 silver at market value. ammoDef and
-    maxCharges are mod settings defaulting to these values; the ammo setting also writes the
-    item's uiIcon onto the ability as its placeholder art. The free first fill is two
+    maxCharges are mod settings defaulting to these values. The free first fill is two
     industrial kits, the costList's MedicineIndustrial 2.
     chargeNoun "shot": the inspect line, the stat sheet and the empty message count in shots.
     No verbs, so the comp draws no gizmo of its own; the ability's command shows the count.
