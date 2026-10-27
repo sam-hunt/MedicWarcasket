@@ -37,9 +37,10 @@ manifest globs, so new files and subfolders need no build change.
   ("found no def named ...") whenever the gate is closed. Gated content ships from a compat root
   listed with `IfModActive` in `LoadFolders.xml` (`Mods/VanillaGravshipExpanded` is the model):
   `1.6/Mods/<Mod>/` for version-specific content, root-level `Mods/<Mod>/` for art. The def's own
-  `MayRequire` is then redundant and dropped. A patch in a gated root fails silently for everyone
-  but that mod's players, so `Tests/1.6/CompatPatchTests.cs` resolves its xpaths against the main
-  tree; keep every xpath to one node, or zero for a `PatchOperationConditional` probe.
+  `MayRequire` is then redundant and dropped. A patch in a gated root, or behind a
+  `PatchOperationFindMod` gate, fails silently for everyone but that mod's players, so
+  `Tests/1.6/CompatPatchTests.cs` resolves every patch's xpaths against the main tree; keep every
+  xpath to one node per `defName` it names, or zero for a `PatchOperationConditional` probe.
 - **Compat roots sit beside the well-known folders, never inside them.** Anything under
   `1.6/Defs/**` or `1.6/Languages/**` loads unconditionally at any depth.
 - **An injection is gated by the root that contains it, never by the def it targets.** A main-tree
