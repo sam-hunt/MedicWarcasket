@@ -32,7 +32,7 @@ The shoulders hold a few shots of adrenaline, drawn from medical kits. Jab a squ
 [*]Save Our Ship 2: EVA rated under the same rules as VFE Pirates' own sets
 [*]Vanilla Gravship Expanded: follows its vacuum-resistance rules for warcaskets
 [*]Warcaskets can work!, Warcaskets can haul! and VFE Pirates - Hardworking Warcaskets: Yes.
-[*]Combat Extended: built-in patch. CE armor values, bulk and carry capacity in line with VFE Pirates' spacer sets, a helmet sealed against CE smoke, and an adrenaline shot that resists suppression as go-juice does.
+[*]Combat Extended: built-in patch, with armor, bulk and carry capacity in line with VFE Pirates' spacer sets.
 [/list]
 
 [hr][/hr]
