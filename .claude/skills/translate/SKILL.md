@@ -26,13 +26,16 @@ and only these** (progressive disclosure; if `l10n/` is empty, run
   language's file.
 - `glossary/<Language>.md` (beside this file), this mod's own coined-term
   table for the target language. Read it in the same pass. Every file is
-  seeded: its inherited rows are the sibling Shipcracker Warcasket repo's
-  VFEP warcasket vocabulary (warcasket, parts, foundry, entomb, set names,
-  the VEF ability strings), copied verbatim so the sets read as one family
-  in-game, and its closing list names the terms the first pass must still
-  ground or coin. The pass fills that list in and never reopens an
-  inherited row (a change there is made in the Shipcracker glossary first,
-  then mirrored here and in Toxin Warcasket).
+  seeded with the set-specific rows, the charge-noun constraint and the
+  list of terms the first pass must still ground or coin; the pass fills
+  that list in. The VFEP warcasket vocabulary (warcasket, parts, foundry,
+  entomb, VFEP's set names and research labels, the spacer openers and
+  the 10th-generation paragraph, the VEF ability strings) is the family's
+  and lives in `l10n/languages/<Language>.md`, under its "VFE Pirates
+  warcasket domain" section and in its main table, so every warcasket set
+  reads as one family in-game. A pass never reopens one of those rows
+  here: a change is made upstream first, then every set's shipped files
+  follow.
 - `l10n/lessons.md`, cross-language lessons; read when generating a new
   language, skim otherwise. Its free-prose register lesson applies with
   full force here: the three descriptions are lore paragraphs with no
@@ -130,8 +133,8 @@ notes for the shim or flow edit this repo owes before continuing.
     translate it like any other), and on the armor the medicine suite's
     `comps.CompDressingSuite.chargeNoun` ("kit", next bullet) and
     `comps.CompDressingSuite.cooldownGerund` (vanilla's default "on
-    cooldown", which the def does not set but the probe dumps; the glossary
-    inherits Shipcracker's rendering). The walker keys a comp by its comp
+    cooldown", which the def does not set but the probe dumps; the language
+    file's main table has the family rendering). The walker keys a comp by its comp
     class. The game rolls a def type without its own database into its
     base and the checker maps the element tag via `DEF_TYPE_ALIASES` in
     `Scripts/check-translations.py`; a `WarcasketDef` folder would never
@@ -212,9 +215,9 @@ is not available from VFEP itself for any other language. For each target
 language, check first whether a community "Vanilla Expanded" translation
 covers VFEP in that language and ground terms against it; where none does,
 coin the term and record it in `glossary/<Language>.md` rather than
-inventing silently at translation time. The sibling Shipcracker Warcasket
-repo's glossaries already record that search per language; start there
-(see `glossary/README.md`).
+inventing silently at translation time. `l10n/languages/<Language>.md`'s
+VFE Pirates section already records that search per language, with the
+pack it found or the absence of one; start there (see `glossary/README.md`).
 
 Terms that MUST be grounded before use:
 

@@ -1,42 +1,28 @@
 # Russian glossary, Medic Warcasket
 
-Seeded from the Shipcracker Warcasket glossary (machine-assisted there,
-pending native review); no translation pass has run here yet. Only
-mod-specific coinages and grounding decisions; family-wide mechanics and
-style live in `l10n/languages/Russian.md`.
+Seeded before any translation pass ran here; no pass has run yet. Only
+mod-specific coinages and grounding decisions. The VFEP warcasket vocabulary
+(warcasket, the parts, the label pattern, foundry, entomb, VFEP's set names
+and research labels, the spacer-tier opener and the 10th-generation
+paragraph) lives upstream in `l10n/languages/Russian.md` under "Grounded
+common vocabulary, VFE Pirates warcasket domain", with the grounding source
+(the community pack OneCodeUnit/VanillaRussianExpanded) and what is pending
+native review; the settings and ability words the family settled
+(spacer-tech, Imperial, plasteel/uranium/chemfuel, Off/default, cooldown,
+range, Odyssey, the fuel-quantity phrases, the VEF `jobReportString` and the
+`cooldownGerund`) sit in that file's main table. Nothing here restates them;
+a VFEP term is changed there first.
 
-VFEP grounding source: the community Russian translation of VFE Pirates,
-OneCodeUnit/VanillaRussianExpanded on GitHub (Vanilla Russian Expanded). Its
-set pattern is an adjective on `броня мертвеца`; a named set's shoulders and
-helmet drop `мертвеца` (`наплечники прорывной брони`, `шлем прорывной брони`).
-This mod follows that pattern, and takes the pack's Siegebreaker
-adjective and its 10th-generation paragraph.
-
-## Inherited rows (shared with Shipcracker Warcasket; change them there first)
+## Set-specific rows
 
 | English | Russian | Grounding |
 |---|---|---|
-| warcasket | броня мертвеца | Community VFEP pack (`VFEP_Warcasket_Warcasket.label`). No separate word for "shell"; it is dropped in the part descriptions, as the pack does. |
-| `<set>` warcasket / shoulders / helmet (label pattern) | `<set adj.>` броня мертвеца / наплечники `<set adj. gen.>` брони / шлем `<set adj. gen.>` брони | Pack pattern for named sets (Siegebreaker: `прорывная броня мертвеца`, `наплечники прорывной брони`, `шлем прорывной брони`). |
-| warcasket foundry | цех мертвеца | Community VFEP pack (`VFEP_WarcasketFoundry.label`). Foundries in general are `цеха`. |
-| entomb / weld into (the set) | заковать в броню мертвеца | Community VFEP pack (`VFEPirates.EntombInWarcasket`). |
-| Siegebreaker / Brute / Guardian (set adjectives) | прорывная / беспощадная / охранная | Community pack set adjectives. |
-| spacer-tech (warcasket) | космического уровня | Core `TechLevel_Spacer` = `космический`; the pack's spacer sets say `сделанная по технологиям космического уровня`. |
-| chassis (the warcasket frame) | каркас | The pack's word for the warcasket frame. |
-| Imperial | имперский | Royalty (`имперский дезертир`). |
-| plasteel / uranium / chemfuel | пласталь / уран / химтопливо | Core; short form as in Odyssey and the pack (`химтоплива`). |
-| jobReportString (`Using ability: {0}`) | применяет способность «{0}» | Shipcracker's rendering (no trailing period, guillemets around the label). |
-| cooldownGerund (`on cooldown`) | перезаряжается | Shipcracker's rendering of the same vanilla comp field. |
-| Settings: "Default: {0}." / " (default)" / Off | По умолчанию: {0}. / (по умолчанию) / Выкл | Core Keyed `Default`, `default`, `Off`. |
-| Settings: cooldown / range | перезарядка / дальность | Core Keyed `CooldownTime`, `Range`. Slider units read `(в клетках)`, `(в часах)`, `(%)`. |
-| Settings: quantities with the fuel name | `{0} ед. ({1})`, `Ёмкость бака ({0})` | Core uses `{0} ед.` for mass quantities (`LowMedicineDesc`); the fuel name stays nominative in parentheses, so no numeral or case agreement is needed. |
-| (requires Odyssey) | (требуется Odyssey) | Core `ExpansionDef` keeps `Odyssey` in Latin; `требуется` as in Core `SkillNeededForConstructing`. |
 | Workshop title | `<Set adj.>` броня мертвеца, sentence case | Contains `броня мертвеца`. Also the `MDWC_SettingsCategory` value (title coupling). |
 
 ## Charge nouns
 
 The armor's medicine suite has the `chargeNoun` "kit" (its row is *pass*,
-below the inherited rows); render it with the language's natural word for a medicine kit. It is the
+below the set-specific rows); render it with the language's natural word for a medicine kit. It is the
 vanilla reload "charge noun", which vanilla prints as "Kits" and "Reload cost per kit". A charge noun is shown only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
 skill), and the Russian worker reads the `plural` table and the genitive slots go through `case` lookups, so every coined noun ships a `plural.txt` line and `case.txt` rows for both numbers under `1.6/Languages/Russian/WordInfo/`. Shipcracker's "fuel unit" row in its glossary
 is the worked example for this language.
@@ -44,18 +30,18 @@ is the worked example for this language.
 ## To ground in the first pass
 
 - the trait label `warcasket` (Bio tab): VFEP's own trait label, so render it
-  exactly as the community pack renders VFEP's, else the bare inherited
+  exactly as the community pack renders VFEP's, else the bare upstream
   warcasket noun; the description reuses the pilot and pain vocabulary
   settled for the armor.
-- siegebreaker (the chassis, lore paragraph 3): the inherited set-name row above.
+- siegebreaker (the chassis, lore paragraph 3): the upstream set-name row.
 - the 10th-generation paragraph: the pack's Siegebreaker / Brute / Guardian / Sarcophagus / Controller descriptions share it verbatim; take that rendering.
 - medic (this set's name) and the Workshop title.
-- pilot (the wearer, every description), where no inherited row covers it.
+- pilot (the wearer, every description), where no upstream row covers it.
 - Core medical vocabulary once the abilities exist: tend, medicine, surgery, bleeding, infection, pain, and whatever hediffs or stats the final text names.
 - mechanite dressing (the ability): keep "mechanite" as vanilla renders "mechanites" in this language (match vanilla's rendering; ground it in the first pass), with "dressing" in the tending sense and the verb "dress" in its strings.
 - This mod's coinages, once the descriptions are final.
 
 ## Pending native review
 
-Nothing inherited is open for the VFEP rows (they are the community pack's).
+The VFEP terms' review is tracked upstream, under the section named above.
 Add this mod's own coinages here as the pass makes them.

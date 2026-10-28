@@ -27,5 +27,3 @@
 - **Stop slider in the family.** `Tunable.cs` has diverged from Shipcracker's and Toxin's copies:
   banded rows slide over their stops here and snap within a band there. Port it or let the
   copies part.
-- **VFEP vocabulary upstream.** It is seeded in three family glossaries; move it into
-  `rimworld-l10n` before a fourth copies it.
