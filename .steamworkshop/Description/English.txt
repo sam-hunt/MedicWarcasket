@@ -26,13 +26,13 @@ The shoulders hold a few shots of adrenaline, drawn from medical kits. Jab a squ
 [hr][/hr]
 [h1]Mod Compatibility[/h1]
 [list]
-[*]Safe to add to existing saves
-[*]Not safe to remove while a pawn is welded into the set
+[*]Safe to add to existing saves.
+[*]Not safe to remove while a pawn is welded into the set.
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]: required.
-[*]Save Our Ship 2: EVA rated under the same rules as VFE Pirates' own sets
-[*]Vanilla Gravship Expanded: follows its vacuum-resistance rules for warcaskets
-[*]Warcaskets can work!, Warcaskets can haul! and VFE Pirates - Hardworking Warcaskets: Yes.
-[*]Combat Extended: built-in patch, with armor, bulk and carry capacity in line with VFE Pirates' spacer sets.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1909914131]Save Our Ship 2[/url]: EVA rated under the same rules as VFE Pirates' own sets.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3609835606]Vanilla Gravship Expanded[/url]: follows its vacuum-resistance rules for warcaskets.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730151836]Warcaskets can work![/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730543694]Warcaskets can haul![/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3535194807]VFE Pirates - Hardworking Warcaskets[/url]: Yes.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044]Combat Extended[/url]: built-in patch, with armor, bulk and carry capacity in line with VFE Pirates' spacer sets.
 [/list]
 
 [hr][/hr]
