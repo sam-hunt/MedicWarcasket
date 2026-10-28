@@ -37,4 +37,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Each wound shows its own tend quality as the beam tends it, instead of one summary at the end
 - New defaults: 1 second warmup, 1 second per wound, no cooldown, range 2 cells, a ten-kit capacity
 - Internal names changed from field dressing to mechanite dressing, which breaks saves made with unreleased builds only
-- Smaller download: the shipped XML no longer carries developer comments
+- Smaller download: the shipped XML no longer carries developer comments, and every image is recompressed without any change to the pixels
