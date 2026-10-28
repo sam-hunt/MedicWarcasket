@@ -12,7 +12,7 @@
   are worth covering (Shipcracker's `TunableSnapTests` covers its banded `Snap`).
 - **Smoke test on 1.6**
 - **Full review of player-facing copy**
-- **Review comment length in shipped xml files for bundle bloat risks**
+- **Workshop images** Shipcracker and Toxin as precedent
 - **First Workshop publish.** Commit `About/PublishedFileId.txt`, add the Workshop link and the
   Steam badges to the README, paste the description.
 
