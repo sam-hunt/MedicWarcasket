@@ -132,8 +132,6 @@ public static class WorkProfile
             CopyPublicFields(vfepExtension, medicExtension, null);
         else
             Log.Warning($"[Medic Warcasket] {VfepTraitName} or {MedicTraitName} has no VEF TraitExtension; the medic trait keeps its XML extension.");
-
-        Log.Message($"[Medic Warcasket] Medic warcasket trait mirrored from {VfepTraitName}: disabled work tags {tags}; {Describe(toggleable)} open to settings, {Describe(openByDefault)} open by default.");
     }
 
     // Writes the profile the settings choose, open deciding each toggleable work type, and
@@ -147,7 +145,6 @@ public static class WorkProfile
         if (medic == null)
             return;
         Write(open);
-        Log.Message($"[Medic Warcasket] Medic warcasket trait disabled work types: {Describe(medic.disabledWorkTypes)}.");
         if (Current.ProgramState != ProgramState.Playing)
             return;
         foreach (Pawn pawn in PawnsFinder.AllMapsWorldAndTemporary_Alive)
@@ -167,9 +164,6 @@ public static class WorkProfile
         }
         medic.disabledWorkTypes = types;
     }
-
-    private static string Describe(IEnumerable<WorkTypeDef> works) =>
-        works.Any() ? works.Select(work => work.defName).ToCommaList() : "none";
 
     // Copies every public instance field of T from source onto target by reflection, so a field
     // T gains in a later game or VEF version is carried without a code change. Enumerated on T,

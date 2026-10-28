@@ -262,11 +262,9 @@ existing `Startup.Run`, against the current DefDatabase:
 5. **Extension.** Copy every public field of VFEP's `VEF.Pawns.TraitExtension` onto ours
    (`painFactor`, `apparelExclusiveTrait` today), for the same reason. On 1.6 this is where the
    pain immunity comes from.
-6. Two `Log.Message`s: the mirror's with the resulting tags, the toggleable work types and
-   which are open by default, and `Apply`'s with the disabled work types it wrote (again on
-   every settings close), so a bug report's log shows the profile the player actually got. The
-   whole mirror is wrapped so a failure is a `Log.Error` and the settings behind it in
-   `Startup.Run` still apply.
+6. No `Log.Message` on success: the work tab shows the profile the player got, and a clean
+   startup log stays clean. The whole mirror is wrapped so a failure is a `Log.Error` and the
+   settings behind it in `Startup.Run` still apply.
 
 **The copies are full overwrites, nulls included.** A field VFEP leaves at its default replaces
 whatever our XML carried, so a 1.6 game ends with no rest-fall factor on the Medic exactly as it
@@ -385,7 +383,7 @@ trait beside ours and Doctor stays blocked.
    Shellcasket gone, VFEP trait present, Doctor disabled again.
 4. Repeat step 1 with "Warcaskets can haul!" active, then with "Warcaskets can work!", then with
    Hardworking Warcaskets: work tab matches the table in 4.3 (Childcare open under the last two);
-   the startup log line shows the derived profile; no red patch errors from any of the three.
+   no red patch errors from any of the three.
 5. `python3 Scripts/integration-smoke-test.py` clean; `python3 Scripts/check-translations.py`
    clean after the sidecar regen.
 6. Slave wearing the set: Doctor allowed, Construction blocked (exercises VFEP's slave patch
