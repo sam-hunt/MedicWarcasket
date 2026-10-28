@@ -26,8 +26,10 @@ render-tree art and the settings/ability idioms copied here.
   call paths live in the header comment of the file they describe, with the _why_. No guide
   restates a def value or call path; a line joins a guide only when it constrains other files.
 - **Comments describe the present, git describes the past.** No dates, previous values, dropped
-  attempts or "seen in game" notes in comments; that history goes in the commit message. Def
-  comments ship in the bundle, so keep them lean.
+  attempts or "seen in game" notes in comments; that history goes in the commit message.
+  Comments never ship: `StageMod` strips every comment node from the staged XML (the def
+  headers, the patch rationale, the translation files' `EN:` lines), so a def header can
+  carry its full rationale at no download cost.
 - **Never read a `Docs/Specs/` file whole** (400 to 900 lines each). Grep for the section you
   need, or delegate a spec-wide question to a subagent and keep its answer.
 - **Dependency sources are read-only.** `../VanillaExpanded/VanillaFactionsExpanded-Pirates/`
@@ -43,10 +45,14 @@ dotnet build MedicWarcasket.sln -c Release   # builds 1.6/Assemblies/ and redepl
 Compiles against the pinned `Krafs.Rimworld.Ref` 1.6 package; the local install (auto-detected,
 or `RIMWORLD_PATH`, in WSL the Windows path) only decides deployment and serves as the decompile
 target. Release builds deploy atomically through the csproj's `StageMod` target, the one file
-manifest, which CI calls too; Debug builds never deploy. The csproj's comments cover path
-detection, the compile-only VFEP/VEF references and the manifest's globbing. The Stop hook
-`.claude/hooks/sync-mod.sh` (self-documenting, byte-identical across the mod family) rebuilds
-after any turn that changed mod files and feeds a failing build back to the agent.
+manifest, which CI calls too; Debug builds never deploy. After the copy it rewrites every staged
+`.xml` without its comments (the inline `StripXmlComments` task beside it); the repo files are
+untouched, and everything that reads XML from disk (the checker, the probe, the tests) reads the
+repo, while the smoke test boots the stripped copy. The Steam upload is this same local deploy,
+so it ships stripped too. The csproj's comments cover path detection, the compile-only VFEP/VEF
+references and the manifest's globbing. The Stop hook `.claude/hooks/sync-mod.sh`
+(self-documenting, byte-identical across the mod family) rebuilds after any turn that changed
+mod files and feeds a failing build back to the agent.
 **Warnings are build errors** (`TreatWarningsAsErrors`, severities pinned in `.editorconfig`):
 fix the code, not the severity.
 
