@@ -11,12 +11,10 @@ namespace MedicWarcasket;
 // load (the settings' LoadDefaultsFromDefs), so the def and its header stay the record of the
 // shipped tuning and another mod's XML patch moves the default too. Only an override is saved;
 // a slider landing within half a step of the default (on a banded row, on the stop nearest it)
-// clears it, and a saved override outside
-// the slider's range (saved before the range moved) reads as its nearest end.
-// The file is shared across the warcasket family (ShipcrackerWarcasket, ToxinWarcasket), byte-
-// identical between the mods but for the namespace and the key prefix, except that this copy's
-// banded rows slide over their stops (Stops, Nearest) where the others snap within a band;
-// porting that, or parting the copies, is a TODOs.md item.
+// clears it, and a saved override outside the slider's range (saved before the range moved)
+// reads as its nearest end.
+// The file is shared across the warcasket family and must stay byte-identical between the mods
+// but for the namespace and the key prefix; change it in one and copy it to the others.
 public sealed class Tunable
 {
     private const float Unset = -1f;
