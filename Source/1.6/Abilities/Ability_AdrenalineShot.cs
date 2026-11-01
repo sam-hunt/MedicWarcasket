@@ -16,11 +16,20 @@ namespace MedicWarcasket;
 // CompApparelReloadable, one reload item a shot, read off holder, which is why the two comps
 // share the shoulders def). A shot is
 // spent on one of two things: a patient with a heart attack has every one removed and nothing
-// else, announced top-left as a positive event naming them; any other patient gets the
+// else, announced top-left as a positive event naming them when the pilot is the player's or
+// the patient is one vanilla would notify about (PawnUtility.ShouldSendNotificationAbout, so
+// a raider medic's cure of a raider stays out of the player's feed); any other patient gets the
 // MDWC_Adrenaline hediff at full severity, a fresh one or an existing one refreshed (set, not
-// added: vanilla would merge the severities). Apply is the one path, used by the cast toil and
-// by the dressing's autocast toil alike, so the charge, the cooldown and the sound are the
-// same either way. Design in Docs/Specs/Adrenaline-Shot.md.
+// added: vanilla would merge the severities). Apply is the one path, used by the cast toil, by
+// the dressing's autocast toil and by a raider medic's cast (CompMedicAI) alike, so the
+// charge, the cooldown and the sound are the same either way. Design in
+// Docs/Specs/Adrenaline-Shot.md.
+//
+// A patient a non-player pilot's shot stands up (the hediff's pain factor lifts them in the
+// add itself, through Pawn_HealthTracker.CheckForStateChange) rejoins the pilot's lord when
+// they are of its faction and lordless (MedicAI.TryRejoin): a revived raider takes the raid's
+// current duty instead of walking off the map through the colony's fire as a lordless hostile
+// does. The player's own pilots never add anyone to a lord.
 //
 // Validation, in order: a pawn with a heart attack is always valid, hostile or not, since a
 // cure-only shot stands nobody up; otherwise no pawn hostile to the pilot, downed or not,
@@ -145,11 +154,12 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
 
     public override bool CheckBeforeWarmup(Pawn patient)
     {
-        if (!ValidateTarget(patient))
+        if (!ValidateTarget(patient, ReportsToPlayer))
             return false;
         if (Injector is { RemainingCharges: > 0 })
             return true;
-        Messages.Message("MDWC_NoShotsLoaded".Translate(), pawn, MessageTypeDefOf.RejectInput, historical: false);
+        if (ReportsToPlayer)
+            Messages.Message("MDWC_NoShotsLoaded".Translate(), pawn, MessageTypeDefOf.RejectInput, historical: false);
         return false;
     }
 
@@ -181,7 +191,8 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
     }
 
     // The shot itself, for the cast toil and the dressing's autocast alike: a charge, then
-    // the heart or the surge, the sound, and the cooldown where VEF's Cast would have set it.
+    // the heart or the surge, the re-add of a raider it stood up, the sound, and the cooldown
+    // where VEF's Cast would have set it.
     public void Apply(Pawn patient)
     {
         CompApparelReloadable injector = Injector;
@@ -193,7 +204,8 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
             List<Hediff> attacks = patient.health.hediffSet.hediffs.Where(h => h.def == MDWC_DefOf.HeartAttack).ToList();
             foreach (Hediff attack in attacks)
                 patient.health.RemoveHediff(attack);
-            Messages.Message("MDWC_HeartAttackStopped".Translate(patient.LabelShortCap), patient, MessageTypeDefOf.PositiveEvent);
+            if (ReportsToPlayer || PawnUtility.ShouldSendNotificationAbout(patient))
+                Messages.Message("MDWC_HeartAttackStopped".Translate(patient.LabelShortCap), patient, MessageTypeDefOf.PositiveEvent);
         }
         else if (Adrenaline(patient) is { } existing)
         {
@@ -203,6 +215,8 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
         {
             patient.health.AddHediff(MDWC_DefOf.MDWC_Adrenaline);
         }
+        if (pawn != null && pawn.Faction != Faction.OfPlayer)
+            MedicAI.TryRejoin(pawn, patient);
         if (patient.Spawned)
             MDWC_DefOf.Ingest_Inject.PlayOneShot(new TargetInfo(patient.Position, patient.Map));
         cooldown = Find.TickManager.TicksGame + GetCooldownForPawn();

@@ -1,6 +1,6 @@
 # SPEC: Raider medics (the set's actives in AI hands)
 
-Status: DECIDED 2026-11-01, ready to implement; section 4 records the decisions. Written
+Status: IMPLEMENTED 2026-11-01; section 4 records the decisions, section 7 what landed. Written
 against the installed RimWorld 1.7.4995 rev309
 (`Assembly-CSharp.dll` via `ilspycmd`, Core XML), the VEF checkout at
 `../VanillaExpanded/VanillaExpandedFramework/` (58c884b9, 2026-10-21), the VFEP checkout's
@@ -144,10 +144,13 @@ Each piece gets its own AI check in its comp's `CompTick`, Toxin's shape: the ar
 `CompDressingSuite` decides the dressing, the shoulders' injector comp decides the shot. A
 raider with both runs both checks, and the dressing's shot toil fires the shot for a patient
 it has just dressed exactly as it does for the pilot, so the shoulders' own check mostly finds
-nothing left to do; the two never need to know about each other. The shoulders' reloadable is
-vanilla's `CompApparelReloadable` today; the check needs a comp of ours on the shoulders
-(a `ThingComp` beside it, or a subclass that keeps the vanilla props), to be chosen at
-implementation.
+nothing left to do; the two never need to know about each other. Implemented as one
+`ThingComp` of ours, `CompMedicAI`, declared on both pieces beside their reloadables: it finds
+the piece's own granted active and runs the check for it, so the armor's suite and the
+shoulders' vanilla reloadable are untouched and a third active would get its AI use by the
+same entry. The rules the comp applies (the quiet window, the leaving lord, the side, the
+preference between patients, the re-add) are `MedicAI`'s static functions, which the tests
+reach.
 
 How the comps tick: a worn piece is ticked through its wearer (`Thing.DoTick` walks the
 pawn's child holders, the apparel tracker among them, and calls `DoTick` on each held thing),
@@ -185,9 +188,10 @@ On the wearer's side (decision 4.4): the patient has a faction, and it is the we
 one the wearer's faction holds as an ally, `wearer.Faction.RelationKindWith(patient.Faction)
 == FactionRelationKind.Ally`, goodwill 75 and up. The same-faction test goes first:
 `Faction.RelationWith` logs an error when asked about itself (vanilla's own callers guard it
-the same way, `IdeoUtility`). A factionless pawn, a wild animal, a prisoner whose faction is
-hostile, never qualifies; a colonist does when the wearer's faction is the player's ally, so
-an allied faction's defender in the set (`LordJob_AssistColony`) dresses the colony's downed.
+the same way, `IdeoUtility`). A factionless pawn, a wild animal, and any prisoner (a captured
+raider keeps the raid's faction, and a medic does not tend the colony's prisoners) never
+qualify; a colonist does when the wearer's faction is the player's ally, so an allied
+faction's defender in the set (`LordJob_AssistColony`) dresses the colony's downed.
 
 Order: `JobMaker.MakeJob(MDWC_MechaniteDressing, patient)`, `playerForced = true`,
 `StartJob(..., InterruptForced)`. The job then runs the walk, warmup, beam, shot and
@@ -202,8 +206,8 @@ by the same order path, and the shot is the pilot's shot, full severity (decisio
 
 After `Apply`, if the patient stands (`!Downed` on the next check, or at once if the hediff's
 pain factor lifts them in `Apply`), the re-add (decision 4.2): if the patient is of the
-medic's own faction, has no lord, and the medic has a lord whose `CanAddPawn(patient)` holds,
-`lord.AddPawn(patient)`. An allied patient, a colonist above all, is never added to the
+medic's own faction, is nobody's prisoner or guest, has no lord, and the medic has a lord
+whose `CanAddPawn(patient)` holds, `lord.AddPawn(patient)`. An allied patient, a colonist above all, is never added to the
 medic's lord; they keep whatever they had. Done from the shot's `Apply` for a non-player
 pilot, so the dressing's shot toil gets it too.
 
@@ -271,12 +275,14 @@ The three guarded messages keep their keys; nothing else the player reads change
 ## 7. Implementation checklist
 
 - [x] Decisions 4.1 to 4.4 taken and recorded here.
-- [ ] `CompDressingSuite`: the AI check, props on `CompProperties_DressingSuite`.
-- [ ] Shoulders: a comp of ours for the shot's check, and `tickerType Normal` on the def.
-- [ ] `MedicWarcasketSettings`: the two `aiCasts` checkboxes, one per ability section, and
-      their two Keyed labels with tooltips.
-- [ ] Faction guards on the three messages.
-- [ ] The re-add in `Ability_AdrenalineShot.Apply` (4.2), gated on `CanAddPawn` and no lord.
-- [ ] Def headers updated (the armor's "AI pawns never cast" line goes); `Set-Tuning.md` 2.7
-      and `Field-Dressing.md` "Player-only in practice" pointed here.
-- [ ] `Tests/1.6/`: the gates as pure functions where they can be.
+- [x] The AI check: `CompMedicAI` with `CompProperties_MedicAI` on both pieces (3.1), the
+      rules in `MedicAI`.
+- [x] Shoulders: the comp entry, and `tickerType Normal` on the def.
+- [x] `MedicWarcasketSettings`: the two `aiCasts` checkboxes (`ToggleSetting`), one per
+      ability section, and their two Keyed labels with tooltips.
+- [x] The three messages guarded for a player pilot, at the one call a non-player pilot
+      reaches (`Ability_MedicTargeted.ReportsToPlayer`).
+- [x] The re-add in `Ability_AdrenalineShot.Apply` (4.2), gated on `CanAddPawn` and no lord.
+- [x] Def headers updated; `Set-Tuning.md` 2.7 and `Field-Dressing.md` pointed here.
+- [x] `Tests/1.6/MedicAITests.cs`: the quiet window, the leaving toils and the preference.
+- [ ] Section 6 run in game, on 1.7 and 1.6.

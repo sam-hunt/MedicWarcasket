@@ -229,11 +229,12 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
     // job started, so a zero warmup is simply a wait toil of no ticks.
     public override bool CheckBeforeWarmup(Pawn patient)
     {
-        if (!ValidateTarget(patient))
+        if (!ValidateTarget(patient, ReportsToPlayer))
             return false;
         if (Suite is { HasKit: true })
             return true;
-        Messages.Message("MDWC_NoMedicineLoaded".Translate(Suite?.AmmoDef.label), pawn, MessageTypeDefOf.RejectInput, historical: false);
+        if (ReportsToPlayer)
+            Messages.Message("MDWC_NoMedicineLoaded".Translate(Suite?.AmmoDef.label), pawn, MessageTypeDefOf.RejectInput, historical: false);
         return false;
     }
 

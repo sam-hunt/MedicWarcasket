@@ -161,9 +161,10 @@ Both are small next to the abilities and read as the doctor's tools. Unchanged.
 
 ### 2.7 Raid tables: keep the tags
 
-A raider Medic is a Siegebreaker with a smaller shield, threat and flavour only, like
-Shipcracker. Toxin's raider auto-vent shows AI use of a family ability is doable, so raider
-medics dressing their downed is a possible later feature. Not a 1.0 item.
+A raider Medic is a Siegebreaker with a smaller shield that, since `Raider-Medics.md`,
+dresses its raid's downed between fights and, with the shoulders, stands them back up. The
+tags stay as they are: the pieces are drawn one at a time, and the armor alone is the common
+draw.
 
 ### 2.8 Default medicine and the description
 

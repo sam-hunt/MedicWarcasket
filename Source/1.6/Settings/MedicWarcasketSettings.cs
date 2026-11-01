@@ -20,9 +20,11 @@ namespace MedicWarcasket;
 // seconds, hours or days by its size; ticks on the def) and distanceToTarget, and the time per
 // wound overrides its DressingExtension's ticksPerTend (in seconds, like the casting time).
 // The tint overrides the rgb of the three dressing motes' graphicData.color, each keeping its
-// own alpha, and the gauge reads its colours off the beam's (Gizmo_DressingSuite). A line of
-// what its rows amount to opens the section, under its header, and the two picked rows sit
-// above the sliders. Its header carries the ability's tooltip.
+// own alpha, and the gauge reads its colours off the beam's (Gizmo_DressingSuite). The raider
+// medics box overrides the aiCasts of the armor's CompProperties_MedicAI entry, read live by
+// the comp. A line of what its rows amount to opens the section, under its header, the two
+// picked rows sit above the sliders and the box closes the section. Its header carries the
+// ability's tooltip.
 //
 // The shot section does the same for the adrenaline shot: on the shoulders'
 // CompProperties_ApparelReloadable entry the reload item overrides ammoDef and the shots
@@ -31,9 +33,10 @@ namespace MedicWarcasket;
 // dressing's; on the MDWC_Adrenaline HediffDef the duration overrides its severity-per-day
 // comp's severityPerDay (stored in hours, written as -24 / hours) and the sleep fall writes the
 // top stage's restFallFactor with each lower stage one higher, the XML ladder's step. The
-// reload item's row sits above the sliders as the medicine's does. The item is any medicine,
-// herbal included (a stimulant dose does not depend on medical potency), or vanilla's go-juice
-// or wake-up, listed in that order.
+// reload item's row sits above the sliders as the medicine's does, and its raider medics box
+// (the shoulders' CompProperties_MedicAI aiCasts) closes the section as the dressing's does.
+// The item is any medicine, herbal included (a stimulant dose does not depend on medical
+// potency), or vanilla's go-juice or wake-up, listed in that order.
 //
 // Each ability section's header carries the ability's own icon, read off the def at draw
 // time rather than cached: VEF resolves def.icon from iconPath in a deferred step at the end of
@@ -90,6 +93,10 @@ public class MedicWarcasketSettings : ModSettings
         d => d.IsMedicine ? d.GetStatValueAbstract(StatDefOf.MedicalPotency) : d == MDWC_DefOf.GoJuice ? -1f : -2f);
     public readonly TintSetting tint = new();
     public readonly WorkSetting work = new();
+
+    // Whether a non-player wearer casts each piece's active (CompMedicAI), one box per piece.
+    public readonly ToggleSetting aiDressing = new("AIDressing");
+    public readonly ToggleSetting aiShot = new("AIShot");
 
     // Both cooldowns are game hours up to ten days, banded so one slider spans a gap between
     // casts in a fight and one between raids: real seconds at normal speed up to ten (quarter,
@@ -187,6 +194,8 @@ public class MedicWarcasketSettings : ModSettings
         shotAmmo.ExposeData();
         tint.ExposeData();
         work.ExposeData();
+        aiDressing.ExposeData();
+        aiShot.ExposeData();
         foreach (Tunable tunable in All)
             tunable.ExposeData();
     }
@@ -210,6 +219,8 @@ public class MedicWarcasketSettings : ModSettings
         tint.DefaultValue = moteColors[0];
         dressingTip = HeaderTip(defs.dressing.LabelCap, defs.dressing.description);
         dressingDef = defs.dressing;
+        aiDressing.DefaultValue = defs.armorAI.aiCasts;
+        aiShot.DefaultValue = defs.shouldersAI.aiCasts;
         shotAmmo.DefaultValue = defs.injector.ammoDef;
         shots.DefaultValue = defs.injector.maxCharges;
         shotDuration.DefaultValue = defs.fade.severityPerDay < 0f ? -24f / defs.fade.severityPerDay : 0f;
@@ -237,6 +248,8 @@ public class MedicWarcasketSettings : ModSettings
         defs.dressing.cooldownTime = Mathf.RoundToInt(cooldown.Value * GenDate.TicksPerHour);
         defs.dressing.distanceToTarget = range.Value;
         defs.extension.ticksPerTend = Mathf.Max(1, Mathf.RoundToInt(tendInterval.Value * GenTicks.TicksPerRealSecond));
+        defs.armorAI.aiCasts = aiDressing.Value;
+        defs.shouldersAI.aiCasts = aiShot.Value;
         for (int i = 0; i < defs.motes.Length; i++)
         {
             Color rgb = tint.Override ?? moteColors[i];
@@ -347,6 +360,7 @@ public class MedicWarcasketSettings : ModSettings
         tendInterval.DoRow(listing);
         cooldown.DoRow(listing);
         range.DoRow(listing);
+        aiDressing.DoRow(listing);
         SectionHeader(listing, "MDWC_SectionShot", shotDef.icon, shotTip);
         SummaryRow(listing, ShotSummary);
         shotAmmo.DoRow(listing);
@@ -354,6 +368,7 @@ public class MedicWarcasketSettings : ModSettings
         shotDuration.DoRow(listing);
         restFall.DoRow(listing);
         shotCooldown.DoRow(listing);
+        aiShot.DoRow(listing);
         if (WorkProfile.Toggleable.Count > 0)
         {
             SectionHeader(listing, "MDWC_SectionWork", workIcon, HeaderTip("MDWC_SectionWork".Translate(), "MDWC_SectionWorkDesc".Translate()));
@@ -372,6 +387,8 @@ public class MedicWarcasketSettings : ModSettings
             shotAmmo.Reset();
             tint.Reset();
             work.Reset();
+            aiDressing.Reset();
+            aiShot.Reset();
             foreach (Tunable tunable in All)
                 tunable.Reset();
         }
@@ -473,6 +490,8 @@ public class MedicWarcasketSettings : ModSettings
         public CompProperties_ApparelReloadable injector;
         public HediffDef adrenaline;
         public HediffCompProperties_SeverityPerDay fade;
+        public CompProperties_MedicAI armorAI;
+        public CompProperties_MedicAI shouldersAI;
     }
 
     // All or nothing: with any target missing (another mod patched it away) the settings leave
@@ -484,16 +503,20 @@ public class MedicWarcasketSettings : ModSettings
     {
         AbilityDef dressing = DefDatabase<AbilityDef>.GetNamedSilentFail(DressingDefName);
         HediffDef adrenaline = DefDatabase<HediffDef>.GetNamedSilentFail(AdrenalineDefName);
+        ThingDef armor = DefDatabase<ThingDef>.GetNamedSilentFail(ArmorDefName);
+        ThingDef shoulders = DefDatabase<ThingDef>.GetNamedSilentFail(ShouldersDefName);
         defs = new Defs
         {
             dressing = dressing,
-            suite = DefDatabase<ThingDef>.GetNamedSilentFail(ArmorDefName)?.GetCompProperties<CompProperties_DressingSuite>(),
+            suite = armor?.GetCompProperties<CompProperties_DressingSuite>(),
             extension = dressing?.GetModExtension<DressingExtension>(),
             motes = new ThingDef[MoteDefNames.Length],
             shot = DefDatabase<AbilityDef>.GetNamedSilentFail(ShotDefName),
-            injector = DefDatabase<ThingDef>.GetNamedSilentFail(ShouldersDefName)?.GetCompProperties<CompProperties_ApparelReloadable>(),
+            injector = shoulders?.GetCompProperties<CompProperties_ApparelReloadable>(),
             adrenaline = adrenaline,
             fade = adrenaline?.CompProps<HediffCompProperties_SeverityPerDay>(),
+            armorAI = armor?.GetCompProperties<CompProperties_MedicAI>(),
+            shouldersAI = shoulders?.GetCompProperties<CompProperties_MedicAI>(),
         };
         bool motesFound = true;
         for (int i = 0; i < MoteDefNames.Length; i++)
@@ -502,10 +525,11 @@ public class MedicWarcasketSettings : ModSettings
             motesFound &= defs.motes[i]?.graphicData != null;
         }
         bool shotFound = defs.shot != null && defs.injector != null && defs.fade != null && !defs.adrenaline.stages.NullOrEmpty();
-        if (defs.dressing != null && defs.suite != null && defs.extension != null && motesFound && shotFound)
+        bool aiFound = defs.armorAI != null && defs.shouldersAI != null;
+        if (defs.dressing != null && defs.suite != null && defs.extension != null && motesFound && shotFound && aiFound)
             return true;
         if (!warned)
-            Log.Warning("[Medic Warcasket] Settings could not find the mechanite dressing ability, its dressing extension, its motes, the armor's dressing suite, the adrenaline shot ability, the shoulders' injector or the adrenaline hediff's fade and stages; the set keeps its XML values.");
+            Log.Warning("[Medic Warcasket] Settings could not find the mechanite dressing ability, its dressing extension, its motes, the armor's dressing suite, the adrenaline shot ability, the shoulders' injector, the adrenaline hediff's fade and stages or the two pieces' AI entries; the set keeps its XML values.");
         warned = true;
         return false;
     }

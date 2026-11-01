@@ -62,6 +62,9 @@
   <MDWC_Range>Range</MDWC_Range>
   <MDWC_RangeDesc>How close the pilot walks to the patient before starting the stream, as the straight-line distance in cells; the stream also needs a clear line of sight. 1.9 is touching, diagonals included, and 2 reaches one cell further along a row or column. Default: {0}.</MDWC_RangeDesc>
 
+  <MDWC_AIDressing>Raider medics dress the wounded</MDWC_AIDressing>
+  <MDWC_AIDressingDesc>Whether a pilot not under your control, a raider or an allied faction's defender, goes to a downed pawn of their own side, or of a faction allied to theirs, and dresses their wounds between fights. With the shoulders worn too, the shot follows the dressing as it does for your pilots. Your own pilots are unaffected. Default: {0}.</MDWC_AIDressingDesc>
+
   <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed, with {5} of cooldown after.</MDWC_DressingSummary>
   <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
 
@@ -82,6 +85,9 @@
   <MDWC_ShotCooldown>Cooldown</MDWC_ShotCooldown>
   <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient instead. Default: {0}.</MDWC_ShotCooldownDesc>
 
+  <MDWC_AIShot>Raider medics give the shot</MDWC_AIShot>
+  <MDWC_AIShotDesc>Whether a pilot not under your control, a raider or an allied faction's defender, gives a downed pawn of their own side, or of a faction allied to theirs, an adrenaline shot between fights. A raider the shot stands back up rejoins the raid. Your own pilots are unaffected. Default: {0}.</MDWC_AIShotDesc>
+
   <MDWC_ShotSummary>The injector holds {0} shots, one {1} each. A shot lasts {2}, fading in {3} levels, the last a short crash, and the patient's sleep falls {4} times as fast at first, faster with each level, with {5} of cooldown between shots.</MDWC_ShotSummary>
   <MDWC_ShotSummaryNoCooldown>The injector holds {0} shots, one {1} each. A shot lasts {2}, fading in {3} levels, the last a short crash, and the patient's sleep falls {4} times as fast at first, faster with each level, and the next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
 
@@ -95,5 +101,7 @@
   <MDWC_WorkSummaryNone>The pilot takes on no caring work. All other work follows VFE Pirates' warcasket rules.</MDWC_WorkSummaryNone>
 
   <MDWC_DefaultSuffix> (default)</MDWC_DefaultSuffix>
+  <MDWC_ToggleOn>on</MDWC_ToggleOn>
+  <MDWC_ToggleOff>off</MDWC_ToggleOff>
 
 </LanguageData>

@@ -30,8 +30,8 @@ Two things, in this order:
    that was selected when the target was clicked. With the helmet worn it also tends diseases
    and infections. Reloading takes only the selected type; nothing loaded can be taken back out.
 
-Player-only in practice: raiders in the set carry a full suite but the AI never casts apparel
-abilities.
+Raiders in the set carry a full suite and, since `Raider-Medics.md`, cast the dressing on
+their own downed between fights.
 
 ## 2. Verified engine facts
 

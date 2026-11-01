@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - With the armor worn, every patient gets a shot as their dressing ends; right-click the shot to turn that off
 - Mod settings for the shots held and their reload item, how long a shot lasts, its rest cost and its cooldown
 - Mod settings now choose which caring work the pilot may take on, doctoring and childcare included, with VFE Pirates' warcasket rules as the default for everything else
+- Raider medics: a raider or allied defender in the armor dresses the downed of their own side between fights, one in the shoulders gives them the shot, and a raider stood back up rejoins the raid; each is a mod settings checkbox
 
 ### Changed
 

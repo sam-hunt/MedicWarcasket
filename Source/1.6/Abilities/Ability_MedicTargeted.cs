@@ -45,6 +45,12 @@ namespace MedicWarcasket;
 // The mod settings write onto the defs; a running cooldown stored as an end tick is capped to
 // the new length on the next gizmo request (ReconcileSettings, keyed on the settings
 // generation), since VEF's cooldown overlay would otherwise overflow the button.
+//
+// A non-player pilot (CompMedicAI starts these jobs for raiders and allied defenders) reaches
+// the rejection messages through one call, the job's check toil (CheckBeforeWarmup), and the
+// messages are for a player pilot only (ReportsToPlayer): the AI picks a patient the ability
+// validates, so a rejection there is rare, but a raider's "no medicine loaded" has no place in
+// the player's log. The Targeter's calls are the player's own.
 public abstract class Ability_MedicTargeted : Ability, ITargetingSource
 {
     // "Unlimited" as a finite number so VEF's range arithmetic and ring drawing stay sane.
@@ -69,8 +75,11 @@ public abstract class Ability_MedicTargeted : Ability, ITargetingSource
 
     // The job's check toil, with the pilot in reach: the patient is still valid and the
     // ability can still be paid for. Nothing has been spent yet; a false ends the job with a
-    // message where one is due.
+    // message where one is due, for a player pilot.
     public abstract bool CheckBeforeWarmup(Pawn patient);
+
+    // Whether the pilot's rejections go to the player's log (see the header).
+    protected bool ReportsToPlayer => pawn?.Faction == Faction.OfPlayer;
 
     // The Targeter's re-entry after a Shift-click, which skips VEF's DoTargeting and would
     // otherwise write currentTargets[-1] through the base.

@@ -33,6 +33,12 @@ comments cover install-path detection, the compile-only VFEP/VEF references (`VF
   only) and resets its flag on every re-bind. An apparel autocast is read and fired by our own
   code, as the shot's is by the dressing's shot toil, and the pilot's right-click is kept as a
   scribed flip of the def's `autocastPlayerDefault`, never in VEF's flag.
+- **A non-player wearer casts through `CompMedicAI`**, one entry per piece beside its
+  reloadable, which finds the piece's own granted `Ability_MedicTargeted` and starts its JobDef
+  on a downed patient of the wearer's side. A new active gets AI use by the same entry, and its
+  `ValidateTarget` with messages off is the AI's patient test; the rules the comp applies are
+  `MedicAI`'s static functions, which the tests reach. A rejection message goes to the player
+  only through `ReportsToPlayer`.
 - **The medic trait is mirrored from VFEP's at startup** by `WorkProfile.Mirror`, first in
   `Startup.Run`, so editing or patching its work tags, work types, degree effects or VEF
   extension on our def does not stick, and VFEP's 1.6/1.7 differences need no version check.

@@ -28,8 +28,17 @@
 
     apparel tags: WarcasketVeteran (VFEP's 10th-gen tag) puts the set on the veteran raid
     pawnkinds of both VFEP factions and Odyssey's VFEP_Salvager_Warcasket; WarcasketAll is
-    VFEP_General. Threat and flavor only: AI pawns never cast apparel abilities, so a raider
-    in the set is a Siegebreaker with the baseline shield.
+    VFEP_General. The pieces are drawn separately, so a raider with the armor alone is the
+    common case; its suite arrives full (vanilla's full charge on creation).
+
+    Raider medics: MedicWarcasket.CompProperties_MedicAI (Source/1.6/Comps/CompMedicAI.cs)
+    makes a wearer not under the player's control cast the dressing on a downed pawn of its
+    own side or an ally's, between fights. checkInterval 60 is one check a second, Toxin's
+    auto-vent cadence; searchRadius 40 cells spans the ground a raid spreads over on its way
+    in, so a medic at the back reaches a comrade dropped at the walls; quietTicks 300 is
+    vanilla's own self-tend window after the last hit or engagement
+    (ThinkNode_ConditionalNPCCanSelfTendNow). aiCasts is a mod setting defaulting to this
+    value. Design in Docs/Specs/Raider-Medics.md.
 
     Mechanite dressing: VEF CompAbilitiesApparel grants MDWC_MechaniteDressing (AbilityDefs/
     MechaniteDressing.xml), fed by the medicine suite beside it. The ability reads the suite off
@@ -144,6 +153,12 @@
         <abilities>
           <li>MDWC_MechaniteDressing</li>
         </abilities>
+      </li>
+      <li Class="MedicWarcasket.CompProperties_MedicAI">
+        <aiCasts>true</aiCasts>
+        <checkInterval>60</checkInterval>
+        <searchRadius>40</searchRadius>
+        <quietTicks>300</quietTicks>
       </li>
       <li Class="VEF.Apparels.CompProperties_ShieldBubble">
         <compClass>VEF.Apparels.CompShieldBubble</compClass>
