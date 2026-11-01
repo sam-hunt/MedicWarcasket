@@ -16,9 +16,5 @@
 
 ## Later
 
-- **Raider medics.** The set is on the raid tables as a Siegebreaker with the baseline shield;
-  AI pawns never cast apparel abilities. Toxin's raider auto-vent is the family precedent for
-  giving raiders an ability, so a raider medic dressing their downed is possible later.
-- **Shock shoulders upstream.** VFEP's Shock shoulders grant VFEP's trait by themselves, so a
-  Medic wearing them loses Doctor (same spec, section 5). Propose moving the lists off the
-  shoulders upstream; no local patch.
+- **Raider medics.** Drafted in `Docs/Specs/Raider-Medics.md`; its section 4 lists the
+  decisions to take first.
