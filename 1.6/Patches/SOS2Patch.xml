@@ -13,6 +13,9 @@
     The gate is PatchOperationFindMod on display names, copied verbatim from VFEP's patch on
     purpose: this must fire under exactly VFEP's condition so the two sets never disagree about
     being EVA-rated. If VFEP changes its gate, change this one to match.
+    Best-effort: SOS2 is sparsely maintained upstream and off the release smoke list, so nothing
+    boots this file against a live SOS2; the xpath check in Tests/1.6/CompatPatchTests.cs is the
+    only coverage it gets.
   -->
   <Operation Class="PatchOperationFindMod">
     <mods>

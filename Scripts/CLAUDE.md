@@ -1,8 +1,8 @@
 # Scripts/: localization and release tooling
 
 Loaded when work touches the tooling. Each shim's comments carry this repo's config and its
-rationale (the VFEP dependency chain, why Odyssey is the only DLC pinned, why SOS2 and VGE1 are
-on the smoke list); the engines live in the `l10n/` submodule. Nothing here ships.
+rationale (the VFEP dependency chain, why Odyssey is the only DLC pinned, why VGE1 and CE are on
+the smoke list); the engines live in the `l10n/` submodule. Nothing here ships.
 
 - **`l10n/` is the `rimworld-l10n` toolkit as a git submodule pinned to a release tag**
   (`git submodule status`; if empty, `git submodule update --init`). Never edit it in place here:
@@ -18,9 +18,9 @@ on the smoke list); the engines live in the `l10n/` submodule. Nothing here ship
   only from the canonical checkout; this mod is ticked in its settings). Regenerating is always
   fine; the release skill does it every release.
 - **`integration-smoke-test.py`** (game closed, pre-release) boots the deployed mod on a pinned
-  list (the VFEP chain, Odyssey, Save Our Ship 2 with Vehicle Framework so `SOS2Patch.xml` runs,
-  Vanilla Gravship Expanded and Combat Extended so their compat roots open), then fails on any
-  logged error attributed to this mod or a VFEP/VEF/SOS2/VGE/CE seam. Sibling-mod "dump WILL
+  list (the VFEP chain, Odyssey, Vanilla Gravship Expanded and Combat Extended so their compat
+  roots open), then fails on any logged error attributed to this mod or a VFEP/VEF/VGE/CE seam.
+  Save Our Ship 2 is deliberately off the list: its patch is best-effort. Sibling-mod "dump WILL
   fail" warnings at launch are expected: the probe is ticked for every family mod but each boot
   loads only its own list.
 - **Translation passes are deferred until shortly before release**, one language at a time on

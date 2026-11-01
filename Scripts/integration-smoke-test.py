@@ -24,21 +24,19 @@ engine.PACKAGE_ID = "shunter.medicwarcasket"
 
 # RATIONALE: the first five entries are the l10n CANONICAL_ACTIVE_MODS (the
 # refresh shim explains them: VFE Pirates is the hard dep, VEF and Harmony
-# are its deps, Vanilla Gravship Expanded requires Odyssey). Save Our Ship 2
-# is one of two optional mods this repo integrates with:
-# 1.6/Patches/SOS2Patch.xml fires on its display name (or Universum's) and
-# never runs otherwise, and a failed PatchOperation is exactly the kind of
-# error only a boot with the mod active can surface. SOS2 hard-requires
-# Vehicle Framework, which is here only for that reason. Universum is not
-# installed locally, and the patch is the same either way. Vanilla Gravship
-# Expanded (chapter 1) is the other: LoadFolders.xml opens the
-# 1.6/Mods/VanillaGravshipExpanded root on its package id, and that root's
-# vacuum-resistance patch only ever runs with it active. Combat Extended is
-# the third: it opens the 1.6/Mods/CombatExtended root, whose patch rescales
-# the set's stats and would fail silently against a renamed node. It loads
-# after VFEP and SOS2, where its own About.xml puts it. Each sits before our
-# mod, as the mod a compat root complements should. Probe last (auto-quit).
-# Plain ids on purpose; see the refresh shim's "_steam" note.
+# are its deps, Vanilla Gravship Expanded requires Odyssey). Then the
+# optional mods this repo integrates with. Vanilla Gravship Expanded
+# (chapter 1): LoadFolders.xml opens the 1.6/Mods/VanillaGravshipExpanded
+# root on its package id, and that root's vacuum-resistance patch only ever
+# runs with it active. Combat Extended: it opens the 1.6/Mods/CombatExtended
+# root, whose patch rescales the set's stats and would fail silently against
+# a renamed node. It loads after VFEP, where its own About.xml puts it. Each
+# sits before our mod, as the mod a compat root complements should. Probe
+# last (auto-quit). Plain ids on purpose; see the refresh shim's "_steam"
+# note.
+# Save Our Ship 2 is deliberately absent: 1.6/Patches/SOS2Patch.xml is a
+# best-effort mirror of VFEP's own patch (its header), checked statically by
+# Tests/1.6/CompatPatchTests.cs and never booted here.
 engine.SMOKE_ACTIVE_MODS = [
     "brrainz.harmony",
     "ludeon.rimworld",
@@ -46,8 +44,6 @@ engine.SMOKE_ACTIVE_MODS = [
     "oskarpotocki.vanillafactionsexpanded.core",
     "oskarpotocki.vfe.pirates",
     "vanillaexpanded.gravship",
-    "smashphil.vehicleframework",
-    "kentington.saveourship2",
     "ceteam.combatextended",
     "shunter.medicwarcasket",
     "shunter.l10nprobe",
@@ -59,16 +55,13 @@ engine.OWN_PATTERNS = ["MedicWarcasket", "[Medic Warcasket]", "MDWC_"]
 
 # The seams: VFEP's warcasket code (foundry, entombing, Apparel_Warcasket)
 # walks our WarcasketDefs, VEF's ApparelExtension and CompShieldBubble run
-# on them, SOS2 reads the EVA tag our patch adds, and VGE1's vacuum rules
-# read the resistance our patch lowers, and CE's armor and inventory code
-# reads the stats the CombatExtended root sets. An error mentioning any of
-# these gates the test even when the exception fires inside their code.
-# Vehicle Framework is deliberately absent: it is only SOS2's dep and its
-# own noise is third-party.
+# on them, VGE1's vacuum rules read the resistance our patch lowers, and
+# CE's armor and inventory code reads the stats the CombatExtended root
+# sets. An error mentioning any of these gates the test even when the
+# exception fires inside their code.
 engine.INTEGRATION_PATTERNS = {
     "VFEP": ["VFEPirates"],
     "VEF": ["VEF."],
-    "SOS2": ["SaveOurShip2", "SaveOurShip"],
     "VGE": ["VanillaGravshipExpanded"],
     "CE": ["CombatExtended"],
 }

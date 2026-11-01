@@ -22,8 +22,8 @@ life of that release.
 - **No def numbers.** Kits, offsets, ranges and prices change with tuning and go stale on a
   page nobody re-pastes. Say "a suite of medicine kits", not "five kits". The mod
   settings window shows the current numbers.
-- **One compat line per mod, verdict first.** "Save Our Ship 2: EVA rated like VFE Pirates'
-  own sets." A known conflict gets one plain sentence; the mechanism does not.
+- **One compat line per mod, verdict first.** "Vanilla Gravship Expanded: follows its
+  vacuum-resistance rules for warcaskets." A known conflict gets one plain sentence; the mechanism does not.
 
 ## Shape
 

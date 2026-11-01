@@ -52,5 +52,4 @@ manifest globs, so new files and subfolders need no build change.
   under a new name behind a patch. A later-listed load folder wins a shared path, so the gated
   root stays below `/` in `LoadFolders.xml`.
 - **Gate on the package id** (`ludeon.rimworld.odyssey`), never `PatchOperationFindMod` (display
-  names). The one exception is `Patches/SOS2Patch.xml`, which copies VFEP's own display-name gate
-  so both sets flip to EVA-rated under exactly the same condition.
+  names), unless the patch mirrors an upstream patch and copies its gate so both fire together.

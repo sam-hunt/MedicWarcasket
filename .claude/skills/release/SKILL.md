@@ -170,18 +170,15 @@ python3 Scripts/integration-smoke-test.py
 
 - Boots the freshly deployed build once on a pinned list of Medic
   Warcasket plus its dependency chain (Harmony, Vanilla Expanded Framework,
-  VFE Pirates, Odyssey) and both optional integrations (graphical boot,
+  VFE Pirates, Odyssey) and its optional integrations (graphical boot,
   ~1-2 min, auto-quits), then classifies every Player.log error by origin and
   fails on anything attributed to Medic Warcasket or an integration seam:
-  - **Save Our Ship 2**, with its dependency Vehicle Framework, so
-    `1.6/Patches/SOS2Patch.xml` actually runs; it only fires with SOS2 or
-    Universum active.
   - **Vanilla Gravship Expanded**, so the `1.6/Mods/VanillaGravshipExpanded`
     root opens and its vacuum-resistance patch runs.
 
   A failed PatchOperation or a broken compat-root def is exactly the kind of
   error only a boot with the mod active can surface, and this is the only
-  automated coverage either seam gets. It exists because the
+  automated coverage any seam gets. It exists because the
   BetterTradersGuild v1.1.0 CWTL regression showed such a problem can be
   invisible without an integration mod active (see this repo's `Source/1.6/CLAUDE.md`
   patch-timing note).
