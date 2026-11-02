@@ -54,19 +54,19 @@
   <MDWC_CastTimeDesc>How long the suite primes before the stream reaches the patient. The patient is held still from the start. Default: {0}.</MDWC_CastTimeDesc>
 
   <MDWC_TendInterval>Time per wound</MDWC_TendInterval>
-  <MDWC_TendIntervalDesc>How long the stream spends on each wound or illness at normal tend speed. Medical skill and the medic shoulders shorten it, and an unskilled pilot takes up to twice as long. A patient with more to treat keeps the stream, and the hold, going longer. Default: {0}.</MDWC_TendIntervalDesc>
+  <MDWC_TendIntervalDesc>How long the stream spends on each wound or illness at normal tend speed. Medical skill and the medic shoulders shorten it, and an unskilled pilot takes up to twice as long. A patient with more to treat is held longer. Default: {0}.</MDWC_TendIntervalDesc>
 
   <MDWC_Cooldown>Cooldown</MDWC_Cooldown>
   <MDWC_CooldownDesc>The time the pilot must wait after a dressing before starting another. Queued dressings wait it out. Default: {0}.</MDWC_CooldownDesc>
 
   <MDWC_Range>Range</MDWC_Range>
-  <MDWC_RangeDesc>How close the pilot walks to the patient before starting the stream, as the straight-line distance in cells; the stream also needs a clear line of sight. 1.9 is touching, diagonals included, and 2 reaches one cell further along a row or column. Default: {0}.</MDWC_RangeDesc>
+  <MDWC_RangeDesc>How close the pilot gets to the patient before starting the stream, in cells, with a clear line of sight. A range of 1.9 reaches every adjacent cell, diagonals included, and 2 reaches one cell further along a row or column. Default: {0}.</MDWC_RangeDesc>
 
   <MDWC_AIDressing>Raider medics dress the wounded</MDWC_AIDressing>
-  <MDWC_AIDressingDesc>Whether a pilot not under your control, a raider or an allied faction's defender, goes to a downed pawn of their own side, or of a faction allied to theirs, and dresses their wounds between fights. With the shoulders worn too, the shot follows the dressing as it does for your pilots. Your own pilots are unaffected. Default: {0}.</MDWC_AIDressingDesc>
+  <MDWC_AIDressingDesc>Whether pilots not under your control, raiders and allied defenders alike, dress the wounds of downed pawns on their own side or an allied one between fights. With the shoulders worn too, a shot follows each dressing, as it does for your pilots. Your own pilots are unaffected. Default: {0}.</MDWC_AIDressingDesc>
 
-  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed, with {5} of cooldown after.</MDWC_DressingSummary>
-  <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed, and the next can start at once.</MDWC_DressingSummaryNoCooldown>
+  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. Each dressing is followed by {5} of cooldown.</MDWC_DressingSummary>
+  <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The next can start at once.</MDWC_DressingSummaryNoCooldown>
 
   <MDWC_SectionShot>Adrenaline shot</MDWC_SectionShot>
 
@@ -86,14 +86,14 @@
   <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient instead. Default: {0}.</MDWC_ShotCooldownDesc>
 
   <MDWC_AIShot>Raider medics give the shot</MDWC_AIShot>
-  <MDWC_AIShotDesc>Whether a pilot not under your control, a raider or an allied faction's defender, gives a downed pawn of their own side, or of a faction allied to theirs, an adrenaline shot between fights. A raider the shot stands back up rejoins the raid. Your own pilots are unaffected. Default: {0}.</MDWC_AIShotDesc>
+  <MDWC_AIShotDesc>Whether pilots not under your control, raiders and allied defenders alike, give downed pawns on their own side or an allied one an adrenaline shot between fights. A raider back on their feet rejoins the raid. Your own pilots are unaffected. Default: {0}.</MDWC_AIShotDesc>
 
   <MDWC_ShotSummary>The injector holds {0} shots, one {1} each. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster at each level and fastest in the crash. Each shot is followed by {5} of cooldown.</MDWC_ShotSummary>
   <MDWC_ShotSummaryNoCooldown>The injector holds {0} shots, one {1} each. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster at each level and fastest in the crash. The next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
 
   <MDWC_SectionWork>Enabled work types</MDWC_SectionWork>
   <MDWC_SectionWorkDesc>The caring work types a pilot of the medic set may take on. Every other work type follows VFE Pirates' warcasket trait as your other mods leave it, so a mod that opens work for every warcasket opens it for the medic too.</MDWC_SectionWorkDesc>
-  <MDWC_WorkDesc>Whether a pilot of the medic set can do this work. A change reaches entombed pilots at once; work newly enabled starts unassigned in the Work tab.</MDWC_WorkDesc>
+  <MDWC_WorkDesc>Whether a pilot of the medic set can do this work. A change reaches entombed pilots at once; newly enabled work starts unassigned in the Work tab.</MDWC_WorkDesc>
   <MDWC_WorkDefault>Default: {0}.</MDWC_WorkDefault>
   <MDWC_WorkOpen>enabled</MDWC_WorkOpen>
   <MDWC_WorkBlocked>disabled</MDWC_WorkBlocked>
