@@ -5,36 +5,45 @@
     the ability already holds MDWC_AdrenalineShot (Ability_AdrenalineShot applies it; design in
     Docs/Specs/Adrenaline-Shot.md 3.2): go-juice's high (Core, Drugs/GoJuice.xml) on a short
     clock, with no tolerance and no addiction, pure XML. Hediff_High is go-juice's class and only
-    shows the severity as a percentage. The shot sets severity 1, and severityPerDay -8 fades it
-    in three hours: the top three stages' thirds are its boost levels of an hour each, and the
-    bottom twelfth (wearing off's minSeverity 0.084) is the crash, the last quarter hour. The
-    duration is a mod setting written onto severityPerDay, which scales every level with it (a
-    shot already given keeps the rate it was applied with, since vanilla's comp caches it per
-    instance). A second shot refreshes the severity rather than adding to it, so a patient is
-    never above 1, and a crashing patient can be shot straight back to the rush.
+    shows the severity as a percentage. The shot sets severity 1, and severityPerDay -6 fades it
+    in four hours. Severity falls at a constant rate, so each stage's band is its share of the
+    clock: the rush and fading a sixteenth each (a quarter hour), wearing off an eighth (half an
+    hour), and the crash below wearing off's minSeverity 0.75 the last three quarters (three
+    hours). The comp steps every 200 ticks, 0.02 of severity at this rate, and no threshold sits
+    on a step, so no stage boundary hangs on a float comparison. The boost (the three levels
+    above the crash, an hour) and the crash (three hours) are two mod settings written onto
+    severityPerDay and the stages' minSeverity: the crash's band is its share of the total, and
+    the boost keeps the split above, a quarter, a quarter and a half, at any length. A shot
+    already given keeps the rate it was applied with, since vanilla's comp caches it per
+    instance, while the thresholds are read live, so its levels move to a new split. A second shot
+    refreshes the severity rather than adding to it, so a patient is never above 1, and a
+    crashing patient can be shot straight back to the rush.
 
     Stages are listed ascending by minSeverity as vanilla requires, so the top level is last.
-    The rush is go-juice's stage verbatim; the next two taper its offsets by thirds. The crash
-    is the one cost the player feels, since rest is paid invisibly: small negative
-    Consciousness and Moving offsets and no pain relief, landing long after most fights end, so
-    it taxes the afternoon rather than the fight. The comedown is each stage's
-    restFallFactor, vanilla's own lever, climbing a step per level so the bill rises as the
-    boost thins, the crash the top rung: a full shot costs about 0.25 of rest beyond what three
-    waking hours cost anyway, paid continuously while awake and not at all asleep, and read
-    live, so the setting that writes the top stage's factor (each lower stage one higher)
-    reaches shots already running. The pilot's own RestFallRateFactor multiplies on top.
+    The rush is go-juice's pain, Consciousness and Moving without its Sight; the next two taper
+    those by thirds, and no level touches Sight. The boost is a burst of half an hour, spent on
+    the fight it was given for. The crash is the cost the player feels, since rest is paid
+    invisibly: no pain relief, Consciousness -0.10 and Moving -0.20 for three hours, a patient
+    dulled and slowed through the afternoon after the fight. Moving is kept at -0.20 because
+    Consciousness feeds Moving, so the two stack. The comedown is each stage's restFallFactor,
+    vanilla's own lever: none in the rush, then 1.25, 1.5 and 3 in the crash, so the bill rises
+    as the boost thins and almost all of it lands in the crash. A full shot costs about 0.25 of
+    rest beyond the 0.16 four waking hours cost anyway (6.3 extra waking hours' worth, at
+    0.04 an hour), paid continuously while awake and not at all asleep; a longer crash setting
+    raises the bill with it. The factors have no setting. The pilot's own RestFallRateFactor
+    multiplies on top.
 
     everCurableByItem false: a healer mech serum must not spend itself on a stimulant. No
     scenarioCanAdd: it is the shoulders' to give. Under Combat Extended the boost levels also
-    carry go-juice's suppression resistance (1.6/Mods/CombatExtended/Patches/
-    AdrenalineSuppression.xml, by stage label).
+    carry go-juice's suppression resistance and the crash a suppression penalty
+    (1.6/Mods/CombatExtended/Patches/AdrenalineSuppression.xml, by stage label).
   -->
   <HediffDef>
     <defName>MDWC_Adrenaline</defName>
     <hediffClass>Hediff_High</hediffClass>
     <label>adrenaline shot</label>
     <labelNoun>an adrenaline shot</labelNoun>
-    <description>A shot of adrenaline, fading in levels. Pain is dulled and movement, sight and thought are quickened, while the body burns through its sleep faster and faster as the surge fades, and a short crash follows.</description>
+    <description>Adrenaline in the bloodstream. It dulls pain and quickens movement and thought, then fades into a long, sluggish crash. The body tires faster and faster as it wears off.</description>
     <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
     <isBad>false</isBad>
     <everCurableByItem>false</everCurableByItem>
@@ -42,14 +51,14 @@
     <maxSeverity>1</maxSeverity>
     <comps>
       <li Class="HediffCompProperties_SeverityPerDay">
-        <severityPerDay>-8</severityPerDay>
+        <severityPerDay>-6</severityPerDay>
         <showHoursToRecover>true</showHoursToRecover>
       </li>
     </comps>
     <stages>
       <li>
         <label>crash</label>
-        <restFallFactor>5</restFallFactor>
+        <restFallFactor>3</restFallFactor>
         <capMods>
           <li>
             <capacity>Consciousness</capacity>
@@ -57,23 +66,19 @@
           </li>
           <li>
             <capacity>Moving</capacity>
-            <offset>-0.10</offset>
+            <offset>-0.20</offset>
           </li>
         </capMods>
       </li>
       <li>
         <label>wearing off</label>
-        <minSeverity>0.084</minSeverity>
+        <minSeverity>0.75</minSeverity>
         <painFactor>0.7</painFactor>
-        <restFallFactor>4</restFallFactor>
+        <restFallFactor>1.5</restFallFactor>
         <capMods>
           <li>
             <capacity>Consciousness</capacity>
             <offset>0.07</offset>
-          </li>
-          <li>
-            <capacity>Sight</capacity>
-            <offset>0.12</offset>
           </li>
           <li>
             <capacity>Moving</capacity>
@@ -83,17 +88,13 @@
       </li>
       <li>
         <label>fading</label>
-        <minSeverity>0.334</minSeverity>
+        <minSeverity>0.875</minSeverity>
         <painFactor>0.4</painFactor>
-        <restFallFactor>3</restFallFactor>
+        <restFallFactor>1.25</restFallFactor>
         <capMods>
           <li>
             <capacity>Consciousness</capacity>
             <offset>0.13</offset>
-          </li>
-          <li>
-            <capacity>Sight</capacity>
-            <offset>0.23</offset>
           </li>
           <li>
             <capacity>Moving</capacity>
@@ -103,17 +104,12 @@
       </li>
       <li>
         <label>rush</label>
-        <minSeverity>0.667</minSeverity>
+        <minSeverity>0.9375</minSeverity>
         <painFactor>0.1</painFactor>
-        <restFallFactor>2</restFallFactor>
         <capMods>
           <li>
             <capacity>Consciousness</capacity>
             <offset>0.20</offset>
-          </li>
-          <li>
-            <capacity>Sight</capacity>
-            <offset>0.35</offset>
           </li>
           <li>
             <capacity>Moving</capacity>

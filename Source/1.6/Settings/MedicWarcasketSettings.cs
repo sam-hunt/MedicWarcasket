@@ -30,9 +30,11 @@ namespace MedicWarcasket;
 // CompProperties_ApparelReloadable entry the reload item overrides ammoDef and the shots
 // maxCharges; on the
 // MDWC_AdrenalineShot AbilityDef the cooldown overrides cooldownTime, stored and shown as the
-// dressing's; on the MDWC_Adrenaline HediffDef the duration overrides its severity-per-day
-// comp's severityPerDay (stored in hours, written as -24 / hours) and the sleep fall writes the
-// top stage's restFallFactor with each lower stage one higher, the XML ladder's step. The
+// dressing's; on the MDWC_Adrenaline HediffDef the boost and crash durations (game hours)
+// together override its severity-per-day comp's severityPerDay and its stages' minSeverity
+// (AdrenalineClock): the crash sets the bottom stage's share of the clock, and the boost is
+// split across the levels above it in the XML's proportions. The stages' restFallFactors and
+// offsets have no setting. The
 // reload item's row sits above the sliders as the medicine's does, and its raider medics box
 // (the shoulders' CompProperties_MedicAI aiCasts) closes the section as the dressing's does.
 // The item is any medicine, herbal included (a stimulant dose does not depend on medical
@@ -59,9 +61,9 @@ namespace MedicWarcasket;
 // and the next reload fetches it; a reload item change is the same for the shots loaded. A
 // tint change reaches every mote spawned after it; one in flight keeps the graphic it was
 // spawned with. Shots above a lowered maximum are spent off
-// the worn shoulders at once (TrimWornInjectors); a shot already given keeps the duration it
-// was applied with, since vanilla's comp caches the rate per instance, while the sleep fall is
-// read off the stages live and reaches it at once.
+// the worn shoulders at once (TrimWornInjectors); a shot already given keeps the total length
+// it was applied with, since vanilla's comp caches the rate per instance, while the stage
+// thresholds are read off the def live, so its levels move to the new split at once.
 public class MedicWarcasketSettings : ModSettings
 {
     private const string DressingDefName = "MDWC_MechaniteDressing";
@@ -129,11 +131,19 @@ public class MedicWarcasketSettings : ModSettings
         StepBands = [(12f, 1f)],
     };
 
-    // The shot's: the injector's maxCharges, the hediff's duration in hours, the top stage's
-    // rest fall factor (the lower stages step up from it), and the cooldown in game hours.
+    // The shot's: the injector's maxCharges, the hediff's boost and crash in game hours, and the
+    // cooldown in game hours. The boost is quarter hours to 3 h, where a fight's length is
+    // decided, then the cooldown's coarser bands to a day; the crash is half hours to 6 h, an
+    // afternoon, then the same bands to three days.
     public readonly Tunable shots = new("Shots", 1f, 10f, 1f, Whole);
-    public readonly Tunable shotDuration = new("ShotDuration", 0.5f, 12f, 0.5f, Period);
-    public readonly Tunable restFall = new("RestFall", 1f, 5f, 0.5f, Factor);
+    public readonly Tunable shotBoost = new("ShotBoost", 0.25f, GenDate.HoursPerDay, 0.25f, Duration)
+    {
+        StepBands = [(3f, 0.25f), (12f, 1f), (GenDate.HoursPerDay, 6f)],
+    };
+    public readonly Tunable shotCrash = new("ShotCrash", 0.5f, 3f * GenDate.HoursPerDay, 0.5f, Duration)
+    {
+        StepBands = [(6f, 0.5f), (12f, 1f), (GenDate.HoursPerDay, 6f), (3f * GenDate.HoursPerDay, 12f)],
+    };
     public readonly Tunable shotCooldown = new("ShotCooldown", 0f, CooldownMax, 0.25f, Period) { StepBands = CooldownBands };
 
     private bool defaultsLoaded;
@@ -151,8 +161,13 @@ public class MedicWarcasketSettings : ModSettings
     private string dressingTip;
     private string shotTip;
 
-    // The hediff's stage count, quoted by the shot's summary line.
+    // The boost's level count (the stages above the crash), quoted by the shot's summary line.
     private int shotLevels;
+
+    // Each boost level's share of the boost as the XML leaves it, by stage index, and the
+    // severity a shot starts at; what the two durations are written through.
+    private float[] boostShares;
+    private float shotTop;
 
     // The two ability defs, for their header icons; see the class header.
     private AbilityDef dressingDef;
@@ -162,7 +177,7 @@ public class MedicWarcasketSettings : ModSettings
     // Resources, not Ideology's, so it loads whatever DLCs are active and survives a reload.
     private Texture2D workIcon;
 
-    private IEnumerable<Tunable> All => [kits, castTime, tendInterval, cooldown, range, shots, shotDuration, restFall, shotCooldown];
+    private IEnumerable<Tunable> All => [kits, castTime, tendInterval, cooldown, range, shots, shotBoost, shotCrash, shotCooldown];
 
     private static string Whole(float v) => Mathf.RoundToInt(v).ToString();
 
@@ -184,8 +199,11 @@ public class MedicWarcasketSettings : ModSettings
         return (hours / GenDate.HoursPerDay).ToString("0.##") + "LetterDay".Translate();
     }
 
-    // A multiplier as vanilla's Factor number sense prints one: "x2".
-    private static string Factor(float v) => "x" + v.ToString("0.#");
+    // A length in game hours, as Period but in hours below a day: a quarter-hour boost reads
+    // "0.25h", not as real seconds.
+    private static string Duration(float hours) => hours < GenDate.HoursPerDay
+        ? hours.ToString("0.##") + "LetterHour".Translate()
+        : (hours / GenDate.HoursPerDay).ToString("0.##") + "LetterDay".Translate();
 
     public override void ExposeData()
     {
@@ -223,10 +241,14 @@ public class MedicWarcasketSettings : ModSettings
         aiShot.DefaultValue = defs.shouldersAI.aiCasts;
         shotAmmo.DefaultValue = defs.injector.ammoDef;
         shots.DefaultValue = defs.injector.maxCharges;
-        shotDuration.DefaultValue = defs.fade.severityPerDay < 0f ? -24f / defs.fade.severityPerDay : 0f;
-        restFall.DefaultValue = defs.adrenaline.stages[defs.adrenaline.stages.Count - 1].restFallFactor;
+        shotTop = defs.adrenaline.initialSeverity;
+        float[] mins = defs.adrenaline.stages.Select(stage => stage.minSeverity).ToArray();
+        (float boost, float crash, float[] shares) = AdrenalineClock.Read(mins, defs.fade.severityPerDay, shotTop);
+        shotBoost.DefaultValue = boost;
+        shotCrash.DefaultValue = crash;
+        boostShares = shares;
         shotCooldown.DefaultValue = (float)defs.shot.cooldownTime / GenDate.TicksPerHour;
-        shotLevels = defs.adrenaline.stages.Count;
+        shotLevels = defs.adrenaline.stages.Count - 1;
         shotTip = HeaderTip(defs.shot.LabelCap, defs.shot.description);
         shotDef = defs.shot;
         workIcon = ContentFinder<Texture2D>.Get("World/WorldObjects/Expanding/Sites/MiningWorkSite");
@@ -261,10 +283,11 @@ public class MedicWarcasketSettings : ModSettings
             defs.injector.ammoDef = shotItem;
         defs.injector.maxCharges = Mathf.Max(1, shots.IntValue);
         defs.shot.cooldownTime = Mathf.RoundToInt(shotCooldown.Value * GenDate.TicksPerHour);
-        defs.fade.severityPerDay = -24f / Mathf.Max(shotDuration.Value, 0.01f);
+        defs.fade.severityPerDay = AdrenalineClock.SeverityPerDay(shotBoost.Value, shotCrash.Value, shotTop);
+        float[] mins = AdrenalineClock.MinSeverities(shotBoost.Value, shotCrash.Value, boostShares, shotTop);
         List<HediffStage> stages = defs.adrenaline.stages;
         for (int i = 0; i < stages.Count; i++)
-            stages[i].restFallFactor = restFall.Value + (stages.Count - 1 - i);
+            stages[i].minSeverity = mins[i];
         Generation++;
         TrimWornSuites();
         TrimWornInjectors();
@@ -365,8 +388,8 @@ public class MedicWarcasketSettings : ModSettings
         SummaryRow(listing, ShotSummary);
         shotAmmo.DoRow(listing);
         shots.DoRow(listing);
-        shotDuration.DoRow(listing);
-        restFall.DoRow(listing);
+        shotBoost.DoRow(listing);
+        shotCrash.DoRow(listing);
         shotCooldown.DoRow(listing);
         aiShot.DoRow(listing);
         if (WorkProfile.Toggleable.Count > 0)
@@ -408,16 +431,16 @@ public class MedicWarcasketSettings : ModSettings
     }
 
     // What the shot section's rows amount to: the shots held and the item each costs, how long
-    // one lasts and in how many levels, the sleep fall at its start, and the cooldown, with the
+    // the boost lasts and in how many levels, how long the crash lasts, and the cooldown, with the
     // same no-cooldown clause rule as the dressing's.
     private string ShotSummary()
     {
         string item = shotAmmo.Value?.label ?? string.Empty;
-        string hours = Period(shotDuration.Value);
-        string fall = restFall.Value.ToString("0.#");
+        string boost = Duration(shotBoost.Value);
+        string crash = Duration(shotCrash.Value);
         if (shotCooldown.Value <= 0f)
-            return "MDWC_ShotSummaryNoCooldown".Translate(shots.IntValue, item, hours, shotLevels, fall);
-        return "MDWC_ShotSummary".Translate(shots.IntValue, item, hours, shotLevels, fall, Period(shotCooldown.Value));
+            return "MDWC_ShotSummaryNoCooldown".Translate(shots.IntValue, item, boost, shotLevels, crash);
+        return "MDWC_ShotSummary".Translate(shots.IntValue, item, boost, shotLevels, crash, Period(shotCooldown.Value));
     }
 
     // What the work section's boxes amount to: the caring work the pilot may take on, named as
@@ -524,7 +547,7 @@ public class MedicWarcasketSettings : ModSettings
             defs.motes[i] = DefDatabase<ThingDef>.GetNamedSilentFail(MoteDefNames[i]);
             motesFound &= defs.motes[i]?.graphicData != null;
         }
-        bool shotFound = defs.shot != null && defs.injector != null && defs.fade != null && !defs.adrenaline.stages.NullOrEmpty();
+        bool shotFound = defs.shot != null && defs.injector != null && defs.fade != null && defs.adrenaline.stages?.Count >= 2;
         bool aiFound = defs.armorAI != null && defs.shouldersAI != null;
         if (defs.dressing != null && defs.suite != null && defs.extension != null && motesFound && shotFound && aiFound)
             return true;

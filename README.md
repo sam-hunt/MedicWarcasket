@@ -44,8 +44,8 @@ spacer warcaskets research.
   falls faster. A shot into a heart attack stops it instead. With the armor worn, the shot can
   follow every dressing automatically
 - **Mod settings** for the medicine, the effect color, the kit capacity, the casting time, the time per
-  wound, the cooldown, the range, the shot capacity, what reloads them, their duration, sleep cost
-  and cooldown, and which caring work (doctor, childcare) the pilot may take on
+  wound, the cooldown, the range, the shot capacity, what reloads them, their boost and crash
+  durations and cooldown, and which caring work (doctor, childcare) the pilot may take on
 - **Priced like its peers**: spacer-tier plating and shield, costs in the tier's band with the
   medicine the suite and injector ship loaded with, and the set's unlock is VFE Pirates' spacer
   warcaskets research

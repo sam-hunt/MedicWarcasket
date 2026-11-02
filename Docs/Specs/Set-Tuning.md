@@ -127,14 +127,14 @@ The alternative considered: MedicineUltratech 5 on the armor (Sarcophagus's armo
 exactly, Toxin's half-fill model), set 5371. Rejected: a suite that ships full with half its
 fill free is odd to explain.
 
-### 2.3 Adrenaline: keep the rush, add a crash
+### 2.3 Adrenaline: a short rush, a long crash
 
-The rush being go-juice's numbers verbatim is the fiction's point; shaving Moving makes it
-a worse go-juice rather than a different thing. Instead a fourth, bottom stage, a crash over
-the last quarter hour (the bottom twelfth of the severity, wearing off's minSeverity moved
-up to 0.084), with Consciousness and Moving -0.10, no pain relief and the rest ladder's top
-rung. Pure XML. It is the one cost the player feels, since rest fall is paid invisibly, and
-it lands after most fights, so it taxes the afternoon rather than the fight. Two shots stay.
+The rush keeps go-juice's pain, Consciousness and Moving and drops its Sight, and the boost is
+a half-hour burst on a 4 h clock (rush and fading a quarter hour each, wearing off half an
+hour). The cost is a fourth, bottom stage, a crash over the last three hours (wearing off's
+minSeverity 0.75), with Consciousness -0.10, Moving -0.20 (Consciousness feeds Moving, so the
+two stack), no pain relief and the rest ladder's top rung, x3. Pure XML. It is the one cost the player feels, since rest fall is paid
+invisibly, and it outlasts the fight, so it taxes the afternoon. Two shots stay.
 
 ### 2.4 Watch the autocast interaction
 

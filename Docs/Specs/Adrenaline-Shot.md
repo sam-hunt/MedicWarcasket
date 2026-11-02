@@ -23,7 +23,10 @@ readings this draft takes of the brief, for the review to confirm or move.
 | A gizmo and targeter like the mechanite dressing's                                    | 3.3, 3.5 |
 | A go-juice-like hediff that fades over 3 hours                                        | 3.2      |
 | A rest cost as the shot fades: a rest fall factor on the hediff (review: not a stage hook) | 3.2, 4   |
-| Review: the factor climbs a level at a time, x2, x3, x4                                | 3.2, 3.7 |
+| Review: the factor climbs x1, x1.25, x1.5, x3 to the crash, with no setting           | 3.2, 3.7 |
+| Review: rush and fading a quarter hour each, wearing off half an hour, a 3 h crash    | 3.2      |
+| Review: boost and crash durations as two settings, the boost keeping its split        | 3.2, 3.7 |
+| Review: no Sight at any level; the crash Consciousness -0.10, Moving -0.20            | 3.2      |
 | Charge noun "shot", "charge" or whatever fits and translates                          | 3.1, 4   |
 | Reloaded one item per shot, industrial medicine by default (a setting)               | 3.1, 3.8 |
 | Stops a heart attack outright, at any severity                                        | 3.3      |
@@ -227,41 +230,43 @@ checks for the armor except the autocast (3.4).
 `MDWC_DefOf` gains `MDWC_AdrenalineShot` (AbilityDef), `MDWC_Adrenaline` (HediffDef), `HeartAttack` (HediffDef, by
 name since `HediffDefOf` lacks it) and `Ingest_Inject` (SoundDef, likewise).
 
-### 3.2 The hediff: three levels and a crash, burning rest all the way down
+### 3.2 The hediff: three levels and a long crash, burning rest all the way down
 
 `MDWC_Adrenaline`, pure XML: `hediffClass` `Hediff_High` (go-juice's, which shows the
 severity as a percentage), label "adrenaline shot", `labelNoun` "an adrenaline shot", `isBad`
 false, `everCurableByItem` false (a healer mech serum must not spend itself on a stimulant),
 `scenarioCanAdd` false, `initialSeverity` 1, `maxSeverity` 1, label colour go-juice's
-(1, 0, 0.5), a `HediffCompProperties_SeverityPerDay` of **-8** with `showHoursToRecover` (1.0
-fades in 3 h), and four stages: go-juice's effect at the top, tapering by thirds over the top
-three, then a crash over the bottom twelfth, the last quarter hour, while the `restFallFactor`
-climbs a step per level:
+(1, 0, 0.5), a `HediffCompProperties_SeverityPerDay` of **-6** with `showHoursToRecover` (1.0
+fades in 4 h), and four stages: go-juice's pain, Consciousness and Moving at the top without
+its Sight, tapering by thirds over the top three, then a crash over the bottom three quarters,
+while the `restFallFactor` climbs:
 
-| Level (stage label) | `minSeverity` | `painFactor` | Consciousness | Sight | Moving | `restFallFactor` |
-| ------------------- | ------------- | ------------ | ------------- | ----- | ------ | ---------------- |
-| rush                | 0.667         | 0.1          | +0.20         | +0.35 | +0.50  | 2                |
-| fading              | 0.334         | 0.4          | +0.13         | +0.23 | +0.33  | 3                |
-| wearing off         | 0.084         | 0.7          | +0.07         | +0.12 | +0.17  | 4                |
-| crash               | 0             | 1            | -0.10         |       | -0.10  | 5                |
+| Level (stage label) | `minSeverity` | Hours | `painFactor` | Consciousness | Moving | `restFallFactor` |
+| ------------------- | ------------- | ----- | ------------ | ------------- | ------ | ---------------- |
+| rush                | 0.9375        | 0.25  | 0.1          | +0.20         | +0.50  | 1                |
+| fading              | 0.875         | 0.25  | 0.4          | +0.13         | +0.33  | 1.25             |
+| wearing off         | 0.75          | 0.5   | 0.7          | +0.07         | +0.17  | 1.5              |
+| crash               | 0             | 3     | 1            | -0.10         | -0.20  | 3                |
 
-Each boost level lasts an hour by default and the crash a quarter hour; the duration setting
-scales them together. The health tab reads "adrenaline shot (rush, 3h)".
+Severity falls at a constant rate, so each band's width is its share of the clock. The boost
+(the top three levels) and the crash are two settings (3.7), and the boost keeps its quarter,
+quarter and half split at any length. The comp steps 0.02 every 200 ticks at -6 and no
+threshold sits on a step. The health tab reads "adrenaline shot (rush, 4h)".
 
-**The crash is the cost the player feels.** Rest is paid invisibly, so the bottom stage drops
-Consciousness and Moving a little with no pain relief. It lands long after most fights end, so
-it taxes the afternoon rather than the fight, and a second shot lifts a crashing patient
+**The boost is a burst, the crash the cost the player feels.** Half an hour of boost spends
+itself on the fight it was given for. Rest is paid invisibly, so the bottom stage gives no pain
+relief, Consciousness -0.10 and Moving -0.20 for three hours (Consciousness feeds Moving, so
+the two stack): the patient is dulled and slowed through the afternoon, and a second shot lifts a crashing patient
 straight back to the rush (3.3).
 
 **The comedown is the rest fall factor** (2.3), vanilla's own lever (wake-up's high slows the
-fall the same way): under a shot the patient's rest falls twice as fast, then three times,
-then four, then five in the crash, so the bill climbs as the boost thins and a full shot that
-runs its course costs about 0.25 of rest beyond the 0.12 three waking hours cost anyway,
-roughly six hours of wakefulness for three hours of go-juice-grade boost. It is paid continuously rather
-than at each level's end, which is what the hediff set reads and what the need's own tired and
-very-tired brakes already shape; a sleeping patient pays nothing, since the factor only scales
-the fall. The ladder's first step is a setting, the next three always one higher each (3.7),
-written onto the stages and read live, so it reaches shots already running. The pilot's own
+fall the same way): none in the rush, then 1.25, 1.5 and 3 in the crash, so the bill climbs as
+the boost thins and almost all of it lands in the crash. A full shot that runs its course costs
+about 0.25 of rest beyond the 0.16 four waking hours cost anyway, roughly six and a third extra
+hours of wakefulness. It is paid continuously rather than at each level's end, which is what the
+hediff set reads and what the need's own tired and very-tired brakes already shape; a
+sleeping patient pays nothing, since the factor only scales the fall. The factors have no
+setting; a longer crash raises the bill with it. The pilot's own
 `RestFallRateFactor` x1.3 (2.4) multiplies on top for a self-shot.
 
 **No merge.** The shot refreshes rather than stacks (3.3), so the severity never exceeds 1 and a
@@ -414,16 +419,17 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 | ------------------- | ---------------------------------------------------------------- | ------- | --------------- |
 | Reload item         | shoulders' reloadable `ammoDef` (any medicine, then go-juice, then wake-up) | industrial medicine | float menu |
 | Shot capacity       | shoulders' reloadable `maxCharges`                               | 2       | 1..10, step 1   |
-| Duration (hours)    | hediff `HediffCompProperties_SeverityPerDay.severityPerDay`      | 3       | 0.5..12, step 0.5 |
-| Initial sleep fall rate (×) | the hediff's stage `restFallFactor`s, the top stage's value; each lower stage one higher | 2 | 1..5, step 0.5 |
+| Boost duration      | hediff `severityPerDay` and the boost levels' `minSeverity`, with the crash | 1 h | 0.25 h..1 d: quarter hours to 3 h, hours to 12 h, then 18 h, 1 d |
+| Crash duration      | hediff `severityPerDay` and wearing off's `minSeverity`, with the boost | 3 h | 0.5 h..3 d: half hours to 6 h, hours to 12 h, quarter days to 1 d, half days to 3 d |
 | Cooldown (seconds)  | ability `cooldownTime` (ticks ÷ 60)                              | 0       | 0..300, step 5  |
 
-- The duration is stored as hours and written as `severityPerDay = -24 / hours`; the default is
-  read back as `-24 / severityPerDay`. A shot already in flight keeps the rate it was applied
-  with (2.3), as a dressing in flight keeps its colour; the next shot takes the new one. The
-  rest fall row writes the top stage's `restFallFactor` and, for each stage below it, one more
-  (the XML ladder's step), read live, so it reaches every shot at once; its default is the top
-  stage's XML value.
+- The two durations are stored as game hours and written together through `AdrenalineClock`:
+  `severityPerDay = -24 / (boost + crash)`, wearing off's `minSeverity` the crash's share of the
+  total, and each boost level above it its XML share of the boost's band. The defaults are read
+  back the same way from the XML. A shot already in flight keeps the rate it was applied with
+  (2.3), as a dressing in flight keeps its colour, while the thresholds are read live, so its
+  levels move to the new split; the next shot takes both. The stages' `restFallFactor`s have no
+  setting.
 - `ApplyToDefs` also trims worn shoulders above a lowered `maxCharges` (`remainingCharges` is
   protected; a tiny `CompApparelReloadable` subclass is **not** worth it: the dev "reload to
   full" and `ReloadFrom` both write `MaxCharges`, so the trim is a `UsedOnce()` loop down to the
@@ -431,10 +437,10 @@ Defaults stay in the def XML, read by `LoadDefaultsFromDefs` and written by `App
 - The warmup (30 ticks) and the range (1.9: touching, diagonals included, a needle's reach; the
   autocast uses the dressing's) are def fields without settings; the level count is the stage
   list. Section 4 lists them as levers.
-- Summary line: "The injector holds {0} shots, one {1} each. A shot lasts {2} h, fading in {3}
-  levels, and the patient's rest falls {4} times as fast at first, faster with each level, with
-  {5} h of cooldown between shots." A second key ends "..., and the next shot can follow at once." when
-  the cooldown is 0.
+- Summary line: "The injector holds {0} shots, one {1} each. A shot's boost lasts {2} over {3}
+  levels, then the patient crashes for {4}, tiring faster at each level and fastest in the
+  crash. Each shot is followed by {5} of cooldown." A second key ends "... The next shot can
+  follow at once." when the cooldown is 0; {3} counts the stages above the crash.
 - `TryGetDefs` grows by the shot's three defs; all-or-nothing as now, with the warning naming
   what is missing.
 
@@ -457,9 +463,9 @@ Readings of the brief for the review to confirm:
    paid 0.1 at the end of each level through a hediff class on the stage hook; the factor is
    vanilla's own lever, needs no C#, reads a settings change live, and lets the tired brakes
    and sleep itself behave as they always do. The one thing lost is the lump: a patient who
-   sleeps through the shot pays nothing. The ladder x2, x3, x4 (settled on the second
-   pass) lands on the first draft's total (3.2) and makes the fade felt in the bill as well as
-   in the boost; the setting moves the first step and the ladder keeps its unit steps.
+   sleeps through the shot pays nothing. The ladder x1, x1.25, x1.5, x3 makes the fade felt
+   in the bill as well as in the boost and puts most of it in the crash (3.2); the factors
+   have no setting, and the crash duration setting moves the bill with the crash.
 2. **Charge noun "shot".** It reads as vanilla's own nouns do ("Shots remaining: 2 / 3", "No
    shots left"), has a one-word equivalent in every roster language, and is the word the
    Workshop page already uses. "Charge" would be VFEP's generic and says less.
@@ -499,9 +505,9 @@ Drafts, no em dashes (player-facing):
   {item}." (`MDWC_ReloadsWith`, the item being a setting) and, with the armor worn, the
   autocast line. `jobReportString` "Giving
   an adrenaline shot."; the JobDef's `reportString` "giving an adrenaline shot.".
-- Hediff `label` "adrenaline shot", `labelNoun` "an adrenaline shot", `description` "A shot of
-  adrenaline, fading in levels. Pain is dulled and movement, sight and thought are
-  quickened, while the body burns through its rest faster and faster as the surge fades." Stage
+- Hediff `label` "adrenaline shot", `labelNoun` "an adrenaline shot", `description` "Adrenaline in
+  the bloodstream. It dulls pain and quickens movement and thought, then fades into a long,
+  sluggish crash. The body tires faster and faster as it wears off." Stage
   labels "rush",
   "fading", "wearing off", "crash".
 - Shoulders: `chargeNoun` "shot" (vanilla prints "Shots remaining", "No shots left" and "Reload
@@ -512,11 +518,12 @@ Drafts, no em dashes (player-facing):
 - Keyed, new: `MDWC_SectionShot` "Adrenaline shot"; `MDWC_Shots` "Shot capacity",
   `MDWC_ShotsDesc` "The number of shots the shoulders' injector holds when full. Shoulders already holding more than this lose the excess. Default: {0}."; `MDWC_ShotAmmo` "Reload item", `MDWC_ShotAmmoDesc` "The item the shoulders' injector is loaded with, one per shot: any medicine, go-juice or wake-up. Shots already loaded count as the new item. Default: {0}."; `MDWC_ReloadsWith`
   "Reloads with {0}." (appended to the ability's description, `{0}` the item's label; the
-  dressing appends the same key for its medicine); `MDWC_ShotDuration` "Duration
-  (hours)", `MDWC_ShotDurationDesc` "How long a shot lasts, fading in levels, the last a short crash. A shot
-  already given keeps its own clock. Default: {0}."; `MDWC_RestFall` "Initial sleep fall rate",
-  `MDWC_RestFallDesc` "How many times faster a patient's sleep need falls while a shot is fresh. Each
-  level it fades through adds one. Sleeping restores it as usual. Default: {0}."; `MDWC_ShotCooldown` "Cooldown (seconds)", `MDWC_ShotCooldownDesc` "The time
+  dressing appends the same key for its medicine); `MDWC_ShotBoost` "Boost
+  duration", `MDWC_ShotBoostDesc` "How long a shot's boost lasts before the crash, shared between
+  its levels in the same proportions at any length. A shot already given keeps its own clock.
+  Default: {0}."; `MDWC_ShotCrash` "Crash duration", `MDWC_ShotCrashDesc` "How long the crash
+  after a shot's boost lasts. A crashing patient is dull and slow, and tires quickly. A shot
+  already given keeps its own clock. Default: {0}."; `MDWC_ShotCooldown` "Cooldown (seconds)", `MDWC_ShotCooldownDesc` "The time
   the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient
   instead. Default: {0}."; `MDWC_ShotSummary` (six arguments, 3.7) and
   `MDWC_ShotSummaryNoCooldown` (five); `MDWC_NoShotsLoaded` "No shots loaded.";
@@ -541,7 +548,7 @@ Drafts, no em dashes (player-facing):
 Dev mode, VFEP chain plus this mod, fresh saves:
 
 1. **Settings.** The new section shows the shot's icon and tooltip, five
-   rows, and a summary reading "2 shots, one medicine each", "3 h", "2 times as fast at first", "and the next shot can follow at
+   rows, and a summary reading "2 shots, one medicine each", "boost lasts 1h over 3 levels", "crashes for 3h", "The next shot can follow at
    once". Set the
    cooldown to 20: the summary's last clause changes. Reset restores all four. Lower the shots
    to 2 on worn shoulders holding 3: the corner count reads "2 / 2".
@@ -550,17 +557,18 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    "Stops the heart attack" as a second line over a dev-given heart attack, on a raider and on a
    "rush" patient too. Click the colonist:
    the pilot walks to touch, holds them for 0.5 s, `Ingest_Inject` plays at the patient,
-   the health tab shows "adrenaline shot (rush, 3h)" with pain ×0.1 and the three offsets, the
+   the health tab shows "adrenaline shot (rush, 4h)" with pain ×0.1 and the two offsets, the
    corner count reads "2 / 3", the shoulders' inspect line "Shots remaining: 2 / 3", and no
    text mote appears. Click the pilot: no walk, the same result on the pilot, whose pain stays
    0.
-3. **The comedown.** Speed time with the patient awake: the rest need falls about 0.08 an hour
-   instead of 0.04 during "rush" (the Needs tab's fall rate reads x2 under the hediff's name),
-   0.12 after the label turns "(fading, 2h)" at 1 h, 0.16 after "(wearing off, 1h)" at 2 h, and
-   at 3 h the hediff is gone and the fall is normal again. Put a patient under a shot to bed:
-   rest rises at the usual rate. Set the start to 1 in the settings while a shot runs: the
-   fall drops to x1, x2, x3 at once. Re-shoot a
-   patient at "fading": the label returns to "rush, 3h".
+3. **The comedown.** Speed time with the patient awake: the rest need falls the usual 0.04 an
+   hour during "rush", 0.05 after the label turns "fading" at a quarter hour, 0.06 after
+   "wearing off" at half an hour, and 0.12 in the "crash" from 1 h (the Needs tab's fall rate
+   reads x3 under the hediff's name), with Consciousness and Moving down; at 4 h the hediff is
+   gone and the fall is normal again. Put a patient under a shot to bed: rest rises at the
+   usual rate. Set the peak to 5 in the settings while a crash runs: the fall rises to x5 at
+   once, and a fresh shot's "fading" reads x1.5. Re-shoot a patient in the
+   crash: the label returns to "rush, 4h".
 4. **The heart.** Dev-give a heart attack to a colonist, a downed raider and a patient at
    "rush": the shot removes it at any stage, the message "{name}'s heart attack has stopped."
    appears top-left and jumps to the pawn, a shot is spent, and **no** adrenaline hediff is

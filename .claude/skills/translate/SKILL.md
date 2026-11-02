@@ -70,10 +70,9 @@ notes for the shim or flow edit this repo owes before continuing.
     label and `...Desc` tooltip (reload item, effect color with its three
     option labels, kit capacity, casting time (Core's `AbilityCastingTime`),
     time per wound, cooldown, range; for the shot: reload item, shot
-    capacity, duration, initial sleep fall rate (Core's need label "sleep"),
-    cooldown). Labels carry no unit: the row's value shows it, as Core's
-    short period form does (`LetterSecond`, `LetterHour`, `LetterDay`; a
-    multiplier as "x2"). Each tooltip takes one `{0}`, the default value as
+    capacity, boost duration, crash duration, cooldown). Labels carry no
+    unit: the row's value shows it, as Core's short period form does
+    (`LetterSecond`, `LetterHour`, `LetterDay`). Each tooltip takes one `{0}`, the default value as
     the row shows it (for an item, its capitalised label; for the color,
     its option label); keep it. `MDWC_DressingSummary` takes `{0}` the kit
     capacity, `{1}` the medicine's label (lowercase, in the game's own
@@ -81,9 +80,9 @@ notes for the shim or flow edit this repo owes before continuing.
     `{4}` the time per wound and `{5}` the cooldown, each already carrying
     its unit letter; `MDWC_DressingSummaryNoCooldown` takes `{0}` to `{4}`
     only. `MDWC_ShotSummary` takes `{0}` the shot capacity, `{1}` the reload
-    item's label (lowercase), `{2}` the duration with its unit letter, `{3}`
-    the level count, `{4}` the sleep fall multiplier as a bare number and
-    `{5}` the cooldown with its unit letter; `MDWC_ShotSummaryNoCooldown`
+    item's label (lowercase), `{2}` the boost duration with its unit letter,
+    `{3}` the boost's level count, `{4}` the crash duration with its unit
+    letter and `{5}` the cooldown with its unit letter; `MDWC_ShotSummaryNoCooldown`
     takes `{0}` to `{4}`. `MDWC_DefaultSuffix` keeps its leading space.
   - the mechanite dressing's runtime strings. `MDWC_NoMedicineLoaded` (the
     disabled reason) takes `{0}`, the medicine's label;

@@ -66,7 +66,7 @@ medical stat on apparel, and CE has no stimulant hediff of its own. What it does
   `ImmunityGainSpeed` are untouched; so is `HeartAttack`, which the shot removes.
 - **Suppression** (`CompSuppressable`): incoming suppression scales by `Suppressability`.
   CE's go-juice patch puts -0.5 on `GoJuiceHigh`'s stage (`Patches/Core/Drugs/Drugs.xml`);
-  `AdrenalineSuppression.xml` gives the shot's levels the same, tapered.
+  `AdrenalineSuppression.xml` gives the shot's levels the same, tapered, and its crash +0.25.
 - **Bleed and pain retunes** in XML (body-part bleed multipliers, blood-loss stages,
   per-injury infection chances) change what the patient has, not how the dressing tends it.
 
