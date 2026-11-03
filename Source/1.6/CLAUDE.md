@@ -20,10 +20,14 @@ comments cover install-path detection, the compile-only VFEP/VEF references (`VF
   (`~/dev/PersonaWeaponsUnbound/Source/1.6/Defs/PWU_Textures.cs` is the pattern). Vanilla-path
   textures are safe as plain statics.
 - **Settings override def fields, never code paths.** `MedicWarcasketSettings.ApplyToDefs` writes
-  each tunable onto its def at startup and on window close (its header lists the fields), so
+  each tunable onto its def at startup and on window close, so
   vanilla, VEF and our code read the setting through the def. Live state a write leaves behind (a
   running cooldown, kits above a lowered maximum, a mote's cached graphic) is reconciled by the
   instance on its next use, keyed on `MedicWarcasketSettings.Generation`, or by the write itself.
+  The class is one partial per window section (`Settings/Settings_<Section>.cs`, each owning
+  its fields, scribe, defaults, apply, reset and draw, its header listing the def fields it
+  writes); a new setting is a one-file edit, and a new section adds its calls to the core
+  file's fan-out.
 - **The two actives share their bases.** `Ability_MedicTargeted` (vanilla order semantics,
   Shift-click chaining, the cursor rule, the stun) and `JobDriver_MedicCast` (the walk, the
   cooldown wait, the check, the start-only binding of VEF's cast state; it finds its ability as
