@@ -471,10 +471,12 @@ public class MedicWarcasketSettings : ModSettings
     // The header's text in the medium font after its icon, a square as tall as the header; a
     // header whose texture is missing starts its text at the left edge rather than after an
     // empty slot. The tooltip covers the icon and the text only, not the empty width after them.
+    // The height is the icon's: the ability icons are full-bleed 128px art, which a square much
+    // under 48px blurs past recognition.
     private static void SectionHeader(Listing_Standard listing, string key, Texture2D icon, string tooltip, bool first = false)
     {
         const float headerGap = 4f;
-        const float headerHeight = 32f;
+        const float headerHeight = 48f;
         const float iconPad = 8f;
         if (!first)
             listing.Gap(SectionGap);

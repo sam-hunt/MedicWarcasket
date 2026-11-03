@@ -19,11 +19,6 @@ public sealed class WorkSetting
 {
     private const string Key = "Work";
 
-    // The default's word in the tooltip, in the colours of the box's states: pure green for
-    // the tick, vanilla's readable red for the cross.
-    private static readonly Color EnabledColor = Color.green;
-    private static readonly Color DisabledColor = ColorLibrary.RedReadable;
-
     private Dictionary<string, bool> overrides = [];
 
     public bool IsOpen(WorkTypeDef work) =>
@@ -48,7 +43,7 @@ public sealed class WorkSetting
     // name for it on the left and the box at the row's end; a click anywhere on the row flips
     // it. No "(default)" marker on the row: the whole row's tooltip is the work type's own
     // description, "MDWC_WorkDesc", then the default as its own paragraph with its state's
-    // word in the box's colour.
+    // word in the box's colour (ToggleSetting.StateWord).
     public void DoRows(Listing_Standard listing)
     {
         foreach (WorkTypeDef work in WorkProfile.Toggleable)
@@ -77,10 +72,7 @@ public sealed class WorkSetting
     // conversion strips them), colour tags included.
     private static string Tooltip(WorkTypeDef work, bool byDefault)
     {
-        string state = byDefault
-            ? "MDWC_WorkOpen".Translate().Colorize(EnabledColor)
-            : "MDWC_WorkBlocked".Translate().Colorize(DisabledColor);
-        string ours = "MDWC_WorkDesc".Translate().Resolve() + "\n\n" + "MDWC_WorkDefault".Translate(state).Resolve();
+        string ours = "MDWC_WorkDesc".Translate().Resolve() + "\n\n" + "MDWC_WorkDefault".Translate(ToggleSetting.StateWord(byDefault)).Resolve();
         return work.description.NullOrEmpty() ? ours : work.description + "\n\n" + ours;
     }
 }

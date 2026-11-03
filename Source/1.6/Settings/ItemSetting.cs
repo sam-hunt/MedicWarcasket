@@ -20,6 +20,9 @@ public sealed class ItemSetting
     private const float LabelShare = 0.4f;
     private const float ButtonPad = 10f;
     private const float IconPad = 4f;
+    // The icon's inset from the button's left edge, a little over IconPad on the other sides so
+    // the icon clears the button's bevel rather than sitting against it.
+    private const float IconLeftPad = 6f;
 
     private readonly string key;
     private readonly Func<ThingDef, bool> isEligible;
@@ -87,6 +90,7 @@ public sealed class ItemSetting
         if (item != null)
         {
             Rect content = buttonRect.ContractedBy(IconPad);
+            content.xMin = buttonRect.xMin + IconLeftPad;
             if (item.uiIcon != null)
             {
                 GUI.DrawTexture(content.LeftPartPixels(content.height), item.uiIcon);

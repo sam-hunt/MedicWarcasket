@@ -8,12 +8,18 @@ namespace MedicWarcasket;
 // the def field as the XML (and any patch) leaves it, read by the settings'
 // LoadDefaultsFromDefs; only an override is saved, under the key, and flipping the box back to
 // the default clears it. The row's label and tooltip are "MDWC_" + key and that with "Desc",
-// as a Tunable's are; the tooltip's one argument is the default, "on" or "off", in the colours
-// of the box's states as the work rows show theirs.
+// as a Tunable's are; the tooltip's one argument is the default's word, StateWord, which the
+// work rows' tooltips share so every box in the window names its default alike.
 public sealed class ToggleSetting
 {
-    private static readonly Color OnColor = Color.green;
-    private static readonly Color OffColor = ColorLibrary.RedReadable;
+    // A box's state as its tooltip's default names it, "enabled" or "disabled", in the colours
+    // of the box's states: pure green for the tick, vanilla's readable red for the cross.
+    private static readonly Color EnabledColor = Color.green;
+    private static readonly Color DisabledColor = ColorLibrary.RedReadable;
+
+    internal static string StateWord(bool enabled) => enabled
+        ? "MDWC_Enabled".Translate().Colorize(EnabledColor)
+        : "MDWC_Disabled".Translate().Colorize(DisabledColor);
 
     private readonly string key;
     private bool? overrideValue;
@@ -40,10 +46,7 @@ public sealed class ToggleSetting
         row.xMin += Tunable.RowIndent;
         row.xMax -= Tunable.RowEndPad;
         Widgets.DrawHighlightIfMouseover(row);
-        string state = DefaultValue
-            ? "MDWC_ToggleOn".Translate().Colorize(OnColor)
-            : "MDWC_ToggleOff".Translate().Colorize(OffColor);
-        TooltipHandler.TipRegion(row, ("MDWC_" + key + "Desc").Translate(state).Resolve());
+        TooltipHandler.TipRegion(row, ("MDWC_" + key + "Desc").Translate(StateWord(DefaultValue)).Resolve());
 
         bool on = Value;
         Widgets.CheckboxLabeled(row, ("MDWC_" + key).Translate(), ref on);
