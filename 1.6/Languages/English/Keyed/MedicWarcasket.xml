@@ -12,9 +12,9 @@
   <MDWC_TargetQuality>{0}, quality {1}</MDWC_TargetQuality>
   <MDWC_TargetCost>Wounds: {0}, kits: {1}</MDWC_TargetCost>
   <MDWC_TargetCostShort>Wounds: {0}, kits: {1} ({2} loaded)</MDWC_TargetCostShort>
-  <MDWC_KitsLoaded>Kits loaded: {0} / {1}</MDWC_KitsLoaded>
+  <MDWC_KitsLoaded>Kits: {0} / {1}</MDWC_KitsLoaded>
   <MDWC_StatSeverityPerKit>Severity per kit</MDWC_StatSeverityPerKit>
-  <MDWC_StatSeverityPerKitDesc>The total severity of injuries one kit of medicine treats, as one vanilla treatment does. A disease, infection or fresh missing part takes a whole kit.</MDWC_StatSeverityPerKitDesc>
+  <MDWC_StatSeverityPerKitDesc>The total severity of injuries one kit of medicine treats, as a single tending does. A disease, infection or fresh missing part takes a whole kit.</MDWC_StatSeverityPerKitDesc>
   <MDWC_GaugeMedicine>Medicine</MDWC_GaugeMedicine>
   <MDWC_GaugeOpenKit>Open kit: {0} left</MDWC_GaugeOpenKit>
   <MDWC_GaugeReloadTarget>Reload target: {0}</MDWC_GaugeReloadTarget>
@@ -28,7 +28,7 @@
   <MDWC_ShotsLabel>Shots: {0} / {1}</MDWC_ShotsLabel>
   <MDWC_ShotStopsHeartAttack>Stops the heart attack</MDWC_ShotStopsHeartAttack>
   <MDWC_HeartAttackStopped>{0}'s heart attack has stopped.</MDWC_HeartAttackStopped>
-  <MDWC_ShotAutocastDesc>Autocast: a shot to each patient as their dressing ends.</MDWC_ShotAutocastDesc>
+  <MDWC_ShotAutocastDesc>Autocasting gives each patient a shot as their dressing ends.</MDWC_ShotAutocastDesc>
 
   <!-- Both abilities' tooltips: the reload item is a mod setting, so the def text cannot name it -->
   <MDWC_ReloadsWith>Reloads with {0}.</MDWC_ReloadsWith>
@@ -49,7 +49,7 @@
   <MDWC_TintPink>Pink</MDWC_TintPink>
 
   <MDWC_Kits>Kit capacity</MDWC_Kits>
-  <MDWC_KitsDesc>The number of medicine kits the armor's suite holds when full. A suite already holding more than this loses the excess. Default: {0}.</MDWC_KitsDesc>
+  <MDWC_KitsDesc>The number of kits of medicine the armor's suite holds when full. A suite already holding more than this loses the excess. Default: {0}.</MDWC_KitsDesc>
 
   <MDWC_CastTime>Casting time</MDWC_CastTime>
   <MDWC_CastTimeDesc>How long the suite primes before the stream reaches the patient. The patient is held still from the start. Default: {0}.</MDWC_CastTimeDesc>
@@ -64,7 +64,7 @@
   <MDWC_RangeDesc>How close the pilot gets to the patient before starting the stream, in cells, with a clear line of sight. A range of 1.9 reaches every adjacent cell, diagonals included, and 2 reaches one cell further along a row or column. Default: {0}.</MDWC_RangeDesc>
 
   <MDWC_AIDressing>Raider medics dress the wounded</MDWC_AIDressing>
-  <MDWC_AIDressingDesc>Whether pilots not under your control, raiders and allied defenders alike, dress the wounds of downed pawns on their own side or an allied one between fights. With the shoulders worn too, a shot follows each dressing, as it does for your pilots. Your own pilots are unaffected. Default: {0}.</MDWC_AIDressingDesc>
+  <MDWC_AIDressingDesc>Whether raider and allied medics dress the downed on their own side, or an allied one, between fights. With the shoulders worn too, a shot follows each dressing, as it does for your pilots. Your own pilots are unaffected. Default: {0}.</MDWC_AIDressingDesc>
 
   <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. Each dressing is followed by {5} of cooldown.</MDWC_DressingSummary>
   <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The next can start at once.</MDWC_DressingSummaryNoCooldown>
@@ -78,19 +78,19 @@
   <MDWC_ShotAmmoDesc>The item the shoulders' injector is loaded with, one per shot: any medicine, go-juice or wake-up. Shots already loaded count as the new item. Default: {0}.</MDWC_ShotAmmoDesc>
 
   <MDWC_ShotBoost>Boost duration</MDWC_ShotBoost>
-  <MDWC_ShotBoostDesc>How long a shot's boost lasts before the crash, shared between its levels in the same proportions at any length. A shot already given keeps its own clock. Default: {0}.</MDWC_ShotBoostDesc>
+  <MDWC_ShotBoostDesc>How long a shot's boost lasts before the crash. Its levels scale with it. A shot already given keeps its own clock. Default: {0}.</MDWC_ShotBoostDesc>
 
   <MDWC_ShotCrash>Crash duration</MDWC_ShotCrash>
   <MDWC_ShotCrashDesc>How long the crash after a shot's boost lasts. A crashing patient is dull and slow, and tires quickly. A shot already given keeps its own clock. Default: {0}.</MDWC_ShotCrashDesc>
 
   <MDWC_ShotCooldown>Cooldown</MDWC_ShotCooldown>
-  <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Queued shots wait it out; the autocast skips a patient instead. Default: {0}.</MDWC_ShotCooldownDesc>
+  <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Queued shots wait it out, and an automatic shot skips the patient instead. Default: {0}.</MDWC_ShotCooldownDesc>
 
   <MDWC_AIShot>Raider medics give the shot</MDWC_AIShot>
-  <MDWC_AIShotDesc>Whether pilots not under your control, raiders and allied defenders alike, give downed pawns on their own side or an allied one an adrenaline shot between fights. A raider back on their feet rejoins the raid. Your own pilots are unaffected. Default: {0}.</MDWC_AIShotDesc>
+  <MDWC_AIShotDesc>Whether raider and allied medics give the downed on their own side, or an allied one, an adrenaline shot between fights. A raider back on their feet rejoins the raid. Your own pilots are unaffected. Default: {0}.</MDWC_AIShotDesc>
 
-  <MDWC_ShotSummary>The injector holds {0} shots, one {1} each. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster at each level and fastest in the crash. Each shot is followed by {5} of cooldown.</MDWC_ShotSummary>
-  <MDWC_ShotSummaryNoCooldown>The injector holds {0} shots, one {1} each. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster at each level and fastest in the crash. The next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
+  <MDWC_ShotSummary>The injector holds {0} shots and reloads with {1}, one per shot. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster at each level and fastest in the crash. Each shot is followed by {5} of cooldown.</MDWC_ShotSummary>
+  <MDWC_ShotSummaryNoCooldown>The injector holds {0} shots and reloads with {1}, one per shot. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster at each level and fastest in the crash. The next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
 
   <MDWC_SectionWork>Enabled work types</MDWC_SectionWork>
   <MDWC_SectionWorkDesc>The caring work types a pilot of the medic set may take on. Every other work type follows VFE Pirates' warcasket trait as your other mods leave it, so a mod that opens work for every warcasket opens it for the medic too.</MDWC_SectionWorkDesc>
