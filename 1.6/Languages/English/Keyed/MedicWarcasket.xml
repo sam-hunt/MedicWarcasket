@@ -64,10 +64,10 @@
   <MDWC_RangeDesc>How close the pilot must be to the patient to start a dressing, in cells. Line of sight is required. Default: {0}.</MDWC_RangeDesc>
 
   <MDWC_AIDressing>Raider medics dress the wounded</MDWC_AIDressing>
-  <MDWC_AIDressingDesc>When enabled, raider and allied medics will dress their own downed between fights. If they also wear the shoulders, they will give a shot after each dressing, as your pilots do. When disabled, only your own pilots use the dressing. Default: {0}.</MDWC_AIDressingDesc>
+  <MDWC_AIDressingDesc>When enabled, raider and allied medics will dress their own downed between fights, and give a shot after each dressing if they also wear the shoulders. When disabled, only your pilots use it. Default: {0}.</MDWC_AIDressingDesc>
 
-  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The cooldown after a dressing is {5}.</MDWC_DressingSummary>
-  <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The next can start at once.</MDWC_DressingSummaryNoCooldown>
+  <MDWC_DressingSummary>The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The cooldown after a dressing is {5}.</MDWC_DressingSummary>
+  <MDWC_DressingSummaryNoCooldown>The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The next can start at once.</MDWC_DressingSummaryNoCooldown>
 
   <MDWC_SectionShot>Adrenaline shot</MDWC_SectionShot>
 
@@ -87,10 +87,10 @@
   <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}.</MDWC_ShotCooldownDesc>
 
   <MDWC_AIShot>Raider medics give adrenaline shots</MDWC_AIShot>
-  <MDWC_AIShotDesc>When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a raider back on their feet will rejoin the raid. When disabled, only your own pilots use the shot. Default: {0}.</MDWC_AIShotDesc>
+  <MDWC_AIShotDesc>When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}.</MDWC_AIShotDesc>
 
-  <MDWC_ShotSummary>The injector holds {0} shots and reloads with {1}, one per shot. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, and tires faster the whole time. The cooldown after a shot is {5}.</MDWC_ShotSummary>
-  <MDWC_ShotSummaryNoCooldown>The injector holds {0} shots and reloads with {1}, one per shot. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, and tires faster the whole time. The next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
+  <MDWC_ShotSummary>The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The cooldown after a shot is {5}.</MDWC_ShotSummary>
+  <MDWC_ShotSummaryNoCooldown>The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
 
   <MDWC_SectionWork>Enabled work types</MDWC_SectionWork>
   <MDWC_SectionWorkDesc>The work types a medic pilot can do. All other work follows the warcasket trait from Vanilla Factions Expanded - Pirates, including any changes other mods make to it.</MDWC_SectionWorkDesc>
