@@ -39,8 +39,8 @@ spacer warcaskets research.
   worst first, using the medicine kits loaded in the armor's suite; the patient is held still
   until it is done. Dressings can be queued, and Shift-click chains patients. With the helmet on,
   it treats diseases and infections too
-- **Adrenaline shot**: the shoulders hold a few shots, one medical kit each; one gives a
-  person or animal, or the pilot, an adrenaline surge for a few hours, fading in levels while their sleep
+- **Adrenaline shot**: the shoulders hold a few shots, one kit of medicine each; one gives a
+  person or animal, or the pilot, an adrenaline surge for an hour, fading in levels while their sleep
   falls faster. A shot into a heart attack stops it instead. With the armor worn, the shot can
   follow every dressing automatically
 - **Mod settings** for the medicine, the effect color, the kit capacity, the casting time, the time per
