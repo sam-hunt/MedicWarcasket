@@ -10,16 +10,16 @@ The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot p
 [h2]The Set[/h2]
 Armor, shoulders and helmet, welded at the warcasket foundry and unlocked by spacer warcaskets research. Mix and match the pieces with VFE Pirates' own sets as you please.
 [list]
-[*][b]Armor:[/b] Grants mechanite dressing and leaves the pilot free to doctor: tending, surgery, feeding and rescue
-[*][b]Shoulders:[/b] Grants the adrenaline shot and faster tending, and keeps the pilot's manipulation at full
-[*][b]Helmet:[/b] Grants better tend quality, and keeps the pilot's sight at full
+[*][b]Armor:[/b] Grants mechanite dressing and leaves the pilot free to doctor: tending, surgery, feeding and rescue.
+[*][b]Shoulders:[/b] Grants the adrenaline shot and faster tending, and keeps the pilot's manipulation at full.
+[*][b]Helmet:[/b] Grants better tend quality, and keeps the pilot's sight at full.
 [/list]
 
 [h2]Mechanite dressing[/h2]
 The armor carries a suite of medicine kits. Point it at a wounded pawn and the pilot engages the suit's mechanite-powered medical array, quickly tending each wound, worst first, at the pilot's medical quality. With the helmet's diagnostic visor, disease and infection are treatable too.
 
 [h2]Adrenaline shot[/h2]
-The shoulders hold a few shots of adrenaline that can cure heart attacks or provide a last-resort measure for downed pawns to escape danger. Pain is put on hold, and the pawn gains a large movement boost for a short time. The surge fades progressively into a long crash, similar to real life. With the armor worn together, right-click/autocast administers it automatically to every patient when mechanite dressing completes.
+The shoulders hold a few shots of adrenaline that can cure heart attacks or provide a last-resort measure for downed pawns to escape danger. Pain is put on hold, and the pawn gains a large movement boost for a short time. The surge fades progressively into a long crash, similar to real life. With the armor worn, enabling autocast follows every dressing with a shot.
 
 [hr][/hr]
 [h1]Mod Compatibility[/h1]
@@ -43,7 +43,7 @@ A: Research spacer warcaskets, then weld it on at the warcasket foundry like any
 A: Abilities are fully tunable in mod settings; I put effort into picking reasonable defaults though.
 
 [b]Q: What inspired this?[/b]
-A: An arguable gap in the roster, too many dead colonists, and thousands of hours of childhood Starcraft.
+A: An opportunistic gap in the warcasket roster, too many dead colonists, and perhaps thousands of hours of childhood Starcraft.
 
 [hr][/hr]
 [h1]Links[/h1]

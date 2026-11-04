@@ -20,12 +20,6 @@ customized part by part at the foundry, with a range of sets that carries a colo
 industrial era into the late game. This mod adds one more set to that range: the Medic, a
 10th-generation spacer-tier warcasket built to keep its pilot patching up squadmates under fire.
 
-The mod is in development: the doctor passives, the mechanite dressing, the adrenaline shot,
-the descriptions and the art are in, and the set is tuned and priced against VFE Pirates' spacer
-sets; the ability sounds are still to be confirmed.
-
-Odyssey is optional.
-
 ## Features
 
 ### The Medic Set
@@ -81,13 +75,14 @@ Coming with the first release.
 
 - **Safe to add** to existing saves.
 - **Not safe to remove** from saves while a pawn is welded into the set.
-- **Combat Extended**: built-in patch. CE armor values, bulk and carry capacity in line with VFE
+- **[Combat Extended](https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044)**: built-in patch. CE armor values, bulk and carry capacity in line with VFE
   Pirates' spacer sets, a helmet sealed against CE smoke, and an adrenaline shot that resists
   suppression as go-juice does. Tending and the medicine kits need no CE patch.
-- **Vanilla Gravship Expanded**: follows its vacuum-resistance rules for warcaskets; there is no
+- **[Vanilla Gravship Expanded](https://steamcommunity.com/sharedfiles/filedetails/?id=3609835606)**: follows its vacuum-resistance rules for warcaskets; there is no
   other VGE integration.
-- **Warcaskets can work!**, **Warcaskets can haul!** and **Hardworking Warcaskets**: compatible.
-- **Save Our Ship 2 / Universum**: EVA rated under exactly the same rules as VFE Pirates' own sets.
+- **[Warcaskets can work!](https://steamcommunity.com/sharedfiles/filedetails/?id=2730151836)**, **[Warcaskets can haul!](https://steamcommunity.com/sharedfiles/filedetails/?id=2730543694)** and
+  **[Hardworking Warcaskets](https://steamcommunity.com/sharedfiles/filedetails/?id=3535194807)**: compatible.
+- **[Save Our Ship 2](https://steamcommunity.com/sharedfiles/filedetails/?id=1909914131)**: EVA rated under exactly the same rules as VFE Pirates' own sets.
 
 ## Contributing
 
