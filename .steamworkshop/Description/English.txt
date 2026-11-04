@@ -4,28 +4,28 @@ A new spacer-tier warcasket for [url=https://steamcommunity.com/sharedfiles/file
 
 [h1]About[/h1]
 
-The Medic is a 10th-generation combat-medic warcasket, built to keep its pilot patching up squadmates under fire.
+The Medic is a 10th-generation combat medic warcasket, built to keep its pilot patching up squadmates under fire.
 
 [hr][/hr]
 [h2]The Set[/h2]
-Armor, shoulders and helmet, welded at the warcasket foundry and unlocked by spacer warcaskets research. Mix and match the pieces with VFE Pirates' own sets as you please.
+Armor, shoulders and helmet, built at the warcasket foundry and unlocked by spacer warcaskets research. Mix and match the pieces with VFE Pirates' own sets as you please.
 [list]
-[*][b]Armor:[/b] Grants mechanite dressing and leaves the pilot free to doctor: tending, surgery, feeding and rescue.
+[*][b]Armor:[/b] Grants mechanite dressing, and the pilot can still do doctor work: tending, surgery, feeding and rescue.
 [*][b]Shoulders:[/b] Grants the adrenaline shot and faster tending, and keeps the pilot's manipulation at full.
 [*][b]Helmet:[/b] Grants better tend quality, and keeps the pilot's sight at full.
 [/list]
 
 [h2]Mechanite dressing[/h2]
-The armor carries a suite of medicine kits. Point it at a wounded pawn and the pilot engages the suit's mechanite-powered medical array, quickly tending each wound, worst first, at the pilot's medical quality. With the helmet's diagnostic visor, disease and infection are treatable too.
+The armor carries a suite of medicine kits. Point it at a wounded pawn and the pilot streams mechanites over them, tending each wound starting with the worst, at the pilot's own tend quality. With the helmet's diagnostic visor, it treats disease and infection too.
 
 [h2]Adrenaline shot[/h2]
-The shoulders hold a few shots of adrenaline that can cure heart attacks or provide a last-resort measure for downed pawns to escape danger. Pain is put on hold, and the pawn gains a large movement boost for a short time. The surge fades progressively into a long crash, similar to real life. With the armor worn, enabling autocast follows every dressing with a shot.
+The shoulders hold a few shots of adrenaline. A shot stops a heart attack, or gets a downed pawn back on their feet long enough to escape. Pain is put on hold, and the pawn moves and thinks faster for a short time. The surge fades progressively into a long crash, similar to real life. With the armor worn, autocast gives every patient a shot as their dressing ends.
 
 [hr][/hr]
 [h1]Mod Compatibility[/h1]
 [list]
 [*]Safe to add to existing saves.
-[*]Not safe to remove while a pawn is welded into the set.
+[*]Not safe to remove while a pawn is entombed in the set.
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]: required.
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044]Combat Extended[/url]: built-in patch, with armor, bulk and carry capacity in line with VFE Pirates' spacer sets. Adrenaline reduces suppressability.
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3609835606]Vanilla Gravship Expanded[/url]: follows its vacuum-resistance rules for warcaskets.
@@ -37,7 +37,7 @@ The shoulders hold a few shots of adrenaline that can cure heart attacks or prov
 [h1]FAQ[/h1]
 
 [b]Q: How do I get it?[/b]
-A: Research spacer warcaskets, then weld it on at the warcasket foundry like any other set.
+A: Research spacer warcaskets, then build it at the warcasket foundry like any other set.
 
 [b]Q: Is this imbalanced?[/b]
 A: Abilities are fully tunable in mod settings; I put effort into picking reasonable defaults though.
