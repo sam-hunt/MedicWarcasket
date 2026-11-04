@@ -211,6 +211,15 @@ whose `CanAddPawn(patient)` holds, `lord.AddPawn(patient)`. An allied patient, a
 medic's lord; they keep whatever they had. Done from the shot's `Apply` for a non-player
 pilot, so the dressing's shot toil gets it too.
 
+Then the rearm, after the re-add since the toil's duty refresh ends the current job: a
+patient of the medic's own faction with no primary starts vanilla's Equip
+(`JobGiver_PickupDroppedWeapon.PickupWeaponJob`, forbidden ignored, the job
+`Hediff_DeathRefusal` starts for a pawn it resurrects) on the weapon `MakeDowned` remembered
+in `mindState.droppedWeapon`, or when that is gone the nearest usable one within 8 cells.
+The reclaim node vanilla has for this sits under `ThinkNode_ConditionalColonist`, and the
+raid duties' opportunistic pickup is gated on a flag only the refugee betrayal sets, so a
+revived raider would otherwise fight bare-handed.
+
 ### 3.4 Not while fighting
 
 A medic under fire keeps shooting. Vanilla's self-tend node refuses within 300 ticks of
@@ -261,7 +270,9 @@ The three guarded messages keep their keys; nothing else the player reads change
    near them: the medic walks over, the glow and beam show, the wounds tend, no message
    appears in the player's log, and the medic returns to the assault.
 2. Give the medic the shoulders too: the shot follows the beam, the patient stands, and
-   (with the re-add) rejoins the assault rather than walking to the map edge.
+   (with the re-add) rejoins the assault rather than walking to the map edge, picking their
+   weapon back up first. Haul the weapon away before the shot: they take the nearest one
+   they can use within 8 cells, or fight unarmed if there is none.
 3. Shoulders only: the raider gives the shot and nothing else.
 4. Down a raider while the medic is being shot at: no dressing until 300 ticks after the
    last hit. Trigger the flee: the medic leaves with the raid, patient or not.
@@ -283,6 +294,7 @@ The three guarded messages keep their keys; nothing else the player reads change
 - [x] The three messages guarded for a player pilot, at the one call a non-player pilot
       reaches (`Ability_MedicTargeted.ReportsToPlayer`).
 - [x] The re-add in `Ability_AdrenalineShot.Apply` (4.2), gated on `CanAddPawn` and no lord.
+- [x] The rearm after it (`MedicAI.TryRearm`): the remembered weapon, else the nearest usable.
 - [x] Def headers updated; `Set-Tuning.md` 2.7 and `Field-Dressing.md` pointed here.
 - [x] `Tests/1.6/MedicAITests.cs`: the quiet window, the leaving toils and the preference.
 - [ ] Section 6 run in game, on 1.7 and 1.6.

@@ -29,7 +29,10 @@ namespace MedicWarcasket;
 // add itself, through Pawn_HealthTracker.CheckForStateChange) rejoins the pilot's lord when
 // they are of its faction and lordless (MedicAI.TryRejoin): a revived raider takes the raid's
 // current duty instead of walking off the map through the colony's fire as a lordless hostile
-// does. The player's own pilots never add anyone to a lord.
+// does, and goes for the weapon they dropped on going down, or the nearest they can use, before
+// taking it up (MedicAI.TryRearm, after the re-add, whose duty refresh would cut short any job
+// started before it). The player's own pilots never add anyone to a lord or send them after a
+// weapon.
 //
 // Validation, in order: a pawn with a heart attack is always valid, hostile or not, since a
 // cure-only shot stands nobody up; otherwise no pawn hostile to the pilot, downed or not,
@@ -216,7 +219,10 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
             patient.health.AddHediff(MDWC_DefOf.MDWC_Adrenaline);
         }
         if (pawn != null && pawn.Faction != Faction.OfPlayer)
+        {
             MedicAI.TryRejoin(pawn, patient);
+            MedicAI.TryRearm(pawn, patient);
+        }
         if (patient.Spawned)
             MDWC_DefOf.Ingest_Inject.PlayOneShot(new TargetInfo(patient.Position, patient.Map));
         cooldown = Find.TickManager.TicksGame + GetCooldownForPawn();

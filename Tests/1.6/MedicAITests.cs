@@ -6,8 +6,8 @@ namespace MedicWarcasket.Tests;
 
 // The raider medics' pure rules (MedicAI): the quiet window, which lord toils count as
 // leaving, and which of two patients is preferred. The toils are built bare, as their
-// constructors take no game state; the faction and lord rules need a world and are left to
-// the in-game checks (Docs/Specs/Raider-Medics.md 6).
+// constructors take no game state; the faction, lord and rearming rules need a world and are
+// left to the in-game checks (Docs/Specs/Raider-Medics.md 6).
 public class MedicAITests
 {
     private const int QuietTicks = 300;
