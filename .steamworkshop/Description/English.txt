@@ -16,12 +16,10 @@ Armor, shoulders and helmet, welded at the warcasket foundry and unlocked by spa
 [/list]
 
 [h2]Mechanite dressing[/h2]
-The armor carries a suite of kits of medicine. Point it at a wounded pawn and the pilot streams mechanites over them in blue light, tending one wound after another, worst first, at the quality the pilot would give it. The patient is held still until the last wound is done, and the pilot earns medicine experience for each one. With the helmet on, the dressing treats diseases and infections too.
-
-Dressings can be queued, and Shift-click chains several patients in a row. Drag the suite's gauge to set how full colonists keep it. The medicine it uses, the number of kits, the timings and which work the pilot may do can be changed in the mod settings.
+The armor carries a suite of medicine kits. Point it at a wounded pawn and the pilot engages the suit's mechanite-powered medical array, quickly tending each wound, worst first, at the pilot's medical quality. With the helmet's diagnostic visor, disease and infection are treatable too.
 
 [h2]Adrenaline shot[/h2]
-The shoulders hold a few shots of adrenaline, one kit of medicine each. Jab a squadmate, a pet or the pilot and they feel almost no pain and move and think faster for a while, the surge fading in levels into a long crash that leaves them dull and slow, while they tire faster than usual throughout. No addiction, no tolerance. A shot into a heart attack is spent on the heart instead and stops it outright. With the armor worn, right-click the shot to give one to every patient as their dressing ends. The shot capacity, what reloads them, the boost and crash durations and the cooldown are mod settings.
+The shoulders hold a few shots of adrenaline that can cure heart attacks or provide a last-resort measure for downed pawns to escape danger. Pain is put on hold, and the pawn gains a large movement boost for a short time. The surge fades progressively into a long crash, similar to real life. With the armor worn together, right-click/autocast administers it automatically to every patient when mechanite dressing completes.
 
 [hr][/hr]
 [h1]Mod Compatibility[/h1]
@@ -29,10 +27,10 @@ The shoulders hold a few shots of adrenaline, one kit of medicine each. Jab a sq
 [*]Safe to add to existing saves.
 [*]Not safe to remove while a pawn is welded into the set.
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]: required.
-[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1909914131]Save Our Ship 2[/url]: EVA rated under the same rules as VFE Pirates' own sets.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044]Combat Extended[/url]: built-in patch, with armor, bulk and carry capacity in line with VFE Pirates' spacer sets. Adrenaline reduces suppressability.
 [*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3609835606]Vanilla Gravship Expanded[/url]: follows its vacuum-resistance rules for warcaskets.
-[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730151836]Warcaskets can work![/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730543694]Warcaskets can haul![/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3535194807]VFE Pirates - Hardworking Warcaskets[/url]: Yes.
-[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044]Combat Extended[/url]: built-in patch, with armor, bulk and carry capacity in line with VFE Pirates' spacer sets.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730151836]Warcaskets can work![/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730543694]Warcaskets can haul![/url] and [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3535194807]Hardworking Warcaskets[/url]: Yes.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1909914131]Save Our Ship 2[/url]: EVA rated under the same rules as VFE Pirates' own sets.
 [/list]
 
 [hr][/hr]
@@ -41,6 +39,13 @@ The shoulders hold a few shots of adrenaline, one kit of medicine each. Jab a sq
 [b]Q: How do I get it?[/b]
 A: Research spacer warcaskets, then weld it on at the warcasket foundry like any other set.
 
+[b]Q: Is this imbalanced?[/b]
+A: Abilities are fully tunable in mod settings; I put effort into picking reasonable defaults though.
+
+[b]Q: What inspired this?[/b]
+A: An arguable gap in the roster, too many dead colonists, and thousands of hours of childhood Starcraft.
+
 [hr][/hr]
 [h1]Links[/h1]
 Source code, manual downloads and issue tracker: [url=https://github.com/sam-hunt/MedicWarcasket]GitHub[/url]
+Art by [url=https://steamcommunity.com/profiles/76561198094174176/myworkshopfiles/?appid=294100]IcingWithCheeseCake[/url]

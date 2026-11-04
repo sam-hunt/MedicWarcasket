@@ -20,9 +20,9 @@ customized part by part at the foundry, with a range of sets that carries a colo
 industrial era into the late game. This mod adds one more set to that range: the Medic, a
 10th-generation spacer-tier warcasket built to keep its pilot patching up squadmates under fire.
 
-The mod is in development: the doctor passives, the mechanite dressing and the adrenaline shot
-are in and the set is tuned and priced against VFE Pirates' spacer sets; the descriptions,
-sounds and art are still to come.
+The mod is in development: the doctor passives, the mechanite dressing, the adrenaline shot,
+the descriptions and the art are in, and the set is tuned and priced against VFE Pirates' spacer
+sets; the ability sounds are still to be confirmed.
 
 Odyssey is optional.
 
@@ -40,9 +40,10 @@ spacer warcaskets research.
   until it is done. Dressings can be queued, and Shift-click chains patients. With the helmet on,
   it treats diseases and infections too
 - **Adrenaline shot**: the shoulders hold a few shots, one kit of medicine each; one gives a
-  person or animal, or the pilot, an adrenaline surge for an hour, fading in levels while their sleep
-  falls faster. A shot into a heart attack stops it instead. With the armor worn, the shot can
-  follow every dressing automatically
+  person or animal, or the pilot, an hour of held-off pain and faster movement, a last resort to
+  get the downed out of danger, fading in levels into a long crash while their sleep falls faster.
+  A shot into a heart attack stops it instead. With the armor worn, autocast follows every
+  dressing with a shot
 - **Mod settings** for the medicine, the effect color, the kit capacity, the casting time, the time per
   wound, the cooldown, the range, the shot capacity, what reloads them, their boost and crash
   durations and cooldown, and which caring work (doctor, childcare) the pilot may take on
@@ -80,12 +81,13 @@ Coming with the first release.
 
 - **Safe to add** to existing saves.
 - **Not safe to remove** from saves while a pawn is welded into the set.
-- **Save Our Ship 2 / Universum**: EVA rated under exactly the same rules as VFE Pirates' own sets.
-- **Vanilla Gravship Expanded**: follows its vacuum-resistance rules for warcaskets; there is no
-  other VGE integration.
 - **Combat Extended**: built-in patch. CE armor values, bulk and carry capacity in line with VFE
   Pirates' spacer sets, a helmet sealed against CE smoke, and an adrenaline shot that resists
   suppression as go-juice does. Tending and the medicine kits need no CE patch.
+- **Vanilla Gravship Expanded**: follows its vacuum-resistance rules for warcaskets; there is no
+  other VGE integration.
+- **Warcaskets can work!**, **Warcaskets can haul!** and **Hardworking Warcaskets**: compatible.
+- **Save Our Ship 2 / Universum**: EVA rated under exactly the same rules as VFE Pirates' own sets.
 
 ## Contributing
 
@@ -98,6 +100,8 @@ For development setup, see [CLAUDE.md](CLAUDE.md).
 ## Credits
 
 **Author**: Sam Hunt ([@sam-hunt](https://github.com/sam-hunt))
+
+**Art**: [IcingWithCheeseCake](https://steamcommunity.com/profiles/76561198094174176/myworkshopfiles/?appid=294100)
 
 **Built With**:
 
