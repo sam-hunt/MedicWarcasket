@@ -3,7 +3,6 @@
 ## Pre-release
 
 - **Smoke test on 1.6**
-- **Full review of player-facing copy**
 - **Workshop images** Shipcracker and Toxin as precedent
 
 ## Post-release
