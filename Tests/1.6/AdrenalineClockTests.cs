@@ -5,7 +5,7 @@ namespace MedicWarcasket.Tests;
 // The shot's two duration settings over the hediff's clock (AdrenalineClock): the XML's
 // severityPerDay and stage thresholds read back as a boost and a crash with the boost's split,
 // and any pair of durations written back keeps that split. The stages here are the hediff's
-// own: crash 0, wearing off 0.75, fading 0.875, rush 0.9375, -6 a day from 1.
+// own: crash 0, wearing off 0.75, steady 0.875, rush 0.9375, -6 a day from 1.
 public class AdrenalineClockTests
 {
     private const float Top = 1f;

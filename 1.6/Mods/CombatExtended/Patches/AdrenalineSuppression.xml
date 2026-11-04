@@ -22,7 +22,7 @@
     </value>
   </Operation>
   <Operation Class="PatchOperationAdd">
-    <xpath>Defs/HediffDef[defName="MDWC_Adrenaline"]/stages/li[label="fading"]</xpath>
+    <xpath>Defs/HediffDef[defName="MDWC_Adrenaline"]/stages/li[label="steady"]</xpath>
     <value>
       <statOffsets>
         <Suppressability>-0.33</Suppressability>

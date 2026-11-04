@@ -47,7 +47,7 @@
   <VEF.Abilities.AbilityDef>
     <defName>MDWC_MechaniteDressing</defName>
     <label>mechanite dressing</label>
-    <description>Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds where they stand, most urgent first. Tend quality depends on the pilot's medical skill and the medicine used, and the skill sets the pace. With the medic helmet worn, it treats diseases and infections too.</description>
+    <description>Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds on the spot, worst first. Tend quality depends on the pilot's medical skill and the medicine used, and the skill sets the pace. With the medic helmet worn, it treats diseases and infections too.</description>
     <abilityClass>MedicWarcasket.Ability_MechaniteDressing</abilityClass>
     <iconPath>UI/Abilities/WarcasketMedic/MechaniteDressing</iconPath>
     <jobDef>MDWC_MechaniteDressing</jobDef>

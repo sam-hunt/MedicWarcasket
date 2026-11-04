@@ -7,7 +7,7 @@
     clock, with no tolerance and no addiction, pure XML. Hediff_High is go-juice's class and only
     shows the severity as a percentage. The shot sets severity 1, and severityPerDay -6 fades it
     in four hours. Severity falls at a constant rate, so each stage's band is its share of the
-    clock: the rush and fading a sixteenth each (a quarter hour), wearing off an eighth (half an
+    clock: the rush and steady a sixteenth each (a quarter hour), wearing off an eighth (half an
     hour), and the crash below wearing off's minSeverity 0.75 the last three quarters (three
     hours). The comp steps every 200 ticks, 0.02 of severity at this rate, and no threshold sits
     on a step, so no stage boundary hangs on a float comparison. The boost (the three levels
@@ -21,7 +21,7 @@
 
     Stages are listed ascending by minSeverity as vanilla requires, so the top level is last.
     The rush is go-juice's pain, Consciousness and Moving without its Sight; the next two taper
-    those by thirds, and no level touches Sight. The boost is a burst of half an hour, spent on
+    those by thirds, and no level touches Sight. The boost is a burst of an hour, spent on
     the fight it was given for. The crash is the cost the player feels, since rest is paid
     invisibly: no pain relief, Consciousness -0.10 and Moving -0.20 for three hours, a patient
     dulled and slowed through the afternoon after the fight. Moving is kept at -0.20 because
@@ -41,7 +41,7 @@
   <HediffDef>
     <defName>MDWC_Adrenaline</defName>
     <hediffClass>Hediff_High</hediffClass>
-    <label>adrenaline shot</label>
+    <label>adrenaline</label>
     <labelNoun>an adrenaline shot</labelNoun>
     <description>Adrenaline in the bloodstream. It dulls pain and quickens movement and thought, then fades into a long, sluggish crash. The body tires faster and faster as it wears off.</description>
     <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
@@ -87,7 +87,7 @@
         </capMods>
       </li>
       <li>
-        <label>fading</label>
+        <label>steady</label>
         <minSeverity>0.875</minSeverity>
         <painFactor>0.4</painFactor>
         <restFallFactor>1.25</restFallFactor>

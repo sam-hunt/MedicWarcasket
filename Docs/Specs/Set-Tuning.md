@@ -130,7 +130,7 @@ fill free is odd to explain.
 ### 2.3 Adrenaline: a short rush, a long crash
 
 The rush keeps go-juice's pain, Consciousness and Moving and drops its Sight, and the boost is
-a half-hour burst on a 4 h clock (rush and fading a quarter hour each, wearing off half an
+a half-hour burst on a 4 h clock (rush and steady a quarter hour each, wearing off half an
 hour). The cost is a fourth, bottom stage, a crash over the last three hours (wearing off's
 minSeverity 0.75), with Consciousness -0.10, Moving -0.20 (Consciousness feeds Moving, so the
 two stack), no pain relief and the rest ladder's top rung, x3. Pure XML. It is the one cost the player feels, since rest fall is paid

@@ -13,7 +13,7 @@
   <JobDef>
     <defName>MDWC_AdrenalineShot</defName>
     <driverClass>MedicWarcasket.JobDriver_AdrenalineShot</driverClass>
-    <reportString>giving an adrenaline shot.</reportString>
+    <reportString>giving TargetA an adrenaline shot.</reportString>
     <checkOverrideOnDamage>Never</checkOverrideOnDamage>
     <carryThingAfterJob>true</carryThingAfterJob>
   </JobDef>

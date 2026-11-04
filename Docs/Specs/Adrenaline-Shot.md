@@ -24,7 +24,7 @@ readings this draft takes of the brief, for the review to confirm or move.
 | A go-juice-like hediff that fades over 3 hours                                        | 3.2      |
 | A rest cost as the shot fades: a rest fall factor on the hediff (review: not a stage hook) | 3.2, 4   |
 | Review: the factor climbs x1, x1.25, x1.5, x3 to the crash, with no setting           | 3.2, 3.7 |
-| Review: rush and fading a quarter hour each, wearing off half an hour, a 3 h crash    | 3.2      |
+| Review: rush and steady a quarter hour each, wearing off half an hour, a 3 h crash    | 3.2      |
 | Review: boost and crash durations as two settings, the boost keeping its split        | 3.2, 3.7 |
 | Review: no Sight at any level; the crash Consciousness -0.10, Moving -0.20            | 3.2      |
 | Charge noun "shot", "charge" or whatever fits and translates                          | 3.1, 4   |
@@ -244,7 +244,7 @@ while the `restFallFactor` climbs:
 | Level (stage label) | `minSeverity` | Hours | `painFactor` | Consciousness | Moving | `restFallFactor` |
 | ------------------- | ------------- | ----- | ------------ | ------------- | ------ | ---------------- |
 | rush                | 0.9375        | 0.25  | 0.1          | +0.20         | +0.50  | 1                |
-| fading              | 0.875         | 0.25  | 0.4          | +0.13         | +0.33  | 1.25             |
+| steady              | 0.875         | 0.25  | 0.4          | +0.13         | +0.33  | 1.25             |
 | wearing off         | 0.75          | 0.5   | 0.7          | +0.07         | +0.17  | 1.5              |
 | crash               | 0             | 3     | 1            | -0.10         | -0.20  | 3                |
 
@@ -509,7 +509,7 @@ Drafts, no em dashes (player-facing):
   the bloodstream. It dulls pain and quickens movement and thought, then fades into a long,
   sluggish crash. The body tires faster and faster as it wears off." Stage
   labels "rush",
-  "fading", "wearing off", "crash".
+  "steady", "wearing off", "crash".
 - Shoulders: `chargeNoun` "shot" (vanilla prints "Shots remaining", "No shots left" and "Reload
   cost per shot: 1 medicine"); vanilla's `cooldownGerund` default joins the DefInjected set as the armor's did.
   The `shortDescription` and first paragraph gain the injector: "fitted with field-medicine
@@ -562,12 +562,12 @@ Dev mode, VFEP chain plus this mod, fresh saves:
    text mote appears. Click the pilot: no walk, the same result on the pilot, whose pain stays
    0.
 3. **The comedown.** Speed time with the patient awake: the rest need falls the usual 0.04 an
-   hour during "rush", 0.05 after the label turns "fading" at a quarter hour, 0.06 after
+   hour during "rush", 0.05 after the label turns "steady" at a quarter hour, 0.06 after
    "wearing off" at half an hour, and 0.12 in the "crash" from 1 h (the Needs tab's fall rate
    reads x3 under the hediff's name), with Consciousness and Moving down; at 4 h the hediff is
    gone and the fall is normal again. Put a patient under a shot to bed: rest rises at the
    usual rate. Set the peak to 5 in the settings while a crash runs: the fall rises to x5 at
-   once, and a fresh shot's "fading" reads x1.5. Re-shoot a patient in the
+   once, and a fresh shot's "steady" reads x1.5. Re-shoot a patient in the
    crash: the label returns to "rush, 4h".
 4. **The heart.** Dev-give a heart attack to a colonist, a downed raider and a patient at
    "rush": the shot removes it at any stage, the message "{name}'s heart attack has stopped."

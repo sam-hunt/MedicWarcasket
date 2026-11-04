@@ -13,7 +13,7 @@
   <JobDef>
     <defName>MDWC_MechaniteDressing</defName>
     <driverClass>MedicWarcasket.JobDriver_MechaniteDressing</driverClass>
-    <reportString>applying a mechanite dressing.</reportString>
+    <reportString>dressing TargetA's wounds.</reportString>
     <checkOverrideOnDamage>Never</checkOverrideOnDamage>
     <carryThingAfterJob>true</carryThingAfterJob>
   </JobDef>
