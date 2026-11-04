@@ -104,6 +104,14 @@ python3 Scripts/check-translations.py --strict
   `shunter.medicwarcasket` is ticked in the probe's settings
   (`Config/Mod_L10nProbe_L10nProbeMod.xml`); the probe only dumps ticked
   mods.
+- Player text register: diff the English player-facing text since the last
+  stable tag (Keyed, def labels and descriptions, `About.xml`, the English
+  Workshop page) and read every changed string against
+  `l10n/languages/English.md` § 2. The checker's `[player text]` warnings
+  cover the mechanical tells and fail this step under `--strict`; this read
+  covers the judgment ones (a sentence frame repeated across strings,
+  telegraphese, tricolons, coinages). Fix the English before any translation
+  step, since a tell in the English ships in every language.
 - If the diff shows **added or changed keys**, translate them in every
   language now (the `translate` skill's update pass), then rerun the checker.
   Keys from a compat root's defs (`1.6/Mods/<Mod Name>/`) belong in that

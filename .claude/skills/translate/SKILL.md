@@ -37,10 +37,13 @@ and only these** (progressive disclosure; if `l10n/` is empty, run
   here: a change is made upstream first, then every set's shipped files
   follow.
 - `l10n/lessons.md`, cross-language lessons; read when generating a new
-  language, skim otherwise. Its free-prose register lesson applies with
-  full force here: the three descriptions are lore paragraphs with no
-  vanilla sentence to mirror, so a separate register read of every
-  description and Workshop sentence is part of every pass.
+  language, skim otherwise. `l10n/process.md` § Register applies with full
+  force here: the three descriptions are lore paragraphs with no vanilla
+  sentence to mirror, so the register read of every description and
+  Workshop sentence, by a fresh subagent that sees only the target text and
+  the language file's "Generated-text tells" section, is part of every
+  pass, and a pass that finds that section still a stub fills it from the
+  tar and commits it upstream.
 - `l10n/workshop.md`, the `.steamworkshop/` conventions, whenever the pass
   touches the Workshop description (every initial generation does).
 

@@ -85,8 +85,11 @@ LoadFolders.xml   Load roots per game version, compat roots gated by package id
 
 - **One def per file**, named after the def with the `MDWC_` prefix stripped.
 - **Log with the `[Medic Warcasket]` prefix.** Root namespace `MedicWarcasket`.
-- **No em dashes in player-facing text** (labels, descriptions, `Keyed/`, `About.xml`); reflow
-  the sentence. Code comments, def comments and these guides are unaffected.
+- **Player-facing text follows `l10n/languages/English.md`** (def labels and descriptions,
+  `Keyed/`, `About.xml`, `.steamworkshop/`): read it before writing or changing any. Its
+  mechanical rules (no dashes, semicolons, "Whether" openers or parenthetical asides) are
+  checked by `Scripts/check-translations.py` as `[player text]` warnings, which `--strict` turns
+  into release errors. Code comments, def comments and these guides are unaffected.
 - **Settings override def fields, never code paths**, written onto the defs at startup and on
   window close, so defaults come from the XML and the def header stays the record.
 - **Every startup read or write of defs goes through `Startup.Run`**, idempotent and re-run on
