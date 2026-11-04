@@ -15,6 +15,7 @@
   <MDWC_KitsLoaded>Kits loaded: {0} / {1}</MDWC_KitsLoaded>
   <MDWC_StatSeverityPerKit>Severity per kit</MDWC_StatSeverityPerKit>
   <MDWC_StatSeverityPerKitDesc>The total severity of injuries one kit of medicine treats, as one vanilla treatment does. A disease, infection or fresh missing part takes a whole kit.</MDWC_StatSeverityPerKitDesc>
+  <MDWC_GaugeMedicine>Medicine</MDWC_GaugeMedicine>
   <MDWC_GaugeOpenKit>Open kit: {0} left</MDWC_GaugeOpenKit>
   <MDWC_GaugeReloadTarget>Reload target: {0}</MDWC_GaugeReloadTarget>
   <MDWC_GaugeNeverReload>Never reload.</MDWC_GaugeNeverReload>

@@ -95,7 +95,7 @@ public class Gizmo_DressingSuite : Gizmo_Slider
     protected override string GetTooltip()
     {
         var tip = new StringBuilder();
-        tip.Append("MDWC_Medicine".Translate().Resolve().Colorize(ColoredText.TipSectionTitleColor));
+        tip.Append("MDWC_GaugeMedicine".Translate().Resolve().Colorize(ColoredText.TipSectionTitleColor));
         tip.Append(": ").Append(suite.LabelAvailable);
         if (suite.HasOpenKit)
         {
