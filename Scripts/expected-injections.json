@@ -20,7 +20,7 @@
   "defInjections": {
     "HediffDef": {
       "MDWC_Adrenaline.description": {
-        "english": "Adrenaline in the bloodstream. It dulls pain and quickens movement and thought, then fades into a long, sluggish crash. The body tires faster and faster as it wears off.",
+        "english": "Adrenaline in the bloodstream. It dulls pain and quickens movement and thought, then gives way to a long crash. The body tires faster and faster as it wears off.",
         "required": true
       },
       "MDWC_Adrenaline.label": {
@@ -76,7 +76,7 @@
         "required": true
       },
       "MDWC_WarcasketHelmet_Medic.description": {
-        "english": "Specialized spacer-tech warcasket helmet with standard protection, fitted with a medical assist and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and gave them to veterans who could no longer serve any other way. The Medic was its rig for the surgeons who had served beside them.\n\nThe shell's dressing suite tends a squadmate's wounds where they fall, the pauldrons' injector keeps them on their feet a while longer, and the helmet's visor diagnoses what no bandage treats. Plating and shield are the generation's standard, so a Medic fights a step behind the line, and a squad that fields one holds out long after its bandages run out.",
+        "english": "Specialized spacer-tech warcasket helmet with standard protection, equipped with a medical assistance module and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and gave them to veterans who could no longer serve any other way. The Medic was its rig for the surgeons who had served beside them.\n\nThe shell's dressing suite tends a squadmate's wounds where they fall, the pauldrons' injector keeps them on their feet a while longer, and the helmet's visor diagnoses what no bandage treats. Plating and shield are the generation's standard, so a Medic fights a step behind the line, and a squad that fields one holds out long after its bandages run out.",
         "required": true
       },
       "MDWC_WarcasketHelmet_Medic.label": {
@@ -84,7 +84,7 @@
         "required": true
       },
       "MDWC_WarcasketHelmet_Medic.shortDescription": {
-        "english": "Specialized spacer-tech warcasket helmet with standard protection, fitted with a medical assist and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds.",
+        "english": "Specialized spacer-tech warcasket helmet with standard protection, equipped with a medical assistance module and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds.",
         "required": true
       },
       "MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun": {
@@ -98,7 +98,7 @@
         "normalized": "MDWC_WarcasketShoulders_Medic.comps.2.cooldownGerund"
       },
       "MDWC_WarcasketShoulders_Medic.description": {
-        "english": "Specialized spacer-tech warcasket pauldrons with standard protection, fitted with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and gave them to veterans who could no longer serve any other way. The Medic was its rig for the surgeons who had served beside them.\n\nThe shell's dressing suite tends a squadmate's wounds where they fall, the pauldrons' injector keeps them on their feet a while longer, and the helmet's visor diagnoses what no bandage treats. Plating and shield are the generation's standard, so a Medic fights a step behind the line, and a squad that fields one holds out long after its bandages run out.",
+        "english": "Specialized spacer-tech warcasket pauldrons with standard protection, equipped with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and gave them to veterans who could no longer serve any other way. The Medic was its rig for the surgeons who had served beside them.\n\nThe shell's dressing suite tends a squadmate's wounds where they fall, the pauldrons' injector keeps them on their feet a while longer, and the helmet's visor diagnoses what no bandage treats. Plating and shield are the generation's standard, so a Medic fights a step behind the line, and a squad that fields one holds out long after its bandages run out.",
         "required": true
       },
       "MDWC_WarcasketShoulders_Medic.label": {
@@ -106,7 +106,7 @@
         "required": true
       },
       "MDWC_WarcasketShoulders_Medic.shortDescription": {
-        "english": "Specialized spacer-tech warcasket pauldrons with standard protection, fitted with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending.",
+        "english": "Specialized spacer-tech warcasket pauldrons with standard protection, equipped with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending.",
         "required": true
       },
       "MDWC_Warcasket_Medic.comps.CompDressingSuite.chargeNoun": {
@@ -124,7 +124,7 @@
         "normalized": "MDWC_Warcasket_Medic.comps.5.shieldTexPath"
       },
       "MDWC_Warcasket_Medic.description": {
-        "english": "Specialized spacer-tech warcasket shell with standard protection, fitted with a mechanite dressing suite that breaks loaded medicine down into carrier mechanites and streams them onto a patient's wounds.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and gave them to veterans who could no longer serve any other way. The Medic was its rig for the surgeons who had served beside them.\n\nThe shell's dressing suite tends a squadmate's wounds where they fall, the pauldrons' injector keeps them on their feet a while longer, and the helmet's visor diagnoses what no bandage treats. Plating and shield are the generation's standard, so a Medic fights a step behind the line, and a squad that fields one holds out long after its bandages run out.",
+        "english": "Specialized spacer-tech warcasket shell with standard protection, equipped with a mechanite dressing suite that breaks loaded medicine down into carrier mechanites and streams them onto a patient's wounds.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and gave them to veterans who could no longer serve any other way. The Medic was its rig for the surgeons who had served beside them.\n\nThe shell's dressing suite tends a squadmate's wounds where they fall, the pauldrons' injector keeps them on their feet a while longer, and the helmet's visor diagnoses what no bandage treats. Plating and shield are the generation's standard, so a Medic fights a step behind the line, and a squad that fields one holds out long after its bandages run out.",
         "required": true
       },
       "MDWC_Warcasket_Medic.label": {
@@ -132,13 +132,13 @@
         "required": true
       },
       "MDWC_Warcasket_Medic.shortDescription": {
-        "english": "Specialized spacer-tech warcasket shell with standard protection, fitted with a mechanite dressing suite that breaks loaded medicine down into carrier mechanites and streams them onto a patient's wounds.",
+        "english": "Specialized spacer-tech warcasket shell with standard protection, equipped with a mechanite dressing suite that breaks loaded medicine down into carrier mechanites and streams them onto a patient's wounds.",
         "required": true
       }
     },
     "TraitDef": {
       "MDWC_WarcasketTrait_Medic.degreeDatas.warcasket.description": {
-        "english": "{PAWN_nameDef} is entombed in a warcasket. Pain has no effect on {PAWN_objective}, and {PAWN_pronoun} can never go into pain shock or drop unconscious from it.\n\nBuilt for treating the wounded, the suit leaves {PAWN_objective} free to doctor, but it is too bulky for most other work.",
+        "english": "{PAWN_nameDef} is entombed in a warcasket. No amount of pain will have an effect on {PAWN_objective}, and {PAWN_pronoun} can never go into a pain shock or drop unconscious due to pain. Because of how bulky the armor is and how much energy it takes to use it, {PAWN_nameDef} is not capable of most work, but can still do doctor work.",
         "required": true,
         "normalized": "MDWC_WarcasketTrait_Medic.degreeDatas.0.description"
       },
@@ -150,7 +150,7 @@
     },
     "VEF.Abilities.AbilityDef": {
       "MDWC_AdrenalineShot.description": {
-        "english": "Inject a nearby person or animal with a dose of adrenaline. For a short while they feel almost no pain and move and think faster. A long crash follows, leaving them dull and slow for hours, and they tire faster throughout. On a patient with a heart attack the shot is spent on the heart instead.",
+        "english": "Inject a nearby person or animal with a dose of adrenaline. For a short while they feel almost no pain and move and think faster. Afterward they will crash for hours, becoming dull and slow, and they tire faster throughout. If the target is having a heart attack, the shot will stop it instead.",
         "required": true
       },
       "MDWC_AdrenalineShot.iconPath": {
@@ -169,7 +169,7 @@
         "required": true
       },
       "MDWC_MechaniteDressing.description": {
-        "english": "Stream medicine-laden mechanites onto a nearby person or animal to tend their wounds on the spot, worst first. Tend quality depends on the pilot's medical skill and the medicine used, and the skill sets the pace. With the medic helmet worn, it treats diseases and infections too.",
+        "english": "Stream mechanites carrying medicine onto a nearby person or animal to tend their wounds on the spot, starting with the worst. Tend quality depends on the pilot's medical skill and the medicine loaded, and higher skill tends faster. With the medic helmet, it can also treat diseases and infections.",
         "required": true
       },
       "MDWC_MechaniteDressing.iconPath": {

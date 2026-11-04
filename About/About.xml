@@ -4,9 +4,9 @@
   <author>Sam Hunt</author>
   <packageId>shunter.medicwarcasket</packageId>
   <modVersion>0.1.0</modVersion>
-  <description>Adds the Medic, a spacer-tier combat-medic warcasket for VFE Pirates, welded at the warcasket foundry like any other set.
+  <description>Adds the Medic, a spacer-tier combat medic warcasket for Vanilla Factions Expanded - Pirates, built at the warcasket foundry like any other set.
 
-The armor streams mechanites over a wounded squadmate and tends every wound on the spot. The shoulders hold adrenaline shots that keep the wounded on their feet a while longer, and the helmet lets the dressing treat disease and infection too. The pilot stays free to doctor.
+The armor streams mechanites over a wounded squadmate and tends every wound on the spot. The shoulders hold adrenaline shots that keep the wounded on their feet a while longer, and the helmet lets the dressing treat disease and infection too. The pilot can still do doctor work.
 
 Supports CE, Vanilla Gravship Expanded, SOS2.</description>
   <supportedVersions>

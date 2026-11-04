@@ -3,9 +3,9 @@
 
   <!-- Mechanite dressing (Source/1.6/Abilities/Ability_MechaniteDressing.cs, Source/1.6/Comps/, Source/1.6/Gizmos/) -->
   <MDWC_NoMedicineLoaded>No {0} loaded.</MDWC_NoMedicineLoaded>
-  <MDWC_NoWoundsToDress>{0} has no wounds to dress.</MDWC_NoWoundsToDress>
-  <MDWC_NothingToTreat>{0} has nothing to treat.</MDWC_NothingToTreat>
-  <MDWC_HostileTarget>{0} is hostile and still up.</MDWC_HostileTarget>
+  <MDWC_NoWoundsToDress>{0} has no wounds to tend.</MDWC_NoWoundsToDress>
+  <MDWC_NothingToTreat>{0} has nothing to tend.</MDWC_NothingToTreat>
+  <MDWC_HostileTarget>{0} is hostile.</MDWC_HostileTarget>
   <MDWC_WoundsTendedPartial>Interrupted: {0} of {1} wounds tended</MDWC_WoundsTendedPartial>
   <MDWC_WoundsTendedDry>Out of {0}: {1} of {2} wounds tended</MDWC_WoundsTendedDry>
   <MDWC_BeamBroken>Stream broken: {0} of {1} wounds tended</MDWC_BeamBroken>
@@ -14,21 +14,21 @@
   <MDWC_TargetCostShort>Wounds: {0}, kits: {1} ({2} loaded)</MDWC_TargetCostShort>
   <MDWC_KitsLoaded>Kits: {0} / {1}</MDWC_KitsLoaded>
   <MDWC_StatSeverityPerKit>Severity per kit</MDWC_StatSeverityPerKit>
-  <MDWC_StatSeverityPerKitDesc>The total severity of injuries one kit of medicine treats, as a single tending does. A disease, infection or fresh missing part takes a whole kit.</MDWC_StatSeverityPerKitDesc>
+  <MDWC_StatSeverityPerKitDesc>The total injury severity one kit of medicine can tend, the same as a single tending. A disease, infection or missing body part uses a whole kit.</MDWC_StatSeverityPerKitDesc>
   <MDWC_GaugeMedicine>Medicine</MDWC_GaugeMedicine>
   <MDWC_GaugeOpenKit>Open kit: {0} left</MDWC_GaugeOpenKit>
   <MDWC_GaugeReloadTarget>Reload target: {0}</MDWC_GaugeReloadTarget>
   <MDWC_GaugeNeverReload>Never reload.</MDWC_GaugeNeverReload>
-  <MDWC_GaugeKitDesc>Each kit treats up to {0} severity of injuries, or one disease, infection or fresh missing part.</MDWC_GaugeKitDesc>
+  <MDWC_GaugeKitDesc>Each kit tends up to {0} injury severity, or one disease, infection or missing body part.</MDWC_GaugeKitDesc>
 
   <!-- Adrenaline shot (Source/1.6/Abilities/Ability_AdrenalineShot.cs) -->
   <MDWC_NoShotsLoaded>No shots loaded.</MDWC_NoShotsLoaded>
   <MDWC_ShotHostile>{0} is hostile.</MDWC_ShotHostile>
-  <MDWC_ShotAlreadyRushing>{0} is already running on adrenaline.</MDWC_ShotAlreadyRushing>
+  <MDWC_ShotAlreadyRushing>{0} already has an adrenaline shot.</MDWC_ShotAlreadyRushing>
   <MDWC_ShotsLabel>Shots: {0} / {1}</MDWC_ShotsLabel>
   <MDWC_ShotStopsHeartAttack>Stops the heart attack</MDWC_ShotStopsHeartAttack>
   <MDWC_HeartAttackStopped>{0}'s heart attack has stopped.</MDWC_HeartAttackStopped>
-  <MDWC_ShotAutocastDesc>Autocasting gives each patient a shot as their dressing ends.</MDWC_ShotAutocastDesc>
+  <MDWC_ShotAutocastDesc>When autocast is enabled, each patient gets a shot as their dressing ends.</MDWC_ShotAutocastDesc>
 
   <!-- Both abilities' tooltips: the reload item is a mod setting, so the def text cannot name it -->
   <MDWC_ReloadsWith>Reloads with {0}.</MDWC_ReloadsWith>
@@ -40,64 +40,64 @@
   <MDWC_SectionDressing>Mechanite dressing</MDWC_SectionDressing>
 
   <MDWC_Medicine>Reload item</MDWC_Medicine>
-  <MDWC_MedicineDesc>The medicine the armor's suite is loaded with, one per kit. Tend quality depends on its medical potency and tend quality maximum. Kits already loaded count as the new medicine. Default: {0}.</MDWC_MedicineDesc>
+  <MDWC_MedicineDesc>The medicine loaded into the armor, one per kit. Better medicine gives higher tend quality. Default: {0}.</MDWC_MedicineDesc>
 
   <MDWC_Tint>Effect color</MDWC_Tint>
-  <MDWC_TintDesc>The color of the dressing's glow, stream and overlay, and of the suite's gauge. A dressing already running keeps its color until it ends. Default: {0}.</MDWC_TintDesc>
+  <MDWC_TintDesc>The color of the dressing's effects and of the medicine gauge. Default: {0}.</MDWC_TintDesc>
   <MDWC_TintDefault>Blue</MDWC_TintDefault>
   <MDWC_TintGreen>Green</MDWC_TintGreen>
   <MDWC_TintPink>Pink</MDWC_TintPink>
 
   <MDWC_Kits>Kit capacity</MDWC_Kits>
-  <MDWC_KitsDesc>The number of kits of medicine the armor's suite holds when full. A suite already holding more than this loses the excess. Default: {0}.</MDWC_KitsDesc>
+  <MDWC_KitsDesc>The number of medicine kits the armor holds when full. Default: {0}.</MDWC_KitsDesc>
 
   <MDWC_CastTime>Casting time</MDWC_CastTime>
-  <MDWC_CastTimeDesc>How long the suite primes before the stream reaches the patient. The patient is held still from the start. Default: {0}.</MDWC_CastTimeDesc>
+  <MDWC_CastTimeDesc>How long the pilot takes to start a dressing. The patient is held still while it is cast. Default: {0}.</MDWC_CastTimeDesc>
 
   <MDWC_TendInterval>Time per wound</MDWC_TendInterval>
-  <MDWC_TendIntervalDesc>How long the stream spends on each wound or illness at normal tend speed. Medical skill and the medic shoulders shorten it, and an unskilled pilot takes up to twice as long. A patient with more to treat is held longer. Default: {0}.</MDWC_TendIntervalDesc>
+  <MDWC_TendIntervalDesc>The time spent on each wound or illness at normal medical tend speed. Higher medical skill and the medic shoulders tend faster. Default: {0}.</MDWC_TendIntervalDesc>
 
   <MDWC_Cooldown>Cooldown</MDWC_Cooldown>
-  <MDWC_CooldownDesc>The time the pilot must wait after a dressing before starting another. Queued dressings wait it out. Default: {0}.</MDWC_CooldownDesc>
+  <MDWC_CooldownDesc>The time the pilot must wait after a dressing before starting another. Default: {0}.</MDWC_CooldownDesc>
 
   <MDWC_Range>Range</MDWC_Range>
-  <MDWC_RangeDesc>How close the pilot gets to the patient before starting the stream, in cells, with a clear line of sight. A range of 1.9 reaches every adjacent cell, diagonals included, and 2 reaches one cell further along a row or column. Default: {0}.</MDWC_RangeDesc>
+  <MDWC_RangeDesc>How close the pilot must be to the patient to start a dressing, in cells. Line of sight is required. Default: {0}.</MDWC_RangeDesc>
 
   <MDWC_AIDressing>Raider medics dress the wounded</MDWC_AIDressing>
-  <MDWC_AIDressingDesc>Whether raider and allied medics dress the downed on their own side, or an allied one, between fights. With the shoulders worn too, a shot follows each dressing, as it does for your pilots. Your own pilots are unaffected. Default: {0}.</MDWC_AIDressingDesc>
+  <MDWC_AIDressingDesc>When enabled, raider and allied medics will dress their own downed between fights. If they also wear the shoulders, they will give a shot after each dressing, as your pilots do. When disabled, only your own pilots use the dressing. Default: {0}.</MDWC_AIDressingDesc>
 
-  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. Each dressing is followed by {5} of cooldown.</MDWC_DressingSummary>
+  <MDWC_DressingSummary>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The cooldown after a dressing is {5}.</MDWC_DressingSummary>
   <MDWC_DressingSummaryNoCooldown>The suite holds up to {0} kits of {1}, each treating {2} severity of injuries or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The next can start at once.</MDWC_DressingSummaryNoCooldown>
 
   <MDWC_SectionShot>Adrenaline shot</MDWC_SectionShot>
 
   <MDWC_Shots>Shot capacity</MDWC_Shots>
-  <MDWC_ShotsDesc>The number of shots the shoulders' injector holds when full. Shoulders already holding more than this lose the excess. Default: {0}.</MDWC_ShotsDesc>
+  <MDWC_ShotsDesc>The number of shots the shoulders hold when full. Default: {0}.</MDWC_ShotsDesc>
 
   <MDWC_ShotAmmo>Reload item</MDWC_ShotAmmo>
-  <MDWC_ShotAmmoDesc>The item the shoulders' injector is loaded with, one per shot: any medicine, go-juice or wake-up. Shots already loaded count as the new item. Default: {0}.</MDWC_ShotAmmoDesc>
+  <MDWC_ShotAmmoDesc>The item loaded into the shoulders, one per shot. Any medicine, go-juice or wake-up will do. Default: {0}.</MDWC_ShotAmmoDesc>
 
   <MDWC_ShotBoost>Boost duration</MDWC_ShotBoost>
-  <MDWC_ShotBoostDesc>How long a shot's boost lasts before the crash. Its levels scale with it. A shot already given keeps its own clock. Default: {0}.</MDWC_ShotBoostDesc>
+  <MDWC_ShotBoostDesc>How long the adrenaline lasts before the crash. Default: {0}.</MDWC_ShotBoostDesc>
 
   <MDWC_ShotCrash>Crash duration</MDWC_ShotCrash>
-  <MDWC_ShotCrashDesc>How long the crash after a shot's boost lasts. A crashing patient is dull and slow, and tires quickly. A shot already given keeps its own clock. Default: {0}.</MDWC_ShotCrashDesc>
+  <MDWC_ShotCrashDesc>How long the crash lasts. A crashing patient will be dull, slow and quick to tire. Default: {0}.</MDWC_ShotCrashDesc>
 
   <MDWC_ShotCooldown>Cooldown</MDWC_ShotCooldown>
-  <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Queued shots wait it out, and an automatic shot skips the patient instead. Default: {0}.</MDWC_ShotCooldownDesc>
+  <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}.</MDWC_ShotCooldownDesc>
 
-  <MDWC_AIShot>Raider medics give the shot</MDWC_AIShot>
-  <MDWC_AIShotDesc>Whether raider and allied medics give the downed on their own side, or an allied one, an adrenaline shot between fights. A raider back on their feet rejoins the raid. Your own pilots are unaffected. Default: {0}.</MDWC_AIShotDesc>
+  <MDWC_AIShot>Raider medics give adrenaline shots</MDWC_AIShot>
+  <MDWC_AIShotDesc>When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a raider back on their feet will rejoin the raid. When disabled, only your own pilots use the shot. Default: {0}.</MDWC_AIShotDesc>
 
-  <MDWC_ShotSummary>The injector holds {0} shots and reloads with {1}, one per shot. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster at each level and fastest in the crash. Each shot is followed by {5} of cooldown.</MDWC_ShotSummary>
-  <MDWC_ShotSummaryNoCooldown>The injector holds {0} shots and reloads with {1}, one per shot. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster at each level and fastest in the crash. The next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
+  <MDWC_ShotSummary>The injector holds {0} shots and reloads with {1}, one per shot. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, and tires faster the whole time. The cooldown after a shot is {5}.</MDWC_ShotSummary>
+  <MDWC_ShotSummaryNoCooldown>The injector holds {0} shots and reloads with {1}, one per shot. A shot's boost lasts {2} over {3} levels, then the patient crashes for {4}, and tires faster the whole time. The next shot can follow at once.</MDWC_ShotSummaryNoCooldown>
 
   <MDWC_SectionWork>Enabled work types</MDWC_SectionWork>
-  <MDWC_SectionWorkDesc>The caring work types a pilot of the medic set may take on. Every other work type follows VFE Pirates' warcasket trait as your other mods leave it, so a mod that opens work for every warcasket opens it for the medic too.</MDWC_SectionWorkDesc>
-  <MDWC_WorkDesc>Whether a pilot of the medic set can do this work. A change reaches entombed pilots at once; newly enabled work starts unassigned in the Work tab.</MDWC_WorkDesc>
+  <MDWC_SectionWorkDesc>The work types a medic pilot can do. All other work follows the warcasket trait from Vanilla Factions Expanded - Pirates, including any changes other mods make to it.</MDWC_SectionWorkDesc>
+  <MDWC_WorkDesc>When enabled, medic pilots can do this work. The change applies to pilots who are already entombed. Newly enabled work starts unassigned in the Work tab.</MDWC_WorkDesc>
   <MDWC_WorkDefault>Default: {0}.</MDWC_WorkDefault>
-  <MDWC_WorkSummary>The pilot can take on {0} work. All other work follows VFE Pirates' warcasket rules.</MDWC_WorkSummary>
-  <MDWC_WorkSummaryNone>The pilot takes on no caring work. All other work follows VFE Pirates' warcasket rules.</MDWC_WorkSummaryNone>
+  <MDWC_WorkSummary>The pilot can do {0} work. All other work follows the VFE Pirates warcasket trait.</MDWC_WorkSummary>
+  <MDWC_WorkSummaryNone>The pilot does no caring work. All other work follows the VFE Pirates warcasket trait.</MDWC_WorkSummaryNone>
 
   <MDWC_DefaultSuffix> (default)</MDWC_DefaultSuffix>
   <MDWC_Enabled>enabled</MDWC_Enabled>

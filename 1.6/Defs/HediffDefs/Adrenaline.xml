@@ -43,7 +43,7 @@
     <hediffClass>Hediff_High</hediffClass>
     <label>adrenaline</label>
     <labelNoun>an adrenaline shot</labelNoun>
-    <description>Adrenaline in the bloodstream. It dulls pain and quickens movement and thought, then fades into a long, sluggish crash. The body tires faster and faster as it wears off.</description>
+    <description>Adrenaline in the bloodstream. It dulls pain and quickens movement and thought, then gives way to a long crash. The body tires faster and faster as it wears off.</description>
     <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
     <isBad>false</isBad>
     <everCurableByItem>false</everCurableByItem>
