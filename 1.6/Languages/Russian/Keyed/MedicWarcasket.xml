@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Mechanite dressing (Source/1.6/Abilities/Ability_MechaniteDressing.cs, Source/1.6/Comps/, Source/1.6/Gizmos/) -->
+  <!-- EN: No {0} loaded. -->
+  <MDWC_NoMedicineLoaded>В броне нет {lookup: {0}; Case; 1}.</MDWC_NoMedicineLoaded>
+  <!-- EN: {0} has no wounds to tend. -->
+  <MDWC_NoWoundsToDress>У {0} нет ран, требующих лечения.</MDWC_NoWoundsToDress>
+  <!-- EN: {0} has nothing to tend. -->
+  <MDWC_NothingToTreat>{0} не требует лечения.</MDWC_NothingToTreat>
+  <!-- EN: {0} is hostile. -->
+  <MDWC_HostileTarget>Цель враждебна: {0}.</MDWC_HostileTarget>
+  <!-- EN: Interrupted: {0} of {1} wounds tended -->
+  <MDWC_WoundsTendedPartial>Прервано: перевязано ран {0} из {1}</MDWC_WoundsTendedPartial>
+  <!-- EN: Out of {0}: {1} of {2} wounds tended -->
+  <MDWC_WoundsTendedDry>Нет {lookup: {0}; Case; 1}: перевязано ран {1} из {2}</MDWC_WoundsTendedDry>
+  <!-- EN: Stream broken: {0} of {1} wounds tended -->
+  <MDWC_BeamBroken>Поток механитов прерван: перевязано ран {0} из {1}</MDWC_BeamBroken>
+  <!-- EN: {0}, quality {1} -->
+  <MDWC_TargetQuality>{0}, качество лечения {1}</MDWC_TargetQuality>
+  <!-- EN: Wounds: {0}, kits: {1} -->
+  <MDWC_TargetCost>Ран: {0}, аптечек: {1}</MDWC_TargetCost>
+  <!-- EN: Wounds: {0}, kits: {1} ({2} loaded) -->
+  <MDWC_TargetCostShort>Ран: {0}, аптечек: {1} (заряжено {2})</MDWC_TargetCostShort>
+  <!-- EN: Kits: {0} / {1} -->
+  <MDWC_KitsLoaded>Аптечки: {0} / {1}</MDWC_KitsLoaded>
+  <!-- EN: Severity per kit -->
+  <MDWC_StatSeverityPerKit>Тяжесть ранений на аптечку</MDWC_StatSeverityPerKit>
+  <!-- EN: The total injury severity one kit of medicine can tend, the same as a single tending. A disease, infection or missing body part uses a whole kit. -->
+  <MDWC_StatSeverityPerKitDesc>Общая тяжесть ранений, которую лечит одна аптечка. Считается так же, как при обычном лечении. На болезнь, заражение или отсутствующую часть тела уходит целая аптечка.</MDWC_StatSeverityPerKitDesc>
+  <!-- EN: Medicine -->
+  <MDWC_GaugeMedicine>Медикаменты</MDWC_GaugeMedicine>
+  <!-- EN: Open kit: {0} left -->
+  <MDWC_GaugeOpenKit>Открытая аптечка: осталось {0}</MDWC_GaugeOpenKit>
+  <!-- EN: Reload target: {0} -->
+  <MDWC_GaugeReloadTarget>Перезаряжать до: {0}</MDWC_GaugeReloadTarget>
+  <!-- EN: Never reload. -->
+  <MDWC_GaugeNeverReload>Не перезаряжать.</MDWC_GaugeNeverReload>
+  <!-- EN: Each kit tends up to {0} injury severity, or one disease, infection or missing body part. -->
+  <MDWC_GaugeKitDesc>Каждая аптечка лечит до {0} ед. тяжести ранений либо одну болезнь, заражение или отсутствующую часть тела.</MDWC_GaugeKitDesc>
+
+  <!-- Adrenaline shot (Source/1.6/Abilities/Ability_AdrenalineShot.cs) -->
+  <!-- EN: No shots loaded. -->
+  <MDWC_NoShotsLoaded>В наплечниках нет уколов.</MDWC_NoShotsLoaded>
+  <!-- EN: {0} is hostile. -->
+  <MDWC_ShotHostile>Цель враждебна: {0}.</MDWC_ShotHostile>
+  <!-- EN: {0} already has an adrenaline shot. -->
+  <MDWC_ShotAlreadyRushing>{0} уже под действием адреналина.</MDWC_ShotAlreadyRushing>
+  <!-- EN: Shots: {0} / {1} -->
+  <MDWC_ShotsLabel>Уколы: {0} / {1}</MDWC_ShotsLabel>
+  <!-- EN: Stops the heart attack -->
+  <MDWC_ShotStopsHeartAttack>Остановит сердечный приступ</MDWC_ShotStopsHeartAttack>
+  <!-- EN: {0}'s heart attack has stopped. -->
+  <MDWC_HeartAttackStopped>Сердечный приступ у {0} прекратился.</MDWC_HeartAttackStopped>
+  <!-- EN: When autocast is enabled, each patient gets a shot as their dressing ends. -->
+  <MDWC_ShotAutocastDesc>Если автоприменение включено, каждый пациент получит укол по окончании перевязки.</MDWC_ShotAutocastDesc>
+
+  <!-- Both abilities' tooltips: the reload item is a mod setting, so the def text cannot name it -->
+  <!-- EN: Reloads with {0}. -->
+  <MDWC_ReloadsWith>Перезаряжается {lookup: {0}; Case; 4}.</MDWC_ReloadsWith>
+
+  <!-- Mod settings (Source/1.6/Settings/) -->
+  <!-- EN: Medic Warcasket -->
+  <MDWC_SettingsCategory>Медицинская броня мертвеца</MDWC_SettingsCategory>
+  <!-- EN: These settings are unavailable. Another mod has changed the medic warcasket's definitions, so the set keeps its built-in values. -->
+  <MDWC_SettingsUnavailable>Эти настройки недоступны. Другой мод изменил медицинскую броню мертвеца, поэтому у комплекта останутся исходные значения.</MDWC_SettingsUnavailable>
+
+  <!-- EN: Mechanite dressing -->
+  <MDWC_SectionDressing>Механитная перевязка</MDWC_SectionDressing>
+
+  <!-- EN: Reload item -->
+  <MDWC_Medicine>Предмет для перезарядки</MDWC_Medicine>
+  <!-- EN: The medicine loaded into the armor, one per kit. Better medicine gives higher tend quality. Default: {0}. -->
+  <MDWC_MedicineDesc>Медикаменты, которыми заряжается броня, по одному на аптечку. Чем лучше медикаменты, тем выше качество лечения. По умолчанию: {0}.</MDWC_MedicineDesc>
+
+  <!-- EN: Effect color -->
+  <MDWC_Tint>Цвет эффектов</MDWC_Tint>
+  <!-- EN: The color of the dressing's effects and of the medicine gauge. Default: {0}. -->
+  <MDWC_TintDesc>Цвет эффектов перевязки и шкалы медикаментов. По умолчанию: {0}.</MDWC_TintDesc>
+  <!-- EN: Blue -->
+  <MDWC_TintDefault>Синий</MDWC_TintDefault>
+  <!-- EN: Green -->
+  <MDWC_TintGreen>Зелёный</MDWC_TintGreen>
+  <!-- EN: Pink -->
+  <MDWC_TintPink>Розовый</MDWC_TintPink>
+
+  <!-- EN: Kit capacity -->
+  <MDWC_Kits>Запас аптечек</MDWC_Kits>
+  <!-- EN: The number of medicine kits the armor holds when full. Default: {0}. -->
+  <MDWC_KitsDesc>Сколько аптечек вмещает полностью заряженная броня. По умолчанию: {0}.</MDWC_KitsDesc>
+
+  <!-- EN: Casting time -->
+  <MDWC_CastTime>Время для подготовки</MDWC_CastTime>
+  <!-- EN: How long the pilot takes to start a dressing. The patient is held still while it is cast. Default: {0}. -->
+  <MDWC_CastTimeDesc>Сколько времени пилот готовится к перевязке. Пока идёт подготовка, пациент не может сдвинуться с места. По умолчанию: {0}.</MDWC_CastTimeDesc>
+
+  <!-- EN: Time per wound -->
+  <MDWC_TendInterval>Время на одну рану</MDWC_TendInterval>
+  <!-- EN: The time spent on each wound or illness at normal medical tend speed. Higher medical skill and the medic shoulders tend faster. Default: {0}. -->
+  <MDWC_TendIntervalDesc>Сколько времени уходит на каждую рану или болезнь при обычной скорости лечения. С высоким медицинским навыком и наплечниками медицинской брони лечение идёт быстрее. По умолчанию: {0}.</MDWC_TendIntervalDesc>
+
+  <!-- EN: Cooldown -->
+  <MDWC_Cooldown>Перезарядка</MDWC_Cooldown>
+  <!-- EN: The time the pilot must wait after a dressing before starting another. Default: {0}. -->
+  <MDWC_CooldownDesc>Пауза после перевязки, прежде чем пилот сможет начать следующую. По умолчанию: {0}.</MDWC_CooldownDesc>
+
+  <!-- EN: Range -->
+  <MDWC_Range>Дальность</MDWC_Range>
+  <!-- EN: How close the pilot must be to the patient to start a dressing, in cells. Line of sight is required. Default: {0}. -->
+  <MDWC_RangeDesc>На каком расстоянии в клетках от пациента пилот может начать перевязку. Требуется прямая видимость. По умолчанию: {0}.</MDWC_RangeDesc>
+
+  <!-- EN: Raider medics dress the wounded -->
+  <MDWC_AIDressing>Медики налётчиков перевязывают раненых</MDWC_AIDressing>
+  <!-- EN: When enabled, raider and allied medics will dress their own downed between fights, and give a shot after each dressing if they also wear the shoulders. When disabled, only your pilots use it. Default: {0}. -->
+  <MDWC_AIDressingDesc>Если включено, медики налётчиков и союзников между боями будут перевязывать своих бойцов, выведенных из строя. Медик в наплечниках медицинской брони после каждой перевязки ещё и сделает укол. Если отключено, способностью будут пользоваться только ваши пилоты. По умолчанию: {0}.</MDWC_AIDressingDesc>
+
+  <!-- EN: The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The cooldown after a dressing is {5}. -->
+  <MDWC_DressingSummary>Броня вмещает до {0_numCase ? аптечки : аптечек : аптечек} с {lookup: {1}; Case; 4}, и каждая лечит {2} ед. тяжести ранений или одну болезнь. Подготовка перевязки занимает {3}, затем пилот обрабатывает по ране каждые {4} при обычной скорости лечения. Перезарядка после перевязки: {5}.</MDWC_DressingSummary>
+  <!-- EN: The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The next can start at once. -->
+  <MDWC_DressingSummaryNoCooldown>Броня вмещает до {0_numCase ? аптечки : аптечек : аптечек} с {lookup: {1}; Case; 4}, и каждая лечит {2} ед. тяжести ранений или одну болезнь. Подготовка перевязки занимает {3}, затем пилот обрабатывает по ране каждые {4} при обычной скорости лечения. Следующую перевязку можно начать сразу.</MDWC_DressingSummaryNoCooldown>
+
+  <!-- EN: Adrenaline shot -->
+  <MDWC_SectionShot>Укол адреналина</MDWC_SectionShot>
+
+  <!-- EN: Shot capacity -->
+  <MDWC_Shots>Запас уколов</MDWC_Shots>
+  <!-- EN: The number of shots the shoulders hold when full. Default: {0}. -->
+  <MDWC_ShotsDesc>Сколько уколов вмещают полностью заряженные наплечники. По умолчанию: {0}.</MDWC_ShotsDesc>
+
+  <!-- EN: Reload item -->
+  <MDWC_ShotAmmo>Предмет для перезарядки</MDWC_ShotAmmo>
+  <!-- EN: The item loaded into the shoulders, one per shot. Any medicine, go-juice or wake-up will do. Default: {0}. -->
+  <MDWC_ShotAmmoDesc>Предмет, которым заряжаются наплечники, по одному на укол. Подойдут любые медикаменты, Go-сок или бодрин. По умолчанию: {0}.</MDWC_ShotAmmoDesc>
+
+  <!-- EN: Boost duration -->
+  <MDWC_ShotBoost>Длительность действия</MDWC_ShotBoost>
+  <!-- EN: How long the adrenaline lasts before the crash. Default: {0}. -->
+  <MDWC_ShotBoostDesc>Время действия адреналина до упадка сил. По умолчанию: {0}.</MDWC_ShotBoostDesc>
+
+  <!-- EN: Crash duration -->
+  <MDWC_ShotCrash>Длительность упадка сил</MDWC_ShotCrash>
+  <!-- EN: How long the crash lasts. A crashing patient will be dull, slow and quick to tire. Default: {0}. -->
+  <MDWC_ShotCrashDesc>Сколько длится упадок сил. Всё это время пациент заторможен, двигается медленнее и быстро устаёт. По умолчанию: {0}.</MDWC_ShotCrashDesc>
+
+  <!-- EN: Cooldown -->
+  <MDWC_ShotCooldown>Перезарядка</MDWC_ShotCooldown>
+  <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
+  <MDWC_ShotCooldownDesc>Пауза между уколами. Пока укол перезаряжается, автоприменение пропустит пациента. По умолчанию: {0}.</MDWC_ShotCooldownDesc>
+
+  <!-- EN: Raider medics give adrenaline shots -->
+  <MDWC_AIShot>Медики налётчиков делают уколы адреналина</MDWC_AIShot>
+  <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
+  <MDWC_AIShotDesc>Если включено, медики налётчиков и союзников между боями будут делать уколы адреналина своим бойцам, выведенным из строя, а поднятый на ноги налётчик снова присоединится к налёту. Если отключено, способностью будут пользоваться только ваши пилоты. По умолчанию: {0}.</MDWC_AIShotDesc>
+
+  <!-- EN: The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The cooldown after a shot is {5}. -->
+  <MDWC_ShotSummary>Наплечники вмещают {0_numCase ? укол : укола : уколов} и перезаряжаются {lookup: {1}; Case; 4}, по одному на укол. Адреналин действует {2} и проходит {3_numCase ? стадию : стадии : стадий}, затем у пациента на {4} наступает упадок сил. Всё время действия пациент быстрее устаёт. Перезарядка после укола: {5}.</MDWC_ShotSummary>
+  <!-- EN: The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The next shot can follow at once. -->
+  <MDWC_ShotSummaryNoCooldown>Наплечники вмещают {0_numCase ? укол : укола : уколов} и перезаряжаются {lookup: {1}; Case; 4}, по одному на укол. Адреналин действует {2} и проходит {3_numCase ? стадию : стадии : стадий}, затем у пациента на {4} наступает упадок сил. Всё время действия пациент быстрее устаёт. Следующий укол можно сделать сразу.</MDWC_ShotSummaryNoCooldown>
+
+  <!-- EN: Enabled work types -->
+  <MDWC_SectionWork>Разрешённые работы</MDWC_SectionWork>
+  <!-- EN: The work types a medic pilot can do. All other work follows the warcasket trait from Vanilla Factions Expanded - Pirates, including any changes other mods make to it. -->
+  <MDWC_SectionWorkDesc>Работы, которые может выполнять пилот медицинской брони. Остальные работы определяет черта «броня мертвеца» из Vanilla Factions Expanded - Pirates вместе с изменениями, внесёнными в неё другими модами.</MDWC_SectionWorkDesc>
+  <!-- EN: When enabled, medic pilots can do this work. The change applies to pilots who are already entombed. Newly enabled work starts unassigned in the Work tab. -->
+  <MDWC_WorkDesc>Если включено, пилоты медицинской брони смогут выполнять эту работу. Изменение касается и тех, кто уже закован в броню. Во вкладке «Работа» новая разрешённая работа поначалу никому не назначена.</MDWC_WorkDesc>
+  <!-- EN: Default: {0}. -->
+  <MDWC_WorkDefault>По умолчанию: {0}.</MDWC_WorkDefault>
+  <!-- EN: The pilot can do {0} work. All other work follows the VFE Pirates warcasket trait. -->
+  <MDWC_WorkSummary>Пилоту доступны работы: {0}. Остальные работы определяет черта «броня мертвеца» из VFE Pirates.</MDWC_WorkSummary>
+  <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
+  <MDWC_WorkSummaryNone>Пилот не выполняет работу по уходу. Остальные работы определяет черта «броня мертвеца» из VFE Pirates.</MDWC_WorkSummaryNone>
+
+  <!-- EN:  (default) -->
+  <MDWC_DefaultSuffix> (по умолчанию)</MDWC_DefaultSuffix>
+  <!-- EN: enabled -->
+  <MDWC_Enabled>включено</MDWC_Enabled>
+  <!-- EN: disabled -->
+  <MDWC_Disabled>выключено</MDWC_Disabled>
+
+</LanguageData>

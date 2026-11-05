@@ -1,0 +1,5 @@
+// Medic Warcasket: chargeNoun case forms (nominative;genitive;dative;accusative;instrumental;prepositional)
+аптечка;аптечки;аптечке;аптечку;аптечкой;аптечке
+аптечки;аптечек;аптечкам;аптечки;аптечками;аптечках
+укол;укола;уколу;укол;уколом;уколе
+уколы;уколов;уколам;уколы;уколами;уколах

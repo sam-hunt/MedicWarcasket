@@ -1,0 +1,3 @@
+// Medic Warcasket: chargeNoun plural
+аптечка;аптечки
+укол;уколы

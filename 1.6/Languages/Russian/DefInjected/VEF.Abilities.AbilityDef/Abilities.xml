@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.label>механитная перевязка</MDWC_MechaniteDressing.label>
+  <!-- EN: Stream mechanites carrying medicine onto a nearby person or animal to tend their wounds on the spot, starting with the worst. Tend quality depends on the pilot's medical skill and the medicine loaded, and higher skill tends faster. With the medic helmet, it can also treat diseases and infections. -->
+  <MDWC_MechaniteDressing.description>Направляет на человека или животное поблизости поток механитов с медикаментами и лечит раны, начиная с самых тяжёлых. Качество лечения зависит от медицинского навыка пилота и заряженных медикаментов, а чем выше навык, тем быстрее идёт лечение. Со шлемом медицинской брони способность лечит и болезни, и заражения.</MDWC_MechaniteDressing.description>
+  <!-- EN: Applying a mechanite dressing. -->
+  <MDWC_MechaniteDressing.jobReportString>делает механитную перевязку</MDWC_MechaniteDressing.jobReportString>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.verbProperties.label>механитная перевязка</MDWC_MechaniteDressing.verbProperties.label>
+
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.label>укол адреналина</MDWC_AdrenalineShot.label>
+  <!-- EN: Inject a nearby person or animal with a dose of adrenaline. For a short while they feel almost no pain and move and think faster. Afterward they will crash for hours, becoming dull and slow, and they tire faster throughout. If the target is having a heart attack, the shot will stop it instead. -->
+  <MDWC_AdrenalineShot.description>Вводит дозу адреналина человеку или животному поблизости. Цель ненадолго почти перестаёт чувствовать боль, начинает быстрее двигаться и соображать. Потом на несколько часов наступает упадок сил, и цель становится вялой и медлительной. Всё время действия укола она быстрее устаёт. Если у цели сердечный приступ, укол не даст прилива сил, а остановит приступ.</MDWC_AdrenalineShot.description>
+  <!-- EN: Giving an adrenaline shot. -->
+  <MDWC_AdrenalineShot.jobReportString>делает укол адреналина</MDWC_AdrenalineShot.jobReportString>
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.verbProperties.label>укол адреналина</MDWC_AdrenalineShot.verbProperties.label>
+</LanguageData>
