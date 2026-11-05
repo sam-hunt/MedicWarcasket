@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.label>Mechanitenverband</MDWC_MechaniteDressing.label>
+  <!-- EN: Stream mechanites carrying medicine onto a nearby person or animal to tend their wounds on the spot, starting with the worst. Tend quality depends on the pilot's medical skill and the medicine loaded, and higher skill tends faster. With the medic helmet, it can also treat diseases and infections. -->
+  <MDWC_MechaniteDressing.description>Lass Mechaniten mit Medizin über eine Person oder ein Tier in der Nähe strömen. Sie behandeln die Wunden direkt vor Ort, die schwersten zuerst. Die Behandlungsqualität hängt von der Medizin-Fertigkeit des Piloten und von der geladenen Medizin ab, und mit höherer Fertigkeit geht die Behandlung schneller. Mit dem Sanitäter-Kriegssarg-Helm lassen sich auch Krankheiten und Infektionen behandeln.</MDWC_MechaniteDressing.description>
+  <!-- EN: Applying a mechanite dressing. -->
+  <MDWC_MechaniteDressing.jobReportString>legt einen Mechanitenverband an.</MDWC_MechaniteDressing.jobReportString>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.verbProperties.label>Mechanitenverband</MDWC_MechaniteDressing.verbProperties.label>
+
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.label>Adrenalinspritze</MDWC_AdrenalineShot.label>
+  <!-- EN: Inject a nearby person or animal with a dose of adrenaline. For a short while they feel almost no pain and move and think faster. Afterward they will crash for hours, becoming dull and slow, and they tire faster throughout. If the target is having a heart attack, the shot will stop it instead. -->
+  <MDWC_AdrenalineShot.description>Injiziere einer Person oder einem Tier in der Nähe eine Dosis Adrenalin. Für kurze Zeit spürt das Ziel kaum noch Schmerzen und bewegt sich und denkt schneller. Danach folgt ein stundenlanges Tief, in dem es benommen und langsam ist. Die ganze Zeit über ermüdet es schneller. Hat das Ziel gerade einen Herzinfarkt, beendet die Spritze stattdessen den Infarkt.</MDWC_AdrenalineShot.description>
+  <!-- EN: Giving an adrenaline shot. -->
+  <MDWC_AdrenalineShot.jobReportString>verabreicht eine Adrenalinspritze.</MDWC_AdrenalineShot.jobReportString>
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.verbProperties.label>Adrenalinspritze</MDWC_AdrenalineShot.verbProperties.label>
+
+</LanguageData>
