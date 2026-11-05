@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.label>기계입자 처치</MDWC_MechaniteDressing.label>
+  <!-- EN: Stream mechanites carrying medicine onto a nearby person or animal to tend their wounds on the spot, starting with the worst. Tend quality depends on the pilot's medical skill and the medicine loaded, and higher skill tends faster. With the medic helmet, it can also treat diseases and infections. -->
+  <MDWC_MechaniteDressing.description>의약품을 실은 기계입자를 근처의 사람이나 동물에게 흘려보내, 가장 심한 상처부터 그 자리에서 치료합니다. 치료 품질은 조종사의 의학 기술과 장전된 의약품에 따라 달라집니다. 의학 기술이 높을수록 치료도 빨라집니다. 의무병 워캐스킷 헬멧을 쓰면 질병과 감염도 치료할 수 있습니다.</MDWC_MechaniteDressing.description>
+  <!-- EN: Applying a mechanite dressing. -->
+  <MDWC_MechaniteDressing.jobReportString>기계입자 처치 중</MDWC_MechaniteDressing.jobReportString>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.verbProperties.label>기계입자 처치</MDWC_MechaniteDressing.verbProperties.label>
+
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.label>아드레날린 주사</MDWC_AdrenalineShot.label>
+  <!-- EN: Inject a nearby person or animal with a dose of adrenaline. For a short while they feel almost no pain and move and think faster. Afterward they will crash for hours, becoming dull and slow, and they tire faster throughout. If the target is having a heart attack, the shot will stop it instead. -->
+  <MDWC_AdrenalineShot.description>근처의 사람이나 동물에게 아드레날린을 한 번 주사합니다. 대상은 잠시 동안 통증을 거의 느끼지 않으며 더 빨리 움직이고 생각합니다. 그 뒤에는 몇 시간 동안 탈진해 둔하고 느려지며, 효과가 이어지는 동안 쉽게 지칩니다. 심근경색을 겪고 있는 대상에게는 이 효과 대신 심근경색을 멈추게 합니다.</MDWC_AdrenalineShot.description>
+  <!-- EN: Giving an adrenaline shot. -->
+  <MDWC_AdrenalineShot.jobReportString>아드레날린 주사 놓는 중</MDWC_AdrenalineShot.jobReportString>
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.verbProperties.label>아드레날린 주사</MDWC_AdrenalineShot.verbProperties.label>
+</LanguageData>

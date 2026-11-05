@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: adrenaline -->
+  <MDWC_Adrenaline.label>아드레날린</MDWC_Adrenaline.label>
+  <!-- EN: an adrenaline shot -->
+  <MDWC_Adrenaline.labelNoun>아드레날린 주사</MDWC_Adrenaline.labelNoun>
+  <!-- EN: Adrenaline in the bloodstream. It dulls pain and quickens movement and thought, then gives way to a long crash. The body tires faster and faster as it wears off. -->
+  <MDWC_Adrenaline.description>혈액에 아드레날린이 존재합니다. 통증을 덜어 주고 움직임과 생각을 빠르게 하지만, 곧 긴 탈진으로 이어집니다. 효과가 사라지는 동안 몸은 점점 더 빨리 지칩니다.</MDWC_Adrenaline.description>
+  <!-- EN: rush -->
+  <MDWC_Adrenaline.stages.rush.label>고조됨</MDWC_Adrenaline.stages.rush.label>
+  <!-- EN: steady -->
+  <MDWC_Adrenaline.stages.steady.label>안정됨</MDWC_Adrenaline.stages.steady.label>
+  <!-- EN: wearing off -->
+  <MDWC_Adrenaline.stages.wearing_off.label>약해짐</MDWC_Adrenaline.stages.wearing_off.label>
+  <!-- EN: crash -->
+  <MDWC_Adrenaline.stages.crash.label>탈진</MDWC_Adrenaline.stages.crash.label>
+</LanguageData>

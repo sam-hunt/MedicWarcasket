@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: dressing TargetA's wounds. -->
+  <MDWC_MechaniteDressing.reportString>TargetA의 상처 처치 중</MDWC_MechaniteDressing.reportString>
+  <!-- EN: giving TargetA an adrenaline shot. -->
+  <MDWC_AdrenalineShot.reportString>TargetA에게 아드레날린 주사 놓는 중</MDWC_AdrenalineShot.reportString>
+</LanguageData>

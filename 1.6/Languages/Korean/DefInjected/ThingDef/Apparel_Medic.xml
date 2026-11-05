@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: medic warcasket -->
+  <MDWC_Warcasket_Medic.label>의무병 워캐스킷</MDWC_Warcasket_Medic.label>
+  <!-- EN: Specialized spacer-tech warcasket shell with standard protection, equipped with a mechanite dressing suite that breaks loaded medicine down into carrier mechanites and streams them onto a patient's wounds. -->
+  <MDWC_Warcasket_Medic.shortDescription>우주시대 기술로 특화된 표준적인 방어력의 워캐스킷입니다. 기계입자 처치 장치를 장착했습니다. 이 장치는 장전된 의약품을 운반용 기계입자로 분해해 환자의 상처로 흘려보냅니다.</MDWC_Warcasket_Medic.shortDescription>
+  <!-- EN: Specialized spacer-tech warcasket shell with standard protection, equipped with a mechanite dressing suite that breaks loaded medicine down into carrier mechanites and streams them onto a patient's wounds.
+
+A 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and issued them to veterans who could no longer serve any other way. The Medic was built for the field surgeons who had served beside them, after the program found it was losing nearly as many surgeons as the soldiers they were sent to keep alive.
+
+The armor carries a mechanite dressing suite that tends a squadmate's wounds on the spot, with an adrenaline injector in the shoulders to keep the wounded on their feet a little longer and a diagnostic visor in the helmet so the dressing can treat disease and infection as well. Plating and shields are standard for the generation, so a Medic belongs just behind the line rather than on it. -->
+  <MDWC_Warcasket_Medic.description>우주시대 기술로 특화된 표준적인 방어력의 워캐스킷입니다. 기계입자 처치 장치를 장착했습니다. 이 장치는 장전된 의약품을 운반용 기계입자로 분해해 환자의 상처로 흘려보냅니다.\n\n10세대 워캐스킷은 노획한 해적 장비를 정부 사업단이 자체 동력 갑옷 설계로 다시 만든 것입니다. 이 워캐스킷은 다른 방법으로는 더 이상 복무할 수 없는 숙련병에게 지급되었습니다. 그러다 사업단은 외과의도 살려야 할 병사들만큼이나 많이 죽어 나간다는 사실을 깨달았습니다. 그래서 의무병 워캐스킷은 숙련병 곁에서 싸우던 야전 외과의를 위해 만들어졌습니다.\n\n몸통의 기계입자 처치 장치는 동료의 상처를 그 자리에서 치료합니다. 어깨의 아드레날린 주입기는 부상자가 조금 더 오래 버티게 해 줍니다. 헬멧의 진단 바이저가 있으면 처치로 질병과 감염도 치료할 수 있습니다. 장갑판과 보호막은 이 세대의 표준 수준이라, 의무병 워캐스킷은 최전선보다 그 바로 뒤에 두는 것이 좋습니다.</MDWC_Warcasket_Medic.description>
+  <!-- EN: kit -->
+  <MDWC_Warcasket_Medic.comps.CompDressingSuite.chargeNoun>키트</MDWC_Warcasket_Medic.comps.CompDressingSuite.chargeNoun>
+  <!-- EN: on cooldown -->
+  <MDWC_Warcasket_Medic.comps.CompDressingSuite.cooldownGerund>재사용 대기 중</MDWC_Warcasket_Medic.comps.CompDressingSuite.cooldownGerund>
+
+  <!-- EN: medic warcasket shoulders -->
+  <MDWC_WarcasketShoulders_Medic.label>의무병 워캐스킷 어깨</MDWC_WarcasketShoulders_Medic.label>
+  <!-- EN: Specialized spacer-tech warcasket pauldrons with standard protection, equipped with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending. -->
+  <MDWC_WarcasketShoulders_Medic.shortDescription>우주시대 기술로 특화된 표준적인 방어력의 워캐스킷 어깨입니다. 아드레날린 주입기와, 조종사가 더 빨리 치료하도록 돕는 야전 의료용 보조 팔을 장착했습니다.</MDWC_WarcasketShoulders_Medic.shortDescription>
+  <!-- EN: Specialized spacer-tech warcasket pauldrons with standard protection, equipped with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending.
+
+A 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and issued them to veterans who could no longer serve any other way. The Medic was built for the field surgeons who had served beside them, after the program found it was losing nearly as many surgeons as the soldiers they were sent to keep alive.
+
+The armor carries a mechanite dressing suite that tends a squadmate's wounds on the spot, with an adrenaline injector in the shoulders to keep the wounded on their feet a little longer and a diagnostic visor in the helmet so the dressing can treat disease and infection as well. Plating and shields are standard for the generation, so a Medic belongs just behind the line rather than on it. -->
+  <MDWC_WarcasketShoulders_Medic.description>우주시대 기술로 특화된 표준적인 방어력의 워캐스킷 어깨입니다. 아드레날린 주입기와, 조종사가 더 빨리 치료하도록 돕는 야전 의료용 보조 팔을 장착했습니다.\n\n10세대 워캐스킷은 노획한 해적 장비를 정부 사업단이 자체 동력 갑옷 설계로 다시 만든 것입니다. 이 워캐스킷은 다른 방법으로는 더 이상 복무할 수 없는 숙련병에게 지급되었습니다. 그러다 사업단은 외과의도 살려야 할 병사들만큼이나 많이 죽어 나간다는 사실을 깨달았습니다. 그래서 의무병 워캐스킷은 숙련병 곁에서 싸우던 야전 외과의를 위해 만들어졌습니다.\n\n몸통의 기계입자 처치 장치는 동료의 상처를 그 자리에서 치료합니다. 어깨의 아드레날린 주입기는 부상자가 조금 더 오래 버티게 해 줍니다. 헬멧의 진단 바이저가 있으면 처치로 질병과 감염도 치료할 수 있습니다. 장갑판과 보호막은 이 세대의 표준 수준이라, 의무병 워캐스킷은 최전선보다 그 바로 뒤에 두는 것이 좋습니다.</MDWC_WarcasketShoulders_Medic.description>
+  <!-- EN: shot -->
+  <MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun>주사</MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun>
+  <!-- EN: on cooldown -->
+  <MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.cooldownGerund>재사용 대기 중</MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.cooldownGerund>
+
+  <!-- EN: medic warcasket helmet -->
+  <MDWC_WarcasketHelmet_Medic.label>의무병 워캐스킷 헬멧</MDWC_WarcasketHelmet_Medic.label>
+  <!-- EN: Specialized spacer-tech warcasket helmet with standard protection, equipped with a medical assistance module and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds. -->
+  <MDWC_WarcasketHelmet_Medic.shortDescription>우주시대 기술로 특화된 표준적인 방어력의 워캐스킷 헬멧입니다. 의료 보조 모듈과 진단 바이저를 탑재해, 기계입자 처치로 상처뿐 아니라 질병과 감염도 치료할 수 있습니다.</MDWC_WarcasketHelmet_Medic.shortDescription>
+  <!-- EN: Specialized spacer-tech warcasket helmet with standard protection, equipped with a medical assistance module and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds.
+
+A 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and issued them to veterans who could no longer serve any other way. The Medic was built for the field surgeons who had served beside them, after the program found it was losing nearly as many surgeons as the soldiers they were sent to keep alive.
+
+The armor carries a mechanite dressing suite that tends a squadmate's wounds on the spot, with an adrenaline injector in the shoulders to keep the wounded on their feet a little longer and a diagnostic visor in the helmet so the dressing can treat disease and infection as well. Plating and shields are standard for the generation, so a Medic belongs just behind the line rather than on it. -->
+  <MDWC_WarcasketHelmet_Medic.description>우주시대 기술로 특화된 표준적인 방어력의 워캐스킷 헬멧입니다. 의료 보조 모듈과 진단 바이저를 탑재해, 기계입자 처치로 상처뿐 아니라 질병과 감염도 치료할 수 있습니다.\n\n10세대 워캐스킷은 노획한 해적 장비를 정부 사업단이 자체 동력 갑옷 설계로 다시 만든 것입니다. 이 워캐스킷은 다른 방법으로는 더 이상 복무할 수 없는 숙련병에게 지급되었습니다. 그러다 사업단은 외과의도 살려야 할 병사들만큼이나 많이 죽어 나간다는 사실을 깨달았습니다. 그래서 의무병 워캐스킷은 숙련병 곁에서 싸우던 야전 외과의를 위해 만들어졌습니다.\n\n몸통의 기계입자 처치 장치는 동료의 상처를 그 자리에서 치료합니다. 어깨의 아드레날린 주입기는 부상자가 조금 더 오래 버티게 해 줍니다. 헬멧의 진단 바이저가 있으면 처치로 질병과 감염도 치료할 수 있습니다. 장갑판과 보호막은 이 세대의 표준 수준이라, 의무병 워캐스킷은 최전선보다 그 바로 뒤에 두는 것이 좋습니다.</MDWC_WarcasketHelmet_Medic.description>
+
+  <!-- EN: Mote -->
+  <MDWC_Mote_DressingGlow.label>모트</MDWC_Mote_DressingGlow.label>
+  <!-- EN: Mote -->
+  <MDWC_Mote_DressingBeam.label>모트</MDWC_Mote_DressingBeam.label>
+  <!-- EN: Mote -->
+  <MDWC_Mote_DressingOverlay.label>모트</MDWC_Mote_DressingOverlay.label>
+</LanguageData>

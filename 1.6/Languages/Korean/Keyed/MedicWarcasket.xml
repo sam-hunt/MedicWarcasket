@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Mechanite dressing (Source/1.6/Abilities/Ability_MechaniteDressing.cs, Source/1.6/Comps/, Source/1.6/Gizmos/) -->
+  <!-- EN: No {0} loaded. -->
+  <MDWC_NoMedicineLoaded>장전된 {0}(이)가 없습니다.</MDWC_NoMedicineLoaded>
+  <!-- EN: {0} has no wounds to tend. -->
+  <MDWC_NoWoundsToDress>{0}에게는 치료할 상처가 없습니다.</MDWC_NoWoundsToDress>
+  <!-- EN: {0} has nothing to tend. -->
+  <MDWC_NothingToTreat>{0}(은)는 치료가 필요하지 않습니다.</MDWC_NothingToTreat>
+  <!-- EN: {0} is hostile. -->
+  <MDWC_HostileTarget>{0}(은)는 적대적입니다.</MDWC_HostileTarget>
+  <!-- EN: Interrupted: {0} of {1} wounds tended -->
+  <MDWC_WoundsTendedPartial>중단됨: 상처 {1}개 중 {0}개 치료</MDWC_WoundsTendedPartial>
+  <!-- EN: Out of {0}: {1} of {2} wounds tended -->
+  <MDWC_WoundsTendedDry>{0} 소진: 상처 {2}개 중 {1}개 치료</MDWC_WoundsTendedDry>
+  <!-- EN: Stream broken: {0} of {1} wounds tended -->
+  <MDWC_BeamBroken>연결 끊김: 상처 {1}개 중 {0}개 치료</MDWC_BeamBroken>
+  <!-- EN: {0}, quality {1} -->
+  <MDWC_TargetQuality>{0}, 치료 품질 {1}</MDWC_TargetQuality>
+  <!-- EN: Wounds: {0}, kits: {1} -->
+  <MDWC_TargetCost>상처: {0}, 키트: {1}</MDWC_TargetCost>
+  <!-- EN: Wounds: {0}, kits: {1} ({2} loaded) -->
+  <MDWC_TargetCostShort>상처: {0}, 키트: {1} ({2} 장전됨)</MDWC_TargetCostShort>
+  <!-- EN: Kits: {0} / {1} -->
+  <MDWC_KitsLoaded>키트: {0} / {1}</MDWC_KitsLoaded>
+  <!-- EN: Severity per kit -->
+  <MDWC_StatSeverityPerKit>키트당 부상 심각도</MDWC_StatSeverityPerKit>
+  <!-- EN: The total injury severity one kit of medicine can tend, the same as a single tending. A disease, infection or missing body part uses a whole kit. -->
+  <MDWC_StatSeverityPerKitDesc>의약품 키트 하나로 치료할 수 있는 부상 심각도의 총량입니다. 한 번 치료할 때 치료되는 양과 같습니다. 질병, 감염, 신체 누락은 키트 하나를 통째로 씁니다.</MDWC_StatSeverityPerKitDesc>
+  <!-- EN: Medicine -->
+  <MDWC_GaugeMedicine>의약품</MDWC_GaugeMedicine>
+  <!-- EN: Open kit: {0} left -->
+  <MDWC_GaugeOpenKit>개봉한 키트: {0} 남음</MDWC_GaugeOpenKit>
+  <!-- EN: Reload target: {0} -->
+  <MDWC_GaugeReloadTarget>재장전 목표: {0}</MDWC_GaugeReloadTarget>
+  <!-- EN: Never reload. -->
+  <MDWC_GaugeNeverReload>재장전하지 않습니다.</MDWC_GaugeNeverReload>
+  <!-- EN: Each kit tends up to {0} injury severity, or one disease, infection or missing body part. -->
+  <MDWC_GaugeKitDesc>키트 하나로 부상 심각도 {0}까지, 또는 질병, 감염, 신체 누락 하나를 치료합니다.</MDWC_GaugeKitDesc>
+
+  <!-- Adrenaline shot (Source/1.6/Abilities/Ability_AdrenalineShot.cs) -->
+  <!-- EN: No shots loaded. -->
+  <MDWC_NoShotsLoaded>장전된 주사가 없습니다.</MDWC_NoShotsLoaded>
+  <!-- EN: {0} is hostile. -->
+  <MDWC_ShotHostile>{0}(은)는 적대적입니다.</MDWC_ShotHostile>
+  <!-- EN: {0} already has an adrenaline shot. -->
+  <MDWC_ShotAlreadyRushing>{0}(은)는 이미 아드레날린 주사를 맞았습니다.</MDWC_ShotAlreadyRushing>
+  <!-- EN: Shots: {0} / {1} -->
+  <MDWC_ShotsLabel>주사: {0} / {1}</MDWC_ShotsLabel>
+  <!-- EN: Stops the heart attack -->
+  <MDWC_ShotStopsHeartAttack>심근경색을 멈춤</MDWC_ShotStopsHeartAttack>
+  <!-- EN: {0}'s heart attack has stopped. -->
+  <MDWC_HeartAttackStopped>{0}의 심근경색이 멈췄습니다.</MDWC_HeartAttackStopped>
+  <!-- EN: When autocast is enabled, each patient gets a shot as their dressing ends. -->
+  <MDWC_ShotAutocastDesc>자동 시전을 켜면, 처치가 끝날 때마다 환자에게 주사를 한 대씩 놓습니다.</MDWC_ShotAutocastDesc>
+
+  <!-- Both abilities' tooltips: the reload item is a mod setting, so the def text cannot name it -->
+  <!-- EN: Reloads with {0}. -->
+  <MDWC_ReloadsWith>{0}(으)로 재장전합니다.</MDWC_ReloadsWith>
+
+  <!-- Mod settings (Source/1.6/Settings/) -->
+  <!-- EN: Medic Warcasket -->
+  <MDWC_SettingsCategory>의무병 워캐스킷</MDWC_SettingsCategory>
+  <!-- EN: These settings are unavailable. Another mod has changed the medic warcasket's definitions, so the set keeps its built-in values. -->
+  <MDWC_SettingsUnavailable>이 설정은 사용할 수 없습니다. 다른 모드가 의무병 워캐스킷을 변경했기 때문에 세트는 내장된 값을 사용합니다.</MDWC_SettingsUnavailable>
+
+  <!-- EN: Mechanite dressing -->
+  <MDWC_SectionDressing>기계입자 처치</MDWC_SectionDressing>
+
+  <!-- EN: Reload item -->
+  <MDWC_Medicine>재장전 물품</MDWC_Medicine>
+  <!-- EN: The medicine loaded into the armor, one per kit. Better medicine gives higher tend quality. Default: {0}. -->
+  <MDWC_MedicineDesc>갑옷에 장전하는 의약품으로, 키트 하나에 하나씩 듭니다. 좋은 의약품일수록 치료 품질이 높아집니다. 기본값: {0}.</MDWC_MedicineDesc>
+
+  <!-- EN: Effect color -->
+  <MDWC_Tint>효과 색상</MDWC_Tint>
+  <!-- EN: The color of the dressing's effects and of the medicine gauge. Default: {0}. -->
+  <MDWC_TintDesc>처치 효과와 의약품 게이지의 색상입니다. 기본값: {0}.</MDWC_TintDesc>
+  <!-- EN: Blue -->
+  <MDWC_TintDefault>파란색</MDWC_TintDefault>
+  <!-- EN: Green -->
+  <MDWC_TintGreen>녹색</MDWC_TintGreen>
+  <!-- EN: Pink -->
+  <MDWC_TintPink>분홍색</MDWC_TintPink>
+
+  <!-- EN: Kit capacity -->
+  <MDWC_Kits>키트 용량</MDWC_Kits>
+  <!-- EN: The number of medicine kits the armor holds when full. Default: {0}. -->
+  <MDWC_KitsDesc>갑옷을 가득 채웠을 때 들어가는 의약품 키트의 수입니다. 기본값: {0}.</MDWC_KitsDesc>
+
+  <!-- EN: Casting time -->
+  <MDWC_CastTime>시전 시간</MDWC_CastTime>
+  <!-- EN: How long the pilot takes to start a dressing. The patient is held still while it is cast. Default: {0}. -->
+  <MDWC_CastTimeDesc>조종사가 처치를 시작하기까지 걸리는 시간입니다. 시전하는 동안 환자는 움직이지 못합니다. 기본값: {0}.</MDWC_CastTimeDesc>
+
+  <!-- EN: Time per wound -->
+  <MDWC_TendInterval>상처당 시간</MDWC_TendInterval>
+  <!-- EN: The time spent on each wound or illness at normal medical tend speed. Higher medical skill and the medic shoulders tend faster. Default: {0}. -->
+  <MDWC_TendIntervalDesc>보통 치료 속도에서 상처나 질병 하나에 드는 시간입니다. 의학 기술이 높으면 더 빨리 치료하며, 의무병 워캐스킷 어깨를 착용해도 빨라집니다. 기본값: {0}.</MDWC_TendIntervalDesc>
+
+  <!-- EN: Cooldown -->
+  <MDWC_Cooldown>재사용 대기</MDWC_Cooldown>
+  <!-- EN: The time the pilot must wait after a dressing before starting another. Default: {0}. -->
+  <MDWC_CooldownDesc>조종사가 처치한 뒤 다시 처치하기까지 기다려야 하는 시간입니다. 기본값: {0}.</MDWC_CooldownDesc>
+
+  <!-- EN: Range -->
+  <MDWC_Range>사거리</MDWC_Range>
+  <!-- EN: How close the pilot must be to the patient to start a dressing, in cells. Line of sight is required. Default: {0}. -->
+  <MDWC_RangeDesc>조종사가 처치를 시작할 수 있는 환자까지의 최대 거리를 칸 단위로 나타냅니다. 환자가 시야 안에 있어야 합니다. 기본값: {0}.</MDWC_RangeDesc>
+
+  <!-- EN: Raider medics dress the wounded -->
+  <MDWC_AIDressing>습격자 의무병의 부상자 처치</MDWC_AIDressing>
+  <!-- EN: When enabled, raider and allied medics will dress their own downed between fights, and give a shot after each dressing if they also wear the shoulders. When disabled, only your pilots use it. Default: {0}. -->
+  <MDWC_AIDressingDesc>켜면 습격자와 아군의 의무병이 전투가 멎은 사이에 쓰러진 자기편을 처치하고, 어깨도 착용했다면 처치할 때마다 주사도 놓습니다. 끄면 내 조종사만 이 능력을 씁니다. 기본값: {0}.</MDWC_AIDressingDesc>
+
+  <!-- EN: The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The cooldown after a dressing is {5}. -->
+  <MDWC_DressingSummary>갑옷에는 {1} 키트가 최대 {0}개 들어가며, 키트 하나가 부상 심각도 {2} 또는 질병 하나를 치료합니다. 처치를 시전하는 데 {3} 걸리고, 그 뒤 보통 치료 속도로 {4}마다 상처 하나를 치료합니다. 처치 후 재사용 대기는 {5}입니다.</MDWC_DressingSummary>
+  <!-- EN: The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The next can start at once. -->
+  <MDWC_DressingSummaryNoCooldown>갑옷에는 {1} 키트가 최대 {0}개 들어가며, 키트 하나가 부상 심각도 {2} 또는 질병 하나를 치료합니다. 처치를 시전하는 데 {3} 걸리고, 그 뒤 보통 치료 속도로 {4}마다 상처 하나를 치료합니다. 다음 처치는 바로 시작할 수 있습니다.</MDWC_DressingSummaryNoCooldown>
+
+  <!-- EN: Adrenaline shot -->
+  <MDWC_SectionShot>아드레날린 주사</MDWC_SectionShot>
+
+  <!-- EN: Shot capacity -->
+  <MDWC_Shots>주사 용량</MDWC_Shots>
+  <!-- EN: The number of shots the shoulders hold when full. Default: {0}. -->
+  <MDWC_ShotsDesc>어깨를 가득 채웠을 때 들어가는 주사의 수입니다. 기본값: {0}.</MDWC_ShotsDesc>
+
+  <!-- EN: Reload item -->
+  <MDWC_ShotAmmo>재장전 물품</MDWC_ShotAmmo>
+  <!-- EN: The item loaded into the shoulders, one per shot. Any medicine, go-juice or wake-up will do. Default: {0}. -->
+  <MDWC_ShotAmmoDesc>어깨에 장전하는 물품으로, 주사 하나에 하나씩 듭니다. 의약품, 고주스, 웨이크업 중 무엇이든 쓸 수 있습니다. 기본값: {0}.</MDWC_ShotAmmoDesc>
+
+  <!-- EN: Boost duration -->
+  <MDWC_ShotBoost>강화 지속 시간</MDWC_ShotBoost>
+  <!-- EN: How long the adrenaline lasts before the crash. Default: {0}. -->
+  <MDWC_ShotBoostDesc>탈진이 오기 전까지 아드레날린이 지속되는 시간입니다. 기본값: {0}.</MDWC_ShotBoostDesc>
+
+  <!-- EN: Crash duration -->
+  <MDWC_ShotCrash>탈진 지속 시간</MDWC_ShotCrash>
+  <!-- EN: How long the crash lasts. A crashing patient will be dull, slow and quick to tire. Default: {0}. -->
+  <MDWC_ShotCrashDesc>탈진이 지속되는 시간입니다. 탈진한 환자는 멍해지고 굼떠지며 쉽게 지칩니다. 기본값: {0}.</MDWC_ShotCrashDesc>
+
+  <!-- EN: Cooldown -->
+  <MDWC_ShotCooldown>재사용 대기</MDWC_ShotCooldown>
+  <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
+  <MDWC_ShotCooldownDesc>조종사가 주사를 놓은 뒤 다음 주사까지 기다려야 하는 시간입니다. 재사용 대기 중에는 자동 시전으로 주사를 놓지 않고 넘어갑니다. 기본값: {0}.</MDWC_ShotCooldownDesc>
+
+  <!-- EN: Raider medics give adrenaline shots -->
+  <MDWC_AIShot>습격자 의무병의 아드레날린 주사</MDWC_AIShot>
+  <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
+  <MDWC_AIShotDesc>켜면 습격자와 아군의 의무병이 전투가 멎은 사이에 쓰러진 자기편에게 아드레날린 주사를 놓습니다. 주사를 맞고 일어난 습격자는 다시 습격에 나섭니다. 끄면 내 조종사만 이 능력을 씁니다. 기본값: {0}.</MDWC_AIShotDesc>
+
+  <!-- EN: The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The cooldown after a shot is {5}. -->
+  <MDWC_ShotSummary>어깨에는 주사가 {0}개 들어가며, {1} 하나로 주사 하나를 재장전합니다. 아드레날린은 {3}단계에 걸쳐 {2} 동안 지속되고, 그 뒤 환자는 {4} 동안 탈진합니다. 그동안 내내 더 빨리 지칩니다. 주사 후 재사용 대기는 {5}입니다.</MDWC_ShotSummary>
+  <!-- EN: The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The next shot can follow at once. -->
+  <MDWC_ShotSummaryNoCooldown>어깨에는 주사가 {0}개 들어가며, {1} 하나로 주사 하나를 재장전합니다. 아드레날린은 {3}단계에 걸쳐 {2} 동안 지속되고, 그 뒤 환자는 {4} 동안 탈진합니다. 그동안 내내 더 빨리 지칩니다. 다음 주사는 바로 놓을 수 있습니다.</MDWC_ShotSummaryNoCooldown>
+
+  <!-- EN: Enabled work types -->
+  <MDWC_SectionWork>활성화된 작업 유형</MDWC_SectionWork>
+  <!-- EN: The work types a medic pilot can do. All other work follows the warcasket trait from Vanilla Factions Expanded - Pirates, including any changes other mods make to it. -->
+  <MDWC_SectionWorkDesc>의무병 조종사가 할 수 있는 작업 유형입니다. 그 밖의 작업은 모두 Vanilla Factions Expanded - Pirates의 워캐스킷 특성을 따릅니다. 다른 모드가 이 특성을 바꾼 내용도 반영됩니다.</MDWC_SectionWorkDesc>
+  <!-- EN: When enabled, medic pilots can do this work. The change applies to pilots who are already entombed. Newly enabled work starts unassigned in the Work tab. -->
+  <MDWC_WorkDesc>켜면 의무병 조종사가 이 작업을 할 수 있습니다. 이미 안치된 조종사에게도 적용됩니다. 새로 켠 작업은 작업 탭에서 따로 할당해야 합니다.</MDWC_WorkDesc>
+  <!-- EN: Default: {0}. -->
+  <MDWC_WorkDefault>기본값: {0}.</MDWC_WorkDefault>
+  <!-- EN: The pilot can do {0} work. All other work follows the VFE Pirates warcasket trait. -->
+  <MDWC_WorkSummary>조종사는 {0} 작업을 할 수 있습니다. 그 밖의 작업은 모두 VFE Pirates의 워캐스킷 특성을 따릅니다.</MDWC_WorkSummary>
+  <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
+  <MDWC_WorkSummaryNone>조종사는 치료 작업을 하지 않습니다. 그 밖의 작업은 모두 VFE Pirates의 워캐스킷 특성을 따릅니다.</MDWC_WorkSummaryNone>
+
+  <!-- EN:  (default) -->
+  <MDWC_DefaultSuffix> (기본값)</MDWC_DefaultSuffix>
+  <!-- EN: enabled -->
+  <MDWC_Enabled>켜짐</MDWC_Enabled>
+  <!-- EN: disabled -->
+  <MDWC_Disabled>꺼짐</MDWC_Disabled>
+
+</LanguageData>
