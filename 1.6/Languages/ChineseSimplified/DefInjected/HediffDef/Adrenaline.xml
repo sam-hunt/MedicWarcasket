@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: adrenaline -->
+  <MDWC_Adrenaline.label>肾上腺素</MDWC_Adrenaline.label>
+  <!-- EN: an adrenaline shot -->
+  <MDWC_Adrenaline.labelNoun>肾上腺素注射</MDWC_Adrenaline.labelNoun>
+  <!-- EN: Adrenaline in the bloodstream. It dulls pain and quickens movement and thought, then gives way to a long crash. The body tires faster and faster as it wears off. -->
+  <MDWC_Adrenaline.description>血液中的肾上腺素。它能减轻疼痛，加快行动和思维，随后转为漫长的虚脱。药效消退期间，身体会越来越容易疲劳。</MDWC_Adrenaline.description>
+  <!-- EN: rush -->
+  <MDWC_Adrenaline.stages.rush.label>飙升</MDWC_Adrenaline.stages.rush.label>
+  <!-- EN: steady -->
+  <MDWC_Adrenaline.stages.steady.label>平稳</MDWC_Adrenaline.stages.steady.label>
+  <!-- EN: wearing off -->
+  <MDWC_Adrenaline.stages.wearing_off.label>消退</MDWC_Adrenaline.stages.wearing_off.label>
+  <!-- EN: crash -->
+  <MDWC_Adrenaline.stages.crash.label>虚脱</MDWC_Adrenaline.stages.crash.label>
+</LanguageData>

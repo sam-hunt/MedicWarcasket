@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.label>纳米机械包扎</MDWC_MechaniteDressing.label>
+  <!-- EN: Stream mechanites carrying medicine onto a nearby person or animal to tend their wounds on the spot, starting with the worst. Tend quality depends on the pilot's medical skill and the medicine loaded, and higher skill tends faster. With the medic helmet, it can also treat diseases and infections. -->
+  <MDWC_MechaniteDressing.description>向附近的人或动物输送携带药品的纳米机械，就地从最严重的伤口开始逐一治疗。治疗质量取决于驾驶员的医疗技能和所装填的药品，技能越高，治疗也越快。穿戴医疗型战棺头盔时，还能治疗疾病和感染。</MDWC_MechaniteDressing.description>
+  <!-- EN: Applying a mechanite dressing. -->
+  <MDWC_MechaniteDressing.jobReportString>进行纳米机械包扎。</MDWC_MechaniteDressing.jobReportString>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.verbProperties.label>纳米机械包扎</MDWC_MechaniteDressing.verbProperties.label>
+
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.label>肾上腺素注射</MDWC_AdrenalineShot.label>
+  <!-- EN: Inject a nearby person or animal with a dose of adrenaline. For a short while they feel almost no pain and move and think faster. Afterward they will crash for hours, becoming dull and slow, and they tire faster throughout. If the target is having a heart attack, the shot will stop it instead. -->
+  <MDWC_AdrenalineShot.description>为附近的人或动物注射一剂肾上腺素。目标在短时间内几乎感觉不到疼痛，行动和思维也会加快。之后目标会虚脱数小时，变得迟钝缓慢。药效持续期间，目标都更容易疲劳。如果目标正在心脏病发作，这一针则会止住发作。</MDWC_AdrenalineShot.description>
+  <!-- EN: Giving an adrenaline shot. -->
+  <MDWC_AdrenalineShot.jobReportString>注射肾上腺素。</MDWC_AdrenalineShot.jobReportString>
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.verbProperties.label>肾上腺素注射</MDWC_AdrenalineShot.verbProperties.label>
+</LanguageData>

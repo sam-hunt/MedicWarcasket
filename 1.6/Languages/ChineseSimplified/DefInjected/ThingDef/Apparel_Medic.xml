@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: medic warcasket -->
+  <MDWC_Warcasket_Medic.label>医疗型战棺装甲</MDWC_Warcasket_Medic.label>
+  <!-- EN: Specialized spacer-tech warcasket shell with standard protection, equipped with a mechanite dressing suite that breaks loaded medicine down into carrier mechanites and streams them onto a patient's wounds. -->
+  <MDWC_Warcasket_Medic.shortDescription>特化型太空时代级别战棺装甲，在不增加机体重量的同时极大幅提升了防护性。装甲内装有纳米机械包扎系统，可将装填的药品分解为载药纳米机械，输送到病人的伤口上。</MDWC_Warcasket_Medic.shortDescription>
+  <!-- EN: Specialized spacer-tech warcasket shell with standard protection, equipped with a mechanite dressing suite that breaks loaded medicine down into carrier mechanites and streams them onto a patient's wounds.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and issued them to veterans who could no longer serve any other way. The Medic was built for the field surgeons who had served beside them, after the program found it was losing nearly as many surgeons as the soldiers they were sent to keep alive.\n\nThe armor carries a mechanite dressing suite that tends a squadmate's wounds on the spot, with an adrenaline injector in the shoulders to keep the wounded on their feet a little longer and a diagnostic visor in the helmet so the dressing can treat disease and infection as well. Plating and shields are standard for the generation, so a Medic belongs just behind the line rather than on it. -->
+  <MDWC_Warcasket_Medic.description>特化型太空时代级别战棺装甲，在不增加机体重量的同时极大幅提升了防护性。装甲内装有纳米机械包扎系统，可将装填的药品分解为载药纳米机械，输送到病人的伤口上。\n\n这款第十代战棺出自一项政府项目。该项目用自家的动力装甲改造收缴来的海盗装备，交给那些除此之外再也无法服役的老兵。后来项目组发现，战地军医的折损几乎和他们奉命救治的士兵一样多，于是专门为这些曾与老兵并肩作战的军医打造了医疗型。\n\n装甲内置纳米机械包扎系统，可就地治疗战友的伤口。护肩装有肾上腺素注射器，能让伤员多撑一阵。头盔装有诊断面罩，让包扎也能治疗疾病和感染。这一代的装甲板和护盾都只是标准水平，医疗型更适合留在战线稍后方，不宜顶在最前面。</MDWC_Warcasket_Medic.description>
+  <!-- EN: kit -->
+  <MDWC_Warcasket_Medic.comps.CompDressingSuite.chargeNoun>医疗包</MDWC_Warcasket_Medic.comps.CompDressingSuite.chargeNoun>
+  <!-- EN: on cooldown -->
+  <MDWC_Warcasket_Medic.comps.CompDressingSuite.cooldownGerund>冷却中</MDWC_Warcasket_Medic.comps.CompDressingSuite.cooldownGerund>
+
+  <!-- EN: medic warcasket shoulders -->
+  <MDWC_WarcasketShoulders_Medic.label>医疗型战棺护肩</MDWC_WarcasketShoulders_Medic.label>
+  <!-- EN: Specialized spacer-tech warcasket pauldrons with standard protection, equipped with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending. -->
+  <MDWC_WarcasketShoulders_Medic.shortDescription>特化型太空时代级别战棺护肩，在不增加机体重量的同时极大幅提升了防护性，另装有肾上腺素注射器和战地医疗机械臂，可加快驾驶员的治疗速度。</MDWC_WarcasketShoulders_Medic.shortDescription>
+  <!-- EN: Specialized spacer-tech warcasket pauldrons with standard protection, equipped with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and issued them to veterans who could no longer serve any other way. The Medic was built for the field surgeons who had served beside them, after the program found it was losing nearly as many surgeons as the soldiers they were sent to keep alive.\n\nThe armor carries a mechanite dressing suite that tends a squadmate's wounds on the spot, with an adrenaline injector in the shoulders to keep the wounded on their feet a little longer and a diagnostic visor in the helmet so the dressing can treat disease and infection as well. Plating and shields are standard for the generation, so a Medic belongs just behind the line rather than on it. -->
+  <MDWC_WarcasketShoulders_Medic.description>特化型太空时代级别战棺护肩，在不增加机体重量的同时极大幅提升了防护性，另装有肾上腺素注射器和战地医疗机械臂，可加快驾驶员的治疗速度。\n\n这款第十代战棺出自一项政府项目。该项目用自家的动力装甲改造收缴来的海盗装备，交给那些除此之外再也无法服役的老兵。后来项目组发现，战地军医的折损几乎和他们奉命救治的士兵一样多，于是专门为这些曾与老兵并肩作战的军医打造了医疗型。\n\n装甲内置纳米机械包扎系统，可就地治疗战友的伤口。护肩装有肾上腺素注射器，能让伤员多撑一阵。头盔装有诊断面罩，让包扎也能治疗疾病和感染。这一代的装甲板和护盾都只是标准水平，医疗型更适合留在战线稍后方，不宜顶在最前面。</MDWC_WarcasketShoulders_Medic.description>
+  <!-- EN: shot -->
+  <MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun>针剂</MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun>
+  <!-- EN: on cooldown -->
+  <MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.cooldownGerund>冷却中</MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.cooldownGerund>
+
+  <!-- EN: medic warcasket helmet -->
+  <MDWC_WarcasketHelmet_Medic.label>医疗型战棺头盔</MDWC_WarcasketHelmet_Medic.label>
+  <!-- EN: Specialized spacer-tech warcasket helmet with standard protection, equipped with a medical assistance module and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds. -->
+  <MDWC_WarcasketHelmet_Medic.shortDescription>特化型太空时代级别战棺头盔，在不增加机体重量的同时极大幅提升了防护性，另装有医疗辅助模块和诊断面罩，让纳米机械包扎除了伤口还能治疗疾病和感染。</MDWC_WarcasketHelmet_Medic.shortDescription>
+  <!-- EN: Specialized spacer-tech warcasket helmet with standard protection, equipped with a medical assistance module and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and issued them to veterans who could no longer serve any other way. The Medic was built for the field surgeons who had served beside them, after the program found it was losing nearly as many surgeons as the soldiers they were sent to keep alive.\n\nThe armor carries a mechanite dressing suite that tends a squadmate's wounds on the spot, with an adrenaline injector in the shoulders to keep the wounded on their feet a little longer and a diagnostic visor in the helmet so the dressing can treat disease and infection as well. Plating and shields are standard for the generation, so a Medic belongs just behind the line rather than on it. -->
+  <MDWC_WarcasketHelmet_Medic.description>特化型太空时代级别战棺头盔，在不增加机体重量的同时极大幅提升了防护性，另装有医疗辅助模块和诊断面罩，让纳米机械包扎除了伤口还能治疗疾病和感染。\n\n这款第十代战棺出自一项政府项目。该项目用自家的动力装甲改造收缴来的海盗装备，交给那些除此之外再也无法服役的老兵。后来项目组发现，战地军医的折损几乎和他们奉命救治的士兵一样多，于是专门为这些曾与老兵并肩作战的军医打造了医疗型。\n\n装甲内置纳米机械包扎系统，可就地治疗战友的伤口。护肩装有肾上腺素注射器，能让伤员多撑一阵。头盔装有诊断面罩，让包扎也能治疗疾病和感染。这一代的装甲板和护盾都只是标准水平，医疗型更适合留在战线稍后方，不宜顶在最前面。</MDWC_WarcasketHelmet_Medic.description>
+
+  <!-- EN: Mote -->
+  <MDWC_Mote_DressingGlow.label>特效</MDWC_Mote_DressingGlow.label>
+  <!-- EN: Mote -->
+  <MDWC_Mote_DressingBeam.label>特效</MDWC_Mote_DressingBeam.label>
+  <!-- EN: Mote -->
+  <MDWC_Mote_DressingOverlay.label>特效</MDWC_Mote_DressingOverlay.label>
+</LanguageData>
