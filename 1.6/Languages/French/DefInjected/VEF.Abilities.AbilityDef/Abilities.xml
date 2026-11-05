@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.label>pansement de mécanites</MDWC_MechaniteDressing.label>
+  <!-- EN: Stream mechanites carrying medicine onto a nearby person or animal to tend their wounds on the spot, starting with the worst. Tend quality depends on the pilot's medical skill and the medicine loaded, and higher skill tends faster. With the medic helmet, it can also treat diseases and infections. -->
+  <MDWC_MechaniteDressing.description>Projette des mécanites chargées de médicaments sur une personne ou un animal proche pour soigner ses blessures sur place, en commençant par la plus grave. La qualité des soins dépend de la compétence en médecine du pilote et du médicament chargé, et une meilleure compétence accélère les soins. Avec le casque de warcasket médecin, le pansement soigne aussi les maladies et les infections.</MDWC_MechaniteDressing.description>
+  <!-- EN: Applying a mechanite dressing. -->
+  <MDWC_MechaniteDressing.jobReportString>applique un pansement de mécanites.</MDWC_MechaniteDressing.jobReportString>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.verbProperties.label>pansement de mécanites</MDWC_MechaniteDressing.verbProperties.label>
+
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.label>injection d'adrénaline</MDWC_AdrenalineShot.label>
+  <!-- EN: Inject a nearby person or animal with a dose of adrenaline. For a short while they feel almost no pain and move and think faster. Afterward they will crash for hours, becoming dull and slow, and they tire faster throughout. If the target is having a heart attack, the shot will stop it instead. -->
+  <MDWC_AdrenalineShot.description>Injecte une dose d'adrénaline à une personne ou un animal proche. Pendant un court moment, la cible ne ressent presque aucune douleur, et elle se déplace et réfléchit plus vite. Vient ensuite une descente de plusieurs heures qui la rend hébétée et lente, et elle se fatigue plus vite pendant tout ce temps. Si la cible fait une attaque cardiaque, l'injection se contente alors d'arrêter la crise.</MDWC_AdrenalineShot.description>
+  <!-- EN: Giving an adrenaline shot. -->
+  <MDWC_AdrenalineShot.jobReportString>fait une injection d'adrénaline.</MDWC_AdrenalineShot.jobReportString>
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.verbProperties.label>injection d'adrénaline</MDWC_AdrenalineShot.verbProperties.label>
+
+</LanguageData>

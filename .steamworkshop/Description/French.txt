@@ -1,0 +1,51 @@
+Warcasket médecin
+
+Un nouveau warcasket de niveau spatial pour [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url].
+
+[h1]À propos[/h1]
+
+Le Médecin est un warcasket de soutien médical de 10e génération, conçu pour que son pilote continue de soigner ses camarades sous le feu ennemi.
+
+[hr][/hr]
+[h2]L'ensemble[/h2]
+Torse, épaulières et casque, fabriqués à la fonderie de warcaskets et débloqués par la recherche « spacer warcaskets » (warcaskets spatiaux). Combinez librement ses pièces avec celles des ensembles de VFE Pirates.
+[list]
+[*][b]Torse :[/b] donne la capacité « pansement de mécanites », et le pilote peut toujours effectuer les tâches de médecin : soins, chirurgie, alimentation et sauvetage.
+[*][b]Épaulières :[/b] donnent la capacité « injection d'adrénaline », accélèrent les soins et maintiennent la manipulation du pilote à son maximum.
+[*][b]Casque :[/b] améliore la qualité des soins et maintient la vue du pilote à son maximum.
+[/list]
+
+[h2]Pansement de mécanites[/h2]
+L'armure transporte une réserve de kits de médicaments. Lorsque vous ciblez un blessé, le pilote projette sur lui un flux de mécanites qui soigne chaque blessure, en commençant par la plus grave, avec sa propre qualité de soins. Grâce à la visière de diagnostic du casque, le pansement soigne aussi les maladies et les infections.
+
+[h2]Injection d'adrénaline[/h2]
+Les épaulières contiennent quelques doses d'adrénaline. Une dose arrête une attaque cardiaque, ou remet un blessé à terre debout assez longtemps pour qu'il s'échappe. La douleur est mise en suspens, et le patient se déplace et réfléchit plus vite pendant un court moment. L'effet s'estompe peu à peu jusqu'à une longue descente, comme dans la vraie vie. Avec l'armure et le lancement automatique activé, chaque patient reçoit une dose à la fin de son pansement.
+
+[hr][/hr]
+[h1]Compatibilité des mods[/h1]
+[list]
+[*]Peut être ajouté sans risque à une partie en cours.
+[*]Ne peut pas être retiré sans risque tant qu'un colon est soudé dans l'ensemble.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url] : requis.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044]Combat Extended[/url] : patch intégré, avec des valeurs d'armure, de masse et de capacité de transport au niveau des ensembles spatiaux de VFE Pirates. L'adrénaline réduit la sensibilité à la suppression.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3609835606]Vanilla Gravship Expanded[/url] : suit ses règles de résistance au vide pour les warcaskets.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730151836]Warcaskets can work![/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730543694]Warcaskets can haul![/url] et [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3535194807]Hardworking Warcaskets[/url] : compatibles.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1909914131]Save Our Ship 2[/url] : apte aux sorties extravéhiculaires, selon les mêmes règles que les ensembles de VFE Pirates.
+[/list]
+
+[hr][/hr]
+[h1]FAQ[/h1]
+
+[b]Q : Comment l'obtenir ?[/b]
+R : Recherchez le projet « spacer warcaskets » (warcaskets spatiaux) de VFE Pirates, puis soudez l'ensemble sur un colon à la fonderie de warcaskets, comme n'importe quel autre.
+
+[b]Q : Est-ce que c'est déséquilibré ?[/b]
+R : Les capacités sont entièrement réglables dans les paramètres du mod. J'ai tout de même pris soin de choisir des valeurs par défaut raisonnables.
+
+[b]Q : Qu'est-ce qui l'a inspiré ?[/b]
+R : Un vide bien commode dans la gamme des warcaskets, trop de colons morts, et sans doute des milliers d'heures de Starcraft dans mon enfance.
+
+[hr][/hr]
+[h1]Liens[/h1]
+Code source, téléchargements manuels et suivi des problèmes : [url=https://github.com/sam-hunt/MedicWarcasket]GitHub[/url]
+Illustrations par [url=https://steamcommunity.com/profiles/76561198094174176/myworkshopfiles/?appid=294100]IcingWithCheeseCake[/url]
