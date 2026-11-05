@@ -1,0 +1,51 @@
+醫療型戰棺
+
+為[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]新增一套太空級的戰棺。
+
+[h1]關於[/h1]
+
+醫療型是第十代的戰地醫護兵戰棺，讓駕駛員能在槍林彈雨中替戰友處理傷口。
+
+[hr][/hr]
+[h2]套裝[/h2]
+裝甲主體、護肩與頭盔，完成「太空戰棺」研究後即可在戰棺鑄造廠組裝。各部件也能和VFE Pirates原有的套裝自由混搭。
+[list]
+[*][b]裝甲主體：[/b]提供機械分子包紮。駕駛員仍可從事醫護工作，包括治療、手術、餵食與救援。
+[*][b]護肩：[/b]提供腎上腺素注射，加快治療速度，並讓駕駛員的操作能力保持滿值。
+[*][b]頭盔：[/b]提高治療品質，並讓駕駛員的視力保持滿值。
+[/list]
+
+[h2]機械分子包紮[/h2]
+裝甲內裝有一組藥包。選定傷員後，駕駛員就會將機械分子輸送到對方身上，從最嚴重的傷口開始逐一治療，治療品質和駕駛員親手治療時相同。搭配頭盔的診斷面罩，還能治療疾病和感染。
+
+[h2]腎上腺素注射[/h2]
+護肩裝有幾支腎上腺素針劑。一針就能止住心臟衰竭，或讓倒地的人重新站起來，撐到逃離為止。疼痛會暫時被壓下，行動和思考也會在短時間內加快。藥效會逐漸消退，轉為漫長的虛脫，就和現實中一樣。穿著裝甲並開啟自動施放時，駕駛員會在每位患者包紮結束時替對方注射一針。
+
+[hr][/hr]
+[h1]模組相容性[/h1]
+[list]
+[*]可安全加入現有的存檔。
+[*]有殖民者封在這套戰棺內時，請勿移除本模組。
+[*]必須安裝[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]。
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044]Combat Extended[/url]：內建補丁，護甲數值、穿著體積與體積攜帶能力比照VFE Pirates的太空級戰棺。腎上腺素會讓人更難被壓制。
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3609835606]Vanilla Gravship Expanded[/url]：遵循其戰棺的真空抵抗力規則。
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730151836]Warcaskets can work![/url]、[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730543694]Warcaskets can haul![/url]與[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3535194807]Hardworking Warcaskets[/url]：相容。
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1909914131]Save Our Ship 2[/url]：與VFE Pirates原有的套裝採用相同規則，具備EVA能力。
+[/list]
+
+[hr][/hr]
+[h1]常見問題[/h1]
+
+[b]問：要怎麼取得？[/b]
+答：完成VFE Pirates的「太空戰棺」研究後，和其他套裝一樣到戰棺鑄造廠組裝即可。
+
+[b]問：這會不會不平衡？[/b]
+答：能力的各項數值都能在模組設定中調整，不過我也花了心思挑選合理的預設值。
+
+[b]問：靈感從何而來？[/b]
+答：戰棺陣容裡剛好有個空缺、死掉的殖民者實在太多，或許還有童年時玩了好幾千小時的《星海爭霸》。
+
+[hr][/hr]
+[h1]連結[/h1]
+原始碼、手動下載與問題回報：[url=https://github.com/sam-hunt/MedicWarcasket]GitHub[/url]
+美術由[url=https://steamcommunity.com/profiles/76561198094174176/myworkshopfiles/?appid=294100]IcingWithCheeseCake[/url]繪製

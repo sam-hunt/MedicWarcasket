@@ -1,47 +1,123 @@
 # Traditional Chinese glossary, Medic Warcasket
 
-Seeded before any translation pass ran here; no pass has run yet. Only
-mod-specific coinages and grounding decisions. The VFEP warcasket vocabulary
-(warcasket, the parts, the label pattern, foundry, entomb, VFEP's set names
-and research labels, the spacer-tier opener and the 10th-generation
-paragraph) lives upstream in `l10n/languages/ChineseTraditional.md` under
-"Grounded common vocabulary, VFE Pirates warcasket domain", with the grounding
-source (the zh-Hans pack `q847633684/Vanilla-Expanded-ZH`, converted to
-zh-Hant; the Traditional Workshop pack's files could not be obtained) and what
-is pending native review; the settings and ability words the family settled
-(spacer-tech, Imperial, respirator, Default/Off/On, the Odyssey suffix, the VEF
-`jobReportString`, the `cooldownGerund` and tank) sit in that file's main
-table. Nothing here restates them; a VFEP term is changed there first.
+First pass: machine-assisted generation, 2026-11-05, no native review yet.
+Only mod-specific coinages and grounding decisions. The VFEP warcasket
+vocabulary (warcasket, the label pattern, the parts, foundry, entomb, VFEP's
+set names and research labels, pilot, the spacer-tier opener and its
+"standard protection" tail) lives upstream in
+`l10n/languages/ChineseTraditional.md` under "Grounded common vocabulary, VFE
+Pirates warcasket domain", with its grounding source (the zh-Hans pack
+`q847633684/Vanilla-Expanded-ZH`, converted to zh-Hant vocabulary; the
+Traditional Workshop pack's files could not be obtained) and what is pending
+native review; the settings words the family settled (Default/Off/On, the
+default suffix, the `cooldownGerund`) sit in that file's main table. Only the
+spacer opener is the family's here: Medic's descriptions carry their own
+paragraphs 2 and 3 (the refit lore and the medic-series paragraph), not VFEP's
+10th-generation paragraph, so those two are this mod's prose and are recorded
+below. Nothing here restates an upstream row; a VFEP term is changed there
+first. Vanilla terms are grounded against the Core, Royalty, Biotech, Anomaly
+and Odyssey `ChineseTraditional (繁體中文).tar`. The zh-Hans pass was read as a
+sibling precedent only; every row below was re-grounded in the zh-Hant tars,
+and several differ (kit, mechanite, heart attack, go-juice, wake-up).
 
 ## Set-specific rows
 
 | English | Traditional Chinese | Grounding / notes |
 |---|---|---|
-| Workshop title | `<set>`型戰棺 | Contains 戰棺. Also the `MDWC_SettingsCategory` value (title coupling). |
+| medic (the set name, `<set>`型) | 醫療型 | Coined on the upstream `<set>`型 pattern (破襲型, 毒素型, 破艦型); 醫療 is Core `Medicine.skillLabel`. Labels 醫療型戰棺裝甲 / 醫療型戰棺護肩 / 醫療型戰棺頭盔. |
+| Workshop title / `MDWC_SettingsCategory` | 醫療型戰棺 | Set name + 戰棺 (the anchor term); the two are equal (title coupling). |
+| trait label `warcasket` | 戰棺 | The upstream bare warcasket noun, as VFEP's own trait reads in the zh-Hans pack (战棺). |
+| shell (the opener's body-piece slot) | 裝甲 | Toxin's shipped 戰棺裝甲, matching the label 醫療型戰棺裝甲; Shipcracker's 戰棺外殼 was not followed. Upstream flags the slot as unreconciled. |
+| mechanite(s) | 機械分子 | Vanilla's dominant rendering: Core `MechSerumHealer`, `MechSerumResurrector`, `Luciferium*` descriptions (19 Core hits, 12 Biotech). The infection hediffs' 機械蟲 (`FibrousMechanites`, 4 hits) names a parasite, the wrong sense for a healing tool. |
+| mechanite dressing (ability, section header) / dress | 機械分子包紮 / 包紮 | Coined. 包紮 is vanilla's own word for a dressed wound (`*.comps.HediffComp_TendDuration.labelTendedWell` 已包紮). |
+| mechanite dressing suite (the armor's reloadable) | 機械分子包紮系統 | Coined; 系統 so it reads as built in. |
+| carrier mechanites | 載藥機械分子 | Coined. |
+| adrenaline / adrenaline shot (ability, section header, labelNoun) | 腎上腺素 / 腎上腺素注射 | 腎上腺素 per Core `KingOfPirates25`, Biotech `Aggression_HyperAggressive`, Anomaly `GhoulFrenzy`; the `X注射` noun follows Anomaly's hediff label `MetalbloodInjection` 鐵血注射. |
+| adrenaline injector | 腎上腺素注射器 | 注射器 per Royalty `VenomFangs.description` and Anomaly serum descriptions. |
+| the four levels: rush / steady / wearing off / crash | 亢奮 / 平穩 / 消退 / 虛脫 | Coined, two characters bare like vanilla's stage labels (`HeartAttack` 痛苦 / 衰弱 / 致命). 亢奮 follows `GoJuiceHigh.stages.high_on_gojuice` 能量果飲亢奮; `Anesthetic.stages.wearing_off` 漸漸恢復 is recovery from sedation, a different sense. 虛脫 also renders "crash" and "crashing" in the settings. |
+| diagnostic visor | 診斷面罩 | Coined; 診斷 per Core `MedicineIndustrial.description` (診斷設備); 面罩 as a helmet visor (Core's `Apparel_ClothMask` is also 面罩, a known overlap). |
+| medical assistance module | 醫療輔助模組 | Coined on Shipcracker's shipped 近戰輔助模組; 模組 is the Taiwan form. |
+| field-medicine manipulators | 戰地醫療機械臂 | Coined; 戰地 per Core `CombatMedtech59.title` 戰地醫護兵, 臂 as Shipcracker's 破壁臂. |
+| field surgeons / surgeons | 戰地外科醫生 / 外科醫生 | Core `GlitterworldSurgeon15.titleShort` 外科醫生, 戰地 as above. Lore paragraph 2. |
+| combat medic (Workshop) / raider medic | 戰地醫護兵 / 襲擊者醫療兵 | Core `CombatMedtech59.title` 戰地醫護兵 and `CombatMedic82.title` 醫療兵; 襲擊者 per upstream. |
+| squadmate | 戰友 | Core `OverwatchSniper42.description`. Lore paragraph 3 and the Workshop. |
+| patient | 患者 | Core `Doctor.description` (幫患者拿食物) and the mechanite hediff descriptions. |
+| medicine (generic) / medicine gauge | 藥品 / 藥品儀表 | Core `ThingCategoryDef` `Medicine.label` 藥品; 儀表 per Toxin's shipped gauge. |
+| injury severity / severity per kit | 傷勢嚴重程度 / 每藥包治療量 | 傷勢 per Core `MechSerumHealer.description`, 嚴重程度 per Core Keyed `ConfigurableSeverity`; the stat label is coined. |
+| illness (disease, infection or missing part, in the summaries) | 病症 | Core `HeartAttack.description` (病症可能會惡化). |
+| reload item / reload target / never reload / reloads with | 裝填物品 / 裝填目標 / 從不裝填。 / 以{0}重新裝填。 | 裝填 per Core Keyed `Reload` (以{AMMO_label}重新裝填{GEAR_labelShort}). |
+| open kit (gauge) | 已拆開的藥包 | Coined. |
+| effect color / Blue / Green / Pink | 特效顏色 / 藍色 / 綠色 / 粉紅色 | Core ColorDefs `Blue`, `Green`, `Pink` labels (Core Keyed `Blue` / `Green` are untranslated English); 特效 coined. |
+| time per wound / boost duration / crash duration | 每處傷口用時 / 增益持續時間 / 虛脫持續時間 | Coined; 持續時間 per Core `Ability_Duration.label`. |
+| range (settings label) | 距離 | Core `Ability_Range.label`, as Toxin and Shipcracker ship; Core Keyed `Range` 射程 is the weapon slot. |
+| autocast | 自動施放 | Coined on Core `AbilityCastingTime` 施放時間; no vanilla string names autocast, VEF ships English only. |
+| enabled work types / enabled / disabled | 已啟用的工作類型 / 啟用 / 停用 | Core Keyed `Enabled` 啟用, `Disabled` 停用; they match the English state words, and Shipcracker's toggle frame uses the same pair. |
+| the Medic paragraphs 2 and 3 | 醫療型屬於第十代戰棺，出自一項政府計畫…… / 裝甲內建機械分子包紮系統，可就地治療戰友的傷口…… | Medic's own prose, byte-identical across the three descriptions; the full text is `1.6/Languages/ChineseTraditional/DefInjected/ThingDef/Apparel_Medic.xml`. 計畫 and 水準 per the Taiwan register (corpus 計畫:計劃 147:3, 水準:水平 26:1). |
+| StarCraft (Workshop FAQ) | 《星海爭霸》 | The game's official Taiwan title, in 《》 as vanilla cites product names. |
+
+## Ported from the siblings
+
+| English | Traditional Chinese | Source |
+|---|---|---|
+| Default: {0}. | 預設值：{0}。 | Toxin and Shipcracker Keyed, every tooltip; also `MDWC_WorkDefault`. |
+| (default) | (預設) | Both siblings' `DefaultSuffix`, no leading space. |
+| When enabled, … When disabled, … | 啟用時，… 停用時，… | Shipcracker `SCWC_VacuumBurnDesc`. |
+| These settings are unavailable… built-in values. | 這些設定目前無法使用。另一個模組修改了醫療型戰棺，因此這套戰棺會沿用內建數值。 | Shipcracker `SCWC_SettingsUnavailable` ("will use" 會使用 → "keeps" 會沿用); "definitions" dropped as modder vocabulary. |
+| The time the pilot must wait after X before Y. | 駕駛員X後，必須等待這段時間才能再次Y。 | Shipcracker `SCWC_CooldownDesc`. |
+| cooldown / casting time | 冷卻時間 / 施放時間 | Toxin and Shipcracker labels; Core Keyed `CooldownTime`, `AbilityCastingTime`. |
+| in cells | 以格為單位 | Shipcracker / Toxin unit wording (格). |
+| Workshop frames | 為[url=…]…[/url]新增一套太空級的戰棺。 / 關於 / 套裝 / 模組相容性 / 常見問題 / 連結 / `[b]裝甲主體：[/b]` / 護肩 / 頭盔 / 可安全加入現有的存檔。 / 有殖民者封在這套戰棺內時，請勿移除本模組。 / CE 護甲數值、穿著體積與體積攜帶能力比照… / VGE 遵循其戰棺的…規則 / SOS2 line / 各部件也能和VFE Pirates原有的套裝自由混搭。 / 問：要怎麼取得？ 答：完成VFE Pirates的「太空戰棺」研究後，和其他套裝一樣到戰棺鑄造廠組裝即可。 / 問：這會不會不平衡？ / 模組設定 / the links line | Toxin and Shipcracker Workshop pages (Toxin's links line, Toxin's 太空級 over Shipcracker's 太空等級). |
+| keeps X at full | 讓…保持滿值 | Shipcracker Workshop (呼吸能力保持滿值). |
+| VFE Pirates (in prose) | VFE Pirates | Both siblings keep the mod name in English; also `MDWC_WorkSummary`. |
 
 ## Charge nouns
 
-The armor's medicine suite has the `chargeNoun` "kit" (its row is *pass*,
-below the set-specific rows); render it with the language's natural word for a medicine kit. It is the
-vanilla reload "charge noun", which vanilla prints as "Kits" and "Reload cost per kit". A charge noun is shown only through `{CHARGENOUN_plural}` and `{lookup: ...}` slots (see the
-skill), and Chinese falls to the base `Pluralize` (lookup, else unchanged), so one noun serves every slot and no lookup file is needed. Shipcracker's "fuel unit" row in its glossary
-is the worked example for this language.
+| `chargeNoun` | Traditional Chinese | Forms and lookup |
+|---|---|---|
+| kit (the armor's `CompDressingSuite`) | 藥包 | One form. Chinese falls to the base `Pluralize` (lookup, else unchanged), and the zh-Hant Keyed never switches on `CHARGENOUN_gender` (0 hits), so no `WordInfo` file is shipped. **Not 醫療包**: that is Core's `MedicineIndustrial.label`, so the medicine the kit holds would collide with the kit itself (最多可容納{0}個醫療包，使用醫療包). 藥包 has no vanilla hit and is coined. Read aloud in every vanilla slot: 藥包剩餘 (`Stat_Thing_ReloadChargesRemaining_Name`), 這個物體最多能保持的藥包數量, 每裝填一藥包需要消耗物品的數量, 每藥包裝填消耗, 藥包裝填消耗, 這個道具會在最後一個藥包使用完後消失, 沒有藥包。 (`CommandReload_NoCharges`). The mod's own strings count it with 個. |
+| shot (the shoulders' `CompApparelReloadable`) | 針劑 | One form, no lookup file, as above. No vanilla hit; the ordinary pharmacy word for an injectable dose, chosen because 注射 is the verb in vanilla (Anomaly `ingestCommandString` 注射{0}) and does not stand as a counted noun (沒有注射。 does not read). Reads in every slot as 藥包 does (沒有針劑。, 針劑剩餘). The mod's Keyed counts it with 支 and calls one dose 一針. |
 
-## To ground in the first pass
+## Grounded in the first pass
 
-- the trait label `warcasket` (Bio tab): VFEP's own trait label, so render it
-  exactly as the community pack renders VFEP's, else the bare upstream
-  warcasket noun; the description reuses the pilot and pain vocabulary
-  settled for the armor.
-- siegebreaker (the chassis, lore paragraph 3): the upstream set-name row.
-- the 10th-generation paragraph: derive from the zh-Hans pack's Siegebreaker / Brute / Guardian / Sarcophagus / Controller descriptions, which share it verbatim.
-- medic (this set's name) and the Workshop title.
-- pilot (the wearer, every description), where no upstream row covers it.
-- Core medical vocabulary once the abilities exist: tend, medicine, surgery, bleeding, infection, pain, and whatever hediffs or stats the final text names.
-- mechanite dressing (the ability): keep "mechanite" as vanilla renders "mechanites" in this language (match vanilla's rendering; ground it in the first pass), with "dressing" in the tending sense and the verb "dress" in its strings.
-- This mod's coinages, once the descriptions are final.
+| English | Traditional Chinese | Source |
+|---|---|---|
+| herbal medicine / medicine / glitterworld medicine | 草藥 / 醫療包 / 高科技藥品 | Core `MedicineHerbal`, `MedicineIndustrial`, `MedicineUltratech` labels (arrive at runtime; named in no string). |
+| go-juice / wake-up | 能量果飲 / 醒神劑 | Core `GoJuice.label`, `WakeUp.label`. |
+| heart attack | 心臟衰竭 | Core `HeartAttack.label` (vanilla's own rendering, kept although 心臟病發作 is the medical term). |
+| infection / disease | 感染 / 疾病 | Core `WoundInfection.label` 傷口感染; 疾病 per Core `Doctor.description`. |
+| missing body part | 缺少身體部位 | Core `MissingBodyPart.label`. |
+| tend (the action) / tend quality / medical tend speed | 治療 / 治療品質 / 醫療速度 | Core `TendPatient.reportString` 治療TargetA, Keyed `TendQuality` 治療品質, `MedicalTendSpeed.label` 醫療速度. |
+| has nothing to tend (invalid target) | {0}不需要照護。 | Core Keyed `TendingNotRequired` {0}不需要照護. |
+| is hostile | {0}是敵對的。 | Core Keyed `ConfirmLandOnHostileFactionBase` ({0}是敵對的。). |
+| medical skill | 醫療技能 | Core `Medicine.skillLabel` 醫療. |
+| doctor work (trait) / the `{0}` of `MDWC_WorkSummary` | 醫護工作 / 醫生 | Core `Doctor.label` 醫護 for prose; `Doctor.labelShort` 醫生 is what the code passes in. |
+| caring work | 照顧工作 | Core Keyed `WorkTagCaring` 照顧, on the 知識工作 pattern of `WorkTagIntellectual`. |
+| Work tab | 「工作」面板 | Core `WorkTab.helpText` (`WorkTab.label` is 分配工作). |
+| manipulation / sight | 操作能力 / 視力 | Core `Manipulation.label` 操作 (操作能力 in prose, `ThrumboRoar.description`), `Sight.label`. |
+| pain / pain shock / unconscious | 疼痛 / 劇痛休克 / 失去意識 | Core prose 疼痛 (`PainShockThreshold.label` 疼痛忍受值), Keyed `PainShock`, `Unconscious`. |
+| downed | 倒地 | Core `PainShockThreshold.description`; upstream row. |
+| line of sight | 視線內 | Core `AbilityRequiresLOS` 所需視線; Shipcracker's prose 視線內. |
+| surgery / feeding / rescue (Workshop) | 手術 / 餵食 / 救援 | Core `MedicalSurgerySuccessChance.label` 手術成功率, `FeedPatient.reportString` 給TargetB餵食TargetA, `Rescue.reportString` 救援TargetA. |
+| JobDef reportString shape | 包紮TargetA的傷口 / 為TargetA注射腎上腺素 | Bare verb phrase, no 。, as every Core reportString; the abilities' `jobReportString`s (進行機械分子包紮 / 注射腎上腺素) take the same bare shape. |
+| Mote (the three motes' inherited label) | 塵土 | Core `Mote_*` labels (52 of 64 are 塵土). |
+| trait description tokens | {PAWN_nameDef} / {PAWN_pronoun} / {PAWN_objective} kept as is | Core `Wimp`, `Kind`, `Tough` trait descriptions (curly-brace tokens, objective as the object of 讓/影響). |
+| vacuum resistance (Workshop, VGE) | 真空抵抗力 | Odyssey `VacuumResistance.label`. |
+| suppressability (Workshop, CE) | not named; 更難被壓制 | CE 16.7.4's zh-Hant `Suppressability.label` is 抗抑制能力, which reads as the inverse of the stat (lower suppressability means harder to suppress), so the line states the effect instead. |
+| x of y (counts) | {0}/{1} | Vanilla zh-Hant sets the slash solid (`MassCarried` 負重：{0}/{1}公斤, `PregnantIconDesc`), where the English spaces it. |
 
 ## Pending native review
 
-The VFEP terms' review is tracked upstream, under the section named above.
-Add this mod's own coinages here as the pass makes them.
+Every coinage in "Set-specific rows": 醫療型, 機械分子 over 機械蟲, 機械分子包紮 /
+包紮, 機械分子包紮系統, 載藥機械分子, 腎上腺素注射 (ability and labelNoun),
+腎上腺素注射器, the stage labels 亢奮 / 平穩 / 消退 / 虛脫, 診斷面罩, 醫療輔助模組,
+戰地醫療機械臂, 戰地外科醫生, 已拆開的藥包, 每藥包治療量, 特效顏色, 每處傷口用時,
+增益持續時間, 虛脫持續時間, 自動施放, 已啟用的工作類型, both charge nouns (藥包,
+針劑) and the 裝甲 shell slot. Vanilla's own 心臟衰竭 for heart attack makes
+可止住心臟衰竭 read oddly; kept for consistency with the health tab. All free
+prose: the three descriptions (paragraph 1 after the family opener,
+paragraphs 2 and 3), the two ability descriptions, the hediff and trait
+descriptions, every settings tooltip and summary, and the whole Workshop page.
+A fresh register read rewrote the calques it found (the hediff opener now
+follows vanilla's 流淌在血液裡的X。, the autocast and programme agents became
+people). 自動施放 has no vanilla or VEF rendering and stays pending. The VFEP terms' review is tracked upstream,
+under the section named above.

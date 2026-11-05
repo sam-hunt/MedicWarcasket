@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.label>機械分子包紮</MDWC_MechaniteDressing.label>
+  <!-- EN: Stream mechanites carrying medicine onto a nearby person or animal to tend their wounds on the spot, starting with the worst. Tend quality depends on the pilot's medical skill and the medicine loaded, and higher skill tends faster. With the medic helmet, it can also treat diseases and infections. -->
+  <MDWC_MechaniteDressing.description>將攜帶藥品的機械分子輸送到附近的人或動物身上，從最嚴重的傷口開始逐一治療。治療品質取決於駕駛員的醫療技能和裝填的藥品，技能越高，治療也越快。穿戴醫療型戰棺頭盔時，還能治療疾病和感染。</MDWC_MechaniteDressing.description>
+  <!-- EN: Applying a mechanite dressing. -->
+  <MDWC_MechaniteDressing.jobReportString>進行機械分子包紮</MDWC_MechaniteDressing.jobReportString>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.verbProperties.label>機械分子包紮</MDWC_MechaniteDressing.verbProperties.label>
+
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.label>腎上腺素注射</MDWC_AdrenalineShot.label>
+  <!-- EN: Inject a nearby person or animal with a dose of adrenaline. For a short while they feel almost no pain and move and think faster. Afterward they will crash for hours, becoming dull and slow, and they tire faster throughout. If the target is having a heart attack, the shot will stop it instead. -->
+  <MDWC_AdrenalineShot.description>為附近的人或動物注射一劑腎上腺素。目標在短時間內幾乎感覺不到疼痛，行動和思考也會加快。之後目標會虛脫好幾個小時，反應和動作都會變慢，而且整個藥效期間都更容易疲勞。如果目標正處於心臟衰竭，這一針會改為止住心臟衰竭。</MDWC_AdrenalineShot.description>
+  <!-- EN: Giving an adrenaline shot. -->
+  <MDWC_AdrenalineShot.jobReportString>注射腎上腺素</MDWC_AdrenalineShot.jobReportString>
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.verbProperties.label>腎上腺素注射</MDWC_AdrenalineShot.verbProperties.label>
+</LanguageData>

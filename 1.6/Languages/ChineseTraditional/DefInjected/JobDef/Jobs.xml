@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: dressing TargetA's wounds. -->
+  <MDWC_MechaniteDressing.reportString>包紮TargetA的傷口</MDWC_MechaniteDressing.reportString>
+  <!-- EN: giving TargetA an adrenaline shot. -->
+  <MDWC_AdrenalineShot.reportString>為TargetA注射腎上腺素</MDWC_AdrenalineShot.reportString>
+</LanguageData>

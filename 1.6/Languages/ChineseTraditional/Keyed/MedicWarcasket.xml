@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Mechanite dressing (Source/1.6/Abilities/Ability_MechaniteDressing.cs, Source/1.6/Comps/, Source/1.6/Gizmos/) -->
+  <!-- EN: No {0} loaded. -->
+  <MDWC_NoMedicineLoaded>未裝填{0}。</MDWC_NoMedicineLoaded>
+  <!-- EN: {0} has no wounds to tend. -->
+  <MDWC_NoWoundsToDress>{0}沒有需要治療的傷口。</MDWC_NoWoundsToDress>
+  <!-- EN: {0} has nothing to tend. -->
+  <MDWC_NothingToTreat>{0}不需要照護。</MDWC_NothingToTreat>
+  <!-- EN: {0} is hostile. -->
+  <MDWC_HostileTarget>{0}是敵對的。</MDWC_HostileTarget>
+  <!-- EN: Interrupted: {0} of {1} wounds tended -->
+  <MDWC_WoundsTendedPartial>已中斷：已治療{0}/{1}處傷口</MDWC_WoundsTendedPartial>
+  <!-- EN: Out of {0}: {1} of {2} wounds tended -->
+  <MDWC_WoundsTendedDry>{0}用盡：已治療{1}/{2}處傷口</MDWC_WoundsTendedDry>
+  <!-- EN: Stream broken: {0} of {1} wounds tended -->
+  <MDWC_BeamBroken>輸送中斷：已治療{0}/{1}處傷口</MDWC_BeamBroken>
+  <!-- EN: {0}, quality {1} -->
+  <MDWC_TargetQuality>{0}，治療品質{1}</MDWC_TargetQuality>
+  <!-- EN: Wounds: {0}, kits: {1} -->
+  <MDWC_TargetCost>傷口：{0}，藥包：{1}</MDWC_TargetCost>
+  <!-- EN: Wounds: {0}, kits: {1} ({2} loaded) -->
+  <MDWC_TargetCostShort>傷口：{0}，藥包：{1}(已裝填{2})</MDWC_TargetCostShort>
+  <!-- EN: Kits: {0} / {1} -->
+  <MDWC_KitsLoaded>藥包：{0}/{1}</MDWC_KitsLoaded>
+  <!-- EN: Severity per kit -->
+  <MDWC_StatSeverityPerKit>每藥包治療量</MDWC_StatSeverityPerKit>
+  <!-- EN: The total injury severity one kit of medicine can tend, the same as a single tending. A disease, infection or missing body part uses a whole kit. -->
+  <MDWC_StatSeverityPerKitDesc>一個藥包可治療的傷勢嚴重程度總量，與一次一般治療相同。治療一種疾病、一處感染或一處缺少的身體部位，會用掉一整個藥包。</MDWC_StatSeverityPerKitDesc>
+  <!-- EN: Medicine -->
+  <MDWC_GaugeMedicine>藥品</MDWC_GaugeMedicine>
+  <!-- EN: Open kit: {0} left -->
+  <MDWC_GaugeOpenKit>已拆開的藥包：剩餘{0}</MDWC_GaugeOpenKit>
+  <!-- EN: Reload target: {0} -->
+  <MDWC_GaugeReloadTarget>裝填目標：{0}</MDWC_GaugeReloadTarget>
+  <!-- EN: Never reload. -->
+  <MDWC_GaugeNeverReload>從不裝填。</MDWC_GaugeNeverReload>
+  <!-- EN: Each kit tends up to {0} injury severity, or one disease, infection or missing body part. -->
+  <MDWC_GaugeKitDesc>每個藥包最多可治療嚴重程度{0}的傷勢，或是一種疾病、一處感染或一處缺少的身體部位。</MDWC_GaugeKitDesc>
+
+  <!-- Adrenaline shot (Source/1.6/Abilities/Ability_AdrenalineShot.cs) -->
+  <!-- EN: No shots loaded. -->
+  <MDWC_NoShotsLoaded>未裝填針劑。</MDWC_NoShotsLoaded>
+  <!-- EN: {0} is hostile. -->
+  <MDWC_ShotHostile>{0}是敵對的。</MDWC_ShotHostile>
+  <!-- EN: {0} already has an adrenaline shot. -->
+  <MDWC_ShotAlreadyRushing>{0}已經注射過腎上腺素了。</MDWC_ShotAlreadyRushing>
+  <!-- EN: Shots: {0} / {1} -->
+  <MDWC_ShotsLabel>針劑：{0}/{1}</MDWC_ShotsLabel>
+  <!-- EN: Stops the heart attack -->
+  <MDWC_ShotStopsHeartAttack>可止住心臟衰竭</MDWC_ShotStopsHeartAttack>
+  <!-- EN: {0}'s heart attack has stopped. -->
+  <MDWC_HeartAttackStopped>{0}的心臟衰竭已被止住。</MDWC_HeartAttackStopped>
+  <!-- EN: When autocast is enabled, each patient gets a shot as their dressing ends. -->
+  <MDWC_ShotAutocastDesc>啟用自動施放時，每位患者在包紮結束時都會被注射一針。</MDWC_ShotAutocastDesc>
+
+  <!-- Both abilities' tooltips: the reload item is a mod setting, so the def text cannot name it -->
+  <!-- EN: Reloads with {0}. -->
+  <MDWC_ReloadsWith>以{0}重新裝填。</MDWC_ReloadsWith>
+
+  <!-- Mod settings (Source/1.6/Settings/) -->
+  <!-- EN: Medic Warcasket -->
+  <MDWC_SettingsCategory>醫療型戰棺</MDWC_SettingsCategory>
+  <!-- EN: These settings are unavailable. Another mod has changed the medic warcasket's definitions, so the set keeps its built-in values. -->
+  <MDWC_SettingsUnavailable>這些設定目前無法使用。另一個模組修改了醫療型戰棺，因此這套戰棺會沿用內建數值。</MDWC_SettingsUnavailable>
+
+  <!-- EN: Mechanite dressing -->
+  <MDWC_SectionDressing>機械分子包紮</MDWC_SectionDressing>
+
+  <!-- EN: Reload item -->
+  <MDWC_Medicine>裝填物品</MDWC_Medicine>
+  <!-- EN: The medicine loaded into the armor, one per kit. Better medicine gives higher tend quality. Default: {0}. -->
+  <MDWC_MedicineDesc>裝入裝甲的藥品，每個藥包消耗一份。藥品越好，治療品質越高。預設值：{0}。</MDWC_MedicineDesc>
+
+  <!-- EN: Effect color -->
+  <MDWC_Tint>特效顏色</MDWC_Tint>
+  <!-- EN: The color of the dressing's effects and of the medicine gauge. Default: {0}. -->
+  <MDWC_TintDesc>包紮特效和藥品儀表的顏色。預設值：{0}。</MDWC_TintDesc>
+  <!-- EN: Blue -->
+  <MDWC_TintDefault>藍色</MDWC_TintDefault>
+  <!-- EN: Green -->
+  <MDWC_TintGreen>綠色</MDWC_TintGreen>
+  <!-- EN: Pink -->
+  <MDWC_TintPink>粉紅色</MDWC_TintPink>
+
+  <!-- EN: Kit capacity -->
+  <MDWC_Kits>藥包容量</MDWC_Kits>
+  <!-- EN: The number of medicine kits the armor holds when full. Default: {0}. -->
+  <MDWC_KitsDesc>裝甲裝滿時可容納的藥包數量。預設值：{0}。</MDWC_KitsDesc>
+
+  <!-- EN: Casting time -->
+  <MDWC_CastTime>施放時間</MDWC_CastTime>
+  <!-- EN: How long the pilot takes to start a dressing. The patient is held still while it is cast. Default: {0}. -->
+  <MDWC_CastTimeDesc>駕駛員開始一次包紮所需的時間。施放期間，患者會被固定不動。預設值：{0}。</MDWC_CastTimeDesc>
+
+  <!-- EN: Time per wound -->
+  <MDWC_TendInterval>每處傷口用時</MDWC_TendInterval>
+  <!-- EN: The time spent on each wound or illness at normal medical tend speed. Higher medical skill and the medic shoulders tend faster. Default: {0}. -->
+  <MDWC_TendIntervalDesc>在正常醫療速度下，處理每處傷口或每種病症所需的時間。醫療技能越高，治療越快，醫療型戰棺護肩也能加快治療。預設值：{0}。</MDWC_TendIntervalDesc>
+
+  <!-- EN: Cooldown -->
+  <MDWC_Cooldown>冷卻時間</MDWC_Cooldown>
+  <!-- EN: The time the pilot must wait after a dressing before starting another. Default: {0}. -->
+  <MDWC_CooldownDesc>駕駛員包紮後，必須等待這段時間才能再次包紮。預設值：{0}。</MDWC_CooldownDesc>
+
+  <!-- EN: Range -->
+  <MDWC_Range>距離</MDWC_Range>
+  <!-- EN: How close the pilot must be to the patient to start a dressing, in cells. Line of sight is required. Default: {0}. -->
+  <MDWC_RangeDesc>駕駛員最遠能在多少格的距離內開始包紮。患者必須在視線內。預設值：{0}。</MDWC_RangeDesc>
+
+  <!-- EN: Raider medics dress the wounded -->
+  <MDWC_AIDressing>襲擊者醫療兵會包紮傷員</MDWC_AIDressing>
+  <!-- EN: When enabled, raider and allied medics will dress their own downed between fights, and give a shot after each dressing if they also wear the shoulders. When disabled, only your pilots use it. Default: {0}. -->
+  <MDWC_AIDressingDesc>啟用時，襲擊者和盟友的醫療兵會在戰鬥間隙為己方倒地的人包紮。若同時穿戴護肩，每次包紮後還會注射一針。停用時，只有你的駕駛員會使用這項能力。預設值：{0}。</MDWC_AIDressingDesc>
+
+  <!-- EN: The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The cooldown after a dressing is {5}. -->
+  <MDWC_DressingSummary>裝甲最多可容納{0}個藥包，以{1}裝填。每個藥包可治療嚴重程度{2}的傷勢，或一種病症。每次包紮需施放{3}，之後在正常醫療速度下每{4}治療一處傷口。包紮後的冷卻時間為{5}。</MDWC_DressingSummary>
+  <!-- EN: The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The next can start at once. -->
+  <MDWC_DressingSummaryNoCooldown>裝甲最多可容納{0}個藥包，以{1}裝填。每個藥包可治療嚴重程度{2}的傷勢，或一種病症。每次包紮需施放{3}，之後在正常醫療速度下每{4}治療一處傷口。下一次包紮可以立即開始。</MDWC_DressingSummaryNoCooldown>
+
+  <!-- EN: Adrenaline shot -->
+  <MDWC_SectionShot>腎上腺素注射</MDWC_SectionShot>
+
+  <!-- EN: Shot capacity -->
+  <MDWC_Shots>針劑容量</MDWC_Shots>
+  <!-- EN: The number of shots the shoulders hold when full. Default: {0}. -->
+  <MDWC_ShotsDesc>護肩裝滿時可容納的針劑數量。預設值：{0}。</MDWC_ShotsDesc>
+
+  <!-- EN: Reload item -->
+  <MDWC_ShotAmmo>裝填物品</MDWC_ShotAmmo>
+  <!-- EN: The item loaded into the shoulders, one per shot. Any medicine, go-juice or wake-up will do. Default: {0}. -->
+  <MDWC_ShotAmmoDesc>裝入護肩的物品，每支針劑消耗一份。任何藥品、能量果飲或醒神劑皆可。預設值：{0}。</MDWC_ShotAmmoDesc>
+
+  <!-- EN: Boost duration -->
+  <MDWC_ShotBoost>增益持續時間</MDWC_ShotBoost>
+  <!-- EN: How long the adrenaline lasts before the crash. Default: {0}. -->
+  <MDWC_ShotBoostDesc>腎上腺素在虛脫之前持續的時間。預設值：{0}。</MDWC_ShotBoostDesc>
+
+  <!-- EN: Crash duration -->
+  <MDWC_ShotCrash>虛脫持續時間</MDWC_ShotCrash>
+  <!-- EN: How long the crash lasts. A crashing patient will be dull, slow and quick to tire. Default: {0}. -->
+  <MDWC_ShotCrashDesc>虛脫持續的時間，期間患者會反應遲鈍、動作緩慢，也很容易疲勞。預設值：{0}。</MDWC_ShotCrashDesc>
+
+  <!-- EN: Cooldown -->
+  <MDWC_ShotCooldown>冷卻時間</MDWC_ShotCooldown>
+  <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
+  <MDWC_ShotCooldownDesc>每次注射後，要等多久才能再打下一針。冷卻期間，自動注射會略過患者。預設值：{0}。</MDWC_ShotCooldownDesc>
+
+  <!-- EN: Raider medics give adrenaline shots -->
+  <MDWC_AIShot>襲擊者醫療兵會注射腎上腺素</MDWC_AIShot>
+  <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
+  <MDWC_AIShotDesc>啟用時，襲擊者和盟友的醫療兵會在戰鬥間隙為己方倒地的人注射腎上腺素，被救起的襲擊者會重新加入襲擊。停用時，只有你的駕駛員會使用這項能力。預設值：{0}。</MDWC_AIShotDesc>
+
+  <!-- EN: The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The cooldown after a shot is {5}. -->
+  <MDWC_ShotSummary>護肩可容納{0}支針劑，每支以一份{1}裝填。腎上腺素分{3}個階段持續{2}，之後患者會虛脫{4}，整段期間都更容易疲勞。注射後的冷卻時間為{5}。</MDWC_ShotSummary>
+  <!-- EN: The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The next shot can follow at once. -->
+  <MDWC_ShotSummaryNoCooldown>護肩可容納{0}支針劑，每支以一份{1}裝填。腎上腺素分{3}個階段持續{2}，之後患者會虛脫{4}，整段期間都更容易疲勞。下一針可以立即注射。</MDWC_ShotSummaryNoCooldown>
+
+  <!-- EN: Enabled work types -->
+  <MDWC_SectionWork>已啟用的工作類型</MDWC_SectionWork>
+  <!-- EN: The work types a medic pilot can do. All other work follows the warcasket trait from Vanilla Factions Expanded - Pirates, including any changes other mods make to it. -->
+  <MDWC_SectionWorkDesc>醫療型戰棺駕駛員可以從事的工作類型。其餘工作一律依照Vanilla Factions Expanded - Pirates的戰棺特性，包括其他模組對這項特性的修改。</MDWC_SectionWorkDesc>
+  <!-- EN: When enabled, medic pilots can do this work. The change applies to pilots who are already entombed. Newly enabled work starts unassigned in the Work tab. -->
+  <MDWC_WorkDesc>啟用時，醫療型戰棺駕駛員可以從事這項工作。已封在戰棺內的駕駛員也適用。新啟用的工作在「工作」面板中預設為未分配。</MDWC_WorkDesc>
+  <!-- EN: Default: {0}. -->
+  <MDWC_WorkDefault>預設值：{0}。</MDWC_WorkDefault>
+  <!-- EN: The pilot can do {0} work. All other work follows the VFE Pirates warcasket trait. -->
+  <MDWC_WorkSummary>駕駛員可以從事{0}工作。其他所有工作都依照VFE Pirates的戰棺特性。</MDWC_WorkSummary>
+  <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
+  <MDWC_WorkSummaryNone>駕駛員不從事任何照顧工作。其他所有工作都依照VFE Pirates的戰棺特性。</MDWC_WorkSummaryNone>
+
+  <!-- EN:  (default) -->
+  <MDWC_DefaultSuffix>(預設)</MDWC_DefaultSuffix>
+  <!-- EN: enabled -->
+  <MDWC_Enabled>啟用</MDWC_Enabled>
+  <!-- EN: disabled -->
+  <MDWC_Disabled>停用</MDWC_Disabled>
+
+</LanguageData>
