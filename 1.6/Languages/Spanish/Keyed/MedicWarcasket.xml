@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Mechanite dressing (Source/1.6/Abilities/Ability_MechaniteDressing.cs, Source/1.6/Comps/, Source/1.6/Gizmos/) -->
+  <!-- EN: No {0} loaded. -->
+  <MDWC_NoMedicineLoaded>No hay {0} en la armadura.</MDWC_NoMedicineLoaded>
+  <!-- EN: {0} has no wounds to tend. -->
+  <MDWC_NoWoundsToDress>{0} no tiene heridas que atender.</MDWC_NoWoundsToDress>
+  <!-- EN: {0} has nothing to tend. -->
+  <MDWC_NothingToTreat>{0} no necesita atención.</MDWC_NothingToTreat>
+  <!-- EN: {0} is hostile. -->
+  <MDWC_HostileTarget>{0} es hostil.</MDWC_HostileTarget>
+  <!-- EN: Interrupted: {0} of {1} wounds tended -->
+  <MDWC_WoundsTendedPartial>Interrumpido: {0} de {1} heridas tratadas</MDWC_WoundsTendedPartial>
+  <!-- EN: Out of {0}: {1} of {2} wounds tended -->
+  <MDWC_WoundsTendedDry>Sin {0}: {1} de {2} heridas tratadas</MDWC_WoundsTendedDry>
+  <!-- EN: Stream broken: {0} of {1} wounds tended -->
+  <MDWC_BeamBroken>Flujo cortado: {0} de {1} heridas tratadas</MDWC_BeamBroken>
+  <!-- EN: {0}, quality {1} -->
+  <MDWC_TargetQuality>{0}, calidad {1}</MDWC_TargetQuality>
+  <!-- EN: Wounds: {0}, kits: {1} -->
+  <MDWC_TargetCost>Heridas: {0}, kits: {1}</MDWC_TargetCost>
+  <!-- EN: Wounds: {0}, kits: {1} ({2} loaded) -->
+  <MDWC_TargetCostShort>Heridas: {0}, kits: {1} ({2} cargados)</MDWC_TargetCostShort>
+  <!-- EN: Kits: {0} / {1} -->
+  <MDWC_KitsLoaded>Kits: {0} / {1}</MDWC_KitsLoaded>
+  <!-- EN: Severity per kit -->
+  <MDWC_StatSeverityPerKit>Gravedad por kit</MDWC_StatSeverityPerKit>
+  <!-- EN: The total injury severity one kit of medicine can tend, the same as a single tending. A disease, infection or missing body part uses a whole kit. -->
+  <MDWC_StatSeverityPerKitDesc>La gravedad total de heridas que puede tratar un kit de medicina, contada igual que en un tratamiento normal. Una enfermedad, una infección o una parte del cuerpo faltante consume un kit entero.</MDWC_StatSeverityPerKitDesc>
+  <!-- EN: Medicine -->
+  <MDWC_GaugeMedicine>Medicina</MDWC_GaugeMedicine>
+  <!-- EN: Open kit: {0} left -->
+  <MDWC_GaugeOpenKit>Kit abierto: queda un {0}</MDWC_GaugeOpenKit>
+  <!-- EN: Reload target: {0} -->
+  <MDWC_GaugeReloadTarget>Recargar hasta: {0}</MDWC_GaugeReloadTarget>
+  <!-- EN: Never reload. -->
+  <MDWC_GaugeNeverReload>No recargar nunca.</MDWC_GaugeNeverReload>
+  <!-- EN: Each kit tends up to {0} injury severity, or one disease, infection or missing body part. -->
+  <MDWC_GaugeKitDesc>Cada kit trata heridas con una gravedad total de hasta {0}, o bien una enfermedad, una infección o una parte del cuerpo faltante.</MDWC_GaugeKitDesc>
+
+  <!-- Adrenaline shot (Source/1.6/Abilities/Ability_AdrenalineShot.cs) -->
+  <!-- EN: No shots loaded. -->
+  <MDWC_NoShotsLoaded>No hay inyecciones cargadas.</MDWC_NoShotsLoaded>
+  <!-- EN: {0} is hostile. -->
+  <MDWC_ShotHostile>{0} es hostil.</MDWC_ShotHostile>
+  <!-- EN: {0} already has an adrenaline shot. -->
+  <MDWC_ShotAlreadyRushing>{0} ya ha recibido una inyección de adrenalina.</MDWC_ShotAlreadyRushing>
+  <!-- EN: Shots: {0} / {1} -->
+  <MDWC_ShotsLabel>Inyecciones: {0} / {1}</MDWC_ShotsLabel>
+  <!-- EN: Stops the heart attack -->
+  <MDWC_ShotStopsHeartAttack>Detiene el ataque cardíaco</MDWC_ShotStopsHeartAttack>
+  <!-- EN: {0}'s heart attack has stopped. -->
+  <MDWC_HeartAttackStopped>El ataque cardíaco de {0} se ha detenido.</MDWC_HeartAttackStopped>
+  <!-- EN: When autocast is enabled, each patient gets a shot as their dressing ends. -->
+  <MDWC_ShotAutocastDesc>Con el lanzamiento automático activado, cada paciente recibe una inyección al terminar su vendaje.</MDWC_ShotAutocastDesc>
+
+  <!-- Both abilities' tooltips: the reload item is a mod setting, so the def text cannot name it -->
+  <!-- EN: Reloads with {0}. -->
+  <MDWC_ReloadsWith>Se recarga con {0}.</MDWC_ReloadsWith>
+
+  <!-- Mod settings (Source/1.6/Settings/) -->
+  <!-- EN: Medic Warcasket -->
+  <MDWC_SettingsCategory>Ataúd de guerra médico</MDWC_SettingsCategory>
+  <!-- EN: These settings are unavailable. Another mod has changed the medic warcasket's definitions, so the set keeps its built-in values. -->
+  <MDWC_SettingsUnavailable>Estos ajustes no están disponibles. Otro mod ha modificado el ataúd de guerra médico, así que el conjunto mantiene sus valores originales.</MDWC_SettingsUnavailable>
+
+  <!-- EN: Mechanite dressing -->
+  <MDWC_SectionDressing>Vendaje de mecanitas</MDWC_SectionDressing>
+
+  <!-- EN: Reload item -->
+  <MDWC_Medicine>Objeto de recarga</MDWC_Medicine>
+  <!-- EN: The medicine loaded into the armor, one per kit. Better medicine gives higher tend quality. Default: {0}. -->
+  <MDWC_MedicineDesc>Medicina que se carga en la armadura, una unidad por kit. Cuanto mejor sea la medicina, mayor será la calidad del tratamiento. Por defecto: {0}.</MDWC_MedicineDesc>
+
+  <!-- EN: Effect color -->
+  <MDWC_Tint>Color de los efectos</MDWC_Tint>
+  <!-- EN: The color of the dressing's effects and of the medicine gauge. Default: {0}. -->
+  <MDWC_TintDesc>Color de los efectos del vendaje y del indicador de medicina. Por defecto: {0}.</MDWC_TintDesc>
+  <!-- EN: Blue -->
+  <MDWC_TintDefault>Azul</MDWC_TintDefault>
+  <!-- EN: Green -->
+  <MDWC_TintGreen>Verde</MDWC_TintGreen>
+  <!-- EN: Pink -->
+  <MDWC_TintPink>Rosa</MDWC_TintPink>
+
+  <!-- EN: Kit capacity -->
+  <MDWC_Kits>Capacidad de kits</MDWC_Kits>
+  <!-- EN: The number of medicine kits the armor holds when full. Default: {0}. -->
+  <MDWC_KitsDesc>Número de kits de medicina que lleva la armadura con la carga completa. Por defecto: {0}.</MDWC_KitsDesc>
+
+  <!-- EN: Casting time -->
+  <MDWC_CastTime>Tiempo de lanzamiento</MDWC_CastTime>
+  <!-- EN: How long the pilot takes to start a dressing. The patient is held still while it is cast. Default: {0}. -->
+  <MDWC_CastTimeDesc>Tiempo que tarda el piloto en iniciar un vendaje. Durante el lanzamiento, el paciente queda inmovilizado. Por defecto: {0}.</MDWC_CastTimeDesc>
+
+  <!-- EN: Time per wound -->
+  <MDWC_TendInterval>Tiempo por herida</MDWC_TendInterval>
+  <!-- EN: The time spent on each wound or illness at normal medical tend speed. Higher medical skill and the medic shoulders tend faster. Default: {0}. -->
+  <MDWC_TendIntervalDesc>Tiempo dedicado a cada herida o enfermedad a una velocidad de tratamiento médico normal. Con más habilidad de medicina y con las hombreras del Médico, el tratamiento es más rápido. Por defecto: {0}.</MDWC_TendIntervalDesc>
+
+  <!-- EN: Cooldown -->
+  <MDWC_Cooldown>Enfriamiento</MDWC_Cooldown>
+  <!-- EN: The time the pilot must wait after a dressing before starting another. Default: {0}. -->
+  <MDWC_CooldownDesc>Tiempo que el piloto debe esperar tras un vendaje para empezar otro. Por defecto: {0}.</MDWC_CooldownDesc>
+
+  <!-- EN: Range -->
+  <MDWC_Range>Alcance</MDWC_Range>
+  <!-- EN: How close the pilot must be to the patient to start a dressing, in cells. Line of sight is required. Default: {0}. -->
+  <MDWC_RangeDesc>Distancia máxima en casillas entre el piloto y el paciente para iniciar un vendaje. Requiere línea de visión. Por defecto: {0}.</MDWC_RangeDesc>
+
+  <!-- EN: Raider medics dress the wounded -->
+  <MDWC_AIDressing>Los médicos asaltantes vendan a los heridos</MDWC_AIDressing>
+  <!-- EN: When enabled, raider and allied medics will dress their own downed between fights, and give a shot after each dressing if they also wear the shoulders. When disabled, only your pilots use it. Default: {0}. -->
+  <MDWC_AIDressingDesc>Si está activado, los médicos asaltantes y aliados vendarán a sus compañeros incapacitados entre combates, y les pondrán una inyección después de cada vendaje si también llevan las hombreras. Si está desactivado, solo lo usarán tus pilotos. Por defecto: {0}.</MDWC_AIDressingDesc>
+
+  <!-- EN: The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The cooldown after a dressing is {5}. -->
+  <MDWC_DressingSummary>La armadura lleva hasta {0} kits de {1}, y cada uno trata heridas con una gravedad total de {2} o una enfermedad. Un vendaje tarda {3} en lanzarse y después trata una herida cada {4} a velocidad de tratamiento normal. El enfriamiento tras un vendaje es de {5}.</MDWC_DressingSummary>
+  <!-- EN: The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The next can start at once. -->
+  <MDWC_DressingSummaryNoCooldown>La armadura lleva hasta {0} kits de {1}, y cada uno trata heridas con una gravedad total de {2} o una enfermedad. Un vendaje tarda {3} en lanzarse y después trata una herida cada {4} a velocidad de tratamiento normal. El siguiente puede empezar de inmediato.</MDWC_DressingSummaryNoCooldown>
+
+  <!-- EN: Adrenaline shot -->
+  <MDWC_SectionShot>Inyección de adrenalina</MDWC_SectionShot>
+
+  <!-- EN: Shot capacity -->
+  <MDWC_Shots>Capacidad de inyecciones</MDWC_Shots>
+  <!-- EN: The number of shots the shoulders hold when full. Default: {0}. -->
+  <MDWC_ShotsDesc>Número de inyecciones que llevan las hombreras con la carga completa. Por defecto: {0}.</MDWC_ShotsDesc>
+
+  <!-- EN: Reload item -->
+  <MDWC_ShotAmmo>Objeto de recarga</MDWC_ShotAmmo>
+  <!-- EN: The item loaded into the shoulders, one per shot. Any medicine, go-juice or wake-up will do. Default: {0}. -->
+  <MDWC_ShotAmmoDesc>Objeto que se carga en las hombreras, uno por inyección. Sirve cualquier medicina, el neurozumo o el despertar. Por defecto: {0}.</MDWC_ShotAmmoDesc>
+
+  <!-- EN: Boost duration -->
+  <MDWC_ShotBoost>Duración del subidón</MDWC_ShotBoost>
+  <!-- EN: How long the adrenaline lasts before the crash. Default: {0}. -->
+  <MDWC_ShotBoostDesc>Tiempo que dura la adrenalina antes del bajón. Por defecto: {0}.</MDWC_ShotBoostDesc>
+
+  <!-- EN: Crash duration -->
+  <MDWC_ShotCrash>Duración del bajón</MDWC_ShotCrash>
+  <!-- EN: How long the crash lasts. A crashing patient will be dull, slow and quick to tire. Default: {0}. -->
+  <MDWC_ShotCrashDesc>Tiempo que dura el bajón. Mientras dura, el paciente estará atontado y lento, y se cansará enseguida. Por defecto: {0}.</MDWC_ShotCrashDesc>
+
+  <!-- EN: Cooldown -->
+  <MDWC_ShotCooldown>Enfriamiento</MDWC_ShotCooldown>
+  <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
+  <MDWC_ShotCooldownDesc>Tiempo que el piloto debe esperar entre inyecciones. Mientras dura el enfriamiento, el lanzamiento automático no pone ninguna inyección. Por defecto: {0}.</MDWC_ShotCooldownDesc>
+
+  <!-- EN: Raider medics give adrenaline shots -->
+  <MDWC_AIShot>Los médicos asaltantes ponen inyecciones de adrenalina</MDWC_AIShot>
+  <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
+  <MDWC_AIShotDesc>Si está activado, los médicos asaltantes y aliados pondrán una inyección de adrenalina a sus compañeros incapacitados entre combates, y un asaltante reanimado volverá a unirse al asalto. Si está desactivado, solo la usarán tus pilotos. Por defecto: {0}.</MDWC_AIShotDesc>
+
+  <!-- EN: The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The cooldown after a shot is {5}. -->
+  <MDWC_ShotSummary>Las hombreras llevan {0} inyecciones y se recargan con {1}, una unidad por inyección. La adrenalina dura {2} en {3} niveles, y después el paciente sufre un bajón durante {4}. Durante todo ese tiempo se cansa más rápido. El enfriamiento tras una inyección es de {5}.</MDWC_ShotSummary>
+  <!-- EN: The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The next shot can follow at once. -->
+  <MDWC_ShotSummaryNoCooldown>Las hombreras llevan {0} inyecciones y se recargan con {1}, una unidad por inyección. La adrenalina dura {2} en {3} niveles, y después el paciente sufre un bajón durante {4}. Durante todo ese tiempo se cansa más rápido. La siguiente inyección puede ponerse de inmediato.</MDWC_ShotSummaryNoCooldown>
+
+  <!-- EN: Enabled work types -->
+  <MDWC_SectionWork>Tipos de trabajo activados</MDWC_SectionWork>
+  <!-- EN: The work types a medic pilot can do. All other work follows the warcasket trait from Vanilla Factions Expanded - Pirates, including any changes other mods make to it. -->
+  <MDWC_SectionWorkDesc>Tipos de trabajo que puede hacer un piloto médico. Los demás trabajos se rigen por el rasgo "ataúd de guerra" de Vanilla Factions Expanded - Pirates, incluidos los cambios que otros mods le hagan.</MDWC_SectionWorkDesc>
+  <!-- EN: When enabled, medic pilots can do this work. The change applies to pilots who are already entombed. Newly enabled work starts unassigned in the Work tab. -->
+  <MDWC_WorkDesc>Si está activado, los pilotos médicos podrán hacer este trabajo. El cambio también se aplica a los pilotos que ya están sepultados. Los trabajos recién activados empiezan sin asignar en la pestaña "Trabajo".</MDWC_WorkDesc>
+  <!-- EN: Default: {0}. -->
+  <MDWC_WorkDefault>Por defecto: {0}.</MDWC_WorkDefault>
+  <!-- EN: The pilot can do {0} work. All other work follows the VFE Pirates warcasket trait. -->
+  <MDWC_WorkSummary>El piloto puede hacer trabajos de {0}. Los demás trabajos se rigen por el rasgo "ataúd de guerra" de VFE Pirates.</MDWC_WorkSummary>
+  <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
+  <MDWC_WorkSummaryNone>El piloto no hace ningún trabajo de cuidados. Los demás trabajos se rigen por el rasgo "ataúd de guerra" de VFE Pirates.</MDWC_WorkSummaryNone>
+
+  <!-- EN:  (default) -->
+  <MDWC_DefaultSuffix> (por defecto)</MDWC_DefaultSuffix>
+  <!-- EN: enabled -->
+  <MDWC_Enabled>activado</MDWC_Enabled>
+  <!-- EN: disabled -->
+  <MDWC_Disabled>desactivado</MDWC_Disabled>
+
+</LanguageData>

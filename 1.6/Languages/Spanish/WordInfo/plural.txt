@@ -1,0 +1,2 @@
+// Medic Warcasket: chargeNoun plural
+inyección;inyecciones

@@ -1,0 +1,51 @@
+Ataúd de guerra médico
+
+Un nuevo ataúd de guerra de la era espacial para [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url].
+
+[h1]Acerca de[/h1]
+
+El Médico es un ataúd de guerra de 10.ª generación para médicos de combate, pensado para que el piloto atienda a sus compañeros de escuadrón bajo el fuego.
+
+[hr][/hr]
+[h2]El conjunto[/h2]
+Consta de torso, hombreras y casco, que se montan en la forja de ataúd de guerra tras la investigación "ataúdes de guerra de la era espacial". Combina las piezas con las series de VFE Pirates como quieras.
+[list]
+[*][b]Torso:[/b] incluye el vendaje de mecanitas, y el piloto puede seguir trabajando como médico: tratar, operar, alimentar y rescatar.
+[*][b]Hombreras:[/b] incluyen la inyección de adrenalina y tratamientos más rápidos, y mantienen la manipulación del piloto al máximo.
+[*][b]Casco:[/b] mejora la calidad del tratamiento y mantiene la vista del piloto al máximo.
+[/list]
+
+[h2]Vendaje de mecanitas[/h2]
+La armadura lleva una reserva de kits de medicina. Apunta a un personaje herido y el piloto le lanzará un flujo de mecanitas que tratará sus heridas de la más grave a la más leve. La calidad del tratamiento es la del propio piloto. Con el visor de diagnóstico del casco, también trata enfermedades e infecciones.
+
+[h2]Inyección de adrenalina[/h2]
+Las hombreras llevan unas cuantas inyecciones de adrenalina. Una inyección detiene un ataque cardíaco, o pone en pie a un personaje incapacitado el tiempo suficiente para que escape. El dolor queda en suspenso, y el personaje se mueve y piensa más rápido durante un rato. El efecto se desvanece poco a poco hasta acabar en un largo bajón, como en la vida real. Con la armadura puesta, el lanzamiento automático pone una inyección a cada paciente al terminar su vendaje.
+
+[hr][/hr]
+[h1]Compatibilidad con mods[/h1]
+[list]
+[*]Se puede añadir sin riesgo a partidas existentes.
+[*]No es seguro quitarlo mientras haya alguien sepultado en el conjunto.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]: obligatorio.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044]Combat Extended[/url]: parche integrado, con valores de armadura, volumen equipado y capacidades de masa y de volumen a la par de las series de la era espacial de VFE Pirates. La adrenalina reduce la supresibilidad.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3609835606]Vanilla Gravship Expanded[/url]: sigue sus reglas de vacío para ataúdes de guerra.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730151836]Warcaskets can work![/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730543694]Warcaskets can haul![/url] y [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3535194807]Hardworking Warcaskets[/url]: compatibles.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1909914131]Save Our Ship 2[/url]: apto para EVA con las mismas reglas que las series propias de VFE Pirates.
+[/list]
+
+[hr][/hr]
+[h1]Preguntas frecuentes[/h1]
+
+[b]P: ¿Cómo lo consigo?[/b]
+R: Investiga el proyecto "ataúdes de guerra de la era espacial" de VFE Pirates y móntalo en la forja de ataúd de guerra como cualquier otro conjunto.
+
+[b]P: ¿Está desequilibrado?[/b]
+R: Las habilidades se pueden ajustar por completo en las opciones del mod, aunque me he esforzado en elegir unos valores por defecto razonables.
+
+[b]P: ¿En qué se inspira?[/b]
+R: En un hueco por aprovechar en la lista de ataúdes de guerra, en demasiados colonos muertos y quizá en miles de horas de Starcraft durante mi infancia.
+
+[hr][/hr]
+[h1]Enlaces[/h1]
+Código fuente, descargas manuales y seguimiento de incidencias: [url=https://github.com/sam-hunt/MedicWarcasket]GitHub[/url]
+Arte de [url=https://steamcommunity.com/profiles/76561198094174176/myworkshopfiles/?appid=294100]IcingWithCheeseCake[/url]

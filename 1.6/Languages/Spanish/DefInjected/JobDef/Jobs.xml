@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: dressing TargetA's wounds. -->
+  <MDWC_MechaniteDressing.reportString>aplicando un vendaje de mecanitas a TargetA.</MDWC_MechaniteDressing.reportString>
+  <!-- EN: giving TargetA an adrenaline shot. -->
+  <MDWC_AdrenalineShot.reportString>poniendo una inyección de adrenalina a TargetA.</MDWC_AdrenalineShot.reportString>
+
+</LanguageData>
