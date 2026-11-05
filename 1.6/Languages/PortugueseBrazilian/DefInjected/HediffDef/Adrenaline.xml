@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: adrenaline -->
+  <MDWC_Adrenaline.label>adrenalina</MDWC_Adrenaline.label>
+  <!-- EN: an adrenaline shot -->
+  <MDWC_Adrenaline.labelNoun>uma injeção de adrenalina</MDWC_Adrenaline.labelNoun>
+  <!-- EN: Adrenaline in the bloodstream. It dulls pain and quickens movement and thought, then gives way to a long crash. The body tires faster and faster as it wears off. -->
+  <MDWC_Adrenaline.description>Adrenalina na corrente sanguínea. Atenua a dor e acelera os movimentos e o raciocínio, e depois dá lugar a um longo esgotamento. O corpo se cansa cada vez mais rápido à medida que o efeito passa.</MDWC_Adrenaline.description>
+  <!-- EN: rush -->
+  <MDWC_Adrenaline.stages.rush.label>pico</MDWC_Adrenaline.stages.rush.label>
+  <!-- EN: steady -->
+  <MDWC_Adrenaline.stages.steady.label>estável</MDWC_Adrenaline.stages.steady.label>
+  <!-- EN: wearing off -->
+  <MDWC_Adrenaline.stages.wearing_off.label>em declínio</MDWC_Adrenaline.stages.wearing_off.label>
+  <!-- EN: crash -->
+  <MDWC_Adrenaline.stages.crash.label>esgotamento</MDWC_Adrenaline.stages.crash.label>
+
+</LanguageData>

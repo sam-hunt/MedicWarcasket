@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.label>curativo de mecanitos</MDWC_MechaniteDressing.label>
+  <!-- EN: Stream mechanites carrying medicine onto a nearby person or animal to tend their wounds on the spot, starting with the worst. Tend quality depends on the pilot's medical skill and the medicine loaded, and higher skill tends faster. With the medic helmet, it can also treat diseases and infections. -->
+  <MDWC_MechaniteDressing.description>Lance um fluxo de mecanitos carregados de medicamento sobre uma pessoa ou animal próximo para tratar as feridas, começando pela pior. A qualidade do tratamento depende da habilidade médica do piloto e do medicamento carregado, e quanto maior a habilidade, mais rápido o tratamento. Com o capacete de carcaça de guerra médica, o curativo também pode tratar doenças e infecções.</MDWC_MechaniteDressing.description>
+  <!-- EN: Applying a mechanite dressing. -->
+  <MDWC_MechaniteDressing.jobReportString>aplicando um curativo de mecanitos.</MDWC_MechaniteDressing.jobReportString>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.verbProperties.label>curativo de mecanitos</MDWC_MechaniteDressing.verbProperties.label>
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.label>injeção de adrenalina</MDWC_AdrenalineShot.label>
+  <!-- EN: Inject a nearby person or animal with a dose of adrenaline. For a short while they feel almost no pain and move and think faster. Afterward they will crash for hours, becoming dull and slow, and they tire faster throughout. If the target is having a heart attack, the shot will stop it instead. -->
+  <MDWC_AdrenalineShot.description>Injete uma dose de adrenalina em uma pessoa ou animal próximo. Por um curto período, o alvo quase não sente dor e se move e pensa mais rápido. Depois, passa horas esgotado, apático e lento, e se cansa mais rápido o tempo todo. Se o alvo estiver tendo um ataque cardíaco, a injeção interrompe o ataque.</MDWC_AdrenalineShot.description>
+  <!-- EN: Giving an adrenaline shot. -->
+  <MDWC_AdrenalineShot.jobReportString>aplicando uma injeção de adrenalina.</MDWC_AdrenalineShot.jobReportString>
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.verbProperties.label>injeção de adrenalina</MDWC_AdrenalineShot.verbProperties.label>
+
+</LanguageData>

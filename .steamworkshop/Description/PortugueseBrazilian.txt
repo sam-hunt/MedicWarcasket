@@ -1,0 +1,51 @@
+Carcaça de Guerra Médica
+
+Uma nova carcaça de guerra de nível espacial para o [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url].
+
+[h1]Sobre[/h1]
+
+A Médica é uma carcaça de guerra de 10ª geração para médicos de combate, feita para que o piloto possa tratar os companheiros de esquadrão sob fogo.
+
+[hr][/hr]
+[h2]O conjunto[/h2]
+Tronco, ombreiras e capacete, construídos na fundição de carcaças de guerra depois da pesquisa "carcaças de guerra espaciais". Combine as peças com os conjuntos do próprio VFE Pirates como quiser.
+[list]
+[*][b]Tronco:[/b] traz o curativo de mecanitos, e o piloto ainda pode fazer trabalhos de medicina: tratamento, cirurgia, alimentação e resgate.
+[*][b]Ombreiras:[/b] trazem a injeção de adrenalina e um tratamento mais rápido, e não reduzem a manipulação do piloto.
+[*][b]Capacete:[/b] melhora a qualidade do tratamento e não reduz a visão do piloto.
+[/list]
+
+[h2]Curativo de mecanitos[/h2]
+A armadura leva um estoque de kits de medicamento. Escolha um personagem ferido, e o piloto lança sobre ele um fluxo de mecanitos. Cada ferida é tratada, da pior para a mais leve, com a qualidade de tratamento do próprio piloto. Com a viseira de diagnóstico do capacete, o curativo também trata doenças e infecções.
+
+[h2]Injeção de adrenalina[/h2]
+As ombreiras guardam alguns cartuchos de adrenalina. Uma injeção interrompe um ataque cardíaco ou põe um personagem abatido de pé por tempo suficiente para fugir. A dor fica em suspenso, e o personagem se move e pensa mais rápido por um curto período. Depois o efeito vai passando aos poucos até virar um longo esgotamento, como na vida real. Com a armadura equipada, o uso automático aplica uma injeção em cada paciente ao fim do curativo.
+
+[hr][/hr]
+[h1]Compatibilidade[/h1]
+[list]
+[*]Seguro para adicionar a jogos salvos existentes.
+[*]Não é seguro remover enquanto houver um colono integrado ao conjunto.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]: obrigatório.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044]Combat Extended[/url]: patch embutido, com valores de armadura, volume e capacidade de carga equivalentes aos dos conjuntos espaciais do VFE Pirates. A adrenalina reduz a suscetibilidade à supressão.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3609835606]Vanilla Gravship Expanded[/url]: segue as regras de resistência ao vácuo que esse mod define para carcaças de guerra.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730151836]Warcaskets can work![/url], [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730543694]Warcaskets can haul![/url] e [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3535194807]Hardworking Warcaskets[/url]: sim.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1909914131]Save Our Ship 2[/url]: vale como traje de EVA pelas mesmas regras dos conjuntos do próprio VFE Pirates.
+[/list]
+
+[hr][/hr]
+[h1]Perguntas frequentes[/h1]
+
+[b]P: Como faço para conseguir uma?[/b]
+R: Pesquise o projeto "carcaças de guerra espaciais" do VFE Pirates e depois construa o conjunto na fundição de carcaças de guerra, como qualquer outro.
+
+[b]P: Isso não está desbalanceado?[/b]
+R: Todas as habilidades podem ser ajustadas nas configurações do mod. Mesmo assim, me esforcei para escolher valores padrão razoáveis.
+
+[b]P: O que inspirou isto?[/b]
+R: Uma lacuna conveniente na lista de carcaças de guerra, colonos mortos demais e talvez milhares de horas de Starcraft na infância.
+
+[hr][/hr]
+[h1]Links[/h1]
+Código-fonte, downloads manuais e rastreador de problemas: [url=https://github.com/sam-hunt/MedicWarcasket]GitHub[/url]
+Arte por [url=https://steamcommunity.com/profiles/76561198094174176/myworkshopfiles/?appid=294100]IcingWithCheeseCake[/url]
