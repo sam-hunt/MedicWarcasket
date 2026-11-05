@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: adrenaline -->
+  <MDWC_Adrenaline.label>アドレナリン</MDWC_Adrenaline.label>
+  <!-- EN: an adrenaline shot -->
+  <MDWC_Adrenaline.labelNoun>アドレナリン注射</MDWC_Adrenaline.labelNoun>
+  <!-- EN: Adrenaline in the bloodstream. It dulls pain and quickens movement and thought, then gives way to a long crash. The body tires faster and faster as it wears off. -->
+  <MDWC_Adrenaline.description>血中にアドレナリンが浸透しています.痛みを和らげ,動きと思考を速めますが,やがて長い反動に変わります.効果が切れていくにつれて,体はどんどん疲れやすくなります.</MDWC_Adrenaline.description>
+  <!-- EN: rush -->
+  <MDWC_Adrenaline.stages.rush.label>高揚</MDWC_Adrenaline.stages.rush.label>
+  <!-- EN: steady -->
+  <MDWC_Adrenaline.stages.steady.label>安定</MDWC_Adrenaline.stages.steady.label>
+  <!-- EN: wearing off -->
+  <MDWC_Adrenaline.stages.wearing_off.label>減退</MDWC_Adrenaline.stages.wearing_off.label>
+  <!-- EN: crash -->
+  <MDWC_Adrenaline.stages.crash.label>反動</MDWC_Adrenaline.stages.crash.label>
+</LanguageData>

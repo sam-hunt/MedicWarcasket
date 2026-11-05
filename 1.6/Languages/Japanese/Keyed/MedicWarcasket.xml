@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Mechanite dressing (Source/1.6/Abilities/Ability_MechaniteDressing.cs, Source/1.6/Comps/, Source/1.6/Gizmos/) -->
+  <!-- EN: No {0} loaded. -->
+  <MDWC_NoMedicineLoaded>{0}が充填されていません.</MDWC_NoMedicineLoaded>
+  <!-- EN: {0} has no wounds to tend. -->
+  <MDWC_NoWoundsToDress>{0}には看護できる傷がありません.</MDWC_NoWoundsToDress>
+  <!-- EN: {0} has nothing to tend. -->
+  <MDWC_NothingToTreat>{0}には看護の必要がありません.</MDWC_NothingToTreat>
+  <!-- EN: {0} is hostile. -->
+  <MDWC_HostileTarget>{0}は敵対しています.</MDWC_HostileTarget>
+  <!-- EN: Interrupted: {0} of {1} wounds tended -->
+  <MDWC_WoundsTendedPartial>中断: {1}箇所中{0}箇所の傷を看護</MDWC_WoundsTendedPartial>
+  <!-- EN: Out of {0}: {1} of {2} wounds tended -->
+  <MDWC_WoundsTendedDry>{0}切れ: {2}箇所中{1}箇所の傷を看護</MDWC_WoundsTendedDry>
+  <!-- EN: Stream broken: {0} of {1} wounds tended -->
+  <MDWC_BeamBroken>照射途絶: {1}箇所中{0}箇所の傷を看護</MDWC_BeamBroken>
+  <!-- EN: {0}, quality {1} -->
+  <MDWC_TargetQuality>{0},看護品質{1}</MDWC_TargetQuality>
+  <!-- EN: Wounds: {0}, kits: {1} -->
+  <MDWC_TargetCost>傷: {0},キット: {1}</MDWC_TargetCost>
+  <!-- EN: Wounds: {0}, kits: {1} ({2} loaded) -->
+  <MDWC_TargetCostShort>傷: {0},キット: {1} (充填済み{2})</MDWC_TargetCostShort>
+  <!-- EN: Kits: {0} / {1} -->
+  <MDWC_KitsLoaded>キット: {0} / {1}</MDWC_KitsLoaded>
+  <!-- EN: Severity per kit -->
+  <MDWC_StatSeverityPerKit>キットあたりの深刻度</MDWC_StatSeverityPerKit>
+  <!-- EN: The total injury severity one kit of medicine can tend, the same as a single tending. A disease, infection or missing body part uses a whole kit. -->
+  <MDWC_StatSeverityPerKitDesc>薬のキット1つで看護できる怪我の深刻度の合計で,通常の看護1回分と同じです.病気,感染症,身体欠損には,それぞれキットを丸ごと1つ使います.</MDWC_StatSeverityPerKitDesc>
+  <!-- EN: Medicine -->
+  <MDWC_GaugeMedicine>薬</MDWC_GaugeMedicine>
+  <!-- EN: Open kit: {0} left -->
+  <MDWC_GaugeOpenKit>開封済みのキット: 残り{0}</MDWC_GaugeOpenKit>
+  <!-- EN: Reload target: {0} -->
+  <MDWC_GaugeReloadTarget>充填目標: {0}</MDWC_GaugeReloadTarget>
+  <!-- EN: Never reload. -->
+  <MDWC_GaugeNeverReload>充填しません.</MDWC_GaugeNeverReload>
+  <!-- EN: Each kit tends up to {0} injury severity, or one disease, infection or missing body part. -->
+  <MDWC_GaugeKitDesc>キット1つで,深刻度{0}までの怪我か,病気,感染症,身体欠損のどれか1つを看護します.</MDWC_GaugeKitDesc>
+
+  <!-- Adrenaline shot (Source/1.6/Abilities/Ability_AdrenalineShot.cs) -->
+  <!-- EN: No shots loaded. -->
+  <MDWC_NoShotsLoaded>注射が充填されていません.</MDWC_NoShotsLoaded>
+  <!-- EN: {0} is hostile. -->
+  <MDWC_ShotHostile>{0}は敵対しています.</MDWC_ShotHostile>
+  <!-- EN: {0} already has an adrenaline shot. -->
+  <MDWC_ShotAlreadyRushing>{0}はすでにアドレナリン注射を受けています.</MDWC_ShotAlreadyRushing>
+  <!-- EN: Shots: {0} / {1} -->
+  <MDWC_ShotsLabel>注射: {0} / {1}</MDWC_ShotsLabel>
+  <!-- EN: Stops the heart attack -->
+  <MDWC_ShotStopsHeartAttack>心筋梗塞を止める</MDWC_ShotStopsHeartAttack>
+  <!-- EN: {0}'s heart attack has stopped. -->
+  <MDWC_HeartAttackStopped>{0}の心筋梗塞が止まりました.</MDWC_HeartAttackStopped>
+  <!-- EN: When autocast is enabled, each patient gets a shot as their dressing ends. -->
+  <MDWC_ShotAutocastDesc>自動使用を有効にすると,処置が終わるたびに患者に注射を打ちます.</MDWC_ShotAutocastDesc>
+
+  <!-- Both abilities' tooltips: the reload item is a mod setting, so the def text cannot name it -->
+  <!-- EN: Reloads with {0}. -->
+  <MDWC_ReloadsWith>{0}を使用して充填できます.</MDWC_ReloadsWith>
+
+  <!-- Mod settings (Source/1.6/Settings/) -->
+  <!-- EN: Medic Warcasket -->
+  <MDWC_SettingsCategory>メディック・ウォーキャスケット</MDWC_SettingsCategory>
+  <!-- EN: These settings are unavailable. Another mod has changed the medic warcasket's definitions, so the set keeps its built-in values. -->
+  <MDWC_SettingsUnavailable>これらの設定は使用できません.別のMODがメディック・ウォーキャスケットを変更しているため,セットは本来の値を使用します.</MDWC_SettingsUnavailable>
+
+  <!-- EN: Mechanite dressing -->
+  <MDWC_SectionDressing>メカナイト処置</MDWC_SectionDressing>
+
+  <!-- EN: Reload item -->
+  <MDWC_Medicine>充填アイテム</MDWC_Medicine>
+  <!-- EN: The medicine loaded into the armor, one per kit. Better medicine gives higher tend quality. Default: {0}. -->
+  <MDWC_MedicineDesc>アーマーに充填する薬で,キット1つにつき1個使います.良い薬ほど看護品質が上がります.デフォルト: {0}.</MDWC_MedicineDesc>
+
+  <!-- EN: Effect color -->
+  <MDWC_Tint>エフェクトの色</MDWC_Tint>
+  <!-- EN: The color of the dressing's effects and of the medicine gauge. Default: {0}. -->
+  <MDWC_TintDesc>処置のエフェクトと薬ゲージの色です.デフォルト: {0}.</MDWC_TintDesc>
+  <!-- EN: Blue -->
+  <MDWC_TintDefault>青</MDWC_TintDefault>
+  <!-- EN: Green -->
+  <MDWC_TintGreen>緑</MDWC_TintGreen>
+  <!-- EN: Pink -->
+  <MDWC_TintPink>ピンク</MDWC_TintPink>
+
+  <!-- EN: Kit capacity -->
+  <MDWC_Kits>キット容量</MDWC_Kits>
+  <!-- EN: The number of medicine kits the armor holds when full. Default: {0}. -->
+  <MDWC_KitsDesc>満タン時にアーマーに入る薬のキットの数です.デフォルト: {0}.</MDWC_KitsDesc>
+
+  <!-- EN: Casting time -->
+  <MDWC_CastTime>詠唱時間</MDWC_CastTime>
+  <!-- EN: How long the pilot takes to start a dressing. The patient is held still while it is cast. Default: {0}. -->
+  <MDWC_CastTimeDesc>パイロットが処置を始めるまでにかかる時間です.その間,患者は動けません.デフォルト: {0}.</MDWC_CastTimeDesc>
+
+  <!-- EN: Time per wound -->
+  <MDWC_TendInterval>傷1箇所あたりの時間</MDWC_TendInterval>
+  <!-- EN: The time spent on each wound or illness at normal medical tend speed. Higher medical skill and the medic shoulders tend faster. Default: {0}. -->
+  <MDWC_TendIntervalDesc>看護速度が標準のときに,傷や病気1つにかける時間です.医術のスキルが高いほど,またメディックのショルダーアーマーを装着していると,看護は速くなります.デフォルト: {0}.</MDWC_TendIntervalDesc>
+
+  <!-- EN: Cooldown -->
+  <MDWC_Cooldown>クールダウン</MDWC_Cooldown>
+  <!-- EN: The time the pilot must wait after a dressing before starting another. Default: {0}. -->
+  <MDWC_CooldownDesc>処置した後,パイロットが次の処置を始められるようになるまでの待ち時間です.デフォルト: {0}.</MDWC_CooldownDesc>
+
+  <!-- EN: Range -->
+  <MDWC_Range>射程</MDWC_Range>
+  <!-- EN: How close the pilot must be to the patient to start a dressing, in cells. Line of sight is required. Default: {0}. -->
+  <MDWC_RangeDesc>パイロットが処置を始められる患者までの最大距離で,単位はタイルです.視線が通ることが必要です.デフォルト: {0}.</MDWC_RangeDesc>
+
+  <!-- EN: Raider medics dress the wounded -->
+  <MDWC_AIDressing>襲撃者のメディックが負傷者を処置</MDWC_AIDressing>
+  <!-- EN: When enabled, raider and allied medics will dress their own downed between fights, and give a shot after each dressing if they also wear the shoulders. When disabled, only your pilots use it. Default: {0}. -->
+  <MDWC_AIDressingDesc>有効にすると,襲撃者や友軍のメディックが,倒れた味方を戦闘の合間に処置するようになります.ショルダーアーマーも装着していれば,処置のたびに注射を打ちます.無効にすると,この能力を使うのはあなたのパイロットだけになります.デフォルト: {0}.</MDWC_AIDressingDesc>
+
+  <!-- EN: The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The cooldown after a dressing is {5}. -->
+  <MDWC_DressingSummary>アーマーには{1}のキットが最大{0}個入り,キット1つで深刻度{2}までの怪我か病気1つを看護します.処置は始めるまでに{3}かかり,その後は標準の看護速度で{4}ごとに傷を1箇所看護します.処置後のクールダウンは{5}です.</MDWC_DressingSummary>
+  <!-- EN: The armor holds up to {0} kits of {1}, each tending {2} injury severity or one illness. A dressing takes {3} to cast, then tends a wound every {4} at normal tend speed. The next can start at once. -->
+  <MDWC_DressingSummaryNoCooldown>アーマーには{1}のキットが最大{0}個入り,キット1つで深刻度{2}までの怪我か病気1つを看護します.処置は始めるまでに{3}かかり,その後は標準の看護速度で{4}ごとに傷を1箇所看護します.次の処置はすぐに始められます.</MDWC_DressingSummaryNoCooldown>
+
+  <!-- EN: Adrenaline shot -->
+  <MDWC_SectionShot>アドレナリン注射</MDWC_SectionShot>
+
+  <!-- EN: Shot capacity -->
+  <MDWC_Shots>注射容量</MDWC_Shots>
+  <!-- EN: The number of shots the shoulders hold when full. Default: {0}. -->
+  <MDWC_ShotsDesc>満タン時にショルダーアーマーに入る注射の数です.デフォルト: {0}.</MDWC_ShotsDesc>
+
+  <!-- EN: Reload item -->
+  <MDWC_ShotAmmo>充填アイテム</MDWC_ShotAmmo>
+  <!-- EN: The item loaded into the shoulders, one per shot. Any medicine, go-juice or wake-up will do. Default: {0}. -->
+  <MDWC_ShotAmmoDesc>ショルダーアーマーに充填するアイテムで,注射1回につき1個使います.薬,ゴージュース,ウェイクアップのどれでも使えます.デフォルト: {0}.</MDWC_ShotAmmoDesc>
+
+  <!-- EN: Boost duration -->
+  <MDWC_ShotBoost>効果の持続時間</MDWC_ShotBoost>
+  <!-- EN: How long the adrenaline lasts before the crash. Default: {0}. -->
+  <MDWC_ShotBoostDesc>反動が来るまでにアドレナリンの効果が続く時間です.デフォルト: {0}.</MDWC_ShotBoostDesc>
+
+  <!-- EN: Crash duration -->
+  <MDWC_ShotCrash>反動の持続時間</MDWC_ShotCrash>
+  <!-- EN: How long the crash lasts. A crashing patient will be dull, slow and quick to tire. Default: {0}. -->
+  <MDWC_ShotCrashDesc>反動が続く時間です.反動中の患者は頭がぼんやりして動きが遅くなるうえ,疲れやすくなります.デフォルト: {0}.</MDWC_ShotCrashDesc>
+
+  <!-- EN: Cooldown -->
+  <MDWC_ShotCooldown>クールダウン</MDWC_ShotCooldown>
+  <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
+  <MDWC_ShotCooldownDesc>パイロットが注射を打ってから,次の注射を打てるようになるまでの待ち時間です.クールダウン中は,自動使用でも注射を打ちません.デフォルト: {0}.</MDWC_ShotCooldownDesc>
+
+  <!-- EN: Raider medics give adrenaline shots -->
+  <MDWC_AIShot>襲撃者のメディックがアドレナリン注射を使用</MDWC_AIShot>
+  <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
+  <MDWC_AIShotDesc>有効にすると,襲撃者や友軍のメディックが,倒れた味方に戦闘の合間にアドレナリン注射を打つようになります.起き上がった襲撃者は襲撃に戻ります.無効にすると,この能力を使うのはあなたのパイロットだけになります.デフォルト: {0}.</MDWC_AIShotDesc>
+
+  <!-- EN: The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The cooldown after a shot is {5}. -->
+  <MDWC_ShotSummary>ショルダーアーマーには注射が{0}回分入り,注射1回につき{1}を1個使って充填します.アドレナリンの効果は{3}段階に分かれて{2}続き,その後,患者は{4}のあいだ反動に陥ります.注射から反動の終わりまで,ずっと疲れやすくなります.注射後のクールダウンは{5}です.</MDWC_ShotSummary>
+  <!-- EN: The shoulders hold {0} shots and reload with {1}, one per shot. The adrenaline lasts {2} over {3} levels, then the patient crashes for {4}, tiring faster the whole time. The next shot can follow at once. -->
+  <MDWC_ShotSummaryNoCooldown>ショルダーアーマーには注射が{0}回分入り,注射1回につき{1}を1個使って充填します.アドレナリンの効果は{3}段階に分かれて{2}続き,その後,患者は{4}のあいだ反動に陥ります.注射から反動の終わりまで,ずっと疲れやすくなります.次の注射はすぐに打てます.</MDWC_ShotSummaryNoCooldown>
+
+  <!-- EN: Enabled work types -->
+  <MDWC_SectionWork>有効な作業</MDWC_SectionWork>
+  <!-- EN: The work types a medic pilot can do. All other work follows the warcasket trait from Vanilla Factions Expanded - Pirates, including any changes other mods make to it. -->
+  <MDWC_SectionWorkDesc>メディックのパイロットが行える作業の種類です.ほかの作業はすべて,Vanilla Factions Expanded - Piratesの才能・性格「ウォーキャスケット」に従います.ほかのMODがこの才能・性格に加えた変更も反映されます.</MDWC_SectionWorkDesc>
+  <!-- EN: When enabled, medic pilots can do this work. The change applies to pilots who are already entombed. Newly enabled work starts unassigned in the Work tab. -->
+  <MDWC_WorkDesc>有効にすると,メディックのパイロットがこの作業を行えるようになります.すでに封入されているパイロットにも適用されます.新たに有効にした作業は,「優先順位」タブでは未割り当ての状態になります.</MDWC_WorkDesc>
+  <!-- EN: Default: {0}. -->
+  <MDWC_WorkDefault>デフォルト: {0}.</MDWC_WorkDefault>
+  <!-- EN: The pilot can do {0} work. All other work follows the VFE Pirates warcasket trait. -->
+  <MDWC_WorkSummary>パイロットは{0}の作業を行えます.ほかの作業はすべて,VFE Piratesの才能・性格「ウォーキャスケット」に従います.</MDWC_WorkSummary>
+  <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
+  <MDWC_WorkSummaryNone>パイロットは看護の作業を行いません.ほかの作業はすべて,VFE Piratesの才能・性格「ウォーキャスケット」に従います.</MDWC_WorkSummaryNone>
+
+  <!-- EN:  (default) -->
+  <MDWC_DefaultSuffix> (デフォルト)</MDWC_DefaultSuffix>
+  <!-- EN: enabled -->
+  <MDWC_Enabled>有効</MDWC_Enabled>
+  <!-- EN: disabled -->
+  <MDWC_Disabled>無効</MDWC_Disabled>
+
+</LanguageData>

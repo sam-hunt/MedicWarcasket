@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: medic warcasket -->
+  <MDWC_Warcasket_Medic.label>メディック・ウォーキャスケット</MDWC_Warcasket_Medic.label>
+  <!-- EN: Specialized spacer-tech warcasket shell with standard protection, equipped with a mechanite dressing suite that breaks loaded medicine down into carrier mechanites and streams them onto a patient's wounds. -->
+  <MDWC_Warcasket_Medic.shortDescription>宇宙技術を用いた特殊なウォーキャスケット外殻で,標準的な防護性能を備えています.メカナイト処置装置が,充填した薬を運搬用メカナイトに分解し,患者の傷口へ送り込みます.</MDWC_Warcasket_Medic.shortDescription>
+  <!-- EN: Specialized spacer-tech warcasket shell with standard protection, equipped with a mechanite dressing suite that breaks loaded medicine down into carrier mechanites and streams them onto a patient's wounds.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and issued them to veterans who could no longer serve any other way. The Medic was built for the field surgeons who had served beside them, after the program found it was losing nearly as many surgeons as the soldiers they were sent to keep alive.\n\nThe armor carries a mechanite dressing suite that tends a squadmate's wounds on the spot, with an adrenaline injector in the shoulders to keep the wounded on their feet a little longer and a diagnostic visor in the helmet so the dressing can treat disease and infection as well. Plating and shields are standard for the generation, so a Medic belongs just behind the line rather than on it. -->
+  <MDWC_Warcasket_Medic.description>宇宙技術を用いた特殊なウォーキャスケット外殻で,標準的な防護性能を備えています.メカナイト処置装置が,充填した薬を運搬用メカナイトに分解し,患者の傷口へ送り込みます.\n\n政府の計画から生まれた第10世代の設計です.この計画では,鹵獲した宙賊の装備を自前のパワーアーマーの設計で作り直しました.完成したアーマーは,ほかに軍務に就く道のない退役軍人に支給されました.ところが,兵士を生かすために送り込んだ外科医が,その兵士とほぼ同じ数だけ命を落としていることが分かりました.メディックは,そうした退役軍人のそばで任務に就いてきた野戦外科医のために作られました.\n\n外殻のメカナイト処置装置は,仲間の傷をその場で看護します.ショルダーアーマーのアドレナリン注射器は,負傷者をもう少し長く持ちこたえさせます.ヘルメットの診断バイザーがあれば,処置で病気や感染症も治療できます.装甲とシールドはこの世代の標準的な水準なので,メディックは前線に立つより,そのすぐ後ろで働くのに向いています.</MDWC_Warcasket_Medic.description>
+  <!-- EN: kit -->
+  <MDWC_Warcasket_Medic.comps.CompDressingSuite.chargeNoun>キット</MDWC_Warcasket_Medic.comps.CompDressingSuite.chargeNoun>
+  <!-- EN: on cooldown -->
+  <MDWC_Warcasket_Medic.comps.CompDressingSuite.cooldownGerund>クールダウン中</MDWC_Warcasket_Medic.comps.CompDressingSuite.cooldownGerund>
+
+  <!-- EN: medic warcasket shoulders -->
+  <MDWC_WarcasketShoulders_Medic.label>メディック・ウォーキャスケットショルダーアーマー</MDWC_WarcasketShoulders_Medic.label>
+  <!-- EN: Specialized spacer-tech warcasket pauldrons with standard protection, equipped with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending. -->
+  <MDWC_WarcasketShoulders_Medic.shortDescription>宇宙技術を用いた特殊なウォーキャスケットショルダーアーマーで,標準的な防護性能を備えています.アドレナリン注射器と,パイロットが行う看護を速める野戦医療用の補助アームを搭載しています.</MDWC_WarcasketShoulders_Medic.shortDescription>
+  <!-- EN: Specialized spacer-tech warcasket pauldrons with standard protection, equipped with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and issued them to veterans who could no longer serve any other way. The Medic was built for the field surgeons who had served beside them, after the program found it was losing nearly as many surgeons as the soldiers they were sent to keep alive.\n\nThe armor carries a mechanite dressing suite that tends a squadmate's wounds on the spot, with an adrenaline injector in the shoulders to keep the wounded on their feet a little longer and a diagnostic visor in the helmet so the dressing can treat disease and infection as well. Plating and shields are standard for the generation, so a Medic belongs just behind the line rather than on it. -->
+  <MDWC_WarcasketShoulders_Medic.description>宇宙技術を用いた特殊なウォーキャスケットショルダーアーマーで,標準的な防護性能を備えています.アドレナリン注射器と,パイロットが行う看護を速める野戦医療用の補助アームを搭載しています.\n\n政府の計画から生まれた第10世代の設計です.この計画では,鹵獲した宙賊の装備を自前のパワーアーマーの設計で作り直しました.完成したアーマーは,ほかに軍務に就く道のない退役軍人に支給されました.ところが,兵士を生かすために送り込んだ外科医が,その兵士とほぼ同じ数だけ命を落としていることが分かりました.メディックは,そうした退役軍人のそばで任務に就いてきた野戦外科医のために作られました.\n\n外殻のメカナイト処置装置は,仲間の傷をその場で看護します.ショルダーアーマーのアドレナリン注射器は,負傷者をもう少し長く持ちこたえさせます.ヘルメットの診断バイザーがあれば,処置で病気や感染症も治療できます.装甲とシールドはこの世代の標準的な水準なので,メディックは前線に立つより,そのすぐ後ろで働くのに向いています.</MDWC_WarcasketShoulders_Medic.description>
+  <!-- EN: shot -->
+  <MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun>注射</MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun>
+  <!-- EN: on cooldown -->
+  <MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.cooldownGerund>クールダウン中</MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.cooldownGerund>
+
+  <!-- EN: medic warcasket helmet -->
+  <MDWC_WarcasketHelmet_Medic.label>メディック・ウォーキャスケットヘルメット</MDWC_WarcasketHelmet_Medic.label>
+  <!-- EN: Specialized spacer-tech warcasket helmet with standard protection, equipped with a medical assistance module and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds. -->
+  <MDWC_WarcasketHelmet_Medic.shortDescription>宇宙技術を用いた特殊なウォーキャスケットヘルメットで,標準的な防護性能を備えています.医療補助モジュールと診断バイザーを搭載しており,メカナイト処置で傷だけでなく病気や感染症も治療できます.</MDWC_WarcasketHelmet_Medic.shortDescription>
+  <!-- EN: Specialized spacer-tech warcasket helmet with standard protection, equipped with a medical assistance module and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and issued them to veterans who could no longer serve any other way. The Medic was built for the field surgeons who had served beside them, after the program found it was losing nearly as many surgeons as the soldiers they were sent to keep alive.\n\nThe armor carries a mechanite dressing suite that tends a squadmate's wounds on the spot, with an adrenaline injector in the shoulders to keep the wounded on their feet a little longer and a diagnostic visor in the helmet so the dressing can treat disease and infection as well. Plating and shields are standard for the generation, so a Medic belongs just behind the line rather than on it. -->
+  <MDWC_WarcasketHelmet_Medic.description>宇宙技術を用いた特殊なウォーキャスケットヘルメットで,標準的な防護性能を備えています.医療補助モジュールと診断バイザーを搭載しており,メカナイト処置で傷だけでなく病気や感染症も治療できます.\n\n政府の計画から生まれた第10世代の設計です.この計画では,鹵獲した宙賊の装備を自前のパワーアーマーの設計で作り直しました.完成したアーマーは,ほかに軍務に就く道のない退役軍人に支給されました.ところが,兵士を生かすために送り込んだ外科医が,その兵士とほぼ同じ数だけ命を落としていることが分かりました.メディックは,そうした退役軍人のそばで任務に就いてきた野戦外科医のために作られました.\n\n外殻のメカナイト処置装置は,仲間の傷をその場で看護します.ショルダーアーマーのアドレナリン注射器は,負傷者をもう少し長く持ちこたえさせます.ヘルメットの診断バイザーがあれば,処置で病気や感染症も治療できます.装甲とシールドはこの世代の標準的な水準なので,メディックは前線に立つより,そのすぐ後ろで働くのに向いています.</MDWC_WarcasketHelmet_Medic.description>
+
+  <!-- EN: Mote -->
+  <MDWC_Mote_DressingGlow.label>塵</MDWC_Mote_DressingGlow.label>
+  <!-- EN: Mote -->
+  <MDWC_Mote_DressingBeam.label>塵</MDWC_Mote_DressingBeam.label>
+  <!-- EN: Mote -->
+  <MDWC_Mote_DressingOverlay.label>塵</MDWC_Mote_DressingOverlay.label>
+</LanguageData>

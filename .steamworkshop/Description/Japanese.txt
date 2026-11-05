@@ -1,0 +1,51 @@
+メディック・ウォーキャスケット
+
+[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]に,宇宙世紀の新型ウォーキャスケットを追加します.
+
+[h1]概要[/h1]
+
+メディックは第10世代の衛生兵用ウォーキャスケットです.砲火の中でも,パイロットが仲間の手当てを続けられるように作られています.
+
+[hr][/hr]
+[h2]セット構成[/h2]
+胴体,ショルダーアーマー,ヘルメットの3部位です.研究「宇宙世紀のウォーキャスケット」で解禁され,ウォーキャスケット鋳造台で溶接できます.VFE Pirates本体のセットとも自由に組み合わせられます.
+[list]
+[*][b]胴体:[/b] メカナイト処置を使えます.パイロットは看護,手術,食事の世話,救助といった治療の作業も続けられます.
+[*][b]ショルダーアーマー:[/b] アドレナリン注射を使え,看護も速くなります.パイロットの指の機能を最大に保ちます.
+[*][b]ヘルメット:[/b] 看護品質が上がり,パイロットの視覚を最大に保ちます.
+[/list]
+
+[h2]メカナイト処置[/h2]
+アーマーには薬のキットを蓄える装置があります.負傷したポーンを指定すると,パイロットがメカナイトを送り込みます.メカナイトは最も重い傷から順に,パイロット自身の看護品質で看護します.ヘルメットの診断バイザーがあれば,病気や感染症も治療できます.
+
+[h2]アドレナリン注射[/h2]
+ショルダーアーマーには数回分のアドレナリン注射が入っています.注射は心筋梗塞を止めるほか,倒れたポーンを逃げられるくらいの時間だけ再び立ち上がらせます.痛みは一時的に抑えられ,しばらくは動きも思考も速くなります.効果は本物のアドレナリンと同じく少しずつ薄れ,長い反動へと移ります.胴体も装着して自動使用を有効にすると,処置を終えた患者全員に注射を打ちます.
+
+[hr][/hr]
+[h1]互換性[/h1]
+[list]
+[*]既存のセーブデータに追加しても安全です.
+[*]ポーンがセットに封入されている間は,MODを削除しないでください.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2723801948]Vanilla Factions Expanded - Pirates[/url]: 必須です.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044]Combat Extended[/url]: パッチを内蔵しており,アーマー値,かさ,積載量が他の宇宙世紀のウォーキャスケットと同水準に調整されます.アドレナリンが効いている間は制圧されにくくなります.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3609835606]Vanilla Gravship Expanded[/url]: ウォーキャスケット向けの真空耐性のルールに従います.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730151836]Warcaskets can work![/url],[url=https://steamcommunity.com/sharedfiles/filedetails/?id=2730543694]Warcaskets can haul![/url],[url=https://steamcommunity.com/sharedfiles/filedetails/?id=3535194807]Hardworking Warcaskets[/url]: 対応しています.
+[*][url=https://steamcommunity.com/sharedfiles/filedetails/?id=1909914131]Save Our Ship 2[/url]: VFE Pirates本体のセットと同じ条件でEVA対応になります.
+[/list]
+
+[hr][/hr]
+[h1]よくある質問[/h1]
+
+[b]Q: どうやって入手しますか?[/b]
+A: VFE Piratesの研究「宇宙世紀のウォーキャスケット」を完了したら,ほかのセットと同じくウォーキャスケット鋳造台で溶接します.
+
+[b]Q: バランスが崩れていませんか?[/b]
+A: 能力はMod 設定ですべて調整できます.とはいえ,デフォルト値のままでも釣り合いが取れるよう調整しています.
+
+[b]Q: 着想のきっかけは?[/b]
+A: ウォーキャスケットのラインナップの空きと,死なせすぎた入植者と,子供のころにたぶん数千時間は遊んだスタークラフトです.
+
+[hr][/hr]
+[h1]リンク[/h1]
+ソースコード,手動ダウンロード,不具合報告: [url=https://github.com/sam-hunt/MedicWarcasket]GitHub[/url]
+アートは [url=https://steamcommunity.com/profiles/76561198094174176/myworkshopfiles/?appid=294100]IcingWithCheeseCake[/url] 氏による

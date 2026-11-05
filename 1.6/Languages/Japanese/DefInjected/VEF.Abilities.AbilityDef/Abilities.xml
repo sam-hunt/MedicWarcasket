@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.label>メカナイト処置</MDWC_MechaniteDressing.label>
+  <!-- EN: Stream mechanites carrying medicine onto a nearby person or animal to tend their wounds on the spot, starting with the worst. Tend quality depends on the pilot's medical skill and the medicine loaded, and higher skill tends faster. With the medic helmet, it can also treat diseases and infections. -->
+  <MDWC_MechaniteDressing.description>薬を運ぶメカナイトを近くの人や動物に送り込み,最も重い傷から順にその場で看護します.看護品質はパイロットの医術のスキルと充填した薬で決まり,スキルが高いほど看護も速くなります.メディック・ウォーキャスケットヘルメットを装着していれば,病気や感染症も治療できます.</MDWC_MechaniteDressing.description>
+  <!-- EN: Applying a mechanite dressing. -->
+  <MDWC_MechaniteDressing.jobReportString>メカナイト処置中</MDWC_MechaniteDressing.jobReportString>
+  <!-- EN: mechanite dressing -->
+  <MDWC_MechaniteDressing.verbProperties.label>メカナイト処置</MDWC_MechaniteDressing.verbProperties.label>
+
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.label>アドレナリン注射</MDWC_AdrenalineShot.label>
+  <!-- EN: Inject a nearby person or animal with a dose of adrenaline. For a short while they feel almost no pain and move and think faster. Afterward they will crash for hours, becoming dull and slow, and they tire faster throughout. If the target is having a heart attack, the shot will stop it instead. -->
+  <MDWC_AdrenalineShot.description>近くの人や動物にアドレナリンを1回分注射します.しばらくのあいだ対象は痛みをほとんど感じなくなり,動きも思考も速くなります.その後は数時間の反動に陥り,頭がぼんやりして動きも遅くなります.注射してから反動が終わるまで,疲れやすい状態が続きます.対象が心筋梗塞を起こしている場合は,代わりに心筋梗塞を止めます.</MDWC_AdrenalineShot.description>
+  <!-- EN: Giving an adrenaline shot. -->
+  <MDWC_AdrenalineShot.jobReportString>アドレナリンを注射中</MDWC_AdrenalineShot.jobReportString>
+  <!-- EN: adrenaline shot -->
+  <MDWC_AdrenalineShot.verbProperties.label>アドレナリン注射</MDWC_AdrenalineShot.verbProperties.label>
+</LanguageData>
