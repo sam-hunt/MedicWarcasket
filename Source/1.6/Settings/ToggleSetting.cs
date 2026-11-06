@@ -45,12 +45,13 @@ public sealed class ToggleSetting
     public void ExposeData() => Scribe_Values.Look(ref overrideValue, key);
 
     // A checkbox row laid out as a Tunable row is, the box at the row's end; a click anywhere on
-    // the row flips it. The tooltip is resolved by hand: a TaggedString handed over as a string
-    // loses its tags, the default's colour among them. A disabled row (a box another mod has
-    // made moot) is drawn in vanilla's inactive grey, label and box alike, takes no click and
-    // keeps its value, so the choice holds for when the row is active again; its tooltip still
-    // reads. A forced-off row (a child box whose parent is off) is disabled and also drawn
-    // unticked, what the parent makes of it; its saved value shows again once the parent is on.
+    // the row flips it. The label and tooltip are resolved by hand: a TaggedString handed over as a
+    // string loses its tags (the implicit conversion strips them), the default's colour and a
+    // Term's among them. A disabled row (a box another mod has made moot) is drawn in vanilla's
+    // inactive grey, label and box alike, takes no click and keeps its value, so the choice holds
+    // for when the row is active again; its tooltip still reads. A forced-off row (a child box
+    // whose parent is off) is disabled and also drawn unticked, what the parent makes of it; its
+    // saved value shows again once the parent is on.
     public void DoRow(Listing_Standard listing, bool disabled = false, bool forcedOff = false)
     {
         disabled |= forcedOff;
@@ -68,7 +69,8 @@ public sealed class ToggleSetting
         bool on = !forcedOff && Value;
         if (disabled)
             GUI.color = Widgets.InactiveColor;
-        Widgets.CheckboxLabeled(row, term == null ? ("MDWC_" + key).Translate() : ("MDWC_" + key).Translate(term), ref on, disabled);
+        TaggedString label = term == null ? ("MDWC_" + key).Translate() : ("MDWC_" + key).Translate(term);
+        Widgets.CheckboxLabeled(row, label.Resolve(), ref on, disabled);
         GUI.color = Color.white;
         if (!disabled)
             overrideValue = on == DefaultValue ? null : on;
