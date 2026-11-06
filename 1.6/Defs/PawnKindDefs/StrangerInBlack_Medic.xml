@@ -32,6 +32,12 @@
     makes a request for this kind generate the fallback, vanilla's StrangerInBlack, while
     VFEP_Warcaskets is unfinished and requiresResearch holds; requiresResearch is a mod setting
     defaulting to this value.
+
+    Other mods' extensions. At startup the fallback's mod extensions are appended to this
+    list (StrangerInBlack.MirrorFallbackExtensions), so what a mod attaches to vanilla's
+    stranger reaches this kind too: Combat Extended's loadout (the weapon's magazines) and
+    Altered Carbon's cortical stack chance. Their patches on vanilla's apparel and weapon do
+    not carry over; CE's added backpack would be stripped by VFEP's warcasket postfix anyway.
   -->
   <PawnKindDef>
     <defName>MDWC_StrangerInBlack</defName>

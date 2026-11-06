@@ -14,6 +14,7 @@ checkout's `1.7/Defs/` and `HarmonyPatches/`.
 | He carries the warcasket minigun instead of the revolver                              | 3.2     |
 | A child setting, on by default, that waits for the warcasket research                 | 3.3     |
 | The child is inactive while the parent is off                                         | 3.4     |
+| Other mods' additions to vanilla's stranger (CE's ammo) reach ours                    | 3.5     |
 | Vanilla's event is a last chance that stops scaling past the early game               | 1       |
 
 ## 1. Why
@@ -45,6 +46,12 @@ he came to save.
   `FactionDefExtension.strangerInBlackReplacement` when one is set.
 - VFEP's `PawnGenerator_GeneratePawn_Patch` postfix strips every non-warcasket piece off a
   generated pawn wearing a warcasket, fills any missing piece at random and locks the apparel.
+- Other mods on the event, from a scan of a 382-mod Workshop library: Combat Extended adds a
+  `LoadoutPropertiesExtension` (5 to 8 magazines) and a backpack to vanilla's kind; Altered
+  Carbon adds a `StackSpawnModExtension`; VFE Tribals' Wild Men faction sets VEF's
+  `strangerInBlackReplacement`; Stranger In Black Techlevel replaces the `workerClass` with a
+  subclass whose `GeneratePawn` picks a kind per tech level, never reads `def.pawnKind` and
+  still honours `pawnFixedGender`. No mod patches `pawnFixedGender` or `letterLabel`.
 
 ## 3. Design
 
@@ -83,12 +90,21 @@ parent defaults off unless a patch already points the incident at our kind. The 
 drawn inactive while the parent is off (`ToggleSetting.DoRow`'s `disabled`), keeping its
 saved value.
 
+### 3.5 Mirrored extensions
+
+`StrangerInBlack.MirrorFallbackExtensions`, in `Startup.Run`, appends the fallback's mod
+extensions to every gated kind's own, skipping the gate's type and any type the kind already
+carries. That carries CE's loadout and Altered Carbon's stack chance, and anything a later mod
+attaches the same way, without a compat root per mod. Fields are not mirrored: patches on the
+fallback's apparel and weapon describe the duster stranger.
+
 ## 4. Decisions
 
 - **A kind, not a redress.** Generating our own kind through vanilla's generator, rather than
   stripping and re-dressing the vanilla stranger in a postfix, keeps every generation hook on
-  the normal path: vanilla's colour pass, VFEP's warcasket postfix (the lock), CE's ammo
-  generation for the weapon, and anything else keyed on a generated pawn's kind.
+  the normal path: vanilla's colour pass, VFEP's warcasket postfix (the lock), and anything
+  else keyed on a generated pawn's kind. What a hook reads off the kind itself (CE's ammo
+  comes from a mod extension on vanilla's kind) needs the mirror in 3.5.
 - **The parent is a def write.** Writing `pawnKind` is the repo's settings rule applied
   literally: the incident def says what it generates, and any code reading the def sees the
   setting. A mod that patches the incident's kind to its own keeps that while the box is off.
@@ -107,10 +123,11 @@ saved value.
 ## 5. Verification
 
 - `dotnet test`: `StrangerInBlackTests` (the gate's pure rule; the XML's tag, set and fallback
-  agree with the patch and the defs) and `CompatPatchTests` (the patch's xpath rule).
+  agree with the patch and the defs; the extension mirror's merge) and `CompatPatchTests`
+  (the patch's xpath rule).
 - In game (the author's check): dev-mode fire `StrangerInBlackJoin` with the parent box on,
   before and after researching warcaskets; with it off; the settings page with the parent off
-  shows the child greyed.
+  shows the child greyed. With Combat Extended, check the minigun arrives with magazines.
 
 ## 6. What landed
 
@@ -118,4 +135,5 @@ saved value.
 `Source/1.6/Settings/Settings_Stranger.cs` and the `disabled` row in `ToggleSetting.cs`;
 `1.6/Defs/PawnKindDefs/StrangerInBlack_Medic.xml`, `1.6/Patches/StrangerInBlackMinigun.xml`,
 the `MDWC_Stranger*` Keyed strings; `Tests/1.6/StrangerInBlackTests.cs`; one line in
-`About.xml`.
+`About.xml`. Section 3.5 added the extension mirror, in `StrangerInBlack.cs` and called from
+`Startup.cs`.

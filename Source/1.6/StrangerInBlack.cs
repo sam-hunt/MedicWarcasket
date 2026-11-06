@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using RimWorld;
 using Verse;
 
@@ -18,6 +20,15 @@ namespace MedicWarcasket;
 // Patches/PawnGenerator_GeneratePawn.cs applies it to every generation request, so the vanilla
 // stranger walks in until the colony can build warcaskets, whatever asked for ours. Kind is the
 // pure rule, reached by the tests; Researched reads the game.
+//
+// The kind is a copy of its fallback, so what other mods attach to the fallback misses ours
+// unless it is mirrored. MirrorFallbackExtensions, run from Startup.Run, appends the fallback's
+// mod extensions to the kind's own: Combat Extended's LoadoutPropertiesExtension (the magazines
+// its generation postfix adds for the kind's weapon) and Altered Carbon's StackSpawnModExtension
+// (the chance of a cortical stack) are two that vanilla's StrangerInBlack carries under those
+// mods. Only extensions are mirrored: a patch on the fallback's fields (apparel, weapon, race)
+// describes the duster stranger, not ours, and no mod patches its other fields. Extensions are
+// read at generation time off the kind, so sharing the fallback's instances is enough.
 public sealed class StrangerInBlackExtension : DefModExtension
 {
     // The project the colony must have finished for the kind to generate as itself, and whether
@@ -52,4 +63,45 @@ public static class StrangerInBlack
             return true;
         return Current.Game != null && ext.research.IsFinished;
     }
+
+    // Appends each kind's fallback's mod extensions to its own, for every kind carrying the
+    // gate. Idempotent: a type the kind already carries is not added again, so a re-run, or an
+    // extension a compat patch put on our kind directly, keeps the kind's own.
+    public static void MirrorFallbackExtensions()
+    {
+        foreach (PawnKindDef kind in DefDatabase<PawnKindDef>.AllDefsListForReading)
+        {
+            PawnKindDef fallback = kind.GetModExtension<StrangerInBlackExtension>()?.fallback;
+            if (fallback != null && fallback != kind)
+                kind.modExtensions = MirroredExtensions(kind.modExtensions, fallback.modExtensions);
+        }
+    }
+
+    // The kind's extensions followed by every fallback extension of a type the kind does not
+    // carry, the gate itself excepted; the kind's own list, unchanged, when nothing is added.
+    public static List<DefModExtension> MirroredExtensions(List<DefModExtension> own, List<DefModExtension> fallback)
+    {
+        List<DefModExtension> result = null;
+        foreach (DefModExtension extension in fallback ?? [])
+        {
+            if (extension == null || extension is StrangerInBlackExtension || Carries(result ?? own, extension.GetType()))
+                continue;
+            result ??= own == null ? [] : [.. own];
+            result.Add(extension);
+        }
+        return result ?? own;
+    }
+
+    private static bool Carries(List<DefModExtension> extensions, Type type)
+    {
+        if (extensions == null)
+            return false;
+        foreach (DefModExtension extension in extensions)
+        {
+            if (extension?.GetType() == type)
+                return true;
+        }
+        return false;
+    }
+
 }
