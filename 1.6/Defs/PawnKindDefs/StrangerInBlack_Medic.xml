@@ -17,16 +17,17 @@
     header). ignoreIdeoApparelColors and the Ideology favoriteColor follow vanilla. No
     apparelTags and no apparelMoney: nothing is worn beside a warcasket, and VFEP's own
     generation postfix strips anything else and locks the set on (PawnGenerator_GeneratePawn_Patch).
-    weaponTags is MDWC_StrangerInBlack, a tag 1.6/Patches/StrangerInBlackMinigun.xml adds to
-    VFEP's VFEP_WarcasketGun_Minigun alone, so the pick is that gun and no other; weaponMoney
-    5000 clears its market value (2240) with room for a VFEP repricing, and the tag keeps the
-    headroom from buying anything else. itemQuality Good and gearHealthRange 1~1 are vanilla's.
+    weaponTags is MDWC_StrangerInBlack, a tag 1.6/Patches/StrangerInBlackSlugthrower.xml adds
+    to VFEP's VFEP_WarcasketGun_Slugthrower alone, so the pick is that gun and no other;
+    weaponMoney 5000 clears its market value (1100) with room for a VFEP repricing, and the tag
+    keeps the headroom from buying anything else. itemQuality Good and gearHealthRange 1~1 are
+    vanilla's.
 
     combatPower 300 is VFEP_Major's, the VFEP raid-table kind closest in gear (a veteran
-    warcasket with a veteran gun); a joiner's kind is never costed, so this only matters to a
-    mod that lists the kind elsewhere. requiredWorkTags Violent and Caring are vanilla's and
-    fit a medic; the Medicine skill range is added beside vanilla's Shooting at the same 8~16,
-    so the pilot can use the set he arrives in.
+    warcasket with a WarcasketVeteran gun, the slugthrower's own tag); a joiner's kind is never
+    costed, so this only matters to a mod that lists the kind elsewhere. requiredWorkTags
+    Violent and Caring are vanilla's and fit a medic; the Medicine skill range is added beside
+    vanilla's Shooting at the same 8~16, so the pilot can use the set he arrives in.
 
     The gate. The MedicWarcasket.StrangerInBlackExtension (Source/1.6/StrangerInBlack.cs)
     makes a request for this kind generate the fallback, vanilla's StrangerInBlack, while

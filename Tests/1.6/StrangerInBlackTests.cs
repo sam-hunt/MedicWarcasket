@@ -14,7 +14,7 @@ namespace MedicWarcasket.Tests;
 // otherwise; a kind without the extension, or without a fallback, is never swapped. Pure: the
 // defs are built bare and the researched flag is passed in (Researched reads the game). The
 // XML facts below tie the kind to the rest of the feature: its weapon tag is the one the
-// minigun patch adds, its required apparel is the set, and its extension names a fallback
+// slugthrower patch adds, its required apparel is the set, and its extension names a fallback
 // that is not itself. The extension mirror's merge (MirroredExtensions) and the settings' test
 // for a replaced worker (WorkerReadsKind) are pure too.
 public class StrangerInBlackTests
@@ -111,7 +111,7 @@ public class StrangerInBlackTests
         XElement kind = defs.XPathSelectElement("/Defs/PawnKindDef[defName = \"MDWC_StrangerInBlack\"]");
         Assert.NotNull(kind);
 
-        XDocument patch = XDocument.Load(Path.Combine(CompatPatchTests.RepoRoot, "1.6/Patches/StrangerInBlackMinigun.xml"));
+        XDocument patch = XDocument.Load(Path.Combine(CompatPatchTests.RepoRoot, "1.6/Patches/StrangerInBlackSlugthrower.xml"));
         string tag = Assert.Single(patch.Descendants("value").Elements("li")).Value;
         Assert.Equal(tag, Assert.Single(kind.Element("weaponTags")!.Elements("li")).Value);
 

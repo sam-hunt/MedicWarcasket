@@ -8,7 +8,7 @@ namespace MedicWarcasket;
 
 // The man in black's replacement kind and its research gate. MDWC_StrangerInBlack
 // (1.6/Defs/PawnKindDefs/StrangerInBlack_Medic.xml) is vanilla's StrangerInBlack in the set
-// with the warcasket minigun; the mod setting (Settings/Settings_Stranger.cs) writes it onto
+// with the warcasket slugthrower; the mod setting (Settings/Settings_Stranger.cs) writes it onto
 // vanilla's StrangerInBlackJoin IncidentDef as its pawnKind, and the vanilla worker generates
 // it as it would any kind: IncidentWorker_WandererJoin.GeneratePawn reads def.pawnKind into a
 // PawnGenerationRequest (the same on 1.6 and 1.7). VEF's transpiler on that read

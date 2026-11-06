@@ -14,9 +14,9 @@ namespace MedicWarcasket.Tests;
 // nobody else. Every operation's xpath must resolve in the main tree's defs, merged as the game
 // merges them, to one node per MDWC_ def it names: the SOS2 patch names its two defs in one
 // xpath, as VFEP's does. A PatchOperationConditional's own xpath is the exception, a probe for
-// a node that should be absent, and so is an xpath naming only a dependency's defs (the minigun
-// tag patch): the main tree cannot resolve it, and such a patch stays ungated, so a renamed
-// target logs a patch error at every boot for everyone.
+// a node that should be absent, and so is an xpath naming only a dependency's defs (the
+// slugthrower tag patch): the main tree cannot resolve it, and such a patch stays ungated, so a
+// renamed target logs a patch error at every boot for everyone.
 public class CompatPatchTests
 {
     internal static readonly string RepoRoot = FindRepoRoot();

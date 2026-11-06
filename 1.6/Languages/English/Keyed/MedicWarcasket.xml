@@ -103,7 +103,7 @@
   <MDWC_SectionStrangerDesc>The man in black is a stranger who arrives when the colony is close to falling, in a duster with a revolver. These settings can send the stranger in the medic warcasket instead, and can let the stranger be a woman.</MDWC_SectionStrangerDesc>
 
   <MDWC_Stranger>Stranger arrives in a medic warcasket</MDWC_Stranger>
-  <MDWC_StrangerDesc>When enabled, the stranger will arrive in a black medic warcasket, carrying a warcasket minigun. When disabled, the stranger will arrive as usual. Default: {0}.</MDWC_StrangerDesc>
+  <MDWC_StrangerDesc>When enabled, the stranger will arrive in a black medic warcasket, carrying a warcasket slugthrower. When disabled, the stranger will arrive as usual. Default: {0}.</MDWC_StrangerDesc>
 
   <MDWC_StrangerResearch>Only once warcaskets are researched</MDWC_StrangerResearch>
   <MDWC_StrangerResearchDesc>When enabled, the stranger will only bring the warcasket once the colony has researched warcaskets, and will arrive as usual before that. When disabled, the stranger will bring it from the start. Default: {0}.</MDWC_StrangerResearchDesc>
@@ -113,8 +113,8 @@
   <MDWC_StrangerLetterLabel>Stranger in black</MDWC_StrangerLetterLabel>
 
   <MDWC_StrangerSummaryOff>The stranger arrives as usual, without a warcasket.</MDWC_StrangerSummaryOff>
-  <MDWC_StrangerSummary>The stranger arrives in a black medic warcasket with a warcasket minigun once warcaskets are researched. Before that the stranger arrives as usual.</MDWC_StrangerSummary>
-  <MDWC_StrangerSummaryAlways>The stranger arrives in a black medic warcasket with a warcasket minigun.</MDWC_StrangerSummaryAlways>
+  <MDWC_StrangerSummary>The stranger arrives in a black medic warcasket with a warcasket slugthrower once warcaskets are researched. Before that the stranger arrives as usual.</MDWC_StrangerSummary>
+  <MDWC_StrangerSummaryAlways>The stranger arrives in a black medic warcasket with a warcasket slugthrower.</MDWC_StrangerSummaryAlways>
   <MDWC_StrangerSummaryReplaced>Another mod chooses which stranger arrives, so the warcasket settings have no effect.</MDWC_StrangerSummaryReplaced>
   <MDWC_StrangerSummaryAnyGender>The stranger can be a man or a woman.</MDWC_StrangerSummaryAnyGender>
 

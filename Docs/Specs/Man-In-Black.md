@@ -11,7 +11,7 @@ checkout's `1.7/Defs/` and `HarmonyPatches/`.
 | Request                                                                               | Section |
 | ------------------------------------------------------------------------------------- | ------- |
 | A mod setting, off by default, that puts the man in black in the set, still black     | 3.1     |
-| He carries the warcasket minigun instead of the revolver                              | 3.2     |
+| He carries the warcasket slugthrower instead of the revolver                          | 3.2     |
 | A child setting, on by default, that waits for the warcasket research                 | 3.3     |
 | The child is inactive while the parent is off                                         | 3.4     |
 | Other mods' additions to vanilla's stranger (CE's ammo) reach ours                    | 3.5     |
@@ -26,7 +26,7 @@ joiner walks in, a `StrangerInBlack` in a duster and cowboy hat with a revolver 
 industrial medicine, and the letter asks whether he can set things right. Against a tribal
 raid he can. Against mechanoids, or a late raid in marine armor, a revolver and a duster
 change nothing, and the event becomes a free corpse. A colony that has researched warcaskets
-is a colony whose threats have outgrown the stranger; a medic set with a minigun is the same
+is a colony whose threats have outgrown the stranger; a medic set with a slugthrower is the same
 last chance at the scale those threats now have, and a medic can also patch up the colonists
 he came to save.
 
@@ -69,14 +69,14 @@ three pieces, no `apparelTags` or `apparelMoney`, and vanilla's own `apparelColo
 paints the set black through the pieces' `CompColorable` exactly as it paints the duster. The
 labels stay vanilla's: the letter names the arrival by kind label.
 
-### 3.2 The minigun
+### 3.2 The slugthrower
 
-`weaponTags` is a tag of ours, `MDWC_StrangerInBlack`, that `1.6/Patches/StrangerInBlackMinigun.xml`
-adds to `VFEP_WarcasketGun_Minigun` alone; its own tags are shared with the other heavy guns,
-and the generator's weighted pick among them would not be a minigun. `weaponMoney` 5000
-clears its price with headroom. The patch is ungated (VFEP is a hard dependency), so a renamed
-target errors at every boot; `CompatPatchTests` therefore expects no main-tree hit for an
-xpath naming no `MDWC_` def.
+`weaponTags` is a tag of ours, `MDWC_StrangerInBlack`, that
+`1.6/Patches/StrangerInBlackSlugthrower.xml` adds to `VFEP_WarcasketGun_Slugthrower` alone; its
+own tags are shared with the other veteran guns, and the generator's weighted pick among them
+would not be a slugthrower. `weaponMoney` 5000 clears its price with headroom. The patch is
+ungated (VFEP is a hard dependency), so a renamed target errors at every boot;
+`CompatPatchTests` therefore expects no main-tree hit for an xpath naming no `MDWC_` def.
 
 ### 3.3 The gate
 
@@ -150,14 +150,14 @@ active, since such a worker may still read the gender (Stranger In Black Techlev
 - In game (the author's check): dev-mode fire `StrangerInBlackJoin` with the parent box on,
   before and after researching warcaskets; with it off; the settings page with the parent off
   shows the child greyed. With the gender box on, fire it until a woman arrives and read the
-  letter; with Combat Extended, check the minigun arrives with magazines; with Stranger
+  letter; with Combat Extended, check the slugthrower arrives with shells; with Stranger
   In Black Techlevel, check the two warcasket rows are greyed and the summary says why.
 
 ## 6. What landed
 
 `Source/1.6/StrangerInBlack.cs`, `Source/1.6/Patches/PawnGenerator_GeneratePawn.cs`,
 `Source/1.6/Settings/Settings_Stranger.cs` and the `disabled` row in `ToggleSetting.cs`;
-`1.6/Defs/PawnKindDefs/StrangerInBlack_Medic.xml`, `1.6/Patches/StrangerInBlackMinigun.xml`,
+`1.6/Defs/PawnKindDefs/StrangerInBlack_Medic.xml`, `1.6/Patches/StrangerInBlackSlugthrower.xml`,
 the `MDWC_Stranger*` Keyed strings; `Tests/1.6/StrangerInBlackTests.cs`; one line in
 `About.xml`. Sections 3.5 to 3.7 added the extension mirror (called from `Startup.cs`), the
 gender row and `WorkerReadsKind`, in the same files.
