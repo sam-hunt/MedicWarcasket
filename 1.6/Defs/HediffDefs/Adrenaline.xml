@@ -5,13 +5,14 @@
     the ability already holds MDWC_AdrenalineShot (Ability_AdrenalineShot applies it; design in
     Docs/Specs/Adrenaline-Shot.md 3.2): go-juice's high (Core, Drugs/GoJuice.xml) on a short
     clock, with no tolerance and no addiction, pure XML. Hediff_High is go-juice's class and only
-    shows the severity as a percentage. The shot sets severity 1, and severityPerDay -6 fades it
-    in four hours. Severity falls at a constant rate, so each stage's band is its share of the
-    clock: the rush and steady a sixteenth each (a quarter hour), wearing off an eighth (half an
-    hour), and the crash below wearing off's minSeverity 0.75 the last three quarters (three
-    hours). The comp steps every 200 ticks, 0.02 of severity at this rate, and no threshold sits
-    on a step, so no stage boundary hangs on a float comparison. The boost (the three levels
-    above the crash, an hour) and the crash (three hours) are two mod settings written onto
+    shows the severity as a percentage. The shot sets severity 1, and severityPerDay -4 fades it
+    in six hours. Severity falls at a constant rate, so each stage's band is its share of the
+    clock: the rush and steady a sixteenth each (22.5 minutes), wearing off an eighth (45
+    minutes), and the crash below wearing off's minSeverity 0.75 the last three quarters (four
+    and a half hours). The comp steps every 200 ticks, about 0.013 of severity at this rate, and
+    no threshold sits on a step, so no stage boundary hangs on a float comparison. The boost (the
+    three levels above the crash, an hour and a half) and the crash (four and a half hours) are
+    two mod settings written onto
     severityPerDay and the stages' minSeverity: the crash's band is its share of the total, and
     the boost keeps the split above, a quarter, a quarter and a half, at any length. A shot
     already given keeps the rate it was applied with, since vanilla's comp caches it per
@@ -21,14 +22,14 @@
 
     Stages are listed ascending by minSeverity as vanilla requires, so the top level is last.
     The rush is go-juice's pain, Consciousness and Moving without its Sight; the next two taper
-    those by thirds, and no level touches Sight. The boost is a burst of an hour, spent on
+    those by thirds, and no level touches Sight. The boost is a burst of an hour and a half, spent on
     the fight it was given for. The crash is the cost the player feels, since rest is paid
-    invisibly: no pain relief, Consciousness -0.10 and Moving -0.20 for three hours, a patient
+    invisibly: no pain relief, Consciousness -0.10 and Moving -0.20 for four and a half hours, a patient
     dulled and slowed through the afternoon after the fight. Moving is kept at -0.20 because
     Consciousness feeds Moving, so the two stack. The comedown is each stage's restFallFactor,
     vanilla's own lever: none in the rush, then 1.25, 1.5 and 3 in the crash, so the bill rises
-    as the boost thins and almost all of it lands in the crash. A full shot costs about 0.25 of
-    rest beyond the 0.16 four waking hours cost anyway (6.3 extra waking hours' worth, at
+    as the boost thins and almost all of it lands in the crash. A full shot costs about 0.38 of
+    rest beyond the 0.24 six waking hours cost anyway (9.5 extra waking hours' worth, at
     0.04 an hour), paid continuously while awake and not at all asleep; a longer crash setting
     raises the bill with it. The factors have no setting. The pilot's own RestFallRateFactor
     multiplies on top.
@@ -51,7 +52,7 @@
     <maxSeverity>1</maxSeverity>
     <comps>
       <li Class="HediffCompProperties_SeverityPerDay">
-        <severityPerDay>-6</severityPerDay>
+        <severityPerDay>-4</severityPerDay>
         <showHoursToRecover>true</showHoursToRecover>
       </li>
     </comps>

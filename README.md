@@ -34,8 +34,8 @@ spacer warcaskets research.
   until it is done. Dressings can be queued, and Shift-click chains patients. With the helmet on,
   it treats diseases and infections too
 - **Adrenaline shot**: the shoulders hold a few shots, one kit of medicine each; one gives a
-  person or animal, or the pilot, an hour of held-off pain and faster movement, a last resort to
-  get the downed out of danger, fading in levels into a long crash while their sleep falls faster.
+  person or animal, or the pilot, held-off pain and faster movement for a short time, a last resort
+  to get the downed out of danger, fading in levels into a long crash while their sleep falls faster.
   A shot into a heart attack stops it instead. With the armor worn, autocast follows every
   dressing with a shot
 - **Mod settings** for the medicine, the effect color, the kit capacity, the casting time, the time per

@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Combat Extended support: CE armor values, bulk and carry capacity in line with VFE Pirates' spacer sets, a helmet sealed against CE smoke, and an adrenaline shot that resists suppression as go-juice does
-- The shoulders grant an adrenaline shot, two loaded from a medicine kit each: one gives a person, animal or the pilot a go-juice surge for half an hour, fading in three levels into a three-hour crash while they tire faster
+- The shoulders grant an adrenaline shot, two loaded from a medicine kit each: one gives a person, animal or the pilot a go-juice surge for 1.5 hours, fading in three levels into a crash of 4.5 hours while they tire faster
 - A shot into a heart attack stops it outright instead of stimulating, on anyone, raiders included
 - With the armor worn, every patient gets a shot as their dressing ends; right-click the shot to turn that off
 - Mod settings for the shots held and their reload item, how long a shot lasts, its rest cost and its cooldown
