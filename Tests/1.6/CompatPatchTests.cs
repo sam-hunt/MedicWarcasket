@@ -12,12 +12,14 @@ namespace MedicWarcasket.Tests;
 // 1.6/Patches/SOS2Patch.xml sits behind a PatchOperationFindMod gate of its own, so a renamed node
 // in a main-tree def would break any of them silently for every player who has that mod and
 // nobody else. Every operation's xpath must resolve in the main tree's defs, merged as the game
-// merges them, to one node per def it names: the SOS2 patch names its two defs in one xpath, as
-// VFEP's does. A PatchOperationConditional's own xpath is the exception, a probe for a node that
-// should be absent.
+// merges them, to one node per MDWC_ def it names: the SOS2 patch names its two defs in one
+// xpath, as VFEP's does. A PatchOperationConditional's own xpath is the exception, a probe for
+// a node that should be absent, and so is an xpath naming only a dependency's defs (the minigun
+// tag patch): the main tree cannot resolve it, and such a patch stays ungated, so a renamed
+// target logs a patch error at every boot for everyone.
 public class CompatPatchTests
 {
-    private static readonly string RepoRoot = FindRepoRoot();
+    internal static readonly string RepoRoot = FindRepoRoot();
 
     private static string FindRepoRoot()
     {
@@ -29,7 +31,7 @@ public class CompatPatchTests
         throw new InvalidOperationException("MedicWarcasket.sln not found above the test output folder");
     }
 
-    private static XDocument MergedDefs()
+    internal static XDocument MergedDefs()
     {
         var defs = new XElement("Defs");
         foreach (var file in Directory.EnumerateFiles(Path.Combine(RepoRoot, "1.6/Defs"), "*.xml", SearchOption.AllDirectories))
@@ -61,7 +63,7 @@ public class CompatPatchTests
             var hits = defs.XPathSelectElements(xpath).Count();
             var expected = (string)op.Attribute("Class") == "PatchOperationConditional"
                 ? 0
-                : Regex.Matches(xpath, "defName\\s*=\\s*\"").Count;
+                : Regex.Matches(xpath, "defName\\s*=\\s*\"MDWC_").Count;
             Assert.True(hits == expected, $"{relativePath}: {xpath} resolved {hits} node(s), expected {expected}");
         }
     }

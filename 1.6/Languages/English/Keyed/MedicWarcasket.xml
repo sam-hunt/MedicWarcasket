@@ -99,6 +99,19 @@
   <MDWC_WorkSummary>The pilot can do {0} work. All other work follows the VFE Pirates warcasket trait.</MDWC_WorkSummary>
   <MDWC_WorkSummaryNone>The pilot does no caring work. All other work follows the VFE Pirates warcasket trait.</MDWC_WorkSummaryNone>
 
+  <MDWC_SectionStranger>Man in black</MDWC_SectionStranger>
+  <MDWC_SectionStrangerDesc>The man in black is a stranger who arrives when the colony is close to falling, in a duster with a revolver. These settings send him in the medic warcasket instead.</MDWC_SectionStrangerDesc>
+
+  <MDWC_Stranger>Man in black arrives in a medic warcasket</MDWC_Stranger>
+  <MDWC_StrangerDesc>When enabled, the man in black will arrive in a black medic warcasket, carrying a warcasket minigun. When disabled, he will arrive as usual. Default: {0}.</MDWC_StrangerDesc>
+
+  <MDWC_StrangerResearch>Only once warcaskets are researched</MDWC_StrangerResearch>
+  <MDWC_StrangerResearchDesc>When enabled, the man in black will only bring the warcasket once the colony has researched warcaskets, and will arrive as usual before that. When disabled, he will bring it from the start. Default: {0}.</MDWC_StrangerResearchDesc>
+
+  <MDWC_StrangerSummaryOff>The man in black arrives as usual, without a warcasket.</MDWC_StrangerSummaryOff>
+  <MDWC_StrangerSummary>The man in black arrives in a black medic warcasket with a warcasket minigun once warcaskets are researched. Before that he arrives as usual.</MDWC_StrangerSummary>
+  <MDWC_StrangerSummaryAlways>The man in black arrives in a black medic warcasket with a warcasket minigun.</MDWC_StrangerSummaryAlways>
+
   <MDWC_DefaultSuffix> (default)</MDWC_DefaultSuffix>
   <MDWC_Enabled>enabled</MDWC_Enabled>
   <MDWC_Disabled>disabled</MDWC_Disabled>

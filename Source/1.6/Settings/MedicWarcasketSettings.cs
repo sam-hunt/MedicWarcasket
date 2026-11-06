@@ -9,11 +9,12 @@ namespace MedicWarcasket;
 // The set's mod settings: the window frame, the ExposeData / LoadDefaultsFromDefs / ApplyToDefs /
 // ResetToDefaults fan-out, the time formats and the shared row helpers. The class is split
 // across Settings_<Section>.cs partials, one per window section (the dressing, the shot, the
-// work), each owning its fields, scribe entries, def-backed defaults, apply, reset and draw, so
-// a setting is a one-file edit; each partial's header lists the def fields it writes. Each
-// setting overrides a def field, written onto the def by ApplyToDefs (at startup, then whenever
-// the window closes), so every reader of those fields, vanilla's and VEF's included, sees the
-// setting with no code of its own. The defaults, and the rationale for them, are the defs'.
+// work, the man in black), each owning its fields, scribe entries, def-backed defaults, apply,
+// reset and draw, so a setting is a one-file edit; each partial's header lists the def fields
+// it writes. Each setting overrides a def field, written onto the def by ApplyToDefs (at
+// startup, then whenever the window closes), so every reader of those fields, vanilla's and
+// VEF's included, sees the setting with no code of its own. The defaults, and the rationale
+// for them, are the defs'.
 // Nothing here is saved into a game: a save loads the same with any settings, and with none.
 //
 // Each ability section's header carries the ability's own icon, read off the def at draw
@@ -90,12 +91,16 @@ public partial class MedicWarcasketSettings : ModSettings
         ExposeDressingSettings();
         ExposeShotSettings();
         ExposeWorkSettings();
+        ExposeStrangerSettings();
     }
 
     // Reads the def-backed defaults before the first ApplyToDefs overwrites them; defs must be
-    // loaded, so ModInit's static constructor calls this, never the Mod constructor.
+    // loaded, so ModInit's static constructor calls this, never the Mod constructor. The man in
+    // black's defaults need none of the set's defs, so they load ahead of the guard, as they
+    // apply ahead of it.
     public void LoadDefaultsFromDefs()
     {
+        LoadStrangerDefaults();
         if (!TryGetDefs(out Defs defs))
             return;
         LoadDressingDefaults(defs);
@@ -104,12 +109,13 @@ public partial class MedicWarcasketSettings : ModSettings
         defaultsLoaded = true;
     }
 
-    // The work profile goes first: it needs none of the dressing's defs, so a saved choice
-    // still holds while they are missing, though the page is unavailable to change it. The
-    // trims run after the generation moves, once every def holds its new value.
+    // The work profile and the man in black go first: they need none of the dressing's defs, so
+    // a saved choice still holds while they are missing, though the page is unavailable to
+    // change it. The trims run after the generation moves, once every def holds its new value.
     public void ApplyToDefs()
     {
         ApplyWorkToDefs();
+        ApplyStrangerToDefs();
         if (!defaultsLoaded || !TryGetDefs(out Defs defs))
             return;
         ApplyDressingToDefs(defs);
@@ -124,6 +130,7 @@ public partial class MedicWarcasketSettings : ModSettings
         ResetDressingSettings();
         ResetShotSettings();
         ResetWorkSettings();
+        ResetStrangerSettings();
     }
 
     // Each section opens on its summary under its header, then one row per setting, and a reset
@@ -157,6 +164,7 @@ public partial class MedicWarcasketSettings : ModSettings
         DrawDressingSection(listing);
         DrawShotSection(listing);
         DrawWorkSection(listing);
+        DrawStrangerSection(listing);
         listing.Gap(SectionGap);
         contentHeight = listing.CurHeight;
         listing.End();

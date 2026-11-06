@@ -1,6 +1,6 @@
 {
   "meta": {
-    "gameBuild": "1.7.4998 rev1299",
+    "gameBuild": "1.7.5000 rev1275",
     "activeDlcs": [
       "Core",
       "Odyssey"
@@ -59,6 +59,24 @@
       },
       "MDWC_MechaniteDressing.reportString": {
         "english": "dressing TargetA's wounds.",
+        "required": true
+      }
+    },
+    "PawnKindDef": {
+      "MDWC_StrangerInBlack.label": {
+        "english": "stranger in black",
+        "required": true
+      },
+      "MDWC_StrangerInBlack.labelFemale": {
+        "english": "woman in black",
+        "required": true
+      },
+      "MDWC_StrangerInBlack.labelMale": {
+        "english": "man in black",
+        "required": true
+      },
+      "MDWC_StrangerInBlack.labelPlural": {
+        "english": "strangers in black",
         "required": true
       }
     },

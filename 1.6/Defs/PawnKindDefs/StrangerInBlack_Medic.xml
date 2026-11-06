@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--
+    The man in black in the set: vanilla's StrangerInBlack (Core
+    PawnKindDefs_Humanlikes/PawnKinds_Special.xml), copied field for field since a concrete def
+    cannot be a parent, with the gear swapped. Fields not discussed here are vanilla's, labels
+    included: the incident's letter names the arrival by its kind label ("a mysterious man in
+    black has arrived"), so the labels must stay vanilla's for the letter to read the same.
+    Design in Docs/Specs/Man-In-Black.md. Nothing lists this kind: the mod setting writes it
+    onto StrangerInBlackJoin's pawnKind (Source/1.6/Settings/Settings_Stranger.cs), and it is
+    the only way the kind is reached.
+
+    Gear. apparelRequired is the three pieces, which vanilla's generator adds whatever the
+    money, and apparelColor is vanilla's stranger's (0.2, 0.2, 0.2), which
+    PawnApparelGenerator.PostProcessApparel paints onto every piece through its CompColorable,
+    so the set arrives black with the mask's painted cross and trim kept (the armor def's
+    header). ignoreIdeoApparelColors and the Ideology favoriteColor follow vanilla. No
+    apparelTags and no apparelMoney: nothing is worn beside a warcasket, and VFEP's own
+    generation postfix strips anything else and locks the set on (PawnGenerator_GeneratePawn_Patch).
+    weaponTags is MDWC_StrangerInBlack, a tag 1.6/Patches/StrangerInBlackMinigun.xml adds to
+    VFEP's VFEP_WarcasketGun_Minigun alone, so the pick is that gun and no other; weaponMoney
+    5000 clears its market value (2240) with room for a VFEP repricing, and the tag keeps the
+    headroom from buying anything else. itemQuality Good and gearHealthRange 1~1 are vanilla's.
+
+    combatPower 300 is VFEP_Major's, the VFEP raid-table kind closest in gear (a veteran
+    warcasket with a veteran gun); a joiner's kind is never costed, so this only matters to a
+    mod that lists the kind elsewhere. requiredWorkTags Violent and Caring are vanilla's and
+    fit a medic; the Medicine skill range is added beside vanilla's Shooting at the same 8~16,
+    so the pilot can use the set he arrives in.
+
+    The gate. The MedicWarcasket.StrangerInBlackExtension (Source/1.6/StrangerInBlack.cs)
+    makes a request for this kind generate the fallback, vanilla's StrangerInBlack, while
+    VFEP_Warcaskets is unfinished and requiresResearch holds; requiresResearch is a mod setting
+    defaulting to this value.
+  -->
+  <PawnKindDef>
+    <defName>MDWC_StrangerInBlack</defName>
+    <label>stranger in black</label>
+    <labelMale>man in black</labelMale>
+    <labelFemale>woman in black</labelFemale>
+    <labelPlural>strangers in black</labelPlural>
+    <race>Human</race>
+    <defaultFactionDef>OutlanderCivil</defaultFactionDef>
+    <combatPower>300</combatPower>
+    <minGenerationAge>20</minGenerationAge>
+    <maxGenerationAge>55</maxGenerationAge>
+    <isFighter>true</isFighter>
+    <chemicalAddictionChance>0.05</chemicalAddictionChance>
+    <backstoryCryptosleepCommonality>0.05</backstoryCryptosleepCommonality>
+    <backstoryFiltersOverride>
+      <li>
+        <categories>
+          <li>Offworld</li>
+          <li>Outlander</li>
+          <li>Outsider</li>
+        </categories>
+      </li>
+    </backstoryFiltersOverride>
+    <requiredWorkTags>
+      <li>Violent</li>
+      <li>Caring</li>
+    </requiredWorkTags>
+    <invNutrition>10.0</invNutrition>
+    <inventoryOptions>
+      <subOptionsChooseOne>
+        <li>
+          <thingDef>MedicineIndustrial</thingDef>
+          <countRange>5</countRange>
+        </li>
+      </subOptionsChooseOne>
+    </inventoryOptions>
+    <gearHealthRange>1~1</gearHealthRange>
+    <itemQuality>Good</itemQuality>
+    <weaponMoney>5000~5000</weaponMoney>
+    <weaponTags>
+      <li>MDWC_StrangerInBlack</li>
+    </weaponTags>
+    <apparelRequired>
+      <li>MDWC_Warcasket_Medic</li>
+      <li>MDWC_WarcasketShoulders_Medic</li>
+      <li>MDWC_WarcasketHelmet_Medic</li>
+    </apparelRequired>
+    <apparelColor>(0.2, 0.2, 0.2)</apparelColor>
+    <ignoreIdeoApparelColors>true</ignoreIdeoApparelColors>
+    <favoriteColor MayRequire="Ludeon.RimWorld.Ideology">Black</favoriteColor>
+    <initialWillRange>0~0</initialWillRange>
+    <initialResistanceRange>0~2</initialResistanceRange>
+    <humanPregnancyChance>0</humanPregnancyChance>
+    <skills>
+      <li>
+        <skill>Shooting</skill>
+        <range>8~16</range>
+      </li>
+      <li>
+        <skill>Medicine</skill>
+        <range>8~16</range>
+      </li>
+    </skills>
+    <modExtensions>
+      <li Class="MedicWarcasket.StrangerInBlackExtension">
+        <research>VFEP_Warcaskets</research>
+        <requiresResearch>true</requiresResearch>
+        <fallback>StrangerInBlack</fallback>
+      </li>
+    </modExtensions>
+  </PawnKindDef>
+</Defs>

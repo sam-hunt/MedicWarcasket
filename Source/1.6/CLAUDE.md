@@ -50,6 +50,11 @@ comments cover install-path detection, the compile-only VFEP/VEF references (`VF
 - **Vanilla's reload queries are non-virtual** (`CompApparelReloadable.NeedsReload` and kin). A
   reloadable that bends one does it with a Harmony prefix gated on its own comp type, as
   `Patches/CompApparelReloadable_Reload.cs` does for the medicine suite.
+- **A pawn kind that waits on research says so in a `StrangerInBlackExtension`** (`research`,
+  `requiresResearch`, `fallback`): the prefix on `PawnGenerator.GeneratePawn` generates the
+  fallback kind for any request for it while the project is unfinished, so the rule needs no
+  worker patch and VEF's own stranger transpiler stays untouched. The man in black's kind is
+  the one user; the incident's `pawnKind` is a settings write, never patched XML.
 - **Keyed strings a DLC owns are not available here.** Before using a vanilla key from code, grep
   `Data/*/Languages/English/Keyed/`; if Core does not own it (Biotech's `NumWoundsTended` was
   one), add an `MDWC_` key to the one Keyed file instead.

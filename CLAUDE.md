@@ -14,8 +14,9 @@ Odyssey and other optional content load only when present. C# (.NET Framework 4.
 XML defs. Def prefix `MDWC_`.
 
 **State: mechanics and tuning in, not yet released.** The doctor passives, the mechanite
-dressing, the adrenaline shot, the medic work trait and the raider medics (the two actives in
-AI hands) are implemented, and the set's plating, shield and costs are priced against VFEP's
+dressing, the adrenaline shot, the medic work trait, the raider medics (the two actives in
+AI hands) and the opt-in man in black override (the stranger arrives in the set, gated on
+warcasket research) are implemented, and the set's plating, shield and costs are priced against VFEP's
 spacer sets (`Docs/Specs/Set-Tuning.md`). `TODOs.md`
 is the ledger. Each feature's design rationale is a `Docs/Specs/` file; the sibling
 `../ShipcrackerWarcasket/` repo (same author, same VFEP base) is the worked precedent for

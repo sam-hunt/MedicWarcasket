@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <!--
+    Tags VFEP's warcasket minigun for the man in black's kind (Defs/PawnKindDefs/
+    StrangerInBlack_Medic.xml): vanilla's weapon generation picks by weaponTags, and the
+    minigun's own tags (WarcasketAll, WarcasketHeavy) are shared with the other heavy guns, so
+    a tag of ours on this one def is what makes the pick deterministic. Ungated: VFEP is a hard
+    dependency, so the def is always there and a renamed one would log a patch error at every
+    boot, which is why Tests/1.6/CompatPatchTests.cs expects no main-tree hit for it. Combat
+    Extended's own patch on the gun (PatchOperationMakeGunCECompatible) adds no tags of its
+    own to this one and replaces none, so the tag survives CE in either load order.
+  -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/ThingDef[defName = "VFEP_WarcasketGun_Minigun"]/weaponTags</xpath>
+    <value>
+      <li>MDWC_StrangerInBlack</li>
+    </value>
+  </Operation>
+</Patch>

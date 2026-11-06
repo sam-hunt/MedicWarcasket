@@ -40,7 +40,12 @@ manifest globs, so new files and subfolders need no build change.
   `MayRequire` is then redundant and dropped. A patch in a gated root, or behind a
   `PatchOperationFindMod` gate, fails silently for everyone but that mod's players, so
   `Tests/1.6/CompatPatchTests.cs` resolves every patch's xpaths against the main tree; keep every
-  xpath to one node per `defName` it names, or zero for a `PatchOperationConditional` probe.
+  xpath to one node per `MDWC_` `defName` it names, or zero for a `PatchOperationConditional`
+  probe.
+- **A patch on a dependency's def stays ungated** (`Patches/StrangerInBlackMinigun.xml` on
+  VFEP's minigun): VFEP is a hard dependency, so a renamed target logs a patch error at every
+  boot for everyone, which is the whole check it gets; the xpath test expects zero main-tree
+  hits for it.
 - **Compat roots sit beside the well-known folders, never inside them.** Anything under
   `1.6/Defs/**` or `1.6/Languages/**` loads unconditionally at any depth.
 - **An injection is gated by the root that contains it, never by the def it targets.** A main-tree
