@@ -34,16 +34,25 @@ namespace MedicWarcasket;
 // points the incident at our kind already, and the third off unless one unfixed the gender.
 // The section needs none of the set's tunable defs, so it loads and applies ahead of the other
 // sections' guard, as the work section does; with vanilla's incident or our kind missing (a
-// mod removed one) it is skipped and the settings warn once. Its header carries the armor's
-// item icon, read off the def handle LoadDefaultsFromDefs refreshes, and a tooltip saying
-// what the event is.
+// mod removed one) it is skipped and the settings warn once. Its header carries the helmet as
+// the stranger wears it, in our kind's apparelColor, and a tooltip saying what the event is.
+// The icon is drawn as Widgets.GetIconFor(Thing) draws a worn piece in the gear tab: the
+// helmet's graphic recoloured, its material swapped for the UI twin of its CutoutComplex
+// shader (ShaderDatabase.TryGetUIShader), so the mask darkens the plating and the painted
+// cross stays. It is built at draw time from the def handles LoadDefaultsFromDefs refreshes;
+// MaterialPool caches the material. Without a UI shader the helmet's plain uiIcon stands in.
+// The worn art fills under half its 256px canvas (about 125px tall), so StrangerIconScale
+// draws it at 1.8 times the slot, its plating about as tall as the full-bleed icons of the
+// other headers; the overflow is the canvas's transparent margin.
 public partial class MedicWarcasketSettings
 {
     private const string StrangerIncidentDefName = "StrangerInBlackJoin";
     private const string StrangerKindDefName = "MDWC_StrangerInBlack";
+    private const string StrangerHelmetDefName = "MDWC_WarcasketHelmet_Medic";
+    private const float StrangerIconScale = 1.8f;
 
     // Whether the incident generates our kind, whether that kind waits for the research, and
-    // whether the stranger may be a woman.
+    // whether the stranger's gender is forced.
     public readonly ToggleSetting stranger = new("Stranger");
     public readonly ToggleSetting strangerResearch = new("StrangerResearch");
     public readonly ToggleSetting strangerAnyGender = new("StrangerAnyGender");
@@ -58,7 +67,7 @@ public partial class MedicWarcasketSettings
     private string strangerAnyGenderLabel;
     private string strangerFixedText;
     private string strangerAnyGenderText;
-    private ThingDef strangerArmor;
+    private ThingDef strangerHelmet;
     private static bool strangerWarned;
 
     private bool StrangerFound => strangerIncident != null;
@@ -75,7 +84,7 @@ public partial class MedicWarcasketSettings
         strangerIncident = DefDatabase<IncidentDef>.GetNamedSilentFail(StrangerIncidentDefName);
         strangerKind = DefDatabase<PawnKindDef>.GetNamedSilentFail(StrangerKindDefName);
         strangerExtension = strangerKind?.GetModExtension<StrangerInBlackExtension>();
-        strangerArmor = DefDatabase<ThingDef>.GetNamedSilentFail(ArmorDefName);
+        strangerHelmet = DefDatabase<ThingDef>.GetNamedSilentFail(StrangerHelmetDefName);
         PawnKindDef loaded = strangerIncident?.pawnKind;
         strangerVanillaKind = loaded == strangerKind ? strangerExtension?.fallback : loaded;
         if (strangerIncident == null || strangerExtension == null || strangerVanillaKind == null)
@@ -121,17 +130,32 @@ public partial class MedicWarcasketSettings
     {
         if (!StrangerFound)
             return;
-        Texture2D icon = strangerArmor?.uiIcon;
-        SectionHeader(listing, "MDWC_SectionStranger", icon, HeaderTip("MDWC_SectionStranger".Translate(), "MDWC_SectionStrangerDesc".Translate()));
+        Material iconMat = StrangerIconMaterial();
+        Texture icon = iconMat != null ? iconMat.mainTexture : strangerHelmet?.uiIcon;
+        SectionHeader(listing, "MDWC_SectionStranger", icon, HeaderTip("MDWC_SectionStranger".Translate(), "MDWC_SectionStrangerDesc".Translate()), iconMat: iconMat, iconScale: StrangerIconScale);
         SummaryRow(listing, StrangerSummary);
         stranger.DoRow(listing, disabled: strangerKindIgnored);
         strangerResearch.DoRow(listing, disabled: strangerKindIgnored || !stranger.Value);
         strangerAnyGender.DoRow(listing);
     }
 
+    // The helmet's material as the stranger wears it, for the header (see the class header).
+    private Material StrangerIconMaterial()
+    {
+        Graphic graphic = strangerHelmet?.graphic;
+        if (graphic == null || graphic == BaseContent.BadGraphic)
+            return null;
+        Material worn = graphic.GetColoredVersion(graphic.Shader, strangerKind.apparelColor, strangerHelmet.graphicData.colorTwo)
+            .MatAt(strangerHelmet.defaultPlacingRot);
+        if (!ShaderDatabase.TryGetUIShader(worn.shader, out Shader uiShader) || !MaterialPool.TryGetRequestForMat(worn, out MaterialRequest request))
+            return null;
+        request.shader = uiShader;
+        return MaterialPool.MatFrom(request);
+    }
+
     // What the boxes amount to: the stranger as vanilla sends them, in the set once the research
     // is in, or in the set from the start, or another mod's stranger whatever the first two say;
-    // then whether they may be a woman.
+    // then whether the gender is forced.
     private string StrangerSummary()
     {
         string summary;
