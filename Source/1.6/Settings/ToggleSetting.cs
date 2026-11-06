@@ -40,12 +40,14 @@ public sealed class ToggleSetting
 
     // A checkbox row laid out as a Tunable row is, the box at the row's end; a click anywhere on
     // the row flips it. The tooltip is resolved by hand: a TaggedString handed over as a string
-    // loses its tags, the default's colour among them. A disabled row (a child box whose
-    // parent is off, or a box another mod has made moot) is drawn in vanilla's inactive grey,
-    // label and box alike, takes no click and keeps its value, so the choice holds for when
-    // the row is active again; its tooltip still reads.
-    public void DoRow(Listing_Standard listing, bool disabled = false)
+    // loses its tags, the default's colour among them. A disabled row (a box another mod has
+    // made moot) is drawn in vanilla's inactive grey, label and box alike, takes no click and
+    // keeps its value, so the choice holds for when the row is active again; its tooltip still
+    // reads. A forced-off row (a child box whose parent is off) is disabled and also drawn
+    // unticked, what the parent makes of it; its saved value shows again once the parent is on.
+    public void DoRow(Listing_Standard listing, bool disabled = false, bool forcedOff = false)
     {
+        disabled |= forcedOff;
         Rect row = listing.GetRect(Tunable.RowHeight);
         row.xMin += Tunable.RowIndent;
         row.xMax -= Tunable.RowEndPad;
@@ -53,7 +55,7 @@ public sealed class ToggleSetting
             Widgets.DrawHighlightIfMouseover(row);
         TooltipHandler.TipRegion(row, ("MDWC_" + key + "Desc").Translate(StateWord(DefaultValue)).Resolve());
 
-        bool on = Value;
+        bool on = !forcedOff && Value;
         if (disabled)
             GUI.color = Widgets.InactiveColor;
         Widgets.CheckboxLabeled(row, ("MDWC_" + key).Translate(), ref on, disabled);

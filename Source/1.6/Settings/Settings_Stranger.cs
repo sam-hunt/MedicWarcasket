@@ -12,8 +12,8 @@ namespace MedicWarcasket;
 // (vanilla's StrangerInBlack, or whatever another mod patched in; our kind's fallback if the
 // XML already named ours). The second overrides that kind's StrangerInBlackExtension
 // requiresResearch, the gate Patches/PawnGenerator_GeneratePawn applies, and is drawn inactive
-// while the first is off, since the gate then has nothing to gate; its saved choice holds for
-// when the first is back on. Both are drawn inactive, and the summary says why, when the
+// and unticked while the first is off, since the gate then has nothing to gate; its saved
+// choice holds, and shows again, once the first is back on. Both are drawn inactive, and the summary says why, when the
 // incident's worker does not read pawnKind (StrangerInBlack.WorkerReadsKind: a mod such as
 // Stranger In Black Techlevel replaced the worker with one that picks its own kind); the writes
 // still happen and have no effect.
@@ -135,7 +135,7 @@ public partial class MedicWarcasketSettings
         SectionHeader(listing, "MDWC_SectionStranger", icon, HeaderTip("MDWC_SectionStranger".Translate(), "MDWC_SectionStrangerDesc".Translate()), iconMat: iconMat, iconScale: StrangerIconScale);
         SummaryRow(listing, StrangerSummary);
         stranger.DoRow(listing, disabled: strangerKindIgnored);
-        strangerResearch.DoRow(listing, disabled: strangerKindIgnored || !stranger.Value);
+        strangerResearch.DoRow(listing, disabled: strangerKindIgnored, forcedOff: !stranger.Value);
         strangerAnyGender.DoRow(listing);
     }
 
