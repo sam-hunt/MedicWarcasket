@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using RimWorld;
 using Verse;
 using Xunit;
 
@@ -14,12 +15,20 @@ namespace MedicWarcasket.Tests;
 // defs are built bare and the researched flag is passed in (Researched reads the game). The
 // XML facts below tie the kind to the rest of the feature: its weapon tag is the one the
 // minigun patch adds, its required apparel is the set, and its extension names a fallback
-// that is not itself. The extension mirror's merge (MirroredExtensions) is pure too.
+// that is not itself. The extension mirror's merge (MirroredExtensions) and the settings' test
+// for a replaced worker (WorkerReadsKind) are pure too.
 public class StrangerInBlackTests
 {
     private sealed class OtherExtension : DefModExtension;
 
     private sealed class LoadoutExtension : DefModExtension;
+
+    private class InheritingWorker : IncidentWorker_WandererJoin;
+
+    private sealed class OverridingWorker : IncidentWorker_WandererJoin
+    {
+        public override Pawn GeneratePawn(Map map) => null;
+    }
 
     private static readonly PawnKindDef Vanilla = new() { defName = "StrangerInBlack" };
 
@@ -83,6 +92,16 @@ public class StrangerInBlackTests
         Assert.Null(StrangerInBlack.MirroredExtensions(null, null));
         var other = new OtherExtension();
         Assert.Equal<DefModExtension>([other], StrangerInBlack.MirroredExtensions(null, [other]));
+    }
+
+    [Fact]
+    public void Worker_ReadsKindUnlessGeneratePawnIsOverridden()
+    {
+        Assert.True(StrangerInBlack.WorkerReadsKind(typeof(IncidentWorker_WandererJoin)));
+        Assert.True(StrangerInBlack.WorkerReadsKind(typeof(InheritingWorker)));
+        Assert.False(StrangerInBlack.WorkerReadsKind(typeof(OverridingWorker)));
+        Assert.False(StrangerInBlack.WorkerReadsKind(typeof(IncidentWorker)));
+        Assert.False(StrangerInBlack.WorkerReadsKind(null));
     }
 
     [Fact]

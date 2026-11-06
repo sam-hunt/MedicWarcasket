@@ -38,6 +38,8 @@
     stranger reaches this kind too: Combat Extended's loadout (the weapon's magazines) and
     Altered Carbon's cortical stack chance. Their patches on vanilla's apparel and weapon do
     not carry over; CE's added backpack would be stripped by VFEP's warcasket postfix anyway.
+    No gender is fixed here: vanilla fixes it on the incident (pawnFixedGender Male), and a mod
+    setting lifts that.
   -->
   <PawnKindDef>
     <defName>MDWC_StrangerInBlack</defName>

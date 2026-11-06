@@ -5,7 +5,7 @@ namespace MedicWarcasket;
 
 // One on/off def field, what a Tunable is for a number: the two CompProperties_MedicAI aiCasts
 // flags, the armor's and the shoulders', the man in black incident's pawnKind (ours or not)
-// and his kind's requiresResearch. Until the player flips it the value is DefaultValue,
+// and pawnFixedGender (fixed or not), and our kind's requiresResearch. Until the player flips it the value is DefaultValue,
 // the def field as the XML (and any patch) leaves it, read by the settings'
 // LoadDefaultsFromDefs; only an override is saved, under the key, and flipping the box back to
 // the default clears it. The row's label and tooltip are "MDWC_" + key and that with "Desc",
@@ -41,9 +41,9 @@ public sealed class ToggleSetting
     // A checkbox row laid out as a Tunable row is, the box at the row's end; a click anywhere on
     // the row flips it. The tooltip is resolved by hand: a TaggedString handed over as a string
     // loses its tags, the default's colour among them. A disabled row (a child box whose
-    // parent is off) is drawn in vanilla's inactive grey, label and box alike, takes no click
-    // and keeps its value, so the choice holds for when the parent is back on; its tooltip
-    // still reads.
+    // parent is off, or a box another mod has made moot) is drawn in vanilla's inactive grey,
+    // label and box alike, takes no click and keeps its value, so the choice holds for when
+    // the row is active again; its tooltip still reads.
     public void DoRow(Listing_Standard listing, bool disabled = false)
     {
         Rect row = listing.GetRect(Tunable.RowHeight);

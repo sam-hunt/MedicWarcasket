@@ -15,6 +15,8 @@ checkout's `1.7/Defs/` and `HarmonyPatches/`.
 | A child setting, on by default, that waits for the warcasket research                 | 3.3     |
 | The child is inactive while the parent is off                                         | 3.4     |
 | Other mods' additions to vanilla's stranger (CE's ammo) reach ours                    | 3.5     |
+| A setting that lets the stranger be a woman, with a neutral letter title              | 3.6     |
+| A mod that replaces the event's worker greys the warcasket settings out               | 3.7     |
 | Vanilla's event is a last chance that stops scaling past the early game               | 1       |
 
 ## 1. Why
@@ -46,6 +48,10 @@ he came to save.
   `FactionDefExtension.strangerInBlackReplacement` when one is set.
 - VFEP's `PawnGenerator_GeneratePawn_Patch` postfix strips every non-warcasket piece off a
   generated pawn wearing a warcasket, fills any missing piece at random and locks the apparel.
+- The man is the incident's doing, not the kind's: `StrangerInBlack` fixes no gender and
+  carries `labelFemale` "woman in black". `TryExecuteWorker` titles the letter with
+  `def.letterLabel.Formatted(pawn.Named("PAWN"))`, a fixed "Man in black", and its text names
+  `[PAWN_kind]` and `[PAWN_pronoun]`, which already follow the pawn's gender.
 - Other mods on the event, from a scan of a 382-mod Workshop library: Combat Extended adds a
   `LoadoutPropertiesExtension` (5 to 8 magazines) and a backpack to vanilla's kind; Altered
   Carbon adds a `StackSpawnModExtension`; VFE Tribals' Wild Men faction sets VEF's
@@ -98,6 +104,22 @@ carries. That carries CE's loadout and Altered Carbon's stack chance, and anythi
 attaches the same way, without a compat root per mod. Fields are not mirrored: patches on the
 fallback's apparel and weapon describe the duster stranger.
 
+### 3.6 Any gender
+
+A third `ToggleSetting`, independent of the other two, writes `pawnFixedGender` `None` and
+swaps `letterLabel` for the Keyed `MDWC_StrangerLetterLabel`, "Stranger in black", the kind's
+neutral label; the letter's text already follows the pawn's gender. Off writes back the loaded values, `Male` if the
+XML left none. It covers whichever kind the event generates, vanilla's, ours or a faction
+replacement, and the settings text names the pawn "the stranger" throughout. The incident's
+own `label`, seen only in dev tools, stays "man in black".
+
+### 3.7 A replaced worker
+
+`StrangerInBlack.WorkerReadsKind` is true only for `IncidentWorker_WandererJoin` or a subclass
+inheriting its `GeneratePawn(Map)`. When the incident's worker fails it, the two warcasket rows
+are drawn inactive and the summary says another mod chooses the stranger; the gender row stays
+active, since such a worker may still read the gender (Stranger In Black Techlevel does).
+
 ## 4. Decisions
 
 - **A kind, not a redress.** Generating our own kind through vanilla's generator, rather than
@@ -123,11 +145,13 @@ fallback's apparel and weapon describe the duster stranger.
 ## 5. Verification
 
 - `dotnet test`: `StrangerInBlackTests` (the gate's pure rule; the XML's tag, set and fallback
-  agree with the patch and the defs; the extension mirror's merge) and `CompatPatchTests`
-  (the patch's xpath rule).
+  agree with the patch and the defs; the extension mirror's merge; the worker test) and
+  `CompatPatchTests` (the patch's xpath rule).
 - In game (the author's check): dev-mode fire `StrangerInBlackJoin` with the parent box on,
   before and after researching warcaskets; with it off; the settings page with the parent off
-  shows the child greyed. With Combat Extended, check the minigun arrives with magazines.
+  shows the child greyed. With the gender box on, fire it until a woman arrives and read the
+  letter; with Combat Extended, check the minigun arrives with magazines; with Stranger
+  In Black Techlevel, check the two warcasket rows are greyed and the summary says why.
 
 ## 6. What landed
 
@@ -135,5 +159,5 @@ fallback's apparel and weapon describe the duster stranger.
 `Source/1.6/Settings/Settings_Stranger.cs` and the `disabled` row in `ToggleSetting.cs`;
 `1.6/Defs/PawnKindDefs/StrangerInBlack_Medic.xml`, `1.6/Patches/StrangerInBlackMinigun.xml`,
 the `MDWC_Stranger*` Keyed strings; `Tests/1.6/StrangerInBlackTests.cs`; one line in
-`About.xml`. Section 3.5 added the extension mirror, in `StrangerInBlack.cs` and called from
-`Startup.cs`.
+`About.xml`. Sections 3.5 to 3.7 added the extension mirror (called from `Startup.cs`), the
+gender row and `WorkerReadsKind`, in the same files.

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using RimWorld;
 using Verse;
 
@@ -29,6 +30,11 @@ namespace MedicWarcasket;
 // mods. Only extensions are mirrored: a patch on the fallback's fields (apparel, weapon, race)
 // describes the duster stranger, not ours, and no mod patches its other fields. Extensions are
 // read at generation time off the kind, so sharing the fallback's instances is enough.
+//
+// WorkerReadsKind is the settings' test for whether the incident's pawnKind is read at all: a
+// worker that overrides IncidentWorker_WandererJoin.GeneratePawn picks its own kind (Stranger
+// In Black Techlevel's IncidentWorker_StrangerInBlack chooses one per player tech level and
+// never calls base), so the setting that writes pawnKind is drawn inactive.
 public sealed class StrangerInBlackExtension : DefModExtension
 {
     // The project the colony must have finished for the kind to generate as itself, and whether
@@ -104,4 +110,15 @@ public static class StrangerInBlack
         return false;
     }
 
+    // Whether an incident with this worker class generates its def's pawnKind: true for
+    // IncidentWorker_WandererJoin and any subclass that inherits its GeneratePawn(Map), false
+    // for an override or a worker outside that family.
+    public static bool WorkerReadsKind(Type worker)
+    {
+        if (worker == null || !typeof(IncidentWorker_WandererJoin).IsAssignableFrom(worker))
+            return false;
+        MethodInfo generate = worker.GetMethod(nameof(IncidentWorker_WandererJoin.GeneratePawn),
+            BindingFlags.Public | BindingFlags.Instance, null, [typeof(Map)], null);
+        return generate?.DeclaringType == typeof(IncidentWorker_WandererJoin);
+    }
 }
