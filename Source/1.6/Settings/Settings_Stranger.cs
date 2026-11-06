@@ -19,13 +19,14 @@ namespace MedicWarcasket;
 // still happen and have no effect.
 //
 // The third lifts the incident's pawnFixedGender, the one place vanilla makes the stranger a
-// man (the kind sets no gender and carries labelFemale). While on it writes Gender.None, and
-// swaps the incident's letterLabel ("Man in black") for MDWC_StrangerLetterLabel, "Stranger in
-// black", the kind's own neutral label; the letter's text already names the pawn by its
-// gendered kind label and pronoun ([PAWN_kind], [PAWN_pronoun]). While
-// off it writes back the gender and title as loaded, Male if the XML left none. If the XML
-// already left the gender unfixed, the loaded title is kept either way: the mod that freed it
-// owns its title. It applies whatever the first box says, to vanilla's stranger, ours, or a
+// man (the kind sets no gender and carries labelFemale). While on it writes Gender.None and
+// swaps the incident's letter for neutral wording: letterLabel ("Man in black") for
+// MDWC_StrangerLetterLabel, "Stranger in black", the kind's own neutral label, and letterText,
+// which names the pawn by its gendered kind label and pronoun ([PAWN_kind], [PAWN_pronoun]),
+// for MDWC_StrangerLetterText, vanilla's sentences with "stranger in black" and "they". While
+// off it writes back the gender and letter as loaded, Male if the XML left none. If the XML
+// already left the gender unfixed, the loaded letter is kept either way: the mod that freed it
+// owns its letter. It applies whatever the first box says, to vanilla's stranger, ours, or a
 // VEF faction replacement alike, and stays active under a replaced worker that still reads the
 // gender (Stranger In Black Techlevel does, and titles the letter from its own strings).
 //
@@ -55,6 +56,8 @@ public partial class MedicWarcasketSettings
     private Gender strangerFixedGender;
     private string strangerFixedLabel;
     private string strangerAnyGenderLabel;
+    private string strangerFixedText;
+    private string strangerAnyGenderText;
     private ThingDef strangerArmor;
     private static bool strangerWarned;
 
@@ -92,6 +95,8 @@ public partial class MedicWarcasketSettings
         strangerFixedGender = loadedGender == Gender.None ? Gender.Male : loadedGender;
         strangerFixedLabel = strangerIncident.letterLabel;
         strangerAnyGenderLabel = loadedGender == Gender.None ? strangerFixedLabel : "MDWC_StrangerLetterLabel".Translate().RawText;
+        strangerFixedText = strangerIncident.letterText;
+        strangerAnyGenderText = loadedGender == Gender.None ? strangerFixedText : "MDWC_StrangerLetterText".Translate().RawText;
     }
 
     private void ApplyStrangerToDefs()
@@ -102,6 +107,7 @@ public partial class MedicWarcasketSettings
         strangerExtension.requiresResearch = strangerResearch.Value;
         strangerIncident.pawnFixedGender = strangerAnyGender.Value ? Gender.None : strangerFixedGender;
         strangerIncident.letterLabel = strangerAnyGender.Value ? strangerAnyGenderLabel : strangerFixedLabel;
+        strangerIncident.letterText = strangerAnyGender.Value ? strangerAnyGenderText : strangerFixedText;
     }
 
     private void ResetStrangerSettings()

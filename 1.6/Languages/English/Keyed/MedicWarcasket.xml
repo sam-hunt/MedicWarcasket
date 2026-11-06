@@ -110,7 +110,9 @@
 
   <MDWC_StrangerAnyGender>Stranger has no forced gender</MDWC_StrangerAnyGender>
   <MDWC_StrangerAnyGenderDesc>When enabled, the stranger can be a man or a woman in black. When disabled, the stranger will always be a man. Default: {0}.</MDWC_StrangerAnyGenderDesc>
+  <!-- The letter while the gender is unfixed (Settings_Stranger.cs). The game formats both with the pawn as PAWN, so a translation may use [PAWN_kind] or [PAWN_pronoun] where its language needs the gender -->
   <MDWC_StrangerLetterLabel>Stranger in black</MDWC_StrangerLetterLabel>
+  <MDWC_StrangerLetterText>Sensing trouble, a mysterious stranger in black has arrived.\n\nWill they be able to set things right in these parts?</MDWC_StrangerLetterText>
 
   <MDWC_StrangerSummaryOff>The stranger arrives as usual, without a warcasket.</MDWC_StrangerSummaryOff>
   <MDWC_StrangerSummary>The stranger arrives in a black medic warcasket with a warcasket slugthrower once warcaskets are researched. Before that the stranger arrives as usual.</MDWC_StrangerSummary>

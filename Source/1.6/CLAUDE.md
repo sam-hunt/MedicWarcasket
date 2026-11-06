@@ -54,9 +54,9 @@ comments cover install-path detection, the compile-only VFEP/VEF references (`VF
   `requiresResearch`, `fallback`): the prefix on `PawnGenerator.GeneratePawn` generates the
   fallback kind for any request for it while the project is unfinished, so the rule needs no
   worker patch and VEF's own stranger transpiler stays untouched. The man in black's kind is
-  the one user; the incident's `pawnKind`, `pawnFixedGender` and `letterLabel` are settings
-  writes, never patched XML. Such a kind is a copy of its fallback, so `Startup.Run` mirrors
-  the fallback's other mod extensions onto it (CE's loadout among them).
+  the one user; the incident's `pawnKind`, `pawnFixedGender`, `letterLabel` and `letterText`
+  are settings writes, never patched XML. Such a kind is a copy of its fallback, so
+  `Startup.Run` mirrors the fallback's other mod extensions onto it (CE's loadout among them).
 - **Keyed strings a DLC owns are not available here.** Before using a vanilla key from code, grep
   `Data/*/Languages/English/Keyed/`; if Core does not own it (Biotech's `NumWoundsTended` was
   one), add an `MDWC_` key to the one Keyed file instead.

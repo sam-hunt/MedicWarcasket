@@ -107,9 +107,11 @@ fallback's apparel and weapon describe the duster stranger.
 ### 3.6 Any gender
 
 A third `ToggleSetting`, independent of the other two, writes `pawnFixedGender` `None` and
-swaps `letterLabel` for the Keyed `MDWC_StrangerLetterLabel`, "Stranger in black", the kind's
-neutral label; the letter's text already follows the pawn's gender. Off writes back the loaded values, `Male` if the
-XML left none. It covers whichever kind the event generates, vanilla's, ours or a faction
+swaps the letter for neutral wording: `letterLabel` for the Keyed `MDWC_StrangerLetterLabel`,
+"Stranger in black", the kind's neutral label, and `letterText`, whose `[PAWN_kind]` and
+`[PAWN_pronoun]` follow the pawn's gender, for `MDWC_StrangerLetterText`, vanilla's sentences
+with "stranger in black" and "they". Off writes back the loaded values, `Male` if the XML left
+none. It covers whichever kind the event generates, vanilla's, ours or a faction
 replacement, and the settings text names the pawn "the stranger" throughout. The incident's
 own `label`, seen only in dev tools, stays "man in black".
 
