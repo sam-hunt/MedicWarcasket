@@ -86,6 +86,10 @@
   <MDWC_ShotCooldown>Cooldown</MDWC_ShotCooldown>
   <MDWC_ShotCooldownDesc>The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}.</MDWC_ShotCooldownDesc>
 
+  <!-- {0} in the label and {1} in the tooltip are the game's own heart attack label, as translated -->
+  <MDWC_ShotHeartAttack>Shot stops a {0}</MDWC_ShotHeartAttack>
+  <MDWC_ShotHeartAttackDesc>When enabled, an adrenaline shot will stop a {1} instead of giving the boost. When disabled, it will give the boost as usual. Default: {0}.</MDWC_ShotHeartAttackDesc>
+
   <MDWC_AIShot>Raider medics give adrenaline shots</MDWC_AIShot>
   <MDWC_AIShotDesc>When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}.</MDWC_AIShotDesc>
 

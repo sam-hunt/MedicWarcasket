@@ -31,7 +31,7 @@ namespace MedicWarcasket;
 // shot worn, its autocast on and a shot the patient can take now, the driver's shot toil holds
 // the patient a jab longer after the beam and gives it through the shot's own Apply, so the
 // charge, the cooldown and the heart rule are the manual cast's. A bed patient is skipped
-// unless they have a heart attack: a hospital dressing is not a fight.
+// unless the shot would stop their heart attack: a hospital dressing is not a fight.
 //
 // Charging (3.2 of the spec): an injury costs min(severity, severityPerKit), any other tendable
 // hediff a whole kit, and a tendAllAtOnce hediff a kit for the first of its def in a dressing;
@@ -402,7 +402,7 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
             return null;
         if (!shot.ValidateTarget(patient, showMessages: false))
             return null;
-        if (patient.InBed() && !Ability_AdrenalineShot.HasHeartAttack(patient))
+        if (patient.InBed() && !shot.StopsHeartAttack(patient))
             return null;
         return shotToFollow = shot;
     }

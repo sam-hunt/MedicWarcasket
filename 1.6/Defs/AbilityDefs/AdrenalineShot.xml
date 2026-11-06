@@ -20,6 +20,12 @@
     and the pilot too (canTargetSelf): a medic can inject themself, and the job skips the walk.
     Hostility and the heart are decided in ValidateTarget, not here.
 
+    ShotExtension: stopsHeartAttacks true makes a shot given to a patient with a heart attack
+    remove the attack instead of adding the surge, and lets it reach a hostile with one, since
+    a cure-only shot stands nobody up. It is a mod setting defaulting to this value; off, the
+    patient gets the surge as any other would (ShotExtension's header lists every rule it
+    gates).
+
     autocastPlayerDefault true: with the armor worn, a shot follows every dressing until the
     pilot's gizmo is right-clicked off. The ability keeps that right-click as a flip of this
     default, so a patch of it moves every pilot; the mechanite dressing's job reads the toggle,
@@ -59,5 +65,10 @@
     <cooldownTime>0</cooldownTime>
     <showUndrafted>true</showUndrafted>
     <autocastPlayerDefault>true</autocastPlayerDefault>
+    <modExtensions>
+      <li Class="MedicWarcasket.ShotExtension">
+        <stopsHeartAttacks>true</stopsHeartAttacks>
+      </li>
+    </modExtensions>
   </VEF.Abilities.AbilityDef>
 </Defs>

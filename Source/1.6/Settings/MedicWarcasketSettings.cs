@@ -237,6 +237,7 @@ public partial class MedicWarcasketSettings : ModSettings
         public DressingExtension extension;
         public ThingDef[] motes;
         public AbilityDef shot;
+        public ShotExtension shotExtension;
         public CompProperties_ApparelReloadable injector;
         public HediffDef adrenaline;
         public HediffCompProperties_SeverityPerDay fade;
@@ -252,6 +253,7 @@ public partial class MedicWarcasketSettings : ModSettings
     private static bool TryGetDefs(out Defs defs)
     {
         AbilityDef dressing = DefDatabase<AbilityDef>.GetNamedSilentFail(DressingDefName);
+        AbilityDef shot = DefDatabase<AbilityDef>.GetNamedSilentFail(ShotDefName);
         HediffDef adrenaline = DefDatabase<HediffDef>.GetNamedSilentFail(AdrenalineDefName);
         ThingDef armor = DefDatabase<ThingDef>.GetNamedSilentFail(ArmorDefName);
         ThingDef shoulders = DefDatabase<ThingDef>.GetNamedSilentFail(ShouldersDefName);
@@ -261,7 +263,8 @@ public partial class MedicWarcasketSettings : ModSettings
             suite = armor?.GetCompProperties<CompProperties_DressingSuite>(),
             extension = dressing?.GetModExtension<DressingExtension>(),
             motes = new ThingDef[MoteDefNames.Length],
-            shot = DefDatabase<AbilityDef>.GetNamedSilentFail(ShotDefName),
+            shot = shot,
+            shotExtension = shot?.GetModExtension<ShotExtension>(),
             injector = shoulders?.GetCompProperties<CompProperties_ApparelReloadable>(),
             adrenaline = adrenaline,
             fade = adrenaline?.CompProps<HediffCompProperties_SeverityPerDay>(),
@@ -274,12 +277,12 @@ public partial class MedicWarcasketSettings : ModSettings
             defs.motes[i] = DefDatabase<ThingDef>.GetNamedSilentFail(MoteDefNames[i]);
             motesFound &= defs.motes[i]?.graphicData != null;
         }
-        bool shotFound = defs.shot != null && defs.injector != null && defs.fade != null && defs.adrenaline.stages?.Count >= 2;
+        bool shotFound = defs.shot != null && defs.shotExtension != null && defs.injector != null && defs.fade != null && defs.adrenaline.stages?.Count >= 2;
         bool aiFound = defs.armorAI != null && defs.shouldersAI != null;
         if (defs.dressing != null && defs.suite != null && defs.extension != null && motesFound && shotFound && aiFound)
             return true;
         if (!warned)
-            Log.Warning("[Medic Warcasket] Settings could not find the mechanite dressing ability, its dressing extension, its motes, the armor's dressing suite, the adrenaline shot ability, the shoulders' injector, the adrenaline hediff's fade and stages or the two pieces' AI entries; the set keeps its XML values.");
+            Log.Warning("[Medic Warcasket] Settings could not find the mechanite dressing ability, its dressing extension, its motes, the armor's dressing suite, the adrenaline shot ability, its shot extension, the shoulders' injector, the adrenaline hediff's fade and stages or the two pieces' AI entries; the set keeps its XML values.");
         warned = true;
         return false;
     }

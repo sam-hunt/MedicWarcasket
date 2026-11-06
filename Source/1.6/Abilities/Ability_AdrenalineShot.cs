@@ -14,15 +14,16 @@ namespace MedicWarcasket;
 // The Medic shoulders' active: the pilot walks to a patient (or is one), holds them for the
 // jab, then gives a shot out of the shoulders' injector (vanilla's per-charge
 // CompApparelReloadable, one reload item a shot, read off holder, which is why the two comps
-// share the shoulders def). A shot is
-// spent on one of two things: a patient with a heart attack has every one removed and nothing
-// else, announced top-left as a positive event naming them when the pilot is the player's or
-// the patient is one vanilla would notify about (PawnUtility.ShouldSendNotificationAbout, so
-// a raider medic's cure of a raider stays out of the player's feed); any other patient gets the
-// MDWC_Adrenaline hediff at full severity, a fresh one or an existing one refreshed (set, not
-// added: vanilla would merge the severities). Apply is the one path, used by the cast toil, by
-// the dressing's autocast toil and by a raider medic's cast (CompMedicAI) alike, so the
-// charge, the cooldown and the sound are the same either way. Design in
+// share the shoulders def). A shot is spent on one of two things: a patient with a heart
+// attack, while the def's ShotExtension has the shot stop it (StopsHeartAttack), has every one
+// removed and nothing else, announced top-left as a positive event naming them when the pilot
+// is the player's or the patient is one vanilla would notify about
+// (PawnUtility.ShouldSendNotificationAbout, so a raider medic's cure of a raider stays out of
+// the player's feed); any other patient gets the MDWC_Adrenaline hediff at full severity, a
+// fresh one or an existing one refreshed (set, not added: vanilla would merge the severities).
+// Apply is the one path, used by the cast toil, by the dressing's autocast toil and by a raider
+// medic's cast (CompMedicAI) alike, so the charge, the cooldown and the sound are the same
+// either way. Design in
 // Docs/Specs/Adrenaline-Shot.md.
 //
 // A patient a non-player pilot's shot stands up (the hediff's pain factor lifts them in the
@@ -34,10 +35,10 @@ namespace MedicWarcasket;
 // started before it). The player's own pilots never add anyone to a lord or send them after a
 // weapon.
 //
-// Validation, in order: a pawn with a heart attack is always valid, hostile or not, since a
-// cure-only shot stands nobody up; otherwise no pawn hostile to the pilot, downed or not,
-// since a shot that lifts a downed raider's pain can stand them back up (stricter than the
-// dressing's rule, on purpose); otherwise no patient already at the top level, so a double
+// Validation, in order: a pawn whose heart attack the shot stops is always valid, hostile or
+// not, since a cure-only shot stands nobody up; otherwise no pawn hostile to the pilot, downed
+// or not, since a shot that lifts a downed raider's pain can stand them back up (stricter than
+// the dressing's rule, on purpose); otherwise no patient already at the top level, so a double
 // click cannot waste a shot, while a patient further down may be refreshed.
 //
 // Autocast is offered (CanAutoCast) only while the pilot wears the armor whose dressing fires
@@ -74,8 +75,13 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
     public static Ability_AdrenalineShot WornBy(Pawn pilot) =>
         JobDriver_MedicCast.FindAbility(pilot, MDWC_DefOf.MDWC_AdrenalineShot) as Ability_AdrenalineShot;
 
-    public static bool HasHeartAttack(Pawn patient) =>
+    private static bool HasHeartAttack(Pawn patient) =>
         patient.health?.hediffSet.HasHediff(MDWC_DefOf.HeartAttack) ?? false;
+
+    // Whether this shot would stop the patient's heart attack: they have one and the def's
+    // ShotExtension says the shot stops it (a mod setting). Every heart attack rule asks this.
+    public bool StopsHeartAttack(Pawn patient) =>
+        (def.GetModExtension<ShotExtension>()?.stopsHeartAttacks ?? false) && HasHeartAttack(patient);
 
     private static Hediff Adrenaline(Pawn patient) =>
         patient.health?.hediffSet.GetFirstHediffOfDef(MDWC_DefOf.MDWC_Adrenaline);
@@ -138,7 +144,7 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
             return false;
         if (target.Thing is not Pawn patient || !patient.Spawned || patient.Dead)
             return false;
-        if (HasHeartAttack(patient))
+        if (StopsHeartAttack(patient))
             return true;
         if (patient != pawn && patient.HostileTo(pawn))
         {
@@ -202,7 +208,7 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
         if (injector == null || injector.RemainingCharges <= 0 || patient == null || patient.Dead)
             return;
         injector.UsedOnce();
-        if (HasHeartAttack(patient))
+        if (StopsHeartAttack(patient))
         {
             List<Hediff> attacks = patient.health.hediffSet.hediffs.Where(h => h.def == MDWC_DefOf.HeartAttack).ToList();
             foreach (Hediff attack in attacks)
@@ -236,7 +242,7 @@ public class Ability_AdrenalineShot : Ability_MedicTargeted
         if (injector == null)
             return null;
         string first = "MDWC_ShotsLabel".Translate(injector.RemainingCharges, injector.MaxCharges);
-        if (target.Thing is Pawn patient && HasHeartAttack(patient) && ValidateTarget(patient, showMessages: false))
+        if (target.Thing is Pawn patient && StopsHeartAttack(patient) && ValidateTarget(patient, showMessages: false))
             return first + "\n" + "MDWC_ShotStopsHeartAttack".Translate();
         return first;
     }

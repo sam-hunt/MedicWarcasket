@@ -14,11 +14,14 @@ namespace MedicWarcasket;
 // durations (game hours) together override its severity-per-day comp's severityPerDay and its
 // stages' minSeverity (AdrenalineClock): the crash sets the bottom stage's share of the clock,
 // and the boost is split across the levels above it in the XML's proportions. The stages'
-// restFallFactors and offsets have no setting. The reload item's row sits above the sliders as
-// the medicine's does, and its raider medics box (the shoulders' CompProperties_MedicAI
-// aiCasts) closes the section as the dressing's does. The item is any medicine, herbal
-// included (a stimulant dose does not depend on medical potency), or vanilla's go-juice or
-// wake-up, listed in that order. Its header carries the ability's icon and tooltip.
+// restFallFactors and offsets have no setting. On the ability def's ShotExtension the heart
+// attack box overrides stopsHeartAttacks; its label names vanilla's HeartAttack by its label,
+// translated as the game's, in vanilla's ThreatColor. The reload item's row sits above the
+// sliders as the medicine's does; the heart attack box, then the raider medics box (the
+// shoulders' CompProperties_MedicAI aiCasts), close the section as the dressing's does. The
+// item is any medicine, herbal included (a stimulant dose does not depend on medical potency),
+// or vanilla's go-juice or wake-up, listed in that order. Its header carries the ability's
+// icon and tooltip.
 //
 // A reload item change needs nothing of the live pieces: the shots loaded count as the new
 // item, as the dressing's kits do. Shots above a lowered maximum are spent off the worn
@@ -31,6 +34,13 @@ public partial class MedicWarcasketSettings
     public readonly ItemSetting shotAmmo = new("ShotAmmo",
         d => d.IsMedicine || d == MDWC_DefOf.GoJuice || d == MDWC_DefOf.WakeUp,
         d => d.IsMedicine ? d.GetStatValueAbstract(StatDefOf.MedicalPotency) : d == MDWC_DefOf.GoJuice ? -1f : -2f);
+
+    // Whether a shot stops a heart attack instead of adding the surge (the ability's
+    // ShotExtension).
+    public readonly ToggleSetting shotHeartAttack = new("ShotHeartAttack")
+    {
+        Term = () => MDWC_DefOf.HeartAttack.label.Colorize(ColoredText.ThreatColor),
+    };
 
     // Whether a non-player wearer casts the shot (the shoulders' CompMedicAI).
     public readonly ToggleSetting aiShot = new("AIShot");
@@ -66,6 +76,7 @@ public partial class MedicWarcasketSettings
     private void ExposeShotSettings()
     {
         shotAmmo.ExposeData();
+        shotHeartAttack.ExposeData();
         aiShot.ExposeData();
         shots.ExposeData();
         shotBoost.ExposeData();
@@ -75,6 +86,7 @@ public partial class MedicWarcasketSettings
 
     private void LoadShotDefaults(Defs defs)
     {
+        shotHeartAttack.DefaultValue = defs.shotExtension.stopsHeartAttacks;
         aiShot.DefaultValue = defs.shouldersAI.aiCasts;
         shotAmmo.DefaultValue = defs.injector.ammoDef;
         shots.DefaultValue = defs.injector.maxCharges;
@@ -92,6 +104,7 @@ public partial class MedicWarcasketSettings
 
     private void ApplyShotToDefs(Defs defs)
     {
+        defs.shotExtension.stopsHeartAttacks = shotHeartAttack.Value;
         defs.shouldersAI.aiCasts = aiShot.Value;
         ThingDef shotItem = shotAmmo.Value;
         if (shotItem != null)
@@ -108,6 +121,7 @@ public partial class MedicWarcasketSettings
     private void ResetShotSettings()
     {
         shotAmmo.Reset();
+        shotHeartAttack.Reset();
         aiShot.Reset();
         shots.Reset();
         shotBoost.Reset();
@@ -124,6 +138,7 @@ public partial class MedicWarcasketSettings
         shotBoost.DoRow(listing);
         shotCrash.DoRow(listing);
         shotCooldown.DoRow(listing);
+        shotHeartAttack.DoRow(listing);
         aiShot.DoRow(listing);
     }
 
