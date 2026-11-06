@@ -1,5 +1,7 @@
 # SPEC: Set tuning (plating, shield, floors, costs and the shot's crash)
 
+> Implemented. The code, its def headers and its tests are the tested current state and supersede this spec wherever the two differ.
+
 The design record behind the set's tuning: the review that framed it and the decisions taken
 on it. The def headers carry the landed values; this file carries the comparison they were
 priced against. Market values use vanilla's

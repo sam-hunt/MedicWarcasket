@@ -1,5 +1,7 @@
 # SPEC: Doctor passives and the field dressing
 
+> Implemented. The code, its def headers and its tests are the tested current state and supersede this spec wherever the two differ.
+
 Status: IMPLEMENTED, then superseded in part. `Mechanite-Dressing.md` supersedes sections 3.2 to
 3.5 and the settings table in 3.6; the dressing they describe was reworked into the mechanite
 dressing. `Set-Tuning.md` supersedes the capacity floors in 3.1 (the shoulders carry none, the

@@ -1,5 +1,7 @@
 # SPEC: Adrenaline shot (the shoulders' active)
 
+> Implemented. The code, its def headers and its tests are the tested current state and supersede this spec wherever the two differ.
+
 Status: LOCKED 2026-10-25, ready for implementation, after two review passes the same day
 (their changes are in the brief table; the readings in section 4 are settled). Written against the installed RimWorld 1.7.4985 rev1269
 (`Assembly-CSharp.dll` via `ilspycmd`, Core XML), the 1.6 Krafs reference 1.6.4871 for the

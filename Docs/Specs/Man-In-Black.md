@@ -1,5 +1,7 @@
 # SPEC: Man in black in the set (an opt-in override of vanilla's last-chance stranger)
 
+> Implemented. The code, its def headers and its tests are the tested current state and supersede this spec wherever the two differ.
+
 Status: IMPLEMENTED 2026-11-06; section 4 records the decisions, section 6 what landed. Written
 against the installed RimWorld 1.7 (`Assembly-CSharp.dll` via `ilspycmd`, Core XML), the frozen
 1.6 assemblies at `~/.local/share/RimWorld-1.6/Managed` (every call path below was read on

@@ -1,5 +1,7 @@
 # SPEC: Medical work for the entombed medic
 
+> Implemented. The code, its def headers and its tests are the tested current state and supersede this spec wherever the two differ.
+
 Status: IMPLEMENTED on the shared `1.6/` tree (section 7, all but step 4's in-game run, which
 is ledgered in `TODOs.md`). Facts verified against RimWorld 1.7.4984 rev1242, VFE Pirates
 checkout at upstream `main` v4.02 (commit d851807; its 1.7 trait XML is byte-identical to the

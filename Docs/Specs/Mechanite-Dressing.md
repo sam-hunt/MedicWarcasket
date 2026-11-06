@@ -1,5 +1,7 @@
 # SPEC: Mechanite dressing (rework of the field dressing)
 
+> Implemented. The code, its def headers and its tests are the tested current state and supersede this spec wherever the two differ.
+
 Status: LOCKED 2026-10-25, ready for implementation. Written against the installed RimWorld
 1.7.4985 rev1269 (`Assembly-CSharp.dll` via `ilspycmd`, Core XML, the 1.7 GLSL shaders and
 every `Assets.zip`), the 1.6 Krafs reference 1.6.4871 for the `DefOf` checks, the VEF checkout

@@ -1,5 +1,7 @@
 # SPEC: Raider medics (the set's actives in AI hands)
 
+> Implemented. The code, its def headers and its tests are the tested current state and supersede this spec wherever the two differ.
+
 Status: IMPLEMENTED 2026-11-01; section 4 records the decisions, section 7 what landed. Written
 against the installed RimWorld 1.7.4995 rev309
 (`Assembly-CSharp.dll` via `ilspycmd`, Core XML), the VEF checkout at
