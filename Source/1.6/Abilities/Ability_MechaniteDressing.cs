@@ -14,7 +14,8 @@ namespace MedicWarcasket;
 // mechanites onto a patient along a beam that tends one wound per interval, most urgent first,
 // paying for each wound out of the suite's kits (CompDressingSuite, read off holder, which is
 // why the two comps share the armor def) as it is tended, then holds still for a warmdown while
-// the glow fades. With the medic helmet worn the beam also tends diseases and infections. The
+// the glow fades. With the medic helmet worn the beam also tends diseases and infections, never
+// a heart attack, which is the adrenaline shot's (FillTendable has the rule). The
 // phases are the job's toils (JobDriver_MechaniteDressing); this class holds the dressing's
 // state and does the work each toil calls into: PreWarmupAction and WarmupToil (the warmup),
 // Cast (the connect), BeamTick, the shot's three (ShotToFollow, ShotTick, GiveShot),
@@ -148,7 +149,13 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
     public bool TreatsDiseases => WearsMedicHelmet(pawn);
 
     // Every hediff the beam tends, in tend-priority order: injuries and fresh missing parts,
-    // plus every other tendable hediff (diseases, infections) with the helmet worn.
+    // plus, with the helmet worn, every other tendable hediff that carries a tend timer
+    // (HediffComp_TendDuration: diseases, infections, parasites, mechanites, the chronic
+    // conditions). A tendable hediff without the timer stays TendableNow once tended, so the
+    // beam would tend it again every interval, a kit a pass, until it cleared or the suite ran
+    // dry. Vanilla's one such hediff is the heart attack (Hediff_HeartAttack rolls its own cure
+    // chance per tend), which is the adrenaline shot's to stop (Ability_AdrenalineShot
+    // .StopsHeartAttack) and never the beam's.
     private void FillTendable(Pawn patient, List<Hediff> outHediffs)
     {
         outHediffs.Clear();
@@ -157,7 +164,10 @@ public class Ability_MechaniteDressing : Ability_MedicTargeted
         for (int i = 0; i < hediffs.Count; i++)
         {
             Hediff hediff = hediffs[i];
-            if (hediff.TendableNow() && (diseases || hediff is Hediff_Injury || hediff is Hediff_MissingPart))
+            if (!hediff.TendableNow())
+                continue;
+            if (hediff is Hediff_Injury || hediff is Hediff_MissingPart
+                || (diseases && hediff.TryGetComp<HediffComp_TendDuration>() != null))
                 outHediffs.Add(hediff);
         }
         TendUtility.SortByTendPriority(outHediffs);
