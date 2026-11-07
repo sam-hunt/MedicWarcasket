@@ -47,18 +47,16 @@ public sealed class ToggleSetting
     // A checkbox row laid out as a Tunable row is, the box at the row's end; a click anywhere on
     // the row flips it. The label and tooltip are resolved by hand: a TaggedString handed over as a
     // string loses its tags (the implicit conversion strips them), the default's colour and a
-    // Term's among them. A disabled row (a box another mod has made moot) is drawn in vanilla's
-    // inactive grey, label and box alike, takes no click and keeps its value, so the choice holds
-    // for when the row is active again; its tooltip still reads. A forced-off row (a child box
-    // whose parent is off) is disabled and also drawn unticked, what the parent makes of it; its
-    // saved value shows again once the parent is on.
-    public void DoRow(Listing_Standard listing, bool disabled = false, bool forcedOff = false)
+    // Term's among them. A forced-off row (a child box whose parent is off, or a box another mod
+    // has made moot) is drawn unticked, what the game makes of it, in vanilla's inactive grey,
+    // label and box alike; it takes no click and keeps its saved value, which shows again once
+    // the row is active. Its tooltip still reads.
+    public void DoRow(Listing_Standard listing, bool forcedOff = false)
     {
-        disabled |= forcedOff;
         Rect row = listing.GetRect(Tunable.RowHeight);
         row.xMin += Tunable.RowIndent;
         row.xMax -= Tunable.RowEndPad;
-        if (!disabled)
+        if (!forcedOff)
             Widgets.DrawHighlightIfMouseover(row);
         string term = Term?.Invoke();
         TaggedString tip = term == null
@@ -67,12 +65,12 @@ public sealed class ToggleSetting
         TooltipHandler.TipRegion(row, tip.Resolve());
 
         bool on = !forcedOff && Value;
-        if (disabled)
+        if (forcedOff)
             GUI.color = Widgets.InactiveColor;
         TaggedString label = term == null ? ("MDWC_" + key).Translate() : ("MDWC_" + key).Translate(term);
-        Widgets.CheckboxLabeled(row, label.Resolve(), ref on, disabled);
+        Widgets.CheckboxLabeled(row, label.Resolve(), ref on, forcedOff);
         GUI.color = Color.white;
-        if (!disabled)
+        if (!forcedOff)
             overrideValue = on == DefaultValue ? null : on;
         listing.Gap(Tunable.RowGap);
     }

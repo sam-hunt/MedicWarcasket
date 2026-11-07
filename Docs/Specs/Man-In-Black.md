@@ -95,8 +95,8 @@ Two `ToggleSetting`s in `Settings/Settings_Stranger.cs`, each a def write: the p
 `StrangerInBlackJoin.pawnKind` (ours while on, the kind the XML left there while off), the
 child writes the extension's `requiresResearch`. Defaults are the def fields as loaded, so the
 parent defaults off unless a patch already points the incident at our kind. The child row is
-drawn inactive while the parent is off (`ToggleSetting.DoRow`'s `disabled`), keeping its
-saved value.
+drawn inactive and unticked while the parent is off (`ToggleSetting.DoRow`'s `forcedOff`),
+keeping its saved value.
 
 ### 3.5 Mirrored extensions
 
@@ -121,7 +121,8 @@ own `label`, seen only in dev tools, stays "man in black".
 
 `StrangerInBlack.WorkerReadsKind` is true only for `IncidentWorker_WandererJoin` or a subclass
 inheriting its `GeneratePawn(Map)`. When the incident's worker fails it, the two warcasket rows
-are drawn inactive and the summary says another mod chooses the stranger; the gender row stays
+are drawn inactive and unticked, since neither changes the stranger, keeping their saved values,
+and the summary says another mod chooses the stranger; the gender row stays
 active, since such a worker may still read the gender (Stranger In Black Techlevel does).
 
 ## 4. Decisions
@@ -155,12 +156,12 @@ active, since such a worker may still read the gender (Stranger In Black Techlev
   before and after researching warcaskets; with it off; the settings page with the parent off
   shows the child greyed. With the gender box on, fire it until a woman arrives and read the
   letter; with Combat Extended, check the slugthrower arrives with shells; with Stranger
-  In Black Techlevel, check the two warcasket rows are greyed and the summary says why.
+  In Black Techlevel, check the two warcasket rows are greyed and unticked and the summary says why.
 
 ## 6. What landed
 
 `Source/1.6/StrangerInBlack.cs`, `Source/1.6/Patches/PawnGenerator_GeneratePawn.cs`,
-`Source/1.6/Settings/Settings_Stranger.cs` and the `disabled` row in `ToggleSetting.cs`;
+`Source/1.6/Settings/Settings_Stranger.cs` and the `forcedOff` row in `ToggleSetting.cs`;
 `1.6/Defs/PawnKindDefs/StrangerInBlack_Medic.xml`, `1.6/Patches/StrangerInBlackSlugthrower.xml`,
 the `MDWC_Stranger*` Keyed strings; `Tests/1.6/StrangerInBlackTests.cs`; one line in
 `About.xml`. Sections 3.5 to 3.7 added the extension mirror (called from `Startup.cs`), the

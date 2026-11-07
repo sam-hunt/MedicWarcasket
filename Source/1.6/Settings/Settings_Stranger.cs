@@ -12,11 +12,12 @@ namespace MedicWarcasket;
 // (vanilla's StrangerInBlack, or whatever another mod patched in; our kind's fallback if the
 // XML already named ours). The second overrides that kind's StrangerInBlackExtension
 // requiresResearch, the gate Patches/PawnGenerator_GeneratePawn applies, and is drawn inactive
-// and unticked while the first is off, since the gate then has nothing to gate; its saved
-// choice holds, and shows again, once the first is back on. Both are drawn inactive, and the summary says why, when the
-// incident's worker does not read pawnKind (StrangerInBlack.WorkerReadsKind: a mod such as
-// Stranger In Black Techlevel replaced the worker with one that picks its own kind); the writes
-// still happen and have no effect.
+// and unticked while the first is off, since the gate then has nothing to gate. Both are drawn
+// inactive and unticked, and the summary says why, when the incident's worker does not read
+// pawnKind (StrangerInBlack.WorkerReadsKind: a mod such as Stranger In Black Techlevel replaced
+// the worker with one that picks its own kind), since neither then changes the stranger; the
+// writes still happen and have no effect. Either way the saved choices hold, and show again,
+// once the row is active.
 //
 // The third lifts the incident's pawnFixedGender, the one place vanilla makes the stranger a
 // man (the kind sets no gender and carries labelFemale). While on it writes Gender.None and
@@ -134,8 +135,8 @@ public partial class MedicWarcasketSettings
         Texture icon = iconMat != null ? iconMat.mainTexture : strangerHelmet?.uiIcon;
         SectionHeader(listing, "MDWC_SectionStranger", icon, HeaderTip("MDWC_SectionStranger".Translate(), "MDWC_SectionStrangerDesc".Translate()), iconMat: iconMat, iconScale: StrangerIconScale);
         SummaryRow(listing, StrangerSummary);
-        stranger.DoRow(listing, disabled: strangerKindIgnored);
-        strangerResearch.DoRow(listing, disabled: strangerKindIgnored, forcedOff: !stranger.Value);
+        stranger.DoRow(listing, forcedOff: strangerKindIgnored);
+        strangerResearch.DoRow(listing, forcedOff: strangerKindIgnored || !stranger.Value);
         strangerAnyGender.DoRow(listing);
     }
 
