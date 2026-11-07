@@ -21,6 +21,9 @@ La armadura lleva una reserva de kits de medicina. Apunta a un personaje herido 
 [h2]Inyección de adrenalina[/h2]
 Las hombreras llevan unas cuantas inyecciones de adrenalina. Una inyección detiene un ataque cardíaco, o pone en pie a un personaje incapacitado el tiempo suficiente para que escape. El dolor queda en suspenso, y el personaje se mueve y piensa más rápido durante un rato. El efecto se desvanece poco a poco hasta acabar en un largo bajón, como en la vida real. Con la armadura puesta, el lanzamiento automático pone una inyección a cada paciente al terminar su vendaje.
 
+[h2]Forastero de negro[/h2]
+En las opciones del mod puedes hacer que el forastero llegue dentro de este ataúd de guerra, para que una derrota en la recta final de la partida no tenga por qué significar el fin.
+
 [hr][/hr]
 [h1]Compatibilidad con mods[/h1]
 [list]

@@ -3,7 +3,7 @@
 ## Pre-release
 
 - **Smoke test on 1.6**
-- **Workshop images** Shipcracker and Toxin as precedent
+- **Translation pass** of the stranger in black and heart attack settings strings
 
 ## Post-release
 

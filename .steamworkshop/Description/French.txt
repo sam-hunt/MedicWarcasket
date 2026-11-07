@@ -21,6 +21,9 @@ L'armure transporte une réserve de kits de médicaments. Lorsque vous ciblez un
 [h2]Injection d'adrénaline[/h2]
 Les épaulières contiennent quelques doses d'adrénaline. Une dose arrête une attaque cardiaque, ou remet un blessé à terre debout assez longtemps pour qu'il s'échappe. La douleur est mise en suspens, et le patient se déplace et réfléchit plus vite pendant un court moment. L'effet s'estompe peu à peu jusqu'à une longue descente, comme dans la vraie vie. Avec l'armure et le lancement automatique activé, chaque patient reçoit une dose à la fin de son pansement.
 
+[h2]Étranger en noir[/h2]
+Dans les paramètres du mod, une option fait arriver l'étranger dans ce warcasket, pour qu'une défaite en fin de partie ne soit pas forcément fatale.
+
 [hr][/hr]
 [h1]Compatibilité des mods[/h1]
 [list]

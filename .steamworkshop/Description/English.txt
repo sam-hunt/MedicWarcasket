@@ -21,6 +21,9 @@ The armor carries a suite of medicine kits. Point it at a wounded pawn and the p
 [h2]Adrenaline shot[/h2]
 The shoulders hold a few shots of adrenaline. A shot stops a heart attack, or gets a downed pawn back on their feet long enough to escape. Pain is put on hold, and the pawn moves and thinks faster for a short time. The surge fades progressively into a long crash, similar to real life. With the armor worn, autocast gives every patient a shot as their dressing ends.
 
+[h2]Stranger in black[/h2]
+Optionally in mod settings, allow the stranger to wear one, so that late game defeats don't necessarily mean the end.
+
 [hr][/hr]
 [h1]Mod Compatibility[/h1]
 [list]

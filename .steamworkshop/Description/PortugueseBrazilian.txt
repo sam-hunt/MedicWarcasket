@@ -21,6 +21,9 @@ A armadura leva um estoque de kits de medicamento. Escolha um personagem ferido,
 [h2]Injeção de adrenalina[/h2]
 As ombreiras guardam alguns cartuchos de adrenalina. Uma injeção interrompe um ataque cardíaco ou põe um personagem abatido de pé por tempo suficiente para fugir. A dor fica em suspenso, e o personagem se move e pensa mais rápido por um curto período. Depois o efeito vai passando aos poucos até virar um longo esgotamento, como na vida real. Com a armadura equipada, o uso automático aplica uma injeção em cada paciente ao fim do curativo.
 
+[h2]Estranho de preto[/h2]
+Nas configurações do mod, dá para fazer o estranho chegar usando esta carcaça de guerra. Assim, uma derrota na reta final da partida não precisa ser o fim.
+
 [hr][/hr]
 [h1]Compatibilidade[/h1]
 [list]

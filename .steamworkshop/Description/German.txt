@@ -21,6 +21,9 @@ Die Rüstung trägt einen Vorrat an Medizinkits. Wähle einen Verwundeten als Zi
 [h2]Adrenalinspritze[/h2]
 Die Schulterpanzer fassen ein paar Adrenalinspritzen. Eine Spritze beendet einen Herzinfarkt oder bringt jemanden, der am Boden liegt, lange genug wieder auf die Beine, um zu fliehen. Für kurze Zeit spürt der Patient keinen Schmerz und bewegt sich und denkt schneller. Wie im echten Leben geht der Schub nach und nach in ein langes Tief über. Trägt der Pilot auch die Rüstung, gibt er beim automatischen Wirken jedem Patienten eine Spritze, sobald dessen Verband fertig ist.
 
+[h2]Mysteriöser Fremder[/h2]
+In den Mod-Einstellungen kannst du festlegen, dass der Fremde in diesem Kriegssarg eintrifft. So muss eine Niederlage in der späten Spielphase nicht das Ende bedeuten.
+
 [hr][/hr]
 [h1]Mod-Kompatibilität[/h1]
 [list]
