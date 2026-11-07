@@ -30,7 +30,11 @@
     <drawOffscreen>true</drawOffscreen>
     <graphicData>
       <texPath>Things/Mote/GraserBeam</texPath>
+      <!-- 1.7 only: GraphicData.borderMipMaps registers the texture path for edge-clamped
+           mipmaps, and Biotech's base sets it there. The 1.6 loader errors on the unknown
+           field, so it waits for the 1.7 root (TODOs.md).
       <borderMipMaps>true</borderMipMaps>
+      -->
       <graphicClass>Graphic_MoteWithAgeSecs</graphicClass>
       <shaderType>MoteBeam</shaderType>
       <color>(0.388, 0.624, 0.886)</color>
