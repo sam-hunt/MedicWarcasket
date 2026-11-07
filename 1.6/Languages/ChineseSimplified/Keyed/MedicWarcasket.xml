@@ -209,8 +209,8 @@
   <MDWC_StrangerSummaryAlways>黑衣人会穿着一整套黑色战棺登场。</MDWC_StrangerSummaryAlways>
   <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
   <MDWC_StrangerSummaryReplaced>黑衣人的人选已由其他模组接管，战棺相关设置不会生效。</MDWC_StrangerSummaryReplaced>
-  <!-- EN: The stranger has no forced gender. -->
-  <MDWC_StrangerSummaryAnyGender>黑衣人的性别不固定。</MDWC_StrangerSummaryAnyGender>
+  <!-- EN: {0} The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>{0}黑衣人的性别不固定。</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix>（默认）</MDWC_DefaultSuffix>

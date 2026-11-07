@@ -122,7 +122,8 @@
   <MDWC_StrangerSummary>The stranger arrives in a black warcasket kit once warcaskets are researched.</MDWC_StrangerSummary>
   <MDWC_StrangerSummaryAlways>The stranger arrives in a black warcasket kit.</MDWC_StrangerSummaryAlways>
   <MDWC_StrangerSummaryReplaced>Another mod chooses the stranger, so the warcasket settings have no effect.</MDWC_StrangerSummaryReplaced>
-  <MDWC_StrangerSummaryAnyGender>The stranger has no forced gender.</MDWC_StrangerSummaryAnyGender>
+  <!-- {0} is the summary sentence before it -->
+  <MDWC_StrangerSummaryAnyGender>{0} The stranger has no forced gender.</MDWC_StrangerSummaryAnyGender>
 
   <MDWC_DefaultSuffix> (default)</MDWC_DefaultSuffix>
   <MDWC_Enabled>enabled</MDWC_Enabled>

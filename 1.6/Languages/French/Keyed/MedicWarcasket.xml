@@ -209,8 +209,8 @@
   <MDWC_StrangerSummaryAlways>L'étranger arrive équipé d'un ensemble warcasket noir.</MDWC_StrangerSummaryAlways>
   <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
   <MDWC_StrangerSummaryReplaced>Un autre mod choisit l'étranger. Les options du warcasket n'ont donc aucun effet.</MDWC_StrangerSummaryReplaced>
-  <!-- EN: The stranger has no forced gender. -->
-  <MDWC_StrangerSummaryAnyGender>L'étranger n'a pas de genre imposé.</MDWC_StrangerSummaryAnyGender>
+  <!-- EN: {0} The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>{0} L'étranger n'a pas de genre imposé.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (par défaut)</MDWC_DefaultSuffix>

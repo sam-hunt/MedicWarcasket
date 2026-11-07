@@ -209,8 +209,8 @@
   <MDWC_StrangerSummaryAlways>Der Fremde trägt bei seiner Ankunft ein schwarzes Kriegssarg-Set.</MDWC_StrangerSummaryAlways>
   <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
   <MDWC_StrangerSummaryReplaced>Eine andere Mod wählt den Fremden aus, daher haben die Kriegssarg-Einstellungen keine Wirkung.</MDWC_StrangerSummaryReplaced>
-  <!-- EN: The stranger has no forced gender. -->
-  <MDWC_StrangerSummaryAnyGender>Der Fremde hat kein fest vorgegebenes Geschlecht.</MDWC_StrangerSummaryAnyGender>
+  <!-- EN: {0} The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>{0} Der Fremde hat kein fest vorgegebenes Geschlecht.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (Standard)</MDWC_DefaultSuffix>

@@ -209,8 +209,8 @@
   <MDWC_StrangerSummaryAlways>El forastero llega con el conjunto del Médico pintado de negro.</MDWC_StrangerSummaryAlways>
   <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
   <MDWC_StrangerSummaryReplaced>Otro mod decide quién es el forastero, así que los ajustes del ataúd de guerra no tienen efecto.</MDWC_StrangerSummaryReplaced>
-  <!-- EN: The stranger has no forced gender. -->
-  <MDWC_StrangerSummaryAnyGender>El forastero puede ser hombre o mujer.</MDWC_StrangerSummaryAnyGender>
+  <!-- EN: {0} The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>{0} El forastero puede ser hombre o mujer.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (por defecto)</MDWC_DefaultSuffix>

@@ -124,8 +124,10 @@ notes for the shim or flow edit this repo owes before continuing.
   - the stranger in black section: three toggles (`MDWC_Stranger`,
     `MDWC_StrangerResearch`, `MDWC_StrangerAnyGender`, each with a `...Desc`
     taking the default as `{0}`), the summaries (`MDWC_StrangerSummary*`, no
-    placeholders; "warcasket kit" there is the set, never the medicine
-    kit), and the letter that replaces vanilla's `StrangerInBlackJoin`
+    placeholders but `MDWC_StrangerSummaryAnyGender`'s `{0}`, the summary
+    sentence before it, joined as the language joins sentences: a space,
+    or none in Chinese and Japanese; "warcasket kit" there is the set,
+    never the medicine kit), and the letter that replaces vanilla's `StrangerInBlackJoin`
     letter while the gender is unfixed (`MDWC_StrangerLetterLabel`,
     `MDWC_StrangerLetterText`). The game formats the letter with the
     arriving pawn as `PAWN`, so a gendered language resolves it with

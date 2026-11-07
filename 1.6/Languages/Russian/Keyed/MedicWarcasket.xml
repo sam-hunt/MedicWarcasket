@@ -209,8 +209,8 @@
   <MDWC_StrangerSummaryAlways>Незнакомец приходит в чёрном комплекте медицинской брони.</MDWC_StrangerSummaryAlways>
   <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
   <MDWC_StrangerSummaryReplaced>Незнакомца выбирает другой мод, поэтому настройки брони мертвеца не действуют.</MDWC_StrangerSummaryReplaced>
-  <!-- EN: The stranger has no forced gender. -->
-  <MDWC_StrangerSummaryAnyGender>Пол незнакомца не задан заранее.</MDWC_StrangerSummaryAnyGender>
+  <!-- EN: {0} The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>{0} Пол незнакомца не задан заранее.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (по умолчанию)</MDWC_DefaultSuffix>

@@ -156,7 +156,8 @@ public partial class MedicWarcasketSettings
 
     // What the boxes amount to: the stranger as vanilla sends them, in the set once the research
     // is in, or in the set from the start, or another mod's stranger whatever the first two say;
-    // then whether the gender is forced.
+    // then whether the gender is forced, a sentence that wraps the first so each language picks
+    // the joint (none in Chinese or Japanese).
     private string StrangerSummary()
     {
         string summary;
@@ -166,6 +167,6 @@ public partial class MedicWarcasketSettings
             summary = "MDWC_StrangerSummaryOff".Translate();
         else
             summary = (strangerResearch.Value ? "MDWC_StrangerSummary" : "MDWC_StrangerSummaryAlways").Translate();
-        return strangerAnyGender.Value ? summary + " " + "MDWC_StrangerSummaryAnyGender".Translate() : summary;
+        return strangerAnyGender.Value ? "MDWC_StrangerSummaryAnyGender".Translate(summary) : summary;
     }
 }

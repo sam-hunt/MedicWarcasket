@@ -209,8 +209,8 @@
   <MDWC_StrangerSummaryAlways>이방인이 검은색 워캐스킷 세트를 입고 나타납니다.</MDWC_StrangerSummaryAlways>
   <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
   <MDWC_StrangerSummaryReplaced>다른 모드가 이방인의 등장을 맡고 있어 워캐스킷 설정이 적용되지 않습니다.</MDWC_StrangerSummaryReplaced>
-  <!-- EN: The stranger has no forced gender. -->
-  <MDWC_StrangerSummaryAnyGender>이방인의 성별은 고정되지 않습니다.</MDWC_StrangerSummaryAnyGender>
+  <!-- EN: {0} The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>{0} 이방인의 성별은 고정되지 않습니다.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (기본값)</MDWC_DefaultSuffix>

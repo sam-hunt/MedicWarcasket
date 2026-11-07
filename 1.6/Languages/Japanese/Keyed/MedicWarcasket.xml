@@ -209,8 +209,8 @@
   <MDWC_StrangerSummaryAlways>不審者は黒いウォーキャスケット一式を装着して登場します.</MDWC_StrangerSummaryAlways>
   <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
   <MDWC_StrangerSummaryReplaced>別のMODが不審者を選んでいるため,ウォーキャスケットの設定は反映されません.</MDWC_StrangerSummaryReplaced>
-  <!-- EN: The stranger has no forced gender. -->
-  <MDWC_StrangerSummaryAnyGender>不審者の性別は固定されません.</MDWC_StrangerSummaryAnyGender>
+  <!-- EN: {0} The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>{0}不審者の性別は固定されません.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (デフォルト)</MDWC_DefaultSuffix>

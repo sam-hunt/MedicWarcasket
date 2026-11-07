@@ -209,8 +209,8 @@
   <MDWC_StrangerSummaryAlways>O estranho chega usando um conjunto preto de carcaça de guerra.</MDWC_StrangerSummaryAlways>
   <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
   <MDWC_StrangerSummaryReplaced>Outro mod escolhe o estranho, então as configurações de carcaça de guerra não têm efeito.</MDWC_StrangerSummaryReplaced>
-  <!-- EN: The stranger has no forced gender. -->
-  <MDWC_StrangerSummaryAnyGender>O estranho não tem gênero fixo.</MDWC_StrangerSummaryAnyGender>
+  <!-- EN: {0} The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>{0} O estranho não tem gênero fixo.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (padrão)</MDWC_DefaultSuffix>
