@@ -147,6 +147,12 @@
   <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
   <MDWC_ShotCooldownDesc>Quanto tempo o piloto precisa esperar entre uma injeção e outra. Enquanto a habilidade estiver em recarga, as injeções automáticas não são aplicadas. Padrão: {0}.</MDWC_ShotCooldownDesc>
 
+  <!-- {0} in the label and {1} in the tooltip are the game's own heart attack label, as translated -->
+  <!-- EN: Shot stops a {0} -->
+  <MDWC_ShotHeartAttack>Injeção interrompe um {0}</MDWC_ShotHeartAttack>
+  <!-- EN: When enabled, an adrenaline shot will stop a {1} instead of giving the boost. When disabled, it will give the boost as usual. Default: {0}. -->
+  <MDWC_ShotHeartAttackDesc>Quando ativado, uma injeção de adrenalina interromperá um {1} em vez de dar o estímulo. Quando desativado, dará o estímulo normalmente. Padrão: {0}.</MDWC_ShotHeartAttackDesc>
+
   <!-- EN: Raider medics give adrenaline shots -->
   <MDWC_AIShot>Médicos invasores aplicam injeções de adrenalina</MDWC_AIShot>
   <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
@@ -169,6 +175,42 @@
   <MDWC_WorkSummary>Trabalhos que o piloto pode fazer: {0}. Todos os outros seguem o traço "carcaça de guerra" do VFE Pirates.</MDWC_WorkSummary>
   <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
   <MDWC_WorkSummaryNone>O piloto não faz nenhum trabalho de cuidados. Todos os outros trabalhos seguem o traço "carcaça de guerra" do VFE Pirates.</MDWC_WorkSummaryNone>
+
+  <!-- EN: Man in black -->
+  <MDWC_SectionStranger>Estranho de preto</MDWC_SectionStranger>
+  <!-- EN: The man in black is a stranger who arrives when the colony is close to falling, in a duster with a revolver. These settings can send the stranger in the medic warcasket instead, and can remove the forced gender. -->
+  <MDWC_SectionStrangerDesc>Quando a colônia está à beira do colapso, chega o estranho de preto, de gabardina e armado com um revólver. Estas configurações permitem que ele chegue usando a carcaça de guerra médica e sem gênero fixo.</MDWC_SectionStrangerDesc>
+
+  <!-- EN: Stranger arrives in a medic warcasket -->
+  <MDWC_Stranger>Estranho chega usando uma carcaça de guerra médica</MDWC_Stranger>
+  <!-- EN: When enabled, the stranger will arrive in a black medic warcasket, carrying a warcasket slugthrower. When disabled, the stranger will arrive as usual. Default: {0}. -->
+  <MDWC_StrangerDesc>Quando ativado, o estranho chegará usando uma carcaça de guerra médica pintada de preto e armado com um lança-balotes de carcaça de guerra. Quando desativado, chegará com a gabardina e o revólver de sempre. Padrão: {0}.</MDWC_StrangerDesc>
+
+  <!-- EN: Only once warcaskets are researched -->
+  <MDWC_StrangerResearch>Só depois de pesquisar carcaças de guerra</MDWC_StrangerResearch>
+  <!-- EN: When enabled, the stranger will only bring the warcasket once the colony has researched warcaskets, and will arrive as usual before that. When disabled, the stranger will bring it from the start. Default: {0}. -->
+  <MDWC_StrangerResearchDesc>Quando ativado, o estranho só chegará usando a carcaça de guerra depois que a colônia pesquisar carcaças de guerra. Quando desativado, chegará com ela desde o início. Padrão: {0}.</MDWC_StrangerResearchDesc>
+
+  <!-- EN: Stranger has no forced gender -->
+  <MDWC_StrangerAnyGender>Estranho sem gênero fixo</MDWC_StrangerAnyGender>
+  <!-- EN: When enabled, the stranger will have no forced gender, and the arrival letter will use neutral wording. When disabled, the gender will be forced as usual. Default: {0}. -->
+  <MDWC_StrangerAnyGenderDesc>Quando ativado, o estranho não terá gênero fixo, e a carta de chegada se ajustará ao gênero de quem vier. Quando desativado, o gênero continuará fixo, como de costume. Padrão: {0}.</MDWC_StrangerAnyGenderDesc>
+  <!-- The letter while the gender is unfixed (Settings_Stranger.cs). The game formats both with the pawn as PAWN, so a translation may use [PAWN_kind] or [PAWN_pronoun] where its language needs the gender -->
+  <!-- EN: Stranger in black -->
+  <MDWC_StrangerLetterLabel>{PAWN_gender ? Estranho : Estranha} de preto</MDWC_StrangerLetterLabel>
+  <!-- EN: Sensing trouble, a mysterious stranger in black has arrived.\n\nWill they be able to set things right in these parts? -->
+  <MDWC_StrangerLetterText>Problema detectado, chegou {PAWN_gender ? um misterioso estranho : uma misteriosa estranha} de preto.\n\nSerá que [PAWN_pronoun] conseguirá consertar as coisas?</MDWC_StrangerLetterText>
+
+  <!-- EN: The stranger arrives as usual, without a warcasket. -->
+  <MDWC_StrangerSummaryOff>O estranho chega como de costume, sem carcaça de guerra.</MDWC_StrangerSummaryOff>
+  <!-- EN: The stranger arrives in a black warcasket kit once warcaskets are researched. -->
+  <MDWC_StrangerSummary>Depois da pesquisa de carcaças de guerra, o estranho chega usando um conjunto preto de carcaça de guerra.</MDWC_StrangerSummary>
+  <!-- EN: The stranger arrives in a black warcasket kit. -->
+  <MDWC_StrangerSummaryAlways>O estranho chega usando um conjunto preto de carcaça de guerra.</MDWC_StrangerSummaryAlways>
+  <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
+  <MDWC_StrangerSummaryReplaced>Outro mod escolhe o estranho, então as configurações de carcaça de guerra não têm efeito.</MDWC_StrangerSummaryReplaced>
+  <!-- EN: The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>O estranho não tem gênero fixo.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (padrão)</MDWC_DefaultSuffix>

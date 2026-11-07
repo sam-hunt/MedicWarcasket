@@ -105,6 +105,24 @@ and several differ (kit, mechanite, heart attack, go-juice, wake-up).
 | suppressability (Workshop, CE) | not named; 更難被壓制 | CE 16.7.4's zh-Hant `Suppressability.label` is 抗抑制能力, which reads as the inverse of the stat (lower suppressability means harder to suppress), so the line states the effect instead. |
 | x of y (counts) | {0}/{1} | Vanilla zh-Hant sets the slash solid (`MassCarried` 負重：{0}/{1}公斤, `PregnantIconDesc`), where the English spaces it. |
 
+## Man in black
+
+| English | Traditional Chinese | Grounding / notes |
+|---|---|---|
+| `MDWC_StrangerInBlack` label / labelFemale / labelMale / labelPlural | 神秘黑衣人 / 黑衣女 / 黑衣男 / 神秘黑衣人 | Core `PawnKindDef` `StrangerInBlack.*` verbatim (the kind is a copy of vanilla's, and the incident's letter names the arrival by its kind label). |
+| Man in black (section header) | 神秘黑衣人 | The kind's neutral label, as the Workshop page's `[h2]` heads the same feature; the incident's own label 黑衣男 (`StrangerInBlackJoin.label`) is male, wrong for a section that can lift the forced gender. |
+| the stranger (in prose) | 黑衣人 | The Workshop page's prose (讓黑衣人穿著這套戰棺登場); short form of the kind label. |
+| arrive (the stranger) | 登場 | Core `StrangerInBlackJoin.letterText` (一名神秘的[PAWN_kind]登場了). |
+| duster / revolver | 風衣 / 左輪手槍 | Core `Apparel_Duster.label`, `Gun_Revolver.label`. |
+| warcasket slugthrower | 戰棺霰彈槍 | Derived from the zh-Hans pack's 战棺霰弹枪; 霰彈槍 matches Core `Gun_PumpShotgun` 泵動霰彈槍. |
+| warcasket kit (the summaries: the whole set) | 全套…戰棺 (全套黑色戰棺) | Coined. 全套 names the set and keeps clear of the 藥包 charge noun and Core's 醫療包. |
+| no forced gender | 不限性別 / 性別不再固定 | Coined; the label and summary use 不限性別, the tooltip 性別不再固定 … 停用時，性別會照常固定. |
+| colony close to falling | 殖民地瀕臨崩潰 | 瀕臨 per Core backstory prose (瀕臨滅絕); 瀕臨崩潰 has a corpus hit. |
+| researched warcaskets | 研究出戰棺 | Generic, no research label cited: VFEP's `VFEP_Warcaskets` label is not recorded upstream. |
+| letter label while the gender is unfixed (`MDWC_StrangerLetterLabel`) | 神秘黑衣人 | The kind's neutral label, as the English uses its own; vanilla's letter title 黑衣男 is male. |
+| letter text while the gender is unfixed (`MDWC_StrangerLetterText`) | 危險的氣息，一名神秘的[PAWN_kind]登場了。\n\n這位神秘人是否能搞定一切呢？ | Core `StrangerInBlackJoin.letterText`, its first sentence verbatim ([PAWN_kind] resolves to 黑衣男 / 黑衣女 by gender). Vanilla's `{PAWN_pronoun}` subject is replaced by 這位神秘人 because `check-translations.py` rejects a curly placeholder the English lacks. The text is gender-matched rather than neutral, so `MDWC_StrangerAnyGenderDesc` says the letter's wording 隨之調整 (adjusts) instead of "neutral wording". |
+| a shot stops a {0} (the heart attack toggle) | 針劑可止住{0} / 腎上腺素注射可以止住{1}，此時不會提供增益 | {0}/{1} arrive as Core `HeartAttack.label` 心臟衰竭; 針劑 is the shot charge noun, 可止住 as `MDWC_ShotStopsHeartAttack`. |
+
 ## Pending native review
 
 Every coinage in "Set-specific rows": 醫療型, 機械分子 over 機械蟲, 機械分子包紮 /
@@ -119,5 +137,7 @@ paragraphs 2 and 3), the two ability descriptions, the hediff and trait
 descriptions, every settings tooltip and summary, and the whole Workshop page.
 A fresh register read rewrote the calques it found (the hediff opener now
 follows vanilla's 流淌在血液裡的X。, the autocast and programme agents became
-people). 自動施放 has no vanilla or VEF rendering and stays pending. The VFEP terms' review is tracked upstream,
+people). 自動施放 has no vanilla or VEF rendering and stays pending. The
+"Man in black" rows: the derived 戰棺霰彈槍, the coined 全套黑色戰棺 and
+不限性別, the letter's 這位神秘人 and the tooltip's 隨之調整 claim. The VFEP terms' review is tracked upstream,
 under the section named above.

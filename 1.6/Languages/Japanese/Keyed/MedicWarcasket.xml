@@ -147,6 +147,12 @@
   <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
   <MDWC_ShotCooldownDesc>パイロットが注射を打ってから,次の注射を打てるようになるまでの待ち時間です.クールダウン中は,自動使用でも注射を打ちません.デフォルト: {0}.</MDWC_ShotCooldownDesc>
 
+  <!-- {0} in the label and {1} in the tooltip are the game's own heart attack label, as translated -->
+  <!-- EN: Shot stops a {0} -->
+  <MDWC_ShotHeartAttack>注射で{0}を止める</MDWC_ShotHeartAttack>
+  <!-- EN: When enabled, an adrenaline shot will stop a {1} instead of giving the boost. When disabled, it will give the boost as usual. Default: {0}. -->
+  <MDWC_ShotHeartAttackDesc>有効にすると,アドレナリン注射が通常の効果の代わりに{1}を止めるようになります.無効にすると,通常どおりの効果になります.デフォルト: {0}.</MDWC_ShotHeartAttackDesc>
+
   <!-- EN: Raider medics give adrenaline shots -->
   <MDWC_AIShot>襲撃者のメディックがアドレナリン注射を使用</MDWC_AIShot>
   <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
@@ -169,6 +175,42 @@
   <MDWC_WorkSummary>パイロットは{0}の作業を行えます.ほかの作業はすべて,VFE Piratesの才能・性格「ウォーキャスケット」に従います.</MDWC_WorkSummary>
   <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
   <MDWC_WorkSummaryNone>パイロットは看護の作業を行いません.ほかの作業はすべて,VFE Piratesの才能・性格「ウォーキャスケット」に従います.</MDWC_WorkSummaryNone>
+
+  <!-- EN: Man in black -->
+  <MDWC_SectionStranger>黒衣の男</MDWC_SectionStranger>
+  <!-- EN: The man in black is a stranger who arrives when the colony is close to falling, in a duster with a revolver. These settings can send the stranger in the medic warcasket instead, and can remove the forced gender. -->
+  <MDWC_SectionStrangerDesc>黒衣の男は,コロニーが崩壊しかけたときに現れる不審者で,ダスターコートを着てリボルバーを持っています.ここでは,不審者をメディック・ウォーキャスケット姿で登場させたり,性別の固定を外したりできます.</MDWC_SectionStrangerDesc>
+
+  <!-- EN: Stranger arrives in a medic warcasket -->
+  <MDWC_Stranger>不審者がメディック・ウォーキャスケット姿で登場</MDWC_Stranger>
+  <!-- EN: When enabled, the stranger will arrive in a black medic warcasket, carrying a warcasket slugthrower. When disabled, the stranger will arrive as usual. Default: {0}. -->
+  <MDWC_StrangerDesc>有効にすると,不審者が黒いメディック・ウォーキャスケットを装着し,ウォーキャスケット散弾銃を持って登場するようになります.無効にすると,通常どおりの姿で登場します.デフォルト: {0}.</MDWC_StrangerDesc>
+
+  <!-- EN: Only once warcaskets are researched -->
+  <MDWC_StrangerResearch>ウォーキャスケットの研究後のみ</MDWC_StrangerResearch>
+  <!-- EN: When enabled, the stranger will only bring the warcasket once the colony has researched warcaskets, and will arrive as usual before that. When disabled, the stranger will bring it from the start. Default: {0}. -->
+  <MDWC_StrangerResearchDesc>有効にすると,不審者がウォーキャスケット姿で現れるのは,コロニーがウォーキャスケットを研究してからになります.それまでは通常どおりの姿で登場します.無効にすると,最初からウォーキャスケット姿で登場します.デフォルト: {0}.</MDWC_StrangerResearchDesc>
+
+  <!-- EN: Stranger has no forced gender -->
+  <MDWC_StrangerAnyGender>不審者の性別を固定しない</MDWC_StrangerAnyGender>
+  <!-- EN: When enabled, the stranger will have no forced gender, and the arrival letter will use neutral wording. When disabled, the gender will be forced as usual. Default: {0}. -->
+  <MDWC_StrangerAnyGenderDesc>有効にすると,不審者の性別が固定されなくなり,登場時のレターも性別を問わない文面になります.無効にすると,通常どおり性別が固定されます.デフォルト: {0}.</MDWC_StrangerAnyGenderDesc>
+  <!-- The letter while the gender is unfixed (Settings_Stranger.cs). The game formats both with the pawn as PAWN, so a translation may use [PAWN_kind] or [PAWN_pronoun] where its language needs the gender -->
+  <!-- EN: Stranger in black -->
+  <MDWC_StrangerLetterLabel>黒衣の不審者</MDWC_StrangerLetterLabel>
+  <!-- EN: Sensing trouble, a mysterious stranger in black has arrived.\n\nWill they be able to set things right in these parts? -->
+  <MDWC_StrangerLetterText>騒動を察知して,不思議な黒衣の不審者が到着した.\n\nこの状況をどうにかしてくれないだろうか?</MDWC_StrangerLetterText>
+
+  <!-- EN: The stranger arrives as usual, without a warcasket. -->
+  <MDWC_StrangerSummaryOff>不審者はウォーキャスケットを装着せず,通常どおりの姿で登場します.</MDWC_StrangerSummaryOff>
+  <!-- EN: The stranger arrives in a black warcasket kit once warcaskets are researched. -->
+  <MDWC_StrangerSummary>ウォーキャスケットの研究後は,不審者が黒いウォーキャスケット一式を装着して登場します.</MDWC_StrangerSummary>
+  <!-- EN: The stranger arrives in a black warcasket kit. -->
+  <MDWC_StrangerSummaryAlways>不審者は黒いウォーキャスケット一式を装着して登場します.</MDWC_StrangerSummaryAlways>
+  <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
+  <MDWC_StrangerSummaryReplaced>別のMODが不審者を選んでいるため,ウォーキャスケットの設定は反映されません.</MDWC_StrangerSummaryReplaced>
+  <!-- EN: The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>不審者の性別は固定されません.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (デフォルト)</MDWC_DefaultSuffix>

@@ -78,6 +78,23 @@ inyecciones.` `StatsReport_ReloadRemainingChargesMultipler` hard-codes `las
 strings agree: `Kits: {0} / {1}`, `Inyecciones: {0} / {1}`, `Capacidad de
 kits`, `Capacidad de inyecciones`.
 
+## Man in black
+
+| English | Spanish | Grounding |
+|---|---|---|
+| stranger in black / woman in black / man in black / strangers in black (`MDWC_StrangerInBlack` labels) | forastero de negro / mujer de negro / hombre de negro / forasteros de negro | Core `PawnKindDef StrangerInBlack` `.label`, `.labelFemale`, `.labelMale`, `.labelPlural`, verbatim: the kind copies vanilla's, and the letter names the arrival by them through `[PAWN_kind]`. |
+| Man in black (settings section header) | Hombre de negro | Core `IncidentDef StrangerInBlackJoin.label` (hombre de negro) and `.letterLabel`, the event's name as the player knows it. The Workshop header (`Forastero de negro`) follows English's "Stranger in black". |
+| the stranger (settings prose and summaries) | el forastero | Core `StrangerInBlack.label`; the generic masculine stays when the gender is unfixed, as on the Workshop page (`que el forastero llegue dentro de este ataúd de guerra`). |
+| no forced gender (setting label, tooltip, summary) | `El forastero puede ser hombre o mujer`; disabled = `siempre será un hombre` | Coined. No vanilla word for a fixed gender (`pawnFixedGender` is never player text); "forced gender" calqued reads as modder vocabulary. |
+| arrival letter | el mensaje de llegada | Core Keyed `AutomaticPauseMode_AnyLetter` (Cualquier mensaje), `MoreLetters` (mensajes); `carta` is only the in-world paper letter. |
+| the unfixed-gender letter (`MDWC_StrangerLetterLabel` / `MDWC_StrangerLetterText`) | `{PAWN_gender ? Hombre : Mujer} de negro` / Core's letter text verbatim: `{PAWN_gender ? Un misterioso : Una misteriosa} [PAWN_kind] ha aparecido.\n\n¿Será capaz de arreglar las cosas por aquí?` | Core `StrangerInBlackJoin.letterLabel`, `.letterText`. Gender-resolved rather than neutral (Spanish has no neutral `forastero`), so `MDWC_StrangerAnyGenderDesc` says the letter `concordará con su género`. Both are formatted with the pawn as `PAWN` (`IncidentWorker_WandererJoin`, decompile-verified); the checker excludes `?` constructs and `[...]` symbols from the placeholder comparison. Core's Castilian letter has no "Sensing trouble" clause, so neither does ours: the letter reads the same with the setting on or off. |
+| duster / revolver | gabardina / revólver (`con gabardina y revólver`) | Core `Apparel_Duster.label`, `Gun_Revolver.label`. |
+| warcasket slugthrower | lanza-postas para ataúd de guerra | Community VFEP pack (Cito2310), `VFEP_WarcasketGun_Slugthrower.label`; hyphen kept as the pack ships it. |
+| black warcasket kit (summaries) / black medic warcasket (tooltip) | el conjunto del Médico pintado de negro / un ataúd de guerra médico pintado de negro | `conjunto` is the set's word (`MDWC_SettingsUnavailable`, Workshop); never `kit`, which is the medicine charge noun. `pintado de negro` keeps the colour off the stacked `ataúd de guerra médico` adjectives. |
+| arrive in the warcasket | llegar dentro de (`llega dentro de un ataúd de guerra médico`) | Workshop page wording; `llegar en` reads as a vehicle. |
+| as usual | como de costumbre | Plain Castilian, the toggles' "When disabled" formula. |
+| heart attack toggle | `La inyección detiene el {0}`, `detendrá el {1} en lugar de provocar el subidón` | `{0}`/`{1}` is Core `HeartAttack.label` (ataque cardíaco, m.), so the masculine `el` is pinned to a known vanilla label; boost = `subidón` as in `Duración del subidón`. |
+
 ## Grounded in the first pass
 
 | English | Spanish | Source |
@@ -113,6 +130,10 @@ kits`, `Capacidad de inyecciones`.
 - `Alcance` for the settings row while Core's ability tooltip shows Keyed
   `Range` = `Rango`; kept for the family (both siblings ship `Alcance`).
 - The charge noun `inyección` in the reload slots.
+- Man in black: `El forastero puede ser hombre o mujer` for "no forced gender",
+  `el conjunto del Médico pintado de negro` for "black warcasket kit", the
+  gender-resolved letter label, and the masculine `el {0}` in the heart attack
+  toggle (wrong if another mod renames the heart attack to a feminine noun).
 - All free prose: the three descriptions' first paragraphs and the shared
   paragraphs 2 and 3, both ability descriptions, the hediff and trait
   descriptions, every settings tooltip and summary, and the whole Workshop

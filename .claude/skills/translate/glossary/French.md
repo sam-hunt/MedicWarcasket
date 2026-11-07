@@ -103,6 +103,26 @@ mécanites`, `une dose de sérum`), and the mod's own Keyed text names the shots
 | reportString shape | `applique un pansement de mécanites à TargetA.` / `fait une injection d'adrénaline à TargetA.` | Core `TendPatient` `soigne TargetA.`, `Rescue` `porte secours à TargetA.`; the ability `jobReportString`s drop `à TargetA` |
 | trait tokens | `soud{PAWN_gender ? é : ée : é(e)}`, `sur {PAWN_objective}`, mid-sentence `{PAWN_pronoun}` | Core `TraitDef` descriptions (`Masochist`, `BodyPurist`) and Keyed `ProhimObj` `lui` / `ProherObj` `elle` |
 
+## Man in black and heart attack settings (update pass, 2026-11-07)
+
+| English | French | Grounding |
+|---|---|---|
+| stranger in black / man in black / woman in black / strangers in black (`MDWC_StrangerInBlack` labels) | étranger en noir / homme en noir / femme en noir / étrangers en noir | Core `PawnKindDef` `StrangerInBlack.label`, `.labelMale`, `.labelFemale`, `.labelPlural`, verbatim: the kind is a copy of vanilla's. |
+| Man in black (section header) / the stranger (prose) | Étranger en noir / l'étranger | Core `StrangerInBlackJoin.label`; the Workshop page's `[h2]Étranger en noir[/h2]` and `l'étranger`. |
+| duster / revolver | manteau / revolver | Core `Apparel_Duster.label`, `Gun_Revolver.label`. |
+| close to falling | au bord de l'effondrement | **Coined**, ordinary French. |
+| letter label while the gender is unfixed (`MDWC_StrangerLetterLabel`) | `Étrang{PAWN_gender ? er : ère : er/ère} en noir` | Core `StrangerInBlackJoin.letterLabel`, capitalised as the English key. Gender-resolved rather than neutral, since French has no neutral form. |
+| letter text while the gender is unfixed (`MDWC_StrangerLetterText`) | vanilla's letter with `étrang{...} en noir` in place of `{PAWN_kind}`, and `[PAWN_pronoun]` | Core `StrangerInBlackJoin.letterText`. The literal noun keeps it right under a replacement kind with no `labelFemale`. The checker counts `{PAWN_pronoun}` as a placeholder the English lacks, so the bracket form (same resolution) is used; the `{PAWN_gender ? ...}` splits pass. |
+| the arrival letter will use neutral wording | la lettre qui annonce son arrivée s'accorde à son genre | **Coined**: the French letter is gender-resolved, so the tooltip says so instead of "neutral". Core Keyed `lettre` for letters. |
+| forced gender | genre imposé | **Coined.** |
+| as usual (stranger, shot) | avec son équipement habituel / son effet habituel / son genre reste imposé | `comme d'habitude` has 0 Core hits, `habituel` 19; each case names what stays usual. |
+| warcasket slugthrower (VFEP `VFEP_WarcasketGun_Slugthrower`) | warcasket slugthrower, plain and unquoted (`armé d'un warcasket slugthrower`) | VFEP's English label as the player sees it in a French game, cited bare as Toxin's `comme le warcasket siegebreaker`; not a clickable UI element, so no guillemets. |
+| warcaskets (VFEP research project) | `la recherche « warcaskets »` in a tooltip, `une fois les warcaskets recherchés` in a label or summary | Toxin's `nécessite la recherche « spacer warcaskets »`; the label is the same word in both languages, so no gloss. |
+| black warcasket kit (the set, in summaries) | ensemble warcasket noir | `ensemble` is the family's set noun (upstream VFEP section), never `kit`, which is the medicine charge noun. `warcasket médecin noir` is avoided as it reads "black doctor"; the tooltip says `warcasket médecin peint en noir`. |
+| the warcasket settings (have no effect) | les options du warcasket | **Coined.** |
+| Shot stops a {0} (heart attack) | L'injection arrête une {0} | `{0}` is Core `HeartAttack.label` `attaque cardiaque` (f.), colorized, so the article is fixed feminine. |
+| giving the boost | produire son effet | The file's `Durée de l'effet` for boost. |
+
 ## Pending native review
 
 Every coined row above; the set name `médecin` (against `infirmier` or
@@ -112,3 +132,6 @@ rewrote the calques it found: the three
 descriptions (paragraph 1 per part, the shared paragraphs 2 and 3), both
 ability descriptions, the hediff and trait descriptions, the settings
 tooltips and summaries, and the whole Workshop page.
+From the 2026-11-07 update pass: the gender-resolved stranger letter (against
+a literally neutral one), `ensemble warcasket noir` for the summaries' kit,
+and the bare `warcasket slugthrower` citation.

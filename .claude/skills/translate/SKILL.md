@@ -69,11 +69,14 @@ notes for the shim or flow edit this repo owes before continuing.
   the same keys:
   - the mod settings window: `MDWC_SettingsCategory` (its header),
     `MDWC_SettingsUnavailable`, the section headers (`MDWC_SectionDressing`,
-    `MDWC_SectionShot`, `MDWC_SectionWork`), and each setting's
+    `MDWC_SectionShot`, `MDWC_SectionWork`, `MDWC_SectionStranger`), and each setting's
     label and `...Desc` tooltip (reload item, effect color with its three
     option labels, kit capacity, casting time (Core's `AbilityCastingTime`),
     time per wound, cooldown, range; for the shot: reload item, shot
-    capacity, boost duration, crash duration, cooldown). Labels carry no
+    capacity, boost duration, crash duration, cooldown, and the heart
+    attack toggle, whose label `MDWC_ShotHeartAttack` takes `{0}` and
+    tooltip `{1}` the game's own heart attack label, the tooltip's `{0}`
+    the default as usual). Labels carry no
     unit: the row's value shows it, as Core's short period form does
     (`LetterSecond`, `LetterHour`, `LetterDay`). Each tooltip takes one `{0}`, the default value as
     the row shows it (for an item, its capitalised label; for the color,
@@ -118,6 +121,17 @@ notes for the shim or flow edit this repo owes before continuing.
     cursor label) takes `{0}` the shots loaded and `{1}` the maximum;
     `MDWC_ShotStopsHeartAttack` (its second line) and
     `MDWC_ShotAutocastDesc` (the gizmo tooltip's last line) have none.
+  - the stranger in black section: three toggles (`MDWC_Stranger`,
+    `MDWC_StrangerResearch`, `MDWC_StrangerAnyGender`, each with a `...Desc`
+    taking the default as `{0}`), the summaries (`MDWC_StrangerSummary*`, no
+    placeholders; "warcasket kit" there is the set, never the medicine
+    kit), and the letter that replaces vanilla's `StrangerInBlackJoin`
+    letter while the gender is unfixed (`MDWC_StrangerLetterLabel`,
+    `MDWC_StrangerLetterText`). The game formats the letter with the
+    arriving pawn as `PAWN`, so a gendered language resolves it with
+    vanilla's own tokens (`{PAWN_gender ? : }`, `[PAWN_kind]`,
+    `{PAWN_pronoun}`) as its vanilla letter does, and words
+    `MDWC_StrangerAnyGenderDesc`'s claim about the letter to match.
   Name the set's things with the same renderings as the DefInjected text
   (mechanite dressing, kit, medicine suite, warcasket).
 - **Enumerate the key set from `Scripts/expected-injections.json`, never
@@ -171,6 +185,10 @@ notes for the shim or flow edit this repo owes before continuing.
     descriptions (VFEP's own uses only `{PAWN_nameDef}`). Nothing else on
     the trait is text: its work profile and effects are overwritten at
     startup from VFEP's trait, so no language file should carry them.
+  - `DefInjected/PawnKindDef/` for `MDWC_StrangerInBlack`, the stranger
+    who arrives in the set: `label`, `labelFemale`, `labelMale`,
+    `labelPlural`. It copies vanilla's `StrangerInBlack`, so each is the
+    language's Core label for that kind, verbatim.
 - **The charge nouns "kit" and "shot" are shown only through plural and
   lookup slots.** Vanilla prints a `chargeNoun` through `{CHARGENOUN_plural}`
   and `{lookup: ...}` in five Keyed strings (charges remaining, max charges,
@@ -225,13 +243,17 @@ Terms that MUST be grounded before use:
 
 - from VFEP's own vocabulary: "warcasket" itself, the VFEP set names our
   text or Workshop page references (siegebreaker, guardian, brute),
-  "warcasket foundry", "shoulders" / "pauldrons", "helmet", "shell";
+  "warcasket foundry", "shoulders" / "pauldrons", "helmet", "shell", and
+  the "warcasket slugthrower" the stranger carries (the community pack's
+  `VFEP_WarcasketGun_Slugthrower.label` where one exists);
 - from vanilla Core (ground against the Core tar per `l10n/process.md`):
   apparel terms (armor, helmet, shoulder pads), plasteel, uranium, spacer
   tech level, energy shield / shield bubble, medic / doctor, medicine,
   tend / tending, tend quality and speed, wound, disease, infection,
-  bandage, "squad", and the three medicine labels (herbal, industrial,
-  glitterworld);
+  bandage, "squad", the three medicine labels (herbal, industrial,
+  glitterworld), and the stranger in black (`StrangerInBlack`'s four
+  labels, `StrangerInBlackJoin`'s letter, `Apparel_Duster`,
+  `Gun_Revolver`);
 - from vanilla Odyssey (ground against the Odyssey tar): vacuum;
 - this mod's own ability vocabulary, coined once and recorded in the
   glossary: mechanite dressing (the ability, and the verb "dress" in its

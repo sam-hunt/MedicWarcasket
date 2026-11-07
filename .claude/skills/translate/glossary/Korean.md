@@ -100,6 +100,23 @@ terms are grounded against the Core and Odyssey `Korean (한국어).tar`.
 | suppression (Workshop, CE) | 제압 상태에 잘 빠지지 않습니다 | CE's own ko `Suppressed` stages (제압 당하는중) and `Suppressability.label` (제압 임계치); the stat name reads inverted against "reduces suppressability", so the line states the effect. |
 | vacuum resistance (Workshop, VGE) | 진공 저항 | Odyssey `VacuumResistance_Partial.label`. |
 
+## The stranger in black and the heart attack toggle
+
+| English | Korean | Source |
+|---|---|---|
+| stranger / woman / man in black, strangers in black (`MDWC_StrangerInBlack` labels) | 검은 옷의 이방인 / 검은 옷의 여성 / 검은 옷의 남성 / 검은 이방인 | Core `StrangerInBlack` PawnKindDef labels, verbatim (the def is a copy of it). |
+| Man in black (the settings section header) | 검은 옷의 이방인 | The neutral kind label, as the Workshop's section header already says; the incident itself is 구세주 in vanilla ko, so the section tooltip names it 구세주 too. Bare "the stranger" in settings prose is 이방인. |
+| Stranger in black (the gender-free letter's label) | 구세주 | Core `StrangerInBlackJoin.letterLabel`, verbatim: already gender-free, so the swapped letter keeps the title players see in vanilla. |
+| the gender-free letter's text | 위기의 순간 신비한 검은 옷의 이방인이 나타났습니다.\n\n과연 이 위기에서 정착지를 구할 수 있을까요? | Core `StrangerInBlackJoin.letterText` with `[PAWN_kind](이)가` replaced by the neutral label and `[PAWN_pronoun]는` dropped (Korean leaves the subject unsaid), so no token can reveal a gender and `MDWC_StrangerAnyGenderDesc`'s claim stays true. |
+| arrival letter | 이방인이 나타날 때 오는 편지 | Core Keyed `AutomaticPauseModeSetting` (편지 도착 시 일시 정지), `MoreLetters`. |
+| forced gender / remove it / no forced gender | 성별 고정 / 성별 고정을 풀다 / 이방인의 성별 고정 해제 (label), 성별이 고정되지 않습니다 (prose) | Coined. |
+| duster / revolver | 바람막이 / 리볼버 | Core `Apparel_Duster.label`, `Gun_Revolver.label`. |
+| warcasket slugthrower (VFEP) | 워캐스킷 산탄총 | RMK VFEP pack's label. |
+| warcasket kit (the stranger summaries) / black | 워캐스킷 세트 / 검은색 | 세트 so it cannot read as the medicine 키트; 검은색 per the upstream `~색` colour rule. |
+| researched warcaskets | '워캐스킷' 연구 (완료) | RMK `VFEP_Warcaskets.label` (the gate's research), cited in ASCII single quotes per upstream. |
+| Another mod chooses the stranger | 다른 모드가 이방인을 정하기 때문에 | Shaped like `MDWC_SettingsUnavailable` (다른 모드가 …했기 때문에). |
+| Shot stops a {0} / the boost | 주사로 {0}(을)를 멈춤 / 강화 효과 | `{0}` is Core `HeartAttack.label` 심근경색 at runtime, marked anyway; the label mirrors `MDWC_ShotStopsHeartAttack` (심근경색을 멈춤); 강화 per `MDWC_ShotBoost`. |
+
 ## Pending native review
 
 Every coinage in "Set-specific rows": 의무병 as the set prefix, 기계입자 처치 /
@@ -114,4 +131,8 @@ Workshop page. A fresh register read rewrote the calques it found. Two family fr
 sets read alike until a native review rules: 켜면 / 끄면 for the toggle frame
 (vanilla tooltips say 활성화하면 / 비활성화하면) and 켜짐 / 꺼짐 for the state words
 (Core `Enabled` 활성화됨, `Disabled` 사용 안 함).
+From the stranger update: the section header 검은 옷의 이방인 against vanilla's
+incident name 구세주, the letter title 구세주 for English "Stranger in black",
+the gender-free letter text, 성별 고정 해제, 워캐스킷 세트 for "warcasket kit", and
+the toggle labels 의무병 워캐스킷을 입은 이방인 and 주사로 {0}(을)를 멈춤.
 The VFEP terms' review is tracked upstream, under the section named above.

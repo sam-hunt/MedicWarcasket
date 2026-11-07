@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- EN: stranger in black -->
+  <MDWC_StrangerInBlack.label>黑衣人</MDWC_StrangerInBlack.label>
+  <!-- EN: woman in black -->
+  <MDWC_StrangerInBlack.labelFemale>黑衣人</MDWC_StrangerInBlack.labelFemale>
+  <!-- EN: man in black -->
+  <MDWC_StrangerInBlack.labelMale>黑衣人</MDWC_StrangerInBlack.labelMale>
+  <!-- EN: strangers in black -->
+  <MDWC_StrangerInBlack.labelPlural>黑衣人</MDWC_StrangerInBlack.labelPlural>
+</LanguageData>

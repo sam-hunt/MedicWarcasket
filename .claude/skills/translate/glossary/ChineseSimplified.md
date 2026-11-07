@@ -47,6 +47,12 @@ terms are grounded against the Core, Royalty, Biotech, Anomaly and Odyssey
 | enabled work types | 已启用的工作类型 | Coined; 启用 per Core `Enabled`. |
 | the Medic paragraphs 2 and 3 | 这款第十代战棺出自一项政府项目…… / 装甲内置纳米机械包扎系统，可就地治疗战友的伤口…… | Medic's own prose, byte-identical across the three descriptions; the full text is `1.6/Languages/ChineseSimplified/DefInjected/ThingDef/Apparel_Medic.xml`. |
 | Starcraft (Workshop FAQ) | 星际争霸 | The game's official mainland title. |
+| shot stops a heart attack (setting label) | 针剂可止住{0} | Coined on the shipped `MDWC_ShotStopsHeartAttack` (可止住心脏病发作); `{0}` is Core `HeartAttack.label` at runtime. |
+| warcasket kit (the stranger summaries) | 一整套黑色战棺 | Coined. 一整套 names the whole set (armor, shoulders, helmet) and keeps it apart from 医疗包, the dressing's charge noun; 套 per the shipped 这套装备 / 这套战棺. |
+| once warcaskets are researched | 完成战棺研究后 | Coined; the gate is VFEP's base `VFEP_Warcaskets` project, cited generically, not by its label. |
+| no forced gender | 性别不固定 | Coined. Vanilla forces the stranger male only through the incident, so the Chinese names no gender either. |
+| stranger in black letter (unfixed gender) | 黑衣人 / 仿佛嗅到危机的气息，一位神秘的黑衣人出现了。\n\n那么此人能不能解决这一切呢？ | Vanilla `StrangerInBlackJoin.letterLabel` verbatim; letterText follows vanilla's sentences with the kind label written out and 此人 for vanilla's `[PAWN_pronoun]`, so the letter is genderless as `MDWC_StrangerAnyGenderDesc` says and needs no `PAWN` token. |
+| another mod chooses the stranger | 另一个模组决定了黑衣人的人选 | Coined, naming the outcome rather than the replaced incident worker. |
 
 ## Ported from the siblings
 
@@ -90,6 +96,10 @@ terms are grounded against the Core, Royalty, Biotech, Anomaly and Odyssey
 | trait description tokens | {PAWN_nameDef} / {PAWN_pronoun} / {PAWN_objective} kept as is | Core `Wimp`, `Tough`, `Abrasive` trait descriptions. |
 | suppressability (Workshop, CE) | 压制敏感度 | CE's own zh-Hans `Suppressability.label`. |
 | vacuum resistance (Workshop, VGE) | 真空抗性 | Odyssey `VacuumResistance.label`. |
+| stranger in black / man in black / woman in black / strangers in black | 黑衣人 (all four labels) | Core `StrangerInBlack` PawnKindDef label, labelMale, labelFemale and labelPlural, all 黑衣人; `MDWC_StrangerInBlack` copies them, and 黑衣人 is also the settings section header, matching the Workshop's 黑衣人 section. |
+| duster / revolver | 防尘大衣 / 左轮手枪 | Core `Apparel_Duster.label`, `Gun_Revolver.label`. |
+| arrival letter | 信件 | Core Keyed `ShowLetters` (显示信件), `MoreLetters`. |
+| warcasket slugthrower | 战棺霰弹枪 | Community VFEP pack (`q847633684/Vanilla-Expanded-ZH`); 霰弹枪 as Core `Gun_PumpShotgun` (泵动霰弹枪). |
 
 ## Pending native review
 
@@ -97,8 +107,9 @@ Every coinage in "Set-specific rows": 医疗型, 纳米机械包扎 / 包扎, �
 载药纳米机械, 肾上腺素注射 (ability and labelNoun), 肾上腺素注射器, the stage
 labels 飙升 / 平稳 / 消退 / 虚脱, 诊断面罩, 医疗辅助模块, 战地医疗机械臂, 战地军医,
 袭击者医疗兵, 药品 for generic medicine, 伤势严重程度 and 每医疗包治疗量, 粉,
-每处伤口用时, 增益持续时间, 虚脱持续时间, 自动施放, 已启用的工作类型, and both charge
-nouns. All free prose: the three descriptions (paragraph 1 after the family
+每处伤口用时, 增益持续时间, 虚脱持续时间, 自动施放, 已启用的工作类型, 针剂可止住{0},
+一整套黑色战棺, 完成战棺研究后, 性别不固定, 此人 in the stranger letter, and both
+charge nouns. All free prose: the three descriptions (paragraph 1 after the family
 opener, paragraphs 2 and 3), the two ability descriptions, the hediff and trait
 descriptions, every settings tooltip and summary, and the whole Workshop page.
 Three family frames the register read questioned, left as shipped so the sets

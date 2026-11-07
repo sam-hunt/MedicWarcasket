@@ -147,6 +147,12 @@
   <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
   <MDWC_ShotCooldownDesc>Пауза между уколами. Пока укол перезаряжается, автоприменение пропустит пациента. По умолчанию: {0}.</MDWC_ShotCooldownDesc>
 
+  <!-- {0} in the label and {1} in the tooltip are the game's own heart attack label, as translated -->
+  <!-- EN: Shot stops a {0} -->
+  <MDWC_ShotHeartAttack>Укол останавливает {0}</MDWC_ShotHeartAttack>
+  <!-- EN: When enabled, an adrenaline shot will stop a {1} instead of giving the boost. When disabled, it will give the boost as usual. Default: {0}. -->
+  <MDWC_ShotHeartAttackDesc>Если включено, укол адреналина остановит {1} и не даст обычного прилива сил. Если отключено, укол подействует как обычно. По умолчанию: {0}.</MDWC_ShotHeartAttackDesc>
+
   <!-- EN: Raider medics give adrenaline shots -->
   <MDWC_AIShot>Медики налётчиков делают уколы адреналина</MDWC_AIShot>
   <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
@@ -169,6 +175,42 @@
   <MDWC_WorkSummary>Пилоту доступны работы: {0}. Остальные работы определяет черта «броня мертвеца» из VFE Pirates.</MDWC_WorkSummary>
   <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
   <MDWC_WorkSummaryNone>Пилот не выполняет работу по уходу. Остальные работы определяет черта «броня мертвеца» из VFE Pirates.</MDWC_WorkSummaryNone>
+
+  <!-- EN: Man in black -->
+  <MDWC_SectionStranger>Незнакомец в чёрном</MDWC_SectionStranger>
+  <!-- EN: The man in black is a stranger who arrives when the colony is close to falling, in a duster with a revolver. These settings can send the stranger in the medic warcasket instead, and can remove the forced gender. -->
+  <MDWC_SectionStrangerDesc>Незнакомец в чёрном приходит в плаще и с револьвером, когда колония оказывается на грани гибели. Здесь его можно одеть в медицинскую броню мертвеца и снять ограничение по полу.</MDWC_SectionStrangerDesc>
+
+  <!-- EN: Stranger arrives in a medic warcasket -->
+  <MDWC_Stranger>Незнакомец приходит в медицинской броне мертвеца</MDWC_Stranger>
+  <!-- EN: When enabled, the stranger will arrive in a black medic warcasket, carrying a warcasket slugthrower. When disabled, the stranger will arrive as usual. Default: {0}. -->
+  <MDWC_StrangerDesc>Если включено, незнакомец придёт в чёрной медицинской броне мертвеца и с пулевиком мертвеца. Если отключено, он придёт как обычно. По умолчанию: {0}.</MDWC_StrangerDesc>
+
+  <!-- EN: Only once warcaskets are researched -->
+  <MDWC_StrangerResearch>Только после исследования брони мертвеца</MDWC_StrangerResearch>
+  <!-- EN: When enabled, the stranger will only bring the warcasket once the colony has researched warcaskets, and will arrive as usual before that. When disabled, the stranger will bring it from the start. Default: {0}. -->
+  <MDWC_StrangerResearchDesc>Если включено, незнакомец будет приходить в броне мертвеца только после того, как колония её исследует. До этого он будет приходить как обычно. Если отключено, броня будет на нём с самого начала. По умолчанию: {0}.</MDWC_StrangerResearchDesc>
+
+  <!-- EN: Stranger has no forced gender -->
+  <MDWC_StrangerAnyGender>Пол незнакомца не задан заранее</MDWC_StrangerAnyGender>
+  <!-- EN: When enabled, the stranger will have no forced gender, and the arrival letter will use neutral wording. When disabled, the gender will be forced as usual. Default: {0}. -->
+  <MDWC_StrangerAnyGenderDesc>Если включено, пол незнакомца не будет задан заранее, а текст письма о прибытии будет учитывать его пол. Если отключено, пол будет задан как обычно. По умолчанию: {0}.</MDWC_StrangerAnyGenderDesc>
+  <!-- The letter while the gender is unfixed (Settings_Stranger.cs). The game formats both with the pawn as PAWN; the Russian is vanilla's StrangerInBlackJoin letter, gendered through {PAWN_gender ? ...} constructs only, since the checker holds argument tokens such as {PAWN_kind} to the English set -->
+  <!-- EN: Stranger in black -->
+  <MDWC_StrangerLetterLabel>{PAWN_gender ? Незнакомец : Незнакомка} в чёрном</MDWC_StrangerLetterLabel>
+  <!-- EN: Sensing trouble, a mysterious stranger in black has arrived.\n\nWill they be able to set things right in these parts? -->
+  <MDWC_StrangerLetterText>Чувствуя беду, приходит {PAWN_gender ? таинственный незнакомец : таинственная незнакомка} в чёрном.\n\nСможет ли {PAWN_gender ? он : она} навести порядок в этих краях?</MDWC_StrangerLetterText>
+
+  <!-- EN: The stranger arrives as usual, without a warcasket. -->
+  <MDWC_StrangerSummaryOff>Незнакомец приходит как обычно, без брони мертвеца.</MDWC_StrangerSummaryOff>
+  <!-- EN: The stranger arrives in a black warcasket kit once warcaskets are researched. -->
+  <MDWC_StrangerSummary>После исследования брони мертвеца незнакомец приходит в чёрном комплекте медицинской брони.</MDWC_StrangerSummary>
+  <!-- EN: The stranger arrives in a black warcasket kit. -->
+  <MDWC_StrangerSummaryAlways>Незнакомец приходит в чёрном комплекте медицинской брони.</MDWC_StrangerSummaryAlways>
+  <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
+  <MDWC_StrangerSummaryReplaced>Незнакомца выбирает другой мод, поэтому настройки брони мертвеца не действуют.</MDWC_StrangerSummaryReplaced>
+  <!-- EN: The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>Пол незнакомца не задан заранее.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (по умолчанию)</MDWC_DefaultSuffix>

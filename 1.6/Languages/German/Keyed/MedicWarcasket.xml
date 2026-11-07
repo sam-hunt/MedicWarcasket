@@ -147,6 +147,12 @@
   <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
   <MDWC_ShotCooldownDesc>Wie lange der Pilot zwischen zwei Spritzen warten muss. Beim automatischen Wirken wird ein Patient übersprungen, solange die Abklingzeit läuft. Standard: {0}.</MDWC_ShotCooldownDesc>
 
+  <!-- {0} in the label and {1} in the tooltip are the game's own heart attack label, as translated -->
+  <!-- EN: Shot stops a {0} -->
+  <MDWC_ShotHeartAttack>Spritze beendet einen {0}</MDWC_ShotHeartAttack>
+  <!-- EN: When enabled, an adrenaline shot will stop a {1} instead of giving the boost. When disabled, it will give the boost as usual. Default: {0}. -->
+  <MDWC_ShotHeartAttackDesc>Wenn aktiviert, beendet eine Adrenalinspritze einen {1}, statt den Schub auszulösen. Wenn deaktiviert, löst sie wie gewohnt den Schub aus. Standard: {0}.</MDWC_ShotHeartAttackDesc>
+
   <!-- EN: Raider medics give adrenaline shots -->
   <MDWC_AIShot>Raider-Sanitäter geben Adrenalinspritzen</MDWC_AIShot>
   <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
@@ -169,6 +175,42 @@
   <MDWC_WorkSummary>Der Pilot kann diese Arbeitstypen übernehmen: {0}. Alle anderen Arbeiten richten sich nach dem Merkmal 'Kriegssarg' aus VFE Pirates.</MDWC_WorkSummary>
   <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
   <MDWC_WorkSummaryNone>Der Pilot verrichtet keine Arbeiten aus dem Bereich Fürsorge. Alle anderen Arbeiten richten sich nach dem Merkmal 'Kriegssarg' aus VFE Pirates.</MDWC_WorkSummaryNone>
+
+  <!-- EN: Man in black -->
+  <MDWC_SectionStranger>Mysteriöser Fremder</MDWC_SectionStranger>
+  <!-- EN: The man in black is a stranger who arrives when the colony is close to falling, in a duster with a revolver. These settings can send the stranger in the medic warcasket instead, and can remove the forced gender. -->
+  <MDWC_SectionStrangerDesc>Der mysteriöse Fremde taucht im Staubmantel und mit einem Revolver auf, wenn die Kolonie kurz vor dem Untergang steht. Hier lässt sich einstellen, dass er stattdessen im Sanitäter-Kriegssarg eintrifft und kein fest vorgegebenes Geschlecht hat.</MDWC_SectionStrangerDesc>
+
+  <!-- EN: Stranger arrives in a medic warcasket -->
+  <MDWC_Stranger>Der Fremde trifft im Sanitäter-Kriegssarg ein</MDWC_Stranger>
+  <!-- EN: When enabled, the stranger will arrive in a black medic warcasket, carrying a warcasket slugthrower. When disabled, the stranger will arrive as usual. Default: {0}. -->
+  <MDWC_StrangerDesc>Wenn aktiviert, trifft der Fremde in einem schwarzen Sanitäter-Kriegssarg und mit einer Kriegssarg-Schrotflinte ein. Wenn deaktiviert, trifft er wie gewohnt ein. Standard: {0}.</MDWC_StrangerDesc>
+
+  <!-- EN: Only once warcaskets are researched -->
+  <MDWC_StrangerResearch>Erst wenn Kriegssärge erforscht sind</MDWC_StrangerResearch>
+  <!-- EN: When enabled, the stranger will only bring the warcasket once the colony has researched warcaskets, and will arrive as usual before that. When disabled, the stranger will bring it from the start. Default: {0}. -->
+  <MDWC_StrangerResearchDesc>Wenn aktiviert, kommt der Fremde erst im Kriegssarg, nachdem die Kolonie Kriegssärge erforscht hat. Bis dahin kommt er wie gewohnt. Wenn deaktiviert, kommt er von Anfang an im Kriegssarg. Standard: {0}.</MDWC_StrangerResearchDesc>
+
+  <!-- EN: Stranger has no forced gender -->
+  <MDWC_StrangerAnyGender>Kein festes Geschlecht für den Fremden</MDWC_StrangerAnyGender>
+  <!-- EN: When enabled, the stranger will have no forced gender, and the arrival letter will use neutral wording. When disabled, the gender will be forced as usual. Default: {0}. -->
+  <MDWC_StrangerAnyGenderDesc>Wenn aktiviert, hat der Fremde kein fest vorgegebenes Geschlecht, und der Brief zur Ankunft passt sich dem Geschlecht an. Wenn deaktiviert, wird das Geschlecht wie gewohnt festgelegt. Standard: {0}.</MDWC_StrangerAnyGenderDesc>
+  <!-- The letter while the gender is unfixed (Settings_Stranger.cs). The game formats both with the pawn as PAWN; German needs the gender, so both resolve it like vanilla's letter grammar -->
+  <!-- EN: Stranger in black -->
+  <MDWC_StrangerLetterLabel>{PAWN_gender ? Mysteriöser Fremder : Mysteriöse Fremde}</MDWC_StrangerLetterLabel>
+  <!-- EN: Sensing trouble, a mysterious stranger in black has arrived.\n\nWill they be able to set things right in these parts? -->
+  <MDWC_StrangerLetterText>Wo immer es Ärger gibt, taucht {PAWN_gender ? der mysteriöse Fremde : die mysteriöse Fremde} auf.\n\nWird {PAWN_gender ? er : sie} das Problem in diesem Gebiet lösen können?</MDWC_StrangerLetterText>
+
+  <!-- EN: The stranger arrives as usual, without a warcasket. -->
+  <MDWC_StrangerSummaryOff>Der Fremde trifft wie gewohnt ohne Kriegssarg ein.</MDWC_StrangerSummaryOff>
+  <!-- EN: The stranger arrives in a black warcasket kit once warcaskets are researched. -->
+  <MDWC_StrangerSummary>Der Fremde trägt bei seiner Ankunft ein schwarzes Kriegssarg-Set, sobald Kriegssärge erforscht sind.</MDWC_StrangerSummary>
+  <!-- EN: The stranger arrives in a black warcasket kit. -->
+  <MDWC_StrangerSummaryAlways>Der Fremde trägt bei seiner Ankunft ein schwarzes Kriegssarg-Set.</MDWC_StrangerSummaryAlways>
+  <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
+  <MDWC_StrangerSummaryReplaced>Eine andere Mod wählt den Fremden aus, daher haben die Kriegssarg-Einstellungen keine Wirkung.</MDWC_StrangerSummaryReplaced>
+  <!-- EN: The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>Der Fremde hat kein fest vorgegebenes Geschlecht.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (Standard)</MDWC_DefaultSuffix>

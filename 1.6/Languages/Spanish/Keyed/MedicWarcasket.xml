@@ -147,6 +147,12 @@
   <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
   <MDWC_ShotCooldownDesc>Tiempo que el piloto debe esperar entre inyecciones. Mientras dura el enfriamiento, el lanzamiento automático no pone ninguna inyección. Por defecto: {0}.</MDWC_ShotCooldownDesc>
 
+  <!-- {0} in the label and {1} in the tooltip are the game's own heart attack label, as translated -->
+  <!-- EN: Shot stops a {0} -->
+  <MDWC_ShotHeartAttack>La inyección detiene el {0}</MDWC_ShotHeartAttack>
+  <!-- EN: When enabled, an adrenaline shot will stop a {1} instead of giving the boost. When disabled, it will give the boost as usual. Default: {0}. -->
+  <MDWC_ShotHeartAttackDesc>Si está activado, una inyección de adrenalina detendrá el {1} en lugar de provocar el subidón. Si está desactivado, provocará el subidón de siempre. Por defecto: {0}.</MDWC_ShotHeartAttackDesc>
+
   <!-- EN: Raider medics give adrenaline shots -->
   <MDWC_AIShot>Los médicos asaltantes ponen inyecciones de adrenalina</MDWC_AIShot>
   <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
@@ -169,6 +175,42 @@
   <MDWC_WorkSummary>El piloto puede hacer trabajos de {0}. Los demás trabajos se rigen por el rasgo "ataúd de guerra" de VFE Pirates.</MDWC_WorkSummary>
   <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
   <MDWC_WorkSummaryNone>El piloto no hace ningún trabajo de cuidados. Los demás trabajos se rigen por el rasgo "ataúd de guerra" de VFE Pirates.</MDWC_WorkSummaryNone>
+
+  <!-- EN: Man in black -->
+  <MDWC_SectionStranger>Hombre de negro</MDWC_SectionStranger>
+  <!-- EN: The man in black is a stranger who arrives when the colony is close to falling, in a duster with a revolver. These settings can send the stranger in the medic warcasket instead, and can remove the forced gender. -->
+  <MDWC_SectionStrangerDesc>El hombre de negro es un forastero con gabardina y revólver que aparece cuando la colonia está a punto de caer. Estos ajustes pueden hacer que llegue dentro del ataúd de guerra médico y que no siempre sea un hombre.</MDWC_SectionStrangerDesc>
+
+  <!-- EN: Stranger arrives in a medic warcasket -->
+  <MDWC_Stranger>El forastero llega dentro de un ataúd de guerra médico</MDWC_Stranger>
+  <!-- EN: When enabled, the stranger will arrive in a black medic warcasket, carrying a warcasket slugthrower. When disabled, the stranger will arrive as usual. Default: {0}. -->
+  <MDWC_StrangerDesc>Si está activado, el forastero llegará dentro de un ataúd de guerra médico pintado de negro, armado con un lanza-postas para ataúd de guerra. Si está desactivado, llegará como de costumbre. Por defecto: {0}.</MDWC_StrangerDesc>
+
+  <!-- EN: Only once warcaskets are researched -->
+  <MDWC_StrangerResearch>Solo tras investigar los ataúdes de guerra</MDWC_StrangerResearch>
+  <!-- EN: When enabled, the stranger will only bring the warcasket once the colony has researched warcaskets, and will arrive as usual before that. When disabled, the stranger will bring it from the start. Default: {0}. -->
+  <MDWC_StrangerResearchDesc>Si está activado, el forastero solo traerá el ataúd de guerra cuando la colonia haya investigado los ataúdes de guerra, y hasta entonces llegará como de costumbre. Si está desactivado, lo traerá desde el principio. Por defecto: {0}.</MDWC_StrangerResearchDesc>
+
+  <!-- EN: Stranger has no forced gender -->
+  <MDWC_StrangerAnyGender>El forastero puede ser hombre o mujer</MDWC_StrangerAnyGender>
+  <!-- EN: When enabled, the stranger will have no forced gender, and the arrival letter will use neutral wording. When disabled, the gender will be forced as usual. Default: {0}. -->
+  <MDWC_StrangerAnyGenderDesc>Si está activado, el forastero podrá ser hombre o mujer, y el mensaje de llegada se adaptará a su género. Si está desactivado, siempre será un hombre. Por defecto: {0}.</MDWC_StrangerAnyGenderDesc>
+  <!-- The letter while the gender is unfixed (Settings_Stranger.cs). The game formats both with the pawn as PAWN, so a translation may use [PAWN_kind] or [PAWN_pronoun] where its language needs the gender -->
+  <!-- EN: Stranger in black -->
+  <MDWC_StrangerLetterLabel>{PAWN_gender ? Hombre : Mujer} de negro</MDWC_StrangerLetterLabel>
+  <!-- EN: Sensing trouble, a mysterious stranger in black has arrived.\n\nWill they be able to set things right in these parts? -->
+  <MDWC_StrangerLetterText>{PAWN_gender ? Un misterioso : Una misteriosa} [PAWN_kind] ha aparecido.\n\n¿Será capaz de arreglar las cosas por aquí?</MDWC_StrangerLetterText>
+
+  <!-- EN: The stranger arrives as usual, without a warcasket. -->
+  <MDWC_StrangerSummaryOff>El forastero llega como de costumbre, sin ataúd de guerra.</MDWC_StrangerSummaryOff>
+  <!-- EN: The stranger arrives in a black warcasket kit once warcaskets are researched. -->
+  <MDWC_StrangerSummary>Una vez investigados los ataúdes de guerra, el forastero llega con el conjunto del Médico pintado de negro.</MDWC_StrangerSummary>
+  <!-- EN: The stranger arrives in a black warcasket kit. -->
+  <MDWC_StrangerSummaryAlways>El forastero llega con el conjunto del Médico pintado de negro.</MDWC_StrangerSummaryAlways>
+  <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
+  <MDWC_StrangerSummaryReplaced>Otro mod decide quién es el forastero, así que los ajustes del ataúd de guerra no tienen efecto.</MDWC_StrangerSummaryReplaced>
+  <!-- EN: The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>El forastero puede ser hombre o mujer.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (por defecto)</MDWC_DefaultSuffix>

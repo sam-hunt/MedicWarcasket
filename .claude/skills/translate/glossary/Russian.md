@@ -39,6 +39,23 @@ the upstream rows; a VFEP term is changed there first.
 | hostile target | Цель враждебна: {0}. | Coined to avoid a gendered predicate on a name; VEF pack `VFEA.TargetMustBeHostile` `Цель должна быть враждебной`. |
 | suppressability (CE, Workshop) | чувствительность к подавлению | CE's own ru `Suppressability.label`. |
 | work types (settings) | Разрешённые работы, `Пилоту доступны работы: {0}.` | `{0}` is the work types' `labelShort` list (`врач`), so it sits after a colon. |
+| Shot stops a {0} (heart attack setting) | `Укол останавливает {0}`, tooltip `укол адреналина остановит {1} и не даст обычного прилива сил` | `{0}`/`{1}` is Core `HeartAttack.label` `сердечный приступ` (m. inanimate), whose accusative equals the nominative, so the plain slot reads correctly with no `lookup`. "The boost" is `прилив сил`, after the `прилив` rush stage. |
+
+## Stranger in black
+
+| English | Russian | Grounding |
+|---|---|---|
+| man in black (section header) / the stranger (in prose) | Незнакомец в чёрном / незнакомец | Core `StrangerInBlackJoin.label` / `.letterLabel`; the Workshop page's `[h2]Незнакомец в чёрном[/h2]`. Settings prose keeps the generic masculine even with the gender unfixed. |
+| `MDWC_StrangerInBlack` label / labelFemale / labelMale / labelPlural | незнакомец в чёрном / незнакомка в чёрном / незнакомец в чёрном / незнакомцы в чёрном | Core `StrangerInBlack` PawnKindDef, verbatim (the def is a copy of it). |
+| arrive (the stranger) | приходит / придёт | Core `StrangerInBlackJoin.letterText` `приходит`. |
+| close to falling / duster / revolver | на грани гибели / плащ / револьвер | Coined phrase; Core `Apparel_Duster.label`, `Gun_Revolver.label`. |
+| warcasket slugthrower (VFEP gun) | пулевик мертвеца | Community VFEP pack (OneCodeUnit/VanillaRussianExpanded). |
+| warcasket kit (the set, in the summaries) | комплект медицинской брони, `в чёрном комплекте медицинской брони` | `комплект` as `MDWC_SettingsUnavailable` and the Workshop's `в этом комплекте`; the set's shoulders/helmet pattern drops `мертвеца`. Never `аптечка`, the charge noun. |
+| once warcaskets are researched | после исследования брони мертвеца, `только когда колония её исследует` | VFEP_Warcaskets cited uncapitalised, as the English leaves it uncited. |
+| forced gender / no forced gender | заранее заданный пол / `Пол незнакомца не задан заранее` | Coined. |
+| arrival letter | письмо о прибытии | Core letters are `письмо`. |
+| the letter with the gender unfixed (`MDWC_StrangerLetterLabel`, `MDWC_StrangerLetterText`) | `{PAWN_gender ? Незнакомец : Незнакомка} в чёрном` / `Чувствуя беду, приходит {PAWN_gender ? таинственный незнакомец : таинственная незнакомка} в чёрном.\n\nСможет ли {PAWN_gender ? он : она} навести порядок в этих краях?` | Core `StrangerInBlackJoin.letterLabel` / `.letterText` with the gender resolved per pawn (Russian has no neutral `незнакомец`). Vanilla's `{PAWN_kind}` and `{PAWN_pronoun}` are replaced by `{PAWN_gender ? ...}` constructs because the checker rejects argument tokens absent from the English; the decompiled `IncidentWorker_WandererJoin` formats both fields with the pawn as `PAWN`. So `MDWC_StrangerAnyGenderDesc` says the letter is written for the stranger's gender (`с учётом пола`), not "neutral wording". |
+| Another mod chooses the stranger | `Незнакомца выбирает другой мод, поэтому настройки брони мертвеца не действуют.` | Shaped like `MDWC_SettingsUnavailable`. |
 
 ## Ported from the siblings
 
@@ -107,3 +124,6 @@ label degrades to the nominative.
   paragraphs 2 and 3, both ability descriptions, the hediff and trait
   descriptions, every settings tooltip and summary, and the whole Workshop
   page.
+- The stranger section: `на грани гибели`, `заранее заданный пол`, `комплект
+  медицинской брони` in the summaries, and the gender-resolved arrival letter
+  (label and text); an in-game arrival with the gender unfixed confirms it.

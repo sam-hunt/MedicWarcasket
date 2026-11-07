@@ -43,6 +43,22 @@ the upstream rows; a VFEP term is changed there first.
 | hostile target | {0} ist feindlich. | Core Keyed `Hostile` = Feindlich. |
 | work types / caring (settings) | Arbeitstyp, `Aktivierte Arbeitstypen`, `Der Pilot kann diese Arbeitstypen übernehmen: {0}.` / Fürsorge | Core Keyed `NeedDoctorDesc` "Weise einem Kolonisten den Arbeitstyp 'Arzt' zu", `IncapableOfTooltipWorkTypes` Deaktivierte Arbeiten, `WorkTagCaring` Fürsorge; `{0}` is the `labelShort` list (Arzt), so it sits after a colon. |
 | suppressability (CE, Workshop) | Anfälligkeit für Unterdrückung | Coined; CE ships no German. |
+| Shot stops a {0} (heart attack setting) | `Spritze beendet einen {0}`, tooltip `beendet eine Adrenalinspritze einen {1}, statt den Schub auszulösen` | `{0}` is Core `HeartAttack.label` Herzinfarkt (m.), so the article is fixed masculine accusative, as in the Workshop's "beendet einen Herzinfarkt"; "the boost" is the rush stage, Schub. |
+
+## Stranger in black
+
+| English | German | Grounding |
+|---|---|---|
+| man in black (section header) / the stranger (in prose) | Mysteriöser Fremder / der Fremde | Core `StrangerInBlackJoin.letterLabel` Mysteriöser Fremder; the Workshop page's `[h2]Mysteriöser Fremder[/h2]` and "der Fremde". Settings prose keeps the generic masculine even with the gender unfixed, as vanilla's letter does. |
+| `MDWC_StrangerInBlack` label / labelFemale / labelMale / labelPlural | mysteriöser Fremder / mysteriöse Fremde / mysteriöser Fremder / mysteriöse Fremde | Core `StrangerInBlack` PawnKindDef, verbatim (the def is a copy of it). |
+| duster / revolver | Staubmantel / Revolver | Core `Apparel_Duster.label`, `Gun_Revolver.label`. |
+| warcasket slugthrower (VFEP gun) | Kriegssarg-Schrotflinte (f.) | Coined: VFEP describes it as an upscaled pump shotgun, Core `Gun_PumpShotgun` = Schrotflinte, hyphenated per the upstream Kriegssarg compound rule. Rejected: Kriegssarg-Flinte (loses the shotgun reading), a slug compound (Flintenlaufgeschoss is jargon). Move upstream if a sibling names the gun. |
+| warcasket kit (the set, in the summaries) | Kriegssarg-Set, `trägt bei seiner Ankunft ein schwarzes Kriegssarg-Set` | Set per the upstream `das Gefahrenschutz-Set` and the Workshop's "das Set"; never Kit, which would read as the charge noun Medizinkit. |
+| researched (warcaskets) | `Erst wenn Kriegssärge erforscht sind`, `wenn die Kolonie Kriegssärge erforscht hat` | Core Keyed `GlowerChangeColorNeedsResearch` "muss zunächst ... erforscht werden"; VFEP's research label `warcaskets` = Kriegssärge, uncited as in English. |
+| forced gender / no forced gender | fest vorgegebenes Geschlecht / `Kein festes Geschlecht für den Fremden` | Core Keyed `Gender` Geschlecht. |
+| arrival letter | der Brief zur Ankunft | Core Keyed `ShowLetters` Briefe anzeigen, `PauseOnUrgentLetter`. |
+| the letter with the gender unfixed (`MDWC_StrangerLetterLabel`, `MDWC_StrangerLetterText`) | `{PAWN_gender ? Mysteriöser Fremder : Mysteriöse Fremde}` / `Wo immer es Ärger gibt, taucht {PAWN_gender ? der mysteriöse Fremde : die mysteriöse Fremde} auf.\n\nWird {PAWN_gender ? er : sie} das Problem in diesem Gebiet lösen können?` | Core `StrangerInBlackJoin.letterText` verbatim with its fixed masculine resolved per pawn, since German has no natural neutral form of "der Fremde". The `{PAWN_gender ? m : f}` switch is vanilla de's own letter grammar (`Disease_OrganDecay.letterText` `{PAWN_gender ? ihm : ihr}`); `{PAWN_pronoun}` would serve too but the checker rejects it as a placeholder absent from the English. So `MDWC_StrangerAnyGenderDesc` says the letter matches the gender (`passt sich dem Geschlecht an`) rather than "neutral wording". |
+| Another mod chooses the stranger | `Eine andere Mod wählt den Fremden aus, daher haben die Kriegssarg-Einstellungen keine Wirkung.` | Shaped like `MDWC_SettingsUnavailable`. |
 
 ## Ported from the siblings
 
@@ -117,3 +133,7 @@ Spritzen mehr.` The mod's own strings agree: `Medizinkits: {0} / {1}`,
   paragraphs 2 and 3, both ability descriptions, the hediff and trait
   descriptions, every settings tooltip and summary, and the whole Workshop
   page. A fresh register read rewrote the calques it found.
+- The stranger section: `Kriegssarg-Schrotflinte`, `Kriegssarg-Set` in the
+  summaries, and the gender-resolved arrival letter (label and text), which
+  rests on the letter being formatted with the pawn as `PAWN`; an in-game
+  arrival with the gender unfixed confirms it.

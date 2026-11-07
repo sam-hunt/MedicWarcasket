@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: stranger in black -->
+  <MDWC_StrangerInBlack.label>estranho de preto</MDWC_StrangerInBlack.label>
+  <!-- EN: woman in black -->
+  <MDWC_StrangerInBlack.labelFemale>mulher de preto</MDWC_StrangerInBlack.labelFemale>
+  <!-- EN: man in black -->
+  <MDWC_StrangerInBlack.labelMale>homem de preto</MDWC_StrangerInBlack.labelMale>
+  <!-- EN: strangers in black -->
+  <MDWC_StrangerInBlack.labelPlural>estranhos de preto</MDWC_StrangerInBlack.labelPlural>
+
+</LanguageData>

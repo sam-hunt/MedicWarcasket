@@ -56,6 +56,16 @@ terms are grounded against the Core and Odyssey `Japanese (日本語).tar`.
 | casting time / range | 詠唱時間 / 射程 | Core Keyed `AbilityCastingTime`, `Range`, the labels vanilla's ability tooltip prints. 射程 is chosen over the siblings' 範囲 (タイル), which captions a jump distance; the summary prose says 始めるまでに{3}かかり rather than 詠唱. |
 | the Medic paragraphs 2 and 3 | 政府の計画から生まれた第10世代の設計です.…… / 外殻のメカナイト処置装置は,仲間の傷を…… | Medic's own prose, byte-identical across the three descriptions; the full text is `1.6/Languages/Japanese/DefInjected/ThingDef/Apparel_Medic.xml`. |
 | Starcraft (Workshop FAQ) | スタークラフト | The game's usual Japanese name. |
+| man in black (the vanilla incident, `MDWC_SectionStranger`) | 黒衣の男 | Core IncidentDef `StrangerInBlackJoin.label`, verbatim; the section header names the vanilla incident as the English does. |
+| stranger in black (`MDWC_StrangerInBlack` labels) / the stranger (settings prose) | 黒衣の不審者 / 黒衣の女 / 黒衣の男 / 黒衣の不審者達; 不審者 | Core PawnKindDef `StrangerInBlack` label, labelFemale, labelMale, labelPlural, verbatim (the def copies vanilla's kind). The settings say bare 不審者 for "the stranger"; the Workshop section is 黒衣の不審者. |
+| the neutral arrival letter (`MDWC_StrangerLetterLabel` / `MDWC_StrangerLetterText`) | 黒衣の不審者 / 騒動を察知して,不思議な黒衣の不審者が到着した.\n\nこの状況をどうにかしてくれないだろうか? | Vanilla `StrangerInBlackJoin.letterText` with the kind's neutral label written in place of `[PAWN_kind]`, and `[PAWN_pronoun]は` dropped, the くれる carrying the subject; no `PAWN` token, so it reads the same for either gender and `MDWC_StrangerAnyGenderDesc` stays true. Plain past 到着した as in the vanilla letter. |
+| arrives in a warcasket / as usual | ウォーキャスケット姿で登場 / 通常どおり(の姿で) | 姿で登場 from the Workshop section (このウォーキャスケット姿で登場させる); 通常どおり per Core Keyed `FactionsDisabledWarning`. |
+| forced gender / no forced gender | 性別の固定 / 性別を固定しない | Core Keyed `Gender` (性別). |
+| arrival letter | 登場時のレター | Core Keyed `ShowLetters` (レターを表示); vanilla never says 手紙 for a game letter. |
+| warcasket slugthrower (VFEP weapon) | ウォーキャスケット散弾銃 | Coined; VFEP ships no Japanese and describes it as an upscaled pump shotgun (Core `Gun_PumpShotgun` ポンプ式散弾銃). Attached directly like ウォーキャスケット鋳造台. In game the weapon's own label stays VFEP's English. |
+| warcasket kit (the set, in the stranger summaries) | ウォーキャスケット一式 | 一式 per Core `Apparel_PowerArmor.description` (軽装パワーアーマーの一式); keeps it apart from the medicine キット. |
+| warcaskets researched | ウォーキャスケットの研究後 / ウォーキャスケットを研究してから | Coined, plain wording; the research's own label is the upstream 「宇宙世紀のウォーキャスケット」, not named here as the English names none. |
+| Shot stops a {0} (heart attack toggle) / the boost | 注射で{0}を止める / 効果を発揮する | On `MDWC_ShotStopsHeartAttack` (心筋梗塞を止める); "boost" is 効果 as in `MDWC_ShotBoost` (効果の持続時間). |
 
 ## Ported from the siblings
 
@@ -125,7 +135,9 @@ Every coinage in "Set-specific rows": メディック as the set prefix, メカ�
 高揚 / 安定 / 減退 / 反動, 診断バイザー, 医療補助モジュール, 野戦医療用の補助アーム,
 政府の計画, 薬 as generic medicine, 怪我の深刻度 and キットあたりの深刻度, エフェクトの色,
 傷1箇所あたりの時間, 効果の持続時間, 反動の持続時間, 開封済みのキット, 照射途絶, 自動使用,
-有効な作業, 射程 over the family's 範囲, and both charge nouns. All free prose: the
+有効な作業, 射程 over the family's 範囲, both charge nouns, ウォーキャスケット散弾銃,
+ウォーキャスケット一式, 登場時のレター and the neutral letter's 不思議な黒衣の不審者 (不審者 after
+不思議な may read doubled). All free prose: the
 three descriptions (paragraph 1 after the family opener, paragraphs 2 and 3),
 the two ability descriptions, the hediff and trait descriptions, every settings
 tooltip and summary, and the whole Workshop page. The pass re-read every

@@ -147,6 +147,12 @@
   <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
   <MDWC_ShotCooldownDesc>조종사가 주사를 놓은 뒤 다음 주사까지 기다려야 하는 시간입니다. 재사용 대기 중에는 자동 시전으로 주사를 놓지 않고 넘어갑니다. 기본값: {0}.</MDWC_ShotCooldownDesc>
 
+  <!-- {0} in the label and {1} in the tooltip are the game's own heart attack label, as translated -->
+  <!-- EN: Shot stops a {0} -->
+  <MDWC_ShotHeartAttack>주사로 {0}(을)를 멈춤</MDWC_ShotHeartAttack>
+  <!-- EN: When enabled, an adrenaline shot will stop a {1} instead of giving the boost. When disabled, it will give the boost as usual. Default: {0}. -->
+  <MDWC_ShotHeartAttackDesc>켜면 아드레날린 주사가 강화 효과를 주는 대신 {1}(을)를 멈춥니다. 끄면 평소처럼 강화 효과를 줍니다. 기본값: {0}.</MDWC_ShotHeartAttackDesc>
+
   <!-- EN: Raider medics give adrenaline shots -->
   <MDWC_AIShot>습격자 의무병의 아드레날린 주사</MDWC_AIShot>
   <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
@@ -169,6 +175,42 @@
   <MDWC_WorkSummary>조종사는 {0} 작업을 할 수 있습니다. 그 밖의 작업은 모두 VFE Pirates의 워캐스킷 특성을 따릅니다.</MDWC_WorkSummary>
   <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
   <MDWC_WorkSummaryNone>조종사는 치료 작업을 하지 않습니다. 그 밖의 작업은 모두 VFE Pirates의 워캐스킷 특성을 따릅니다.</MDWC_WorkSummaryNone>
+
+  <!-- EN: Man in black -->
+  <MDWC_SectionStranger>검은 옷의 이방인</MDWC_SectionStranger>
+  <!-- EN: The man in black is a stranger who arrives when the colony is close to falling, in a duster with a revolver. These settings can send the stranger in the medic warcasket instead, and can remove the forced gender. -->
+  <MDWC_SectionStrangerDesc>검은 옷의 이방인은 정착지가 무너지기 직전에 나타나는 구세주입니다. 보통은 바람막이를 입고 리볼버를 들고 옵니다. 여기서는 이방인이 바람막이 대신 의무병 워캐스킷을 입고 오게 하거나 성별 고정을 풀 수 있습니다.</MDWC_SectionStrangerDesc>
+
+  <!-- EN: Stranger arrives in a medic warcasket -->
+  <MDWC_Stranger>의무병 워캐스킷을 입은 이방인</MDWC_Stranger>
+  <!-- EN: When enabled, the stranger will arrive in a black medic warcasket, carrying a warcasket slugthrower. When disabled, the stranger will arrive as usual. Default: {0}. -->
+  <MDWC_StrangerDesc>켜면 이방인이 검은색 의무병 워캐스킷을 입고 워캐스킷 산탄총을 들고 옵니다. 끄면 평소처럼 나타납니다. 기본값: {0}.</MDWC_StrangerDesc>
+
+  <!-- EN: Only once warcaskets are researched -->
+  <MDWC_StrangerResearch>'워캐스킷' 연구 완료 후에만</MDWC_StrangerResearch>
+  <!-- EN: When enabled, the stranger will only bring the warcasket once the colony has researched warcaskets, and will arrive as usual before that. When disabled, the stranger will bring it from the start. Default: {0}. -->
+  <MDWC_StrangerResearchDesc>켜면 '워캐스킷' 연구를 완료한 뒤에야 이방인이 워캐스킷을 입고 옵니다. 그 전에는 평소처럼 나타납니다. 끄면 처음부터 워캐스킷을 입고 옵니다. 기본값: {0}.</MDWC_StrangerResearchDesc>
+
+  <!-- EN: Stranger has no forced gender -->
+  <MDWC_StrangerAnyGender>이방인의 성별 고정 해제</MDWC_StrangerAnyGender>
+  <!-- EN: When enabled, the stranger will have no forced gender, and the arrival letter will use neutral wording. When disabled, the gender will be forced as usual. Default: {0}. -->
+  <MDWC_StrangerAnyGenderDesc>켜면 이방인의 성별이 고정되지 않으며, 나타날 때 오는 편지에도 성별이 드러나지 않습니다. 끄면 평소처럼 성별이 고정됩니다. 기본값: {0}.</MDWC_StrangerAnyGenderDesc>
+  <!-- The letter while the gender is unfixed (Settings_Stranger.cs). The game formats both with the pawn as PAWN, so a translation may use [PAWN_kind] or [PAWN_pronoun] where its language needs the gender -->
+  <!-- EN: Stranger in black -->
+  <MDWC_StrangerLetterLabel>구세주</MDWC_StrangerLetterLabel>
+  <!-- EN: Sensing trouble, a mysterious stranger in black has arrived.\n\nWill they be able to set things right in these parts? -->
+  <MDWC_StrangerLetterText>위기의 순간 신비한 검은 옷의 이방인이 나타났습니다.\n\n과연 이 위기에서 정착지를 구할 수 있을까요?</MDWC_StrangerLetterText>
+
+  <!-- EN: The stranger arrives as usual, without a warcasket. -->
+  <MDWC_StrangerSummaryOff>이방인은 워캐스킷 없이 평소처럼 나타납니다.</MDWC_StrangerSummaryOff>
+  <!-- EN: The stranger arrives in a black warcasket kit once warcaskets are researched. -->
+  <MDWC_StrangerSummary>'워캐스킷' 연구를 완료하면 이방인이 검은색 워캐스킷 세트를 입고 나타납니다.</MDWC_StrangerSummary>
+  <!-- EN: The stranger arrives in a black warcasket kit. -->
+  <MDWC_StrangerSummaryAlways>이방인이 검은색 워캐스킷 세트를 입고 나타납니다.</MDWC_StrangerSummaryAlways>
+  <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
+  <MDWC_StrangerSummaryReplaced>다른 모드가 이방인의 등장을 맡고 있어 워캐스킷 설정이 적용되지 않습니다.</MDWC_StrangerSummaryReplaced>
+  <!-- EN: The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>이방인의 성별은 고정되지 않습니다.</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix> (기본값)</MDWC_DefaultSuffix>

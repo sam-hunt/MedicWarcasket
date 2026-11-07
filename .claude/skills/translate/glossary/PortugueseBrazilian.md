@@ -55,6 +55,23 @@ there first.
 | Description paragraph 2 (program lore) | `É um design de 10ª geração, saído do programa do governo que reconstruiu equipamentos piratas capturados em torno das próprias armaduras energizadas ... criou a série Médica para os cirurgiões de campo que tinham servido ao lado desses veteranos.` | Own text; "equipamentos piratas capturados", "armaduras energizadas", "veteranos" from the pack's 10th-generation paragraph. Full text in `DefInjected/ThingDef/Apparel_Medic.xml`. |
 | Description paragraph 3 (set paragraph) | `A armadura leva um sistema de curativo de mecanitos ... o lugar da Médica é logo atrás da linha de frente, e não nela.` | Own text, split into three sentences; "on the spot" is `em pleno campo de batalha` (the register read dropped `ali mesmo`, which had nothing to point back to). |
 
+## Stranger in black and heart attack toggle
+
+| English | Brazilian Portuguese | Grounding |
+|---|---|---|
+| stranger / woman / man / strangers in black (`MDWC_StrangerInBlack` labels) | estranho de preto / mulher de preto / homem de preto / estranhos de preto | Verbatim Core `PawnKindDef` `StrangerInBlack.label`, `labelFemale`, `labelMale`, `labelPlural`; the def is a copy of vanilla's, so its labels must match. |
+| Man in black (`MDWC_SectionStranger`) / the stranger in prose | Estranho de preto / o estranho | Core `IncidentDef` `StrangerInBlackJoin.label` and `letterLabel` "estranho de preto" (vanilla pt-BR never says "homem de preto" for the incident); the Workshop section header "Estranho de preto". |
+| duster / revolver | gabardina / revólver (`vestindo uma gabardina e armado com um revólver`) | Core `Apparel_Duster.label`, `Gun_Revolver.label`. |
+| warcasket slugthrower | lança-balotes de carcaça de guerra (m.) | The community VFEP pack's `VFEP_WarcasketGun_Slugthrower.label`. |
+| close to falling | à beira do colapso | Own wording. |
+| forced gender / no forced gender | gênero fixo / sem gênero fixo (`Estranho sem gênero fixo`, `O estranho não tem gênero fixo.`) | Core Keyed `Gender` "Gênero"; "fixo" coined, "forçado" rejected as a calque. |
+| letter (the incident's) | carta (`a carta de chegada`) | Core Keyed `MoreLetters` "Você possui mais {0} cartas". |
+| Stranger in black (`MDWC_StrangerLetterLabel`) | `{PAWN_gender ? Estranho : Estranha} de preto` | Vanilla's letterLabel "estranho de preto", capitalised like the majority of Core's letter labels, gender resolved by the pawn (always known; Core Keyed uses `{PAWN_gender ? um guerreiro : uma guerreira}`-style multi-word splits). |
+| the letter text (`MDWC_StrangerLetterText`) | `Problema detectado, chegou {PAWN_gender ? um misterioso estranho : uma misteriosa estranha} de preto.\n\nSerá que [PAWN_pronoun] conseguirá consertar as coisas?` | Vanilla's `StrangerInBlackJoin.letterText` verbatim, with its fixed masculine noun phrase split by `PAWN_gender`. The game formats it with `Formatted(pawn.Named("PAWN")).AdjustedFor(pawn)` (`IncidentWorker_WandererJoin`, decompiled), so both token styles resolve. Gender-resolved rather than neutral, since Portuguese has no neutral form here, so `MDWC_StrangerAnyGenderDesc` says the letter "se ajustará ao gênero de quem chegar" instead of the English "neutral wording". |
+| warcasket kit (the stranger summaries) | conjunto de carcaça de guerra (`um conjunto preto de carcaça de guerra`) | "conjunto" is this file's word for the set, so it cannot read as the medicine `kit` charge noun. |
+| black medic warcasket | carcaça de guerra médica pintada de preto | Coined; "pintada de preto" avoids stacking a second adjective on "carcaça de guerra médica". |
+| Shot stops a {0} (heart attack toggle) | `Injeção interrompe um {0}`; tooltip `interromperá um {1} em vez de dar o estímulo` | `{0}`/`{1}` is Core `HeartAttack.label` "ataque cardíaco" (m.), so the masculine article is safe; "interrompe" matches `MDWC_ShotStopsHeartAttack`, "estímulo" the boost row. |
+
 ## Ported from the siblings
 
 | English | Brazilian Portuguese | Source |
@@ -130,7 +147,9 @@ charge noun `cartucho`, the stage labels `pico` / `estável` / `em declínio` /
 `esgotamento`, `Duração do estímulo`, `uso automático`, `Meta de recarga`,
 `Fluxo rompido`, `companheiro de esquadrão`, `cirurgiões de campo`,
 `suscetibilidade à supressão` and the `Trabalhos que o piloto pode fazer:`
-frame. All free prose: the three descriptions (the openers and paragraphs 2
+frame. From the stranger pass: `gênero fixo`, `à beira do colapso`,
+`conjunto preto de carcaça de guerra`, `pintada de preto` and the
+gender-split letter (`uma misteriosa estranha de preto` for a woman). All free prose: the three descriptions (the openers and paragraphs 2
 and 3), the two ability descriptions, the hediff and trait descriptions, the
 settings tooltips and the whole Workshop page, after a fresh register read
 rewrote the calques it found (`reanimado` is Anomaly's shambler word, so a

@@ -147,6 +147,12 @@
   <!-- EN: The time the pilot must wait between shots. Automatic shots skip a patient while on cooldown. Default: {0}. -->
   <MDWC_ShotCooldownDesc>每次注射後，要等多久才能再打下一針。冷卻期間，自動注射會略過患者。預設值：{0}。</MDWC_ShotCooldownDesc>
 
+  <!-- {0} in the label and {1} in the tooltip are the game's own heart attack label, as translated -->
+  <!-- EN: Shot stops a {0} -->
+  <MDWC_ShotHeartAttack>針劑可止住{0}</MDWC_ShotHeartAttack>
+  <!-- EN: When enabled, an adrenaline shot will stop a {1} instead of giving the boost. When disabled, it will give the boost as usual. Default: {0}. -->
+  <MDWC_ShotHeartAttackDesc>啟用時，腎上腺素注射可以止住{1}，但此時不會提供增益。停用時，注射會照常提供增益。預設值：{0}。</MDWC_ShotHeartAttackDesc>
+
   <!-- EN: Raider medics give adrenaline shots -->
   <MDWC_AIShot>襲擊者醫療兵會注射腎上腺素</MDWC_AIShot>
   <!-- EN: When enabled, raider and allied medics will give their own downed an adrenaline shot between fights, and a revived raider will rejoin the raid. When disabled, only your pilots use it. Default: {0}. -->
@@ -169,6 +175,42 @@
   <MDWC_WorkSummary>駕駛員可以從事{0}工作。其他所有工作都依照VFE Pirates的戰棺特性。</MDWC_WorkSummary>
   <!-- EN: The pilot does no caring work. All other work follows the VFE Pirates warcasket trait. -->
   <MDWC_WorkSummaryNone>駕駛員不從事任何照顧工作。其他所有工作都依照VFE Pirates的戰棺特性。</MDWC_WorkSummaryNone>
+
+  <!-- EN: Man in black -->
+  <MDWC_SectionStranger>神秘黑衣人</MDWC_SectionStranger>
+  <!-- EN: The man in black is a stranger who arrives when the colony is close to falling, in a duster with a revolver. These settings can send the stranger in the medic warcasket instead, and can remove the forced gender. -->
+  <MDWC_SectionStrangerDesc>神秘黑衣人會在殖民地瀕臨崩潰時登場，身穿風衣，手持左輪手槍。這些設定可以讓黑衣人改穿醫療型戰棺登場，也可以取消性別限制。</MDWC_SectionStrangerDesc>
+
+  <!-- EN: Stranger arrives in a medic warcasket -->
+  <MDWC_Stranger>黑衣人穿著醫療型戰棺登場</MDWC_Stranger>
+  <!-- EN: When enabled, the stranger will arrive in a black medic warcasket, carrying a warcasket slugthrower. When disabled, the stranger will arrive as usual. Default: {0}. -->
+  <MDWC_StrangerDesc>啟用時，黑衣人會穿著黑色的醫療型戰棺登場，手持戰棺霰彈槍。停用時，黑衣人會照常登場。預設值：{0}。</MDWC_StrangerDesc>
+
+  <!-- EN: Only once warcaskets are researched -->
+  <MDWC_StrangerResearch>僅在研究出戰棺後</MDWC_StrangerResearch>
+  <!-- EN: When enabled, the stranger will only bring the warcasket once the colony has researched warcaskets, and will arrive as usual before that. When disabled, the stranger will bring it from the start. Default: {0}. -->
+  <MDWC_StrangerResearchDesc>啟用時，殖民地要先研究出戰棺，黑衣人才會穿著戰棺登場，研究完成前則照常登場。停用時，黑衣人從一開始就會穿著戰棺登場。預設值：{0}。</MDWC_StrangerResearchDesc>
+
+  <!-- EN: Stranger has no forced gender -->
+  <MDWC_StrangerAnyGender>黑衣人不限性別</MDWC_StrangerAnyGender>
+  <!-- EN: When enabled, the stranger will have no forced gender, and the arrival letter will use neutral wording. When disabled, the gender will be forced as usual. Default: {0}. -->
+  <MDWC_StrangerAnyGenderDesc>啟用時，黑衣人的性別不再固定，登場信件的用詞也會隨之調整。停用時，性別則維持固定。預設值：{0}。</MDWC_StrangerAnyGenderDesc>
+  <!-- The letter while the gender is unfixed (Settings_Stranger.cs). The game formats both with the pawn as PAWN, so a translation may use [PAWN_kind] or [PAWN_pronoun] where its language needs the gender -->
+  <!-- EN: Stranger in black -->
+  <MDWC_StrangerLetterLabel>神秘黑衣人</MDWC_StrangerLetterLabel>
+  <!-- EN: Sensing trouble, a mysterious stranger in black has arrived.\n\nWill they be able to set things right in these parts? -->
+  <MDWC_StrangerLetterText>危險的氣息，一名神秘的[PAWN_kind]登場了。\n\n這位神秘人能搞定一切嗎？</MDWC_StrangerLetterText>
+
+  <!-- EN: The stranger arrives as usual, without a warcasket. -->
+  <MDWC_StrangerSummaryOff>黑衣人會照常登場，不穿戰棺。</MDWC_StrangerSummaryOff>
+  <!-- EN: The stranger arrives in a black warcasket kit once warcaskets are researched. -->
+  <MDWC_StrangerSummary>研究出戰棺後，黑衣人會穿著全套黑色戰棺登場。</MDWC_StrangerSummary>
+  <!-- EN: The stranger arrives in a black warcasket kit. -->
+  <MDWC_StrangerSummaryAlways>黑衣人會穿著全套黑色戰棺登場。</MDWC_StrangerSummaryAlways>
+  <!-- EN: Another mod chooses the stranger, so the warcasket settings have no effect. -->
+  <MDWC_StrangerSummaryReplaced>黑衣人已由其他模組接管，戰棺相關設定不會生效。</MDWC_StrangerSummaryReplaced>
+  <!-- EN: The stranger has no forced gender. -->
+  <MDWC_StrangerSummaryAnyGender>黑衣人不限性別。</MDWC_StrangerSummaryAnyGender>
 
   <!-- EN:  (default) -->
   <MDWC_DefaultSuffix>(預設)</MDWC_DefaultSuffix>
