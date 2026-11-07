@@ -11,8 +11,8 @@ El Médico es un ataúd de guerra de 10.ª generación para médicos de combate,
 Consta de torso, hombreras y casco, que se montan en la forja de ataúd de guerra tras la investigación "ataúdes de guerra de la era espacial". Combina las piezas con las series de VFE Pirates como quieras.
 [list]
 [*][b]Torso:[/b] incluye el vendaje de mecanitas, y el piloto puede seguir trabajando como médico: tratar, operar, alimentar y rescatar.
-[*][b]Hombreras:[/b] incluyen la inyección de adrenalina y tratamientos más rápidos, y mantienen la manipulación del piloto al máximo.
-[*][b]Casco:[/b] mejora la calidad del tratamiento y mantiene la vista del piloto al máximo.
+[*][b]Hombreras:[/b] incluyen la habilidad inyección de adrenalina y una mayor velocidad de tratamiento.
+[*][b]Casco:[/b] mejora la calidad del tratamiento e incluye un módulo óptico de diagnóstico que asiste la vista del piloto.
 [/list]
 
 [h2]Vendaje de mecanitas[/h2]

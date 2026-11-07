@@ -11,8 +11,8 @@ The Medic is a 10th-generation combat medic warcasket, built to keep its pilot p
 Armor, shoulders and helmet, built at the warcasket foundry and unlocked by spacer warcaskets research. Mix and match the pieces with VFE Pirates' own sets as you please.
 [list]
 [*][b]Armor:[/b] Grants mechanite dressing, and the pilot can still do doctor work: tending, surgery, feeding and rescue.
-[*][b]Shoulders:[/b] Grants the adrenaline shot and faster tending, and keeps the pilot's manipulation at full.
-[*][b]Helmet:[/b] Grants better tend quality, and keeps the pilot's sight at full.
+[*][b]Shoulders:[/b] Grants the adrenaline shot ability and faster tending speed.
+[*][b]Helmet:[/b] Grants better tend quality and a diagnostic optics module to assist the pilot's sight.
 [/list]
 
 [h2]Mechanite dressing[/h2]

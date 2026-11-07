@@ -11,8 +11,8 @@ Der Sanitäter ist ein Kriegssarg der 10. Generation für Kampfsanitäter. Mit i
 Rüstung, Schulterpanzer und Helm entstehen in der Kriegssarg-Gießerei und werden mit dem Forschungsprojekt 'Raumfahrt-Kriegssärge' freigeschaltet. Die Teile lassen sich nach Belieben mit den Sets aus VFE Pirates kombinieren.
 [list]
 [*][b]Torso:[/b] Bringt den Mechanitenverband mit, und der Pilot kann weiterhin als Arzt arbeiten: behandeln, operieren, füttern und retten.
-[*][b]Schulterpanzer:[/b] Bringen die Adrenalinspritze und schnellere Behandlungen mit und halten den Wert 'Arbeiten' des Piloten bei 100%.
-[*][b]Helm:[/b] Verbessert die Behandlungsqualität und hält den Wert 'Sehen' des Piloten bei 100%.
+[*][b]Schulterpanzer:[/b] Bringen die Fähigkeit Adrenalinspritze und eine höhere Behandlungsgeschwindigkeit mit.
+[*][b]Helm:[/b] Verbessert die Behandlungsqualität und bringt ein diagnostisches Optikmodul mit, das das Sehen des Piloten unterstützt.
 [/list]
 
 [h2]Mechanitenverband[/h2]

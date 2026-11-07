@@ -11,8 +11,8 @@ Le Médecin est un warcasket de soutien médical de 10e génération, conçu pou
 Torse, épaulières et casque, fabriqués à la fonderie de warcaskets et débloqués par la recherche « spacer warcaskets » (warcaskets spatiaux). Combinez librement ses pièces avec celles des ensembles de VFE Pirates.
 [list]
 [*][b]Torse :[/b] donne la capacité « pansement de mécanites », et le pilote peut toujours effectuer les tâches de médecin : soins, chirurgie, alimentation et sauvetage.
-[*][b]Épaulières :[/b] donnent la capacité « injection d'adrénaline », accélèrent les soins et maintiennent la manipulation du pilote à son maximum.
-[*][b]Casque :[/b] améliore la qualité des soins et maintient la vue du pilote à son maximum.
+[*][b]Épaulières :[/b] donnent la capacité « injection d'adrénaline » et une vitesse de soin accrue.
+[*][b]Casque :[/b] améliore la qualité des soins et intègre un module optique de diagnostic qui assiste la vue du pilote.
 [/list]
 
 [h2]Pansement de mécanites[/h2]

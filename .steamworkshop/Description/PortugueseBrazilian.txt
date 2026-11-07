@@ -11,8 +11,8 @@ A Médica é uma carcaça de guerra de 10ª geração para médicos de combate, 
 Tronco, ombreiras e capacete, construídos na fundição de carcaças de guerra depois da pesquisa "carcaças de guerra espaciais". Combine as peças com os conjuntos do próprio VFE Pirates como quiser.
 [list]
 [*][b]Tronco:[/b] traz o curativo de mecanitos, e o piloto ainda pode fazer trabalhos de medicina: tratamento, cirurgia, alimentação e resgate.
-[*][b]Ombreiras:[/b] trazem a injeção de adrenalina e um tratamento mais rápido, e não reduzem a manipulação do piloto.
-[*][b]Capacete:[/b] melhora a qualidade do tratamento e não reduz a visão do piloto.
+[*][b]Ombreiras:[/b] trazem a habilidade injeção de adrenalina e maior velocidade de tratamento.
+[*][b]Capacete:[/b] melhora a qualidade do tratamento e traz um módulo óptico de diagnóstico que auxilia a visão do piloto.
 [/list]
 
 [h2]Curativo de mecanitos[/h2]
