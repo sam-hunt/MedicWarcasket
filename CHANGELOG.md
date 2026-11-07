@@ -18,24 +18,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-07
+
 ### Added
 
-- Combat Extended support: CE armor values, bulk and carry capacity in line with VFE Pirates' spacer sets, a helmet sealed against CE smoke, and an adrenaline shot that resists suppression as go-juice does
-- The shoulders grant an adrenaline shot, two loaded from a medicine kit each: one gives a person, animal or the pilot a go-juice surge for 1.5 hours, fading in three levels into a crash of 4.5 hours while they tire faster
-- A shot into a heart attack stops it outright instead of stimulating, on anyone, raiders included
-- With the armor worn, every patient gets a shot as their dressing ends; right-click the shot to turn that off
-- Mod settings for the shots held and their reload item, how long a shot lasts, its rest cost and its cooldown
-- Mod settings now choose which caring work the pilot may take on, doctoring and childcare included, with VFE Pirates' warcasket rules as the default for everything else
-- Raider medics: a raider or allied defender in the armor dresses the downed of their own side between fights, one in the shoulders gives them the shot, and a raider stood back up picks their weapon back up and rejoins the raid; each is a mod settings checkbox
+- The Medic, a spacer-tier combat medic warcasket set for VFE Pirates
+- Mechanite dressing: the armor tends every wound on a nearby patient, worst first
+- The armor holds a suite of medicine kits, with a gauge to set how full colonists keep it
+- The helmet lets the dressing treat disease and infection, and improves tend quality
+- Adrenaline shot: a go-juice surge that fades into a long crash, or stops a heart attack
+- Autocast gives every dressed patient a shot
+- The pilot can still do doctor work, and the shoulders tend faster
+- Raider medics dress and revive their own downed between fights
+- Optionally, the stranger in black can arrive in a black medic warcasket
+- Mod settings for the dressing, the shot, the pilot's caring work and every optional behavior
+- Combat Extended support
+- Vanilla Gravship Expanded and Save Our Ship 2 support
+- Machine-assisted translations for nine languages
 
-### Changed
-
-- The field dressing is now the mechanite dressing: it warms up, tends one wound at a time with a beam, then winds down, and the patient is held still until it ends
-- The dressing's beam, glow, overlay and gauge are medical blue, with green and pink as mod settings options
-- Each medicine kit is charged by the severity of the wounds tended, and the pilot earns medicine experience for every wound, as with a vanilla treatment
-- The medicine is chosen in the mod settings (glitterworld by default, no herbal), replacing the right-click medicine menu, and the armor shows a tank gauge whose handle sets how full colonists keep the suite
-- Dressings can be queued, and Shift-click chains several patients in a row
-- Each wound shows its own tend quality as the beam tends it, instead of one summary at the end
-- New defaults: 1 second warmup, 1 second per wound, no cooldown, range 2 cells, a ten-kit capacity
-- Internal names changed from field dressing to mechanite dressing, which breaks saves made with unreleased builds only
-- Smaller download: the shipped XML no longer carries developer comments, and every image is recompressed without any change to the pixels
+[Unreleased]: https://github.com/sam-hunt/MedicWarcasket/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/sam-hunt/MedicWarcasket/releases/tag/v1.0.0
