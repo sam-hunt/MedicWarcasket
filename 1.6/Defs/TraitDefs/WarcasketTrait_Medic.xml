@@ -13,11 +13,13 @@
     exist. The contract:
       - disabledWorkTags = VFEP's, with ManualDumb swapped for Cleaning (VFEP's hauling
         exemption is a Harmony postfix keyed on its own def, so a copied ManualDumb would lose
-        hauling; ManualDumb covers only Hauling and Cleaning) and Caring removed.
-      - disabledWorkTypes = VFEP's, minus the Caring work types the tags leave open, plus each
-        of those the mod settings block. The settings default to the old rule: Doctor open, any
-        other Caring type (Childcare under Biotech, a modded one) blocked while VFEP's tags
-        still carry Caring or its list names the type. Written by the settings' ApplyToDefs on
+        hauling; ManualDumb covers only Hauling and Cleaning) and Caring removed. Intellectual
+        stays while VFEP carries it, until the mod settings open an Intellectual work type.
+      - disabledWorkTypes = VFEP's, minus the Caring and Intellectual work types the other tags
+        leave open, plus each of those the mod settings block that the tags do not already.
+        The settings default to the fixed rule: Doctor open, any other such type (Childcare
+        under Biotech, Research, Dark study under Anomaly, a modded one) blocked while VFEP's
+        tags carry its tag or its list names the type. Written by the settings' ApplyToDefs on
         every load and settings close.
       - degreeDatas[0]: every public field but the text, degree and commonality copied from
         VFEP's degree, and the TraitExtension's fields copied from VFEP's extension. Both copies are full

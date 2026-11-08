@@ -5,9 +5,9 @@ using Verse;
 
 namespace MedicWarcasket;
 
-// Work section: one checkbox per Caring work type the trait mirror leaves to the player
-// (WorkSetting over WorkProfile.Toggleable), written onto the medic trait's disabledWorkTypes
-// through WorkProfile.Apply, which also refreshes every entombed pilot; the mirror's own rule
+// Work section: one checkbox per Caring or Intellectual work type the trait mirror leaves to the
+// player (WorkSetting over WorkProfile.Toggleable), written onto the medic trait's work tags and
+// types through WorkProfile.Apply, which also refreshes every entombed pilot; the mirror's own rule
 // is each box's default. Its header's icon is vanilla's mining work site, a Core texture, so
 // it survives a play-data reload as a plain static, and its tooltip says what the section
 // covers and what it leaves to VFEP's trait. The section is skipped while the mirror found
@@ -39,8 +39,8 @@ public partial class MedicWarcasketSettings
         work.DoRows(listing);
     }
 
-    // What the work section's boxes amount to: the caring work the pilot may take on, named as
-    // the work tab names it, or that there is none; the rest is VFEP's rule either way.
+    // What the work section's boxes amount to: the work the pilot may take on, named as the work
+    // tab names it, or that there is none; the rest is VFEP's rule either way.
     private string WorkSummary()
     {
         List<string> open = work.Open.Select(WorkSetting.Name).ToList();

@@ -13,15 +13,27 @@ namespace MedicWarcasket;
 // Medic's work profile and the trait's other effects follow VFEP's trait as the full mod list
 // leaves it: a patch mod that opens work for every warcasket opens it for the Medic too, and
 // whatever VFEP puts on its degree or VEF extension on the running game version (1.6 and 1.7
-// differ) lands on ours. The trait def's header carries the player-facing contract; the spec
-// (Docs/Specs/Medic-Work-Trait.md) the rationale.
+// differ) lands on ours. The trait def's header carries the player-facing contract; the specs
+// (Docs/Specs/Medic-Work-Trait.md, Docs/Specs/Intellectual-Work.md) the rationale.
 //
-// The Caring work types the mirror opens are the settings' toggles (WorkSetting): Mirror
-// records which they are (Toggleable) and what the fixed rule makes of each (OpenByDefault:
-// Doctor open, the rest blocked while VFEP blocks Caring), writes that default profile, and
-// Apply writes the profile the settings choose, on every ApplyToDefs. A pawn caches its
+// The work the settings may open or block is every work type carrying one of ToggleTags (Caring,
+// Intellectual) that the trait's other tags leave open: Doctor, Childcare under Biotech,
+// Research, Dark study under Anomaly, and any modded type with either tag. Derive records which
+// they are (Toggleable) and what the fixed rule makes of each (OpenByDefault: Doctor open, any
+// other open only while VFEP's trait blocks neither its toggle tags nor the type itself), and
+// Compose turns a choice of open types into the trait's tags and work types. Mirror writes the
+// default profile and Apply the one the settings choose, on every ApplyToDefs. A pawn caches its
 // disabled work types, so Apply refreshes every live pawn carrying the trait; at startup there
 // is none.
+//
+// The two tags differ in how they leave the trait. Caring is always cleared, Doctor being the
+// point of the trait. Intellectual stays a tag, as VFEP sets it, until an open type carries it,
+// so the default trait is VFEP's Intellectual block unchanged: the game reads the tag itself in
+// HackUtility.IsCapableOfHacking and the mechlink install warning, and other mods may too. While
+// the tag stays, the closed types it blocks are not listed again as work types. Once a type
+// opens, the tag clears and every closed Intellectual type is listed instead; the Intellectual
+// skill then follows the work types (SkillDef.IsDisabled counts a skill disabled when every work
+// type using it is), and hacking with it. Verified against 1.7.5000 rev1275 and the 1.6 runtime.
 //
 // Mirror runs first in Startup.Run, i.e. from a static constructor on startup and again after
 // every in-process play-data reload, against defs fresh from XML and with every XML patch,
@@ -32,6 +44,10 @@ public static class WorkProfile
 {
     private const string VfepTraitName = "VFEP_WarcasketTrait";
     private const string MedicTraitName = "MDWC_WarcasketTrait_Medic";
+
+    // The tags whose work types the settings may open. A fixed list on purpose: a generic "VFEP
+    // blocks it, we do not" diff would also catch the Hauling the ManualDumb swap opens.
+    public const WorkTags ToggleTags = WorkTags.Caring | WorkTags.Intellectual;
 
     // The degree's text stays ours, and so do its identity (degree: the armor grants degree 0 and
     // saves store it) and its selection weight (commonality: irrelevant at TraitDef commonality
@@ -47,29 +63,33 @@ public static class WorkProfile
         nameof(TraitDegreeData.commonality),
     ];
 
+    // What VFEP's trait leaves the Medic before the settings: the tags (ManualDumb swapped for
+    // Cleaning, Caring cleared, Intellectual kept if VFEP has it), the work types the settings
+    // never touch, and the toggleable ones with their defaults.
+    public sealed class Profile
+    {
+        public WorkTags baseTags;
+        public List<WorkTypeDef> baseTypes = [];
+        public List<WorkTypeDef> toggleable = [];
+        public HashSet<WorkTypeDef> openByDefault = [];
+    }
+
     // The mirror's result, replaced on every run and empty until the first or after a failed
     // one, so Apply then writes nothing and the trait keeps its XML profile.
     private static TraitDef medic;
-    private static List<WorkTypeDef> baseTypes = [];
-    private static List<WorkTypeDef> toggleable = [];
-    private static HashSet<WorkTypeDef> openByDefault = [];
+    private static Profile profile = new();
 
-    // The Caring work types the Medic's tags leave open, in the work tab's order: what the
-    // settings may open or block. Doctor always; Childcare under Biotech; any modded one.
-    public static IReadOnlyList<WorkTypeDef> Toggleable => toggleable;
+    // The toggleable work types, in the work tab's order: what the settings may open or block.
+    public static IReadOnlyList<WorkTypeDef> Toggleable => profile.toggleable;
 
-    // The fixed rule for a toggleable work type: Doctor is open, any other is open only when
-    // VFEP's trait blocks neither Caring nor the type itself (a patch mod that opened Caring for
-    // every warcasket opens it here too).
-    public static bool OpenByDefault(WorkTypeDef work) => openByDefault.Contains(work);
+    // The fixed rule for a toggleable work type (Derive).
+    public static bool OpenByDefault(WorkTypeDef work) => profile.openByDefault.Contains(work);
 
     // Never throws out of Startup.Run: a failure here is logged and the settings still apply.
     public static void Mirror()
     {
         medic = null;
-        baseTypes = [];
-        toggleable = [];
-        openByDefault = [];
+        profile = new Profile();
         try
         {
             MirrorFromVfep();
@@ -90,30 +110,7 @@ public static class WorkProfile
             return;
         }
 
-        // Tags: ManualDumb covers only Hauling and Cleaning, and VFEP's hauling exemption is a
-        // Harmony postfix keyed on its own def, so the swap keeps hauling open for the Medic.
-        // Caring is the whole point of the trait.
-        WorkTags tags = vfep.disabledWorkTags;
-        if ((tags & WorkTags.ManualDumb) != 0)
-            tags = (tags & ~WorkTags.ManualDumb) | WorkTags.Cleaning;
-        bool caringBlocked = (tags & WorkTags.Caring) != 0;
-        tags &= ~WorkTags.Caring;
-        ours.disabledWorkTags = tags;
-
-        // Work types: VFEP's own list by value, never aliased, split into the base the settings
-        // never touch and the toggleables, every Caring work type the tags no longer block.
-        // Scoped to Caring on purpose: a generic "VFEP blocks it, we do not" diff would also
-        // re-block the Hauling the swap opened.
-        var vfepTypes = new List<WorkTypeDef>(vfep.disabledWorkTypes ?? Enumerable.Empty<WorkTypeDef>());
-        foreach (WorkTypeDef work in WorkTypeDefsUtility.WorkTypeDefsInPriorityOrder)
-        {
-            if ((work.workTags & WorkTags.Caring) == 0 || (tags & work.workTags) != 0)
-                continue;
-            toggleable.Add(work);
-            if (work == WorkTypeDefOf.Doctor || (!caringBlocked && !vfepTypes.Contains(work)))
-                openByDefault.Add(work);
-        }
-        baseTypes = vfepTypes.Where(work => !toggleable.Contains(work)).ToList();
+        profile = Derive(vfep.disabledWorkTags, vfep.disabledWorkTypes, WorkTypeDefsUtility.WorkTypeDefsInPriorityOrder, WorkTypeDefOf.Doctor);
         medic = ours;
         Write(OpenByDefault);
 
@@ -134,9 +131,54 @@ public static class WorkProfile
             Log.Warning($"[Medic Warcasket] {VfepTraitName} or {MedicTraitName} has no VEF TraitExtension; the medic trait keeps its XML extension.");
     }
 
+    // The Medic's profile from VFEP's tags and work types, over every work type in the work
+    // tab's order. Pure, so the tests reach it with bare defs; doctor is passed in for the same
+    // reason. VFEP's list is read by value, never aliased.
+    public static Profile Derive(WorkTags vfepTags, IEnumerable<WorkTypeDef> vfepTypes, IEnumerable<WorkTypeDef> allTypes, WorkTypeDef doctor)
+    {
+        // ManualDumb covers only Hauling and Cleaning, and VFEP's hauling exemption is a Harmony
+        // postfix keyed on its own def, so the swap keeps hauling open for the Medic.
+        WorkTags tags = vfepTags;
+        if ((tags & WorkTags.ManualDumb) != 0)
+            tags = (tags & ~WorkTags.ManualDumb) | WorkTags.Cleaning;
+        tags &= ~WorkTags.Caring;
+
+        var result = new Profile { baseTags = tags };
+        var vfepList = new List<WorkTypeDef>(vfepTypes ?? Enumerable.Empty<WorkTypeDef>());
+        WorkTags otherTags = tags & ~ToggleTags;
+        WorkTags vfepToggleTags = vfepTags & ToggleTags;
+        foreach (WorkTypeDef work in allTypes)
+        {
+            if ((work.workTags & ToggleTags) == 0 || (otherTags & work.workTags) != 0)
+                continue;
+            result.toggleable.Add(work);
+            if (work == doctor || ((vfepToggleTags & work.workTags) == 0 && !vfepList.Contains(work)))
+                result.openByDefault.Add(work);
+        }
+        result.baseTypes = vfepList.Where(work => !result.toggleable.Contains(work)).ToList();
+        return result;
+    }
+
+    // The trait's tags and work types for a choice of open toggleable types: Intellectual clears
+    // once an open type carries it, and a closed type is listed unless the tags already block it.
+    public static (WorkTags tags, List<WorkTypeDef> types) Compose(Profile from, Func<WorkTypeDef, bool> open)
+    {
+        WorkTags tags = from.baseTags;
+        if (from.toggleable.Any(work => (work.workTags & WorkTags.Intellectual) != 0 && open(work)))
+            tags &= ~WorkTags.Intellectual;
+        var types = new List<WorkTypeDef>(from.baseTypes);
+        foreach (WorkTypeDef work in from.toggleable)
+        {
+            if (!open(work) && (tags & work.workTags) == 0)
+                types.Add(work);
+        }
+        return (tags, types);
+    }
+
     // Writes the profile the settings choose, open deciding each toggleable work type, and
     // refreshes every live pawn carrying the trait: Pawn.GetDisabledWorkTypes is cached per
-    // pawn, and its Notify_DisabledWorkTypesChanged clears the cache and zeroes the work
+    // pawn, and its Notify_DisabledWorkTypesChanged clears the cache, refreshes the skills'
+    // disabled state (the Intellectual skill follows a Research toggle) and zeroes the work
     // priorities the write blocked (a type it opened stays unassigned until the player sets
     // it). World pawns too, since a pilot away on a quest comes back with the cache it left
     // with and nothing on its return clears it before the next save.
@@ -156,13 +198,7 @@ public static class WorkProfile
 
     private static void Write(Func<WorkTypeDef, bool> open)
     {
-        var types = new List<WorkTypeDef>(baseTypes);
-        foreach (WorkTypeDef work in toggleable)
-        {
-            if (!open(work))
-                types.Add(work);
-        }
-        medic.disabledWorkTypes = types;
+        (medic.disabledWorkTags, medic.disabledWorkTypes) = Compose(profile, open);
     }
 
     // Copies every public instance field of T from source onto target by reflection, so a field

@@ -101,7 +101,7 @@
   <MDWC_WorkDesc>When enabled, medic pilots can do this work. The change applies to pilots who are already entombed. Newly enabled work starts unassigned in the Work tab.</MDWC_WorkDesc>
   <MDWC_WorkDefault>Default: {0}.</MDWC_WorkDefault>
   <MDWC_WorkSummary>The pilot can do {0} work. All other work follows the VFE Pirates warcasket trait.</MDWC_WorkSummary>
-  <MDWC_WorkSummaryNone>The pilot does no caring work. All other work follows the VFE Pirates warcasket trait.</MDWC_WorkSummaryNone>
+  <MDWC_WorkSummaryNone>The pilot can do none of the work below. All other work follows the VFE Pirates warcasket trait.</MDWC_WorkSummaryNone>
 
   <MDWC_SectionStranger>Man in black</MDWC_SectionStranger>
   <MDWC_SectionStrangerDesc>The man in black is a stranger who arrives when the colony is close to falling, in a duster with a revolver. These settings can send the stranger in the medic warcasket instead, and can remove the forced gender.</MDWC_SectionStrangerDesc>

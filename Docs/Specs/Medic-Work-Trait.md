@@ -344,6 +344,7 @@ one-key-set rule (its A7).
   the rest re-blocked). It is written through `ApplyToDefs` and `WorkProfile.Apply` like every
   other setting, since the mirror writes def fields, and `Apply` also refreshes the cached
   disabled work types of live pawns with `Pawn.Notify_DisabledWorkTypesChanged`.
+  `Docs/Specs/Intellectual-Work.md` extends the toggles to the Intellectual work types.
 - **Mods that match VFEP's trait by name** do not know ours. MedPod blocks pod use for
   `VFEP_WarcasketTrait` wearers, so a Medic wearer could be treated in a MedPod; Vanilla
   Aspirations Expanded's "get entombed" aspiration will not complete in a Medic set; Altered

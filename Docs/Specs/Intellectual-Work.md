@@ -1,8 +1,9 @@
 # SPEC: Intellectual work toggles for the medic pilot
 
-> Proposed. Nothing here is implemented; section 5 holds the calls to make before any of it is.
+> Implemented, pending an in-game test. The code, its def headers and its tests are the tested current state and supersede this spec wherever the two differ.
 
-Status: PROPOSED, awaiting a decision on whether to build it (`TODOs.md`). Facts verified against
+Status: IMPLEMENTED on `main` with decisions 5.2 to 5.4 taken as recommended; 5.1 (keep it or
+roll it back) waits on the in-game checks in section 6, ledgered in `TODOs.md`. Facts verified against
 the installed RimWorld 1.7.5000 rev1275 (`Assembly-CSharp.dll` via `ilspycmd`, Core and Anomaly
 XML), the frozen 1.6 assemblies at `~/.local/share/RimWorld-1.6/Managed` (every call path in
 section 2 reads the same on both), VFE Pirates at be4040e (v4.03) and this repo at 9bf5a90
@@ -152,14 +153,15 @@ Per `l10n/languages/English.md` and the `player-text-vanilla-register` memory:
 
 ## 5. Open decisions
 
-1. **Build it at all.** VFEP blocks research for every pilot, and the medic's identity is
+1. **Keep it** (open until the in-game test). VFEP blocks research for every pilot, and the medic's identity is
    doctoring. Opt-in and off by default keeps parity unless the player asks; the existing patch
    mods already cover players who want every warcasket working. Precedent for opt-in: Childcare.
-2. **Tag handling**: 3.2 A (recommended) or B.
+2. **Tag handling**: 3.2 A (recommended) or B. Taken: A.
 3. **Scope**: every Intellectual-tagged type as its own row (Research, DarkStudy, modded ones;
-   the recommended reading of the fixed tag list) or Research only.
+   the recommended reading of the fixed tag list) or Research only. Taken: every type.
 4. **Summary wording** for `MDWC_WorkSummaryNone` and whether the summary should group rows
-   (caring, intellectual) or keep listing work type names as it does now.
+   (caring, intellectual) or keep listing work type names as it does now. Taken: names as now,
+   and "The pilot can do none of the work below." for the empty case.
 5. **Further tags.** The fixed tag list makes other VFEP blocks cheap to add later (Cleaning is
    already a noted design call in `Medic-Work-Trait.md` section 5; Cleaning would need care
    because of the ManualDumb swap). Out of scope unless asked for.

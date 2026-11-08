@@ -7,10 +7,10 @@ using Verse;
 namespace MedicWarcasket;
 
 // The pilot's work: one checkbox per work type the trait mirror leaves to the player
-// (WorkProfile.Toggleable, the Caring work types), what a Tunable is for a number. Until the
-// player flips one it is WorkProfile.OpenByDefault, the fixed rule the mirror applies on its
-// own (Doctor open, Childcare and any modded Caring type blocked while VFEP blocks Caring),
-// read live so the default follows whatever the loaded mods make of VFEP's trait. Only an
+// (WorkProfile.Toggleable, the Caring and Intellectual work types), what a Tunable is for a
+// number. Until the player flips one it is WorkProfile.OpenByDefault, the fixed rule the mirror
+// applies on its own (Doctor open, Childcare, Research and the rest blocked while VFEP blocks
+// their tag), read live so the default follows whatever the loaded mods make of VFEP's trait. Only an
 // override is saved, by the work type's defName, so it outlives the def instances a play-data
 // reload replaces and a work type whose DLC or mod is off keeps its override for when it is
 // back; flipping a box back to its default clears it. Written onto the trait by the settings'

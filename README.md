@@ -38,7 +38,7 @@ spacer warcaskets research.
   dressing with a shot
 - **Mod settings** for the medicine, the effect color, the kit capacity, the casting time, the time per
   wound, the cooldown, the range, the shot capacity, what reloads them, their boost and crash
-  durations and cooldown, and which caring work (doctor, childcare) the pilot may take on
+  durations and cooldown, and which caring and intellectual work (doctor, childcare, research) the pilot may take on
 - **Priced like its peers**: spacer-tier plating and shield, costs in the tier's band with the
   medicine the suite and injector ship loaded with, and the set's unlock is VFE Pirates' spacer
   warcaskets research
