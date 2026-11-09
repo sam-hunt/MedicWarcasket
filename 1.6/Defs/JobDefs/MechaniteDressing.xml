@@ -9,12 +9,18 @@
     checkOverrideOnDamage Never: damage never interrupts the job in any phase. Vanilla considers
     an override only for a job that is not player-forced, and the dressing is not always
     player-forced (a queued order, a drafted pilot's cast), so the def says it outright.
+
+    neverShowWeapon: the pilot holsters the weapon for the whole job, walk included, as vanilla's
+    touch abilities (CastAbilityTouch) do. PawnRenderUtility.DrawEquipmentAndApparelExtras
+    reads it before both the aimed and the carried draw, and it outranks a drafted pilot or a
+    raid lord's AlwaysShowWeapon; worn apparel still draws.
   -->
   <JobDef>
     <defName>MDWC_MechaniteDressing</defName>
     <driverClass>MedicWarcasket.JobDriver_MechaniteDressing</driverClass>
     <reportString>dressing TargetA's wounds.</reportString>
     <checkOverrideOnDamage>Never</checkOverrideOnDamage>
+    <neverShowWeapon>true</neverShowWeapon>
     <carryThingAfterJob>true</carryThingAfterJob>
   </JobDef>
 </Defs>

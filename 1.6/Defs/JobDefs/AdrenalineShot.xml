@@ -9,12 +9,16 @@
 
     checkOverrideOnDamage Never: damage never interrupts the walk or the jab, as for the
     dressing (its JobDef's header has the playerForced rationale).
+
+    neverShowWeapon: the weapon is holstered for the whole job, as for the dressing (its JobDef's
+    header has the draw path).
   -->
   <JobDef>
     <defName>MDWC_AdrenalineShot</defName>
     <driverClass>MedicWarcasket.JobDriver_AdrenalineShot</driverClass>
     <reportString>giving TargetA an adrenaline shot.</reportString>
     <checkOverrideOnDamage>Never</checkOverrideOnDamage>
+    <neverShowWeapon>true</neverShowWeapon>
     <carryThingAfterJob>true</carryThingAfterJob>
   </JobDef>
 </Defs>
