@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Lowering the shot capacity setting no longer breaks reloading on shoulders that held more shots
+
 ## [1.0.0] - 2026-11-07
 
 ### Added

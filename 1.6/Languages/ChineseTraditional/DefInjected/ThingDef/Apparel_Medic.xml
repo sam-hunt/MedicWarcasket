@@ -18,9 +18,9 @@
   <!-- EN: Specialized spacer-tech warcasket pauldrons with standard protection, equipped with an adrenaline injector and field-medicine manipulators that quicken the pilot's tending.\n\nA 10th-generation design from the government program that rebuilt captured pirate rigs around its own power armor and issued them to veterans who could no longer serve any other way. The Medic was built for the field surgeons who had served beside them, after the program found it was losing nearly as many surgeons as the soldiers they were sent to keep alive.\n\nThe armor carries a mechanite dressing suite that tends a squadmate's wounds on the spot, with an adrenaline injector in the shoulders to keep the wounded on their feet a little longer and a diagnostic visor in the helmet so the dressing can treat disease and infection as well. Plating and shields are standard for the generation, so a Medic belongs just behind the line rather than on it. -->
   <MDWC_WarcasketShoulders_Medic.description>特化型太空科技戰棺護肩，在不增加機體重量的同時極大地提升了防護性。配備腎上腺素注射器，以及可加快駕駛員治療速度的戰地醫療機械臂。\n\n醫療型屬於第十代戰棺，出自一項政府計畫。計畫內容是用自家的動力裝甲改造收繳來的海盜裝備，再配發給無法以其他方式繼續服役的老兵。後來發現戰地外科醫生的折損幾乎和他們奉命救治的士兵一樣多，於是又為這些曾與老兵並肩作戰的外科醫生打造了這套戰棺。\n\n裝甲內建機械分子包紮系統，可就地治療戰友的傷口。護肩的腎上腺素注射器讓傷員能多撐一會兒，頭盔的診斷面罩則讓包紮也能用來治療疾病和感染。裝甲板和護盾只有這一代的標準水準，所以醫療型適合待在戰線稍後方，不適合站在最前線。</MDWC_WarcasketShoulders_Medic.description>
   <!-- EN: shot -->
-  <MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun>針劑</MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun>
+  <MDWC_WarcasketShoulders_Medic.comps.CompInjector.chargeNoun>針劑</MDWC_WarcasketShoulders_Medic.comps.CompInjector.chargeNoun>
   <!-- EN: on cooldown -->
-  <MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.cooldownGerund>冷卻</MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.cooldownGerund>
+  <MDWC_WarcasketShoulders_Medic.comps.CompInjector.cooldownGerund>冷卻</MDWC_WarcasketShoulders_Medic.comps.CompInjector.cooldownGerund>
 
   <!-- EN: medic warcasket helmet -->
   <MDWC_WarcasketHelmet_Medic.label>醫療型戰棺頭盔</MDWC_WarcasketHelmet_Medic.label>

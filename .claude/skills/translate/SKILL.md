@@ -175,9 +175,9 @@ notes for the shim or flow edit this repo owes before continuing.
     (shown in brackets after the label in the health tab, as vanilla's
     "heart attack (painful)" is; keep them short and lowercase as the
     language's own stage labels are). The shoulders' injector adds
-    `MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun`
+    `MDWC_WarcasketShoulders_Medic.comps.CompInjector.chargeNoun`
     ("shot") and its `cooldownGerund` to the `ThingDef/` folder, keyed by
-    vanilla's comp class.
+    the comp's class.
   - `DefInjected/TraitDef/` for `MDWC_WarcasketTrait_Medic`:
     `degreeDatas.0.label` and `degreeDatas.0.description`. The label is
     VFEP's own trait label, `warcasket`, shown in the Bio tab's traits

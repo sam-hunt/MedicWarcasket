@@ -24,8 +24,9 @@ namespace MedicWarcasket;
 // icon and tooltip.
 //
 // A reload item change needs nothing of the live pieces: the shots loaded count as the new
-// item, as the dressing's kits do. Shots above a lowered maximum are spent off the worn
-// shoulders at once (TrimWornInjectors); a shot already given keeps the total length it was
+// item, as the dressing's kits do. Shots above a lowered maximum are trimmed off the worn
+// shoulders at once (TrimWornInjectors) and off any other when it is next worn or loaded
+// (CompInjector); a shot already given keeps the total length it was
 // applied with, since vanilla's comp caches the rate per instance, while the stage thresholds
 // are read off the def live, so its levels move to the new split at once.
 public partial class MedicWarcasketSettings
@@ -155,9 +156,9 @@ public partial class MedicWarcasketSettings
         return "MDWC_ShotSummary".Translate(shots.IntValue, item, boost, shotLevels, crash, Period(shotCooldown.Value));
     }
 
-    // Shots above a lowered maximum are spent off the worn shoulders, through the comp's own
-    // UsedOnce (remainingCharges is protected, and a subclass for a trim is not worth it): a
-    // stored piece keeps its count, which vanilla's reload accounting reads as full.
+    // A lowered shot count leaves worn injectors above it, which vanilla's reload accounting
+    // cannot take (CompInjector); a stored piece is trimmed when equipped, and one saved above
+    // the count on load. Every live pawn, as for the suites.
     private static void TrimWornInjectors()
     {
         if (Current.ProgramState != ProgramState.Playing)
@@ -167,12 +168,7 @@ public partial class MedicWarcasketSettings
             if (pawn.apparel == null)
                 continue;
             foreach (Apparel apparel in pawn.apparel.WornApparel)
-            {
-                if (apparel.def.defName != ShouldersDefName || apparel.TryGetComp<CompApparelReloadable>() is not { } injector)
-                    continue;
-                while (injector.RemainingCharges > injector.MaxCharges)
-                    injector.UsedOnce();
-            }
+                apparel.TryGetComp<CompInjector>()?.Trim();
         }
     }
 }

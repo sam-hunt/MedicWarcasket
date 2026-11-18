@@ -22,7 +22,8 @@
       pilot who wants it. The speed offset and the injector are the pads' whole function.
 
     Adrenaline shot: VEF CompAbilitiesApparel grants MDWC_AdrenalineShot (AbilityDefs/
-    AdrenalineShot.xml), fed by the injector beside it, a plain vanilla CompApparelReloadable
+    AdrenalineShot.xml), fed by the injector beside it, a vanilla CompApparelReloadable
+    (compClass CompInjector only keeps it within a capacity the settings can lower)
     the ability reads off the apparel that grants it, so both comps sit on this one def (the
     Aerial shoulders' pairing). ammoCountPerCharge 1: one item loads one shot. With it set,
     vanilla's NeedsReload is remaining != max on both the idle and the forced path, so
@@ -39,7 +40,7 @@
     industrial kits, the costList's MedicineIndustrial 2.
     chargeNoun "shot": the inspect line, the stat sheet and the empty message count in shots.
     No verbs, so the comp draws no gizmo of its own; the ability's command shows the count.
-    Its DefInjected keys read comps.CompApparelReloadable, the vanilla comp class.
+    Its DefInjected keys read comps.CompInjector, the comp class.
 
     Raider medics: MedicWarcasket.CompProperties_MedicAI, the armor's entry over again for the
     shot (its header has the numbers), so a wearer not under the player's control gives a
@@ -112,6 +113,7 @@
     </apparel>
     <comps>
       <li Class="CompProperties_ApparelReloadable">
+        <compClass>MedicWarcasket.CompInjector</compClass>
         <maxCharges>2</maxCharges>
         <ammoDef>MedicineIndustrial</ammoDef>
         <ammoCountPerCharge>1</ammoCountPerCharge>

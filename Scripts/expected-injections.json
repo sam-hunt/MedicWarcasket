@@ -1,6 +1,6 @@
 {
   "meta": {
-    "gameBuild": "1.7.5000 rev1275",
+    "gameBuild": "1.7.5013 rev95",
     "activeDlcs": [
       "Core",
       "Odyssey"
@@ -105,12 +105,12 @@
         "english": "Specialized spacer-tech warcasket helmet with standard protection, equipped with a medical assistance module and a diagnostic visor that lets the mechanite dressing treat disease and infection as well as wounds.",
         "required": true
       },
-      "MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.chargeNoun": {
+      "MDWC_WarcasketShoulders_Medic.comps.CompInjector.chargeNoun": {
         "english": "shot",
         "required": true,
         "normalized": "MDWC_WarcasketShoulders_Medic.comps.2.chargeNoun"
       },
-      "MDWC_WarcasketShoulders_Medic.comps.CompApparelReloadable.cooldownGerund": {
+      "MDWC_WarcasketShoulders_Medic.comps.CompInjector.cooldownGerund": {
         "english": "on cooldown",
         "required": true,
         "normalized": "MDWC_WarcasketShoulders_Medic.comps.2.cooldownGerund"
