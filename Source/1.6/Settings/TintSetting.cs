@@ -23,7 +23,6 @@ public sealed class TintSetting
     }
 
     private const string Key = "Tint";
-    private const float LabelShare = 0.4f;
     private const float OptionPad = 10f;
     private const float SwatchSize = 16f;
     private const float RadioPad = 8f;
@@ -37,6 +36,8 @@ public sealed class TintSetting
     private static readonly Color Pink = new(0.886f, 0.448f, 0.667f);
 
     private string tintName;
+
+    public TintSetting() => Tunable.AddLabel(Label);
 
     // The beam mote's XML colour, shown for Default.
     public Color DefaultValue { get; set; } = Color.white;
@@ -55,7 +56,8 @@ public sealed class TintSetting
 
     public void ExposeData() => Scribe_Values.Look(ref tintName, Key);
 
-    // Laid out as a Tunable row: "MDWC_Tint" on the left, then the options side by side across
+    // Laid out as a Tunable row: "MDWC_Tint" on the left in the column the sliders' labels share
+    // (its own label counted into that column's width), then the options side by side across
     // the slider and value columns, each a radio button, a swatch of its colour and its label.
     // The default is first and unmarked, so a short label fits a narrow window; "MDWC_TintDesc"
     // with its label is the whole row's tooltip.
@@ -64,14 +66,14 @@ public sealed class TintSetting
         Rect row = listing.GetRect(Tunable.RowHeight);
         row.xMin += Tunable.RowIndent;
         row.xMax -= Tunable.RowEndPad;
-        Rect labelRect = row.LeftPart(LabelShare);
+        Rect labelRect = row.LeftPartPixels(Tunable.LabelWidth(row.width));
 
         Widgets.DrawHighlightIfMouseover(row);
         TooltipHandler.TipRegion(row, "MDWC_TintDesc".Translate(Label(Tint.Default)));
 
         TextAnchor anchor = Text.Anchor;
         Text.Anchor = TextAnchor.MiddleLeft;
-        Widgets.Label(labelRect, "MDWC_Tint".Translate());
+        Widgets.Label(labelRect, Label());
         float x = labelRect.xMax + OptionPad;
         float width = (row.xMax - x) / Options.Length;
         foreach (Tint option in Options)
@@ -115,6 +117,8 @@ public sealed class TintSetting
         };
         return new Color(color.r, color.g, color.b);
     }
+
+    private static string Label() => "MDWC_Tint".Translate();
 
     private static string Label(Tint option) => ("MDWC_Tint" + option).Translate();
 }

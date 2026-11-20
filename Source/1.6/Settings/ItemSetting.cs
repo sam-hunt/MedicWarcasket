@@ -17,7 +17,6 @@ namespace MedicWarcasket;
 // "Desc", as a Tunable's are.
 public sealed class ItemSetting
 {
-    private const float LabelShare = 0.4f;
     private const float ButtonPad = 10f;
     private const float IconPad = 4f;
     // The icon's inset from the button's left edge, a little over IconPad on the other sides so
@@ -35,6 +34,7 @@ public sealed class ItemSetting
         this.key = key;
         this.isEligible = isEligible;
         this.rank = rank;
+        Tunable.AddLabel(Label);
     }
 
     public ThingDef DefaultValue { get; set; }
@@ -62,7 +62,8 @@ public sealed class ItemSetting
 
     public void ExposeData() => Scribe_Values.Look(ref defName, key);
 
-    // Laid out as a Tunable row: the label on the left, then a button across the slider and
+    // Laid out as a Tunable row: the label on the left in the column the sliders' labels share
+    // (its own label counted into that column's width), then a button across the slider and
     // value columns showing the item's icon and label, with "(default)" while unset, that opens
     // the menu of eligible items. The description with the default's label is the tooltip of
     // the row up to the button, not over it: a float menu opens with its corner at the cursor,
@@ -72,7 +73,7 @@ public sealed class ItemSetting
         Rect row = listing.GetRect(Tunable.RowHeight);
         row.xMin += Tunable.RowIndent;
         row.xMax -= Tunable.RowEndPad;
-        Rect labelRect = row.LeftPart(LabelShare);
+        Rect labelRect = row.LeftPartPixels(Tunable.LabelWidth(row.width));
         var buttonRect = new Rect(labelRect.xMax + ButtonPad, row.y, row.xMax - labelRect.xMax - ButtonPad, row.height);
 
         Widgets.DrawHighlightIfMouseover(row);
@@ -81,7 +82,7 @@ public sealed class ItemSetting
 
         TextAnchor anchor = Text.Anchor;
         Text.Anchor = TextAnchor.MiddleLeft;
-        Widgets.Label(labelRect, ("MDWC_" + key).Translate());
+        Widgets.Label(labelRect, Label());
         Text.Anchor = anchor;
 
         if (Widgets.ButtonText(buttonRect, string.Empty))
@@ -105,6 +106,8 @@ public sealed class ItemSetting
         }
         listing.Gap(Tunable.RowGap);
     }
+
+    private string Label() => ("MDWC_" + key).Translate();
 
     private void OpenMenu()
     {
