@@ -4,7 +4,7 @@ using Verse;
 namespace MedicWarcasket;
 
 // Owns the mod settings only. The constructor runs before defs load, so it neither patches
-// (ModInit's comment) nor touches the defs the settings override: ModInit, after PatchAll,
+// (ModInit's comment) nor touches the defs the settings override: ModInit, after the patches,
 // reads their defaults (LoadDefaultsFromDefs) and applies the settings (ApplyToDefs) once defs
 // exist, and WriteSettings re-applies them whenever the settings window closes.
 public class MedicWarcasketMod : Mod

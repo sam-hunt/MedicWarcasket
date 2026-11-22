@@ -12,11 +12,15 @@ comments cover install-path detection, the compile-only VFEP/VEF references (`VF
   and `MDWC_DefOf.cs` alone.
 - **Patch classes live in `Patches/`** under the `.Patches` namespace suffix, to avoid RimWorld
   type-name conflicts. Log with the `[Medic Warcasket]` prefix.
-- **Patch timing is the load-bearing hazard.** `PatchAll()` runs from the
+- **Patch timing is the load-bearing hazard.** The patches are applied from the
   `[StaticConstructorOnStartup]` in `ModInit.cs`, never from the `Mod` subclass constructor: a
   detour on a VFEP method applied before defs load runs that type's static ctor early and breaks
   it for good (the BetterTradersGuild v1.1.0 CWTL incident). `ModInit`'s header has the
   rationale; `Settings/MedicWarcasketMod.cs` owns settings only.
+- **`ModInit` patches class by class, never through `Harmony.PatchAll`**, which stops at the
+  first class that throws: a failing class costs its own patch and an error in the log, and
+  every other class and `Startup.Run` still run. A new patch needs only its `[HarmonyPatch]`
+  attribute to be picked up.
 - **Startup def-derived state must survive an in-process play-data reload** (a language switch
   reloads every def). It goes in the idempotent `Startup.Run`, called once from `ModInit` and
   again from the `StaticConstructorOnStartupUtility.CallAll` postfix in `Patches/`. Mod-shipped
