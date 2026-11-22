@@ -27,6 +27,8 @@ public sealed class Tunable
     // language, plus LabelPad, so every slider starts on one line and takes all the room the
     // labels leave: a longer slider puts more pixels under each step. It stops at MaxLabelShare
     // of the row, where a longer label wraps, so a long translation cannot squeeze the slider.
+    // A row grouped under a subheading starts its label Indent further in and counts that into
+    // the column, so its slider starts and ends where every other row's does.
     // The value column is sized to the widest value a row can show, so the slider runs out to
     // it and the row ends near the window's edge. Every format here has one of two shapes: at
     // most four digits and a point, or fewer digits and a unit letter or "x" narrower than a
@@ -45,10 +47,10 @@ public sealed class Tunable
     private static readonly string[] WidestValues = { "00.00", "000%" };
     private const float SliderPad = 10f;
 
-    // Every label the shared column covers: each Tunable's, and that of any other row kind
-    // laid out as a Tunable row (AddLabel), read afresh when measured since a language switch
-    // or a LabelArg changes them. Measured once a frame.
-    private static readonly List<Func<string>> Labels = new();
+    // The room each row needs in the shared label column: each Tunable's label and Indent, and
+    // the label of any other row kind laid out as a Tunable row (AddLabel), read afresh when
+    // measured since a language switch or a LabelArg changes them. Measured once a frame.
+    private static readonly List<Func<float>> LabelWidths = new();
     private static int widestLabelFrame = -1;
     private static float widestLabel;
 
@@ -69,7 +71,7 @@ public sealed class Tunable
         this.step = step;
         this.format = format;
         DefaultValue = Unset;
-        Labels.Add(Label);
+        LabelWidths.Add(() => Text.CalcSize(Label()).x + Indent);
     }
 
     public float DefaultValue { get; set; }
@@ -82,6 +84,10 @@ public sealed class Tunable
 
     // Filled into the label as {0} when set (the name of the fuel a row counts in).
     public string LabelArg { get; set; }
+
+    // How much further in than a plain row's the label starts, and the mouseover highlight
+    // with it, for a row grouped under a subheading. The slider and the value stay put.
+    public float Indent { get; set; }
 
     // Filled into the tooltip as {1} onward when set, after the default's {0}: figures the
     // tooltip quotes from other defs, read when the defaults are, so they follow whatever the
@@ -164,7 +170,9 @@ public sealed class Tunable
         Rect row = listing.GetRect(RowHeight);
         row.xMin += RowIndent;
         row.xMax -= RowEndPad;
-        Rect labelRect = row.LeftPartPixels(LabelWidth(row.width));
+        float labelWidth = LabelWidth(row.width) - Indent;
+        row.xMin += Indent;
+        Rect labelRect = row.LeftPartPixels(labelWidth);
         float valueWidth = ValueWidth();
         var valueRect = new Rect(row.xMax - valueWidth, row.y, valueWidth, row.height);
         var sliderRect = new Rect(labelRect.xMax + SliderPad, row.y,
@@ -211,7 +219,7 @@ public sealed class Tunable
 
     // For a row kind of a mod's own that lays out as a Tunable row: its label joins the shared
     // column's measure, and LabelWidth gives it the column.
-    internal static void AddLabel(Func<string> label) => Labels.Add(label);
+    internal static void AddLabel(Func<string> label) => LabelWidths.Add(() => Text.CalcSize(label()).x);
 
     // The label column's width in a row of the given width, by the layout rule above.
     internal static float LabelWidth(float rowWidth)
@@ -220,8 +228,8 @@ public sealed class Tunable
         {
             widestLabelFrame = Time.frameCount;
             widestLabel = 0f;
-            foreach (Func<string> label in Labels)
-                widestLabel = Mathf.Max(widestLabel, Text.CalcSize(label()).x);
+            foreach (Func<float> width in LabelWidths)
+                widestLabel = Mathf.Max(widestLabel, width());
         }
         return Mathf.Min(widestLabel + LabelPad, rowWidth * MaxLabelShare);
     }
