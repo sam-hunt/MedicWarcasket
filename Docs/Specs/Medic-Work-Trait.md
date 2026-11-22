@@ -233,7 +233,7 @@ why: own trait because the profile must differ from VFEP's and a child extension
 
 ### 4.3 Startup mirror
 
-A new idempotent `WorkProfile.Mirror()` (`Source/1.6/WorkProfile.cs`), called first from the
+A new idempotent `WorkProfile.Mirror()` (`Source/1.6/Traits/WorkProfile.cs`), called first from the
 existing `Startup.Run`, against the current DefDatabase:
 
 1. `vfep = DefDatabase<TraitDef>.GetNamedSilentFail("VFEP_WarcasketTrait")`,
@@ -398,7 +398,7 @@ trait beside ours and Doctor stays blocked.
 
 1. `1.6/Defs/TraitDefs/WarcasketTrait_Medic.xml` (4.1) with header.
 2. `Warcasket_Medic.xml`: swap `traitsOnEquip`; header note (4.2).
-3. `Source/1.6/WorkProfile.cs` with `Mirror()` (4.3); `Startup.Run` calls it first and its
+3. `Source/1.6/Traits/WorkProfile.cs` with `Mirror()` (4.3); `Startup.Run` calls it first and its
    header lists it.
 4. Build (warnings are errors), deploy, run section 6.
 5. Regenerate the sidecar, update the translate skill def-type list and glossary, and CLAUDE.md's

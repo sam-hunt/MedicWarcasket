@@ -5,6 +5,11 @@ and the rationale for its numbers; this file holds only the rules that cross fil
 comments cover install-path detection, the compile-only VFEP/VEF references (`VFEP_PATH` and
 `VEF_PATH` override the Workshop copy) and the deploy manifest.
 
+- **A folder is named for the kind of thing in it, never for a feature**: the game type its
+  classes extend (`Abilities/`, `Comps/`, `Gizmos/`, `Patches/`) or the def they act on
+  (`PawnKinds/`, `Traits/`). A def extension or a helper sits beside the code that reads it,
+  as `Comps/MedicAI.cs` sits beside `CompMedicAI`. The root holds `ModInit.cs`, `Startup.cs`
+  and `MDWC_DefOf.cs` alone.
 - **Patch classes live in `Patches/`** under the `.Patches` namespace suffix, to avoid RimWorld
   type-name conflicts. Log with the `[Medic Warcasket]` prefix.
 - **Patch timing is the load-bearing hazard.** `PatchAll()` runs from the

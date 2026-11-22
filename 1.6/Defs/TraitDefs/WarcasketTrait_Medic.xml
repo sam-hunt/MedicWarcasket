@@ -6,11 +6,11 @@
     Caring, which is Doctor, and a child apparel extension can only add to what a granted trait
     blocks, never subtract. Docs/Specs/Medic-Work-Trait.md is the design record.
 
-    Mirrored at startup, do not tune here. WorkProfile.Mirror (Source/1.6/WorkProfile.cs, run
-    first in Startup.Run on every play-data load) overwrites this def from VFEP_WarcasketTrait
-    as the full mod list leaves it, so "Warcaskets can work!", "can haul!" and Hardworking
-    Warcaskets shape the Medic exactly as they shape a Siegebreaker pilot without knowing we
-    exist. The contract:
+    Mirrored at startup, do not tune here. WorkProfile.Mirror
+    (Source/1.6/Traits/WorkProfile.cs, run first in Startup.Run on every play-data load)
+    overwrites this def from VFEP_WarcasketTrait as the full mod list leaves it, so
+    "Warcaskets can work!", "can haul!" and Hardworking Warcaskets shape the Medic exactly as
+    they shape a Siegebreaker pilot without knowing we exist. The contract:
       - disabledWorkTags = VFEP's, with ManualDumb swapped for Cleaning (VFEP's hauling
         exemption is a Harmony postfix keyed on its own def, so a copied ManualDumb would lose
         hauling; ManualDumb covers only Hauling and Cleaning) and Caring removed. Intellectual

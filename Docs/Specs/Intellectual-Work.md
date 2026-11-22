@@ -78,7 +78,7 @@ carrying the trait, clears the cached disabled work types and calls
 
 ## 3. Design
 
-### 3.1 Mirror (`Source/1.6/WorkProfile.cs`, `MirrorFromVfep`)
+### 3.1 Mirror (`Source/1.6/Traits/WorkProfile.cs`, `MirrorFromVfep`)
 
 Generalise the Caring handling to a fixed list of toggle tags, Caring and Intellectual. For each
 tag: note whether VFEP's tags carry it, clear it from ours, and add every work type carrying it
@@ -139,7 +139,7 @@ Per `l10n/languages/English.md` and the `player-text-vanilla-register` memory:
 
 ## 4. Touchpoints
 
-- `Source/1.6/WorkProfile.cs`: mirror, `Write`, header.
+- `Source/1.6/Traits/WorkProfile.cs`: mirror, `Write`, header.
 - `Source/1.6/Settings/WorkSetting.cs`, `Settings_Work.cs`: headers only.
 - `1.6/Defs/TraitDefs/WarcasketTrait_Medic.xml`: header contract (tags line, work types line).
   Under 3.2 A the XML values stay as they are.

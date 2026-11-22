@@ -29,10 +29,10 @@
     Violent and Caring are vanilla's and fit a medic; the Medicine skill range is added beside
     vanilla's Shooting at the same 8~16, so the pilot can use the set he arrives in.
 
-    The gate. The MedicWarcasket.StrangerInBlackExtension (Source/1.6/StrangerInBlack.cs)
-    makes a request for this kind generate the fallback, vanilla's StrangerInBlack, while
-    VFEP_Warcaskets is unfinished and requiresResearch holds; requiresResearch is a mod setting
-    defaulting to this value.
+    The gate. The MedicWarcasket.StrangerInBlackExtension
+    (Source/1.6/PawnKinds/StrangerInBlack.cs) makes a request for this kind generate the
+    fallback, vanilla's StrangerInBlack, while VFEP_Warcaskets is unfinished and
+    requiresResearch holds; requiresResearch is a mod setting defaulting to this value.
 
     Other mods' extensions. At startup the fallback's mod extensions are appended to this
     list (StrangerInBlack.MirrorFallbackExtensions), so what a mod attaches to vanilla's

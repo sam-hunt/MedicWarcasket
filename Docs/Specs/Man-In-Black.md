@@ -82,7 +82,7 @@ ungated (VFEP is a hard dependency), so a renamed target errors at every boot;
 
 ### 3.3 The gate
 
-The kind carries a `StrangerInBlackExtension` (`Source/1.6/StrangerInBlack.cs`): `research`
+The kind carries a `StrangerInBlackExtension` (`Source/1.6/PawnKinds/StrangerInBlack.cs`): `research`
 `VFEP_Warcaskets`, `requiresResearch` true, `fallback` vanilla's `StrangerInBlack`. A prefix
 on `PawnGenerator.GeneratePawn(PawnGenerationRequest)` (`Patches/PawnGenerator_GeneratePawn.cs`)
 rewrites a request for a kind whose extension requires an unfinished project to the fallback,
@@ -160,7 +160,7 @@ active, since such a worker may still read the gender (Stranger In Black Techlev
 
 ## 6. What landed
 
-`Source/1.6/StrangerInBlack.cs`, `Source/1.6/Patches/PawnGenerator_GeneratePawn.cs`,
+`Source/1.6/PawnKinds/StrangerInBlack.cs`, `Source/1.6/Patches/PawnGenerator_GeneratePawn.cs`,
 `Source/1.6/Settings/Settings_Stranger.cs` and the `forcedOff` row in `ToggleSetting.cs`;
 `1.6/Defs/PawnKindDefs/StrangerInBlack_Medic.xml`, `1.6/Patches/StrangerInBlackSlugthrower.xml`,
 the `MDWC_Stranger*` Keyed strings; `Tests/1.6/StrangerInBlackTests.cs`; one line in
