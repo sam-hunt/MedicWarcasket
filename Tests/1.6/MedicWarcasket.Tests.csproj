@@ -76,6 +76,17 @@
     <ProjectReference Include="..\..\Source\1.6\MedicWarcasket.csproj" />
   </ItemGroup>
 
+  <!-- xunit.runner.json turns off xunit's shadow copy, which the net472 runner applies to the
+       test folder by default. Mono's shadow copy (mono_make_shadow_copy) takes no lock, and
+       the test classes xunit runs in parallel each load xunit.assert on their first assertion:
+       every thread deletes, rewrites and maps the one shadow file, and a thread that opens it
+       mid-rewrite crashes the host or leaves every test failing with "Method has zero rva".
+       Shadow copy exists so a build can overwrite DLLs a Windows test host holds locked, which
+       mono never does. The runner reads the file from beside the test DLL, hence the copy. -->
+  <ItemGroup>
+    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <!-- Copy RimWorld runtime assemblies into the test output so the test
        runner can resolve Verse.* / RimWorld.* / UnityEngine.* types at JIT
        time. Prefer real runtime DLLs from $(RimWorldManagedPath) (resolved
